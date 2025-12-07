@@ -1,0 +1,2252 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Typography
+  m_Shader: {fileID: 4800000, guid: 31ff8ee3d3671e44b96ee2141ffda492, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords:
+  - _USE0_ON
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _DataTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _FontTextureArray:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture10:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture11:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture12:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture13:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture14:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture15:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture16:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture17:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture18:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture19:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture20:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture21:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture22:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture23:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture24:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture25:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture26:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture27:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture28:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture29:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture3:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture30:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture31:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture4:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture5:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture6:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture7:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture8:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ImageTexture9:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AtlasSize: 32
+    - _BoundsWidth: 0
+    - _CameraFOV: 60
+    - _Cull: 0
+    - _CurveIntensity0: 0
+    - _CurveIntensity1: 0
+    - _CurveIntensity10: 0
+    - _CurveIntensity11: 0
+    - _CurveIntensity12: 0
+    - _CurveIntensity13: 0
+    - _CurveIntensity14: 0
+    - _CurveIntensity15: 0
+    - _CurveIntensity16: 0
+    - _CurveIntensity17: 0
+    - _CurveIntensity18: 0
+    - _CurveIntensity19: 0
+    - _CurveIntensity2: 0
+    - _CurveIntensity20: 0
+    - _CurveIntensity21: 0
+    - _CurveIntensity22: 0
+    - _CurveIntensity23: 0
+    - _CurveIntensity24: 0
+    - _CurveIntensity25: 0
+    - _CurveIntensity26: 0
+    - _CurveIntensity27: 0
+    - _CurveIntensity28: 0
+    - _CurveIntensity29: 0
+    - _CurveIntensity3: 0
+    - _CurveIntensity30: 0
+    - _CurveIntensity31: 0
+    - _CurveIntensity4: 0
+    - _CurveIntensity5: 0
+    - _CurveIntensity6: 0
+    - _CurveIntensity7: 0
+    - _CurveIntensity8: 0
+    - _CurveIntensity9: 0
+    - _CurveOffset0: 0
+    - _CurveOffset1: 0
+    - _CurveOffset10: 0
+    - _CurveOffset11: 0
+    - _CurveOffset12: 0
+    - _CurveOffset13: 0
+    - _CurveOffset14: 0
+    - _CurveOffset15: 0
+    - _CurveOffset16: 0
+    - _CurveOffset17: 0
+    - _CurveOffset18: 0
+    - _CurveOffset19: 0
+    - _CurveOffset2: 0
+    - _CurveOffset20: 0
+    - _CurveOffset21: 0
+    - _CurveOffset22: 0
+    - _CurveOffset23: 0
+    - _CurveOffset24: 0
+    - _CurveOffset25: 0
+    - _CurveOffset26: 0
+    - _CurveOffset27: 0
+    - _CurveOffset28: 0
+    - _CurveOffset29: 0
+    - _CurveOffset3: 0
+    - _CurveOffset30: 0
+    - _CurveOffset31: 0
+    - _CurveOffset4: 0
+    - _CurveOffset5: 0
+    - _CurveOffset6: 0
+    - _CurveOffset7: 0
+    - _CurveOffset8: 0
+    - _CurveOffset9: 0
+    - _CurveRotation0: 0
+    - _CurveRotation1: 0
+    - _CurveRotation10: 0
+    - _CurveRotation11: 0
+    - _CurveRotation12: 0
+    - _CurveRotation13: 0
+    - _CurveRotation14: 0
+    - _CurveRotation15: 0
+    - _CurveRotation16: 0
+    - _CurveRotation17: 0
+    - _CurveRotation18: 0
+    - _CurveRotation19: 0
+    - _CurveRotation2: 0
+    - _CurveRotation20: 0
+    - _CurveRotation21: 0
+    - _CurveRotation22: 0
+    - _CurveRotation23: 0
+    - _CurveRotation24: 0
+    - _CurveRotation25: 0
+    - _CurveRotation26: 0
+    - _CurveRotation27: 0
+    - _CurveRotation28: 0
+    - _CurveRotation29: 0
+    - _CurveRotation3: 0
+    - _CurveRotation30: 0
+    - _CurveRotation31: 0
+    - _CurveRotation4: 0
+    - _CurveRotation5: 0
+    - _CurveRotation6: 0
+    - _CurveRotation7: 0
+    - _CurveRotation8: 0
+    - _CurveRotation9: 0
+    - _CurveSpeed0: 0
+    - _CurveSpeed1: 0
+    - _CurveSpeed10: 0
+    - _CurveSpeed11: 0
+    - _CurveSpeed12: 0
+    - _CurveSpeed13: 0
+    - _CurveSpeed14: 0
+    - _CurveSpeed15: 0
+    - _CurveSpeed16: 0
+    - _CurveSpeed17: 0
+    - _CurveSpeed18: 0
+    - _CurveSpeed19: 0
+    - _CurveSpeed2: 0
+    - _CurveSpeed20: 0
+    - _CurveSpeed21: 0
+    - _CurveSpeed22: 0
+    - _CurveSpeed23: 0
+    - _CurveSpeed24: 0
+    - _CurveSpeed25: 0
+    - _CurveSpeed26: 0
+    - _CurveSpeed27: 0
+    - _CurveSpeed28: 0
+    - _CurveSpeed29: 0
+    - _CurveSpeed3: 0
+    - _CurveSpeed30: 0
+    - _CurveSpeed31: 0
+    - _CurveSpeed4: 0
+    - _CurveSpeed5: 0
+    - _CurveSpeed6: 0
+    - _CurveSpeed7: 0
+    - _CurveSpeed8: 0
+    - _CurveSpeed9: 0
+    - _CurveX0: 0
+    - _CurveX1: 0
+    - _CurveX10: 0
+    - _CurveX11: 0
+    - _CurveX12: 0
+    - _CurveX13: 0
+    - _CurveX14: 0
+    - _CurveX15: 0
+    - _CurveX16: 0
+    - _CurveX17: 0
+    - _CurveX18: 0
+    - _CurveX19: 0
+    - _CurveX2: 0
+    - _CurveX20: 0
+    - _CurveX21: 0
+    - _CurveX22: 0
+    - _CurveX23: 0
+    - _CurveX24: 0
+    - _CurveX25: 0
+    - _CurveX26: 0
+    - _CurveX27: 0
+    - _CurveX28: 0
+    - _CurveX29: 0
+    - _CurveX3: 0
+    - _CurveX30: 0
+    - _CurveX31: 0
+    - _CurveX4: 0
+    - _CurveX5: 0
+    - _CurveX6: 0
+    - _CurveX7: 0
+    - _CurveX8: 0
+    - _CurveX9: 0
+    - _CurveY0: 0
+    - _CurveY1: 0
+    - _CurveY10: 0
+    - _CurveY11: 0
+    - _CurveY12: 0
+    - _CurveY13: 0
+    - _CurveY14: 0
+    - _CurveY15: 0
+    - _CurveY16: 0
+    - _CurveY17: 0
+    - _CurveY18: 0
+    - _CurveY19: 0
+    - _CurveY2: 0
+    - _CurveY20: 0
+    - _CurveY21: 0
+    - _CurveY22: 0
+    - _CurveY23: 0
+    - _CurveY24: 0
+    - _CurveY25: 0
+    - _CurveY26: 0
+    - _CurveY27: 0
+    - _CurveY28: 0
+    - _CurveY29: 0
+    - _CurveY3: 0
+    - _CurveY30: 0
+    - _CurveY31: 0
+    - _CurveY4: 0
+    - _CurveY5: 0
+    - _CurveY6: 0
+    - _CurveY7: 0
+    - _CurveY8: 0
+    - _CurveY9: 0
+    - _CurveZ0: 0
+    - _CurveZ1: 0
+    - _CurveZ10: 0
+    - _CurveZ11: 0
+    - _CurveZ12: 0
+    - _CurveZ13: 0
+    - _CurveZ14: 0
+    - _CurveZ15: 0
+    - _CurveZ16: 0
+    - _CurveZ17: 0
+    - _CurveZ18: 0
+    - _CurveZ19: 0
+    - _CurveZ2: 0
+    - _CurveZ20: 0
+    - _CurveZ21: 0
+    - _CurveZ22: 0
+    - _CurveZ23: 0
+    - _CurveZ24: 0
+    - _CurveZ25: 0
+    - _CurveZ26: 0
+    - _CurveZ27: 0
+    - _CurveZ28: 0
+    - _CurveZ29: 0
+    - _CurveZ3: 0
+    - _CurveZ30: 0
+    - _CurveZ31: 0
+    - _CurveZ4: 0
+    - _CurveZ5: 0
+    - _CurveZ6: 0
+    - _CurveZ7: 0
+    - _CurveZ8: 0
+    - _CurveZ9: 0
+    - _DestinationBlend: 10
+    - _FadeMax: 20
+    - _FadeMin: 0
+    - _FontIndex0: 0
+    - _FontIndex1: 0
+    - _FontIndex10: 0
+    - _FontIndex11: 0
+    - _FontIndex12: 0
+    - _FontIndex13: 0
+    - _FontIndex14: 0
+    - _FontIndex15: 0
+    - _FontIndex16: 0
+    - _FontIndex17: 0
+    - _FontIndex18: 0
+    - _FontIndex19: 0
+    - _FontIndex2: 0
+    - _FontIndex20: 0
+    - _FontIndex21: 0
+    - _FontIndex22: 0
+    - _FontIndex23: 0
+    - _FontIndex24: 0
+    - _FontIndex25: 0
+    - _FontIndex26: 0
+    - _FontIndex27: 0
+    - _FontIndex28: 0
+    - _FontIndex29: 0
+    - _FontIndex3: 0
+    - _FontIndex30: 0
+    - _FontIndex31: 0
+    - _FontIndex4: 0
+    - _FontIndex5: 0
+    - _FontIndex6: 0
+    - _FontIndex7: 0
+    - _FontIndex8: 0
+    - _FontIndex9: 0
+    - _Fonts: 0
+    - _Layer0: 0
+    - _Layer1: 1
+    - _Layer10: 10
+    - _Layer11: 11
+    - _Layer12: 12
+    - _Layer13: 13
+    - _Layer14: 14
+    - _Layer15: 15
+    - _Layer16: 16
+    - _Layer17: 17
+    - _Layer18: 18
+    - _Layer19: 19
+    - _Layer2: 2
+    - _Layer20: 20
+    - _Layer21: 21
+    - _Layer22: 22
+    - _Layer23: 23
+    - _Layer24: 24
+    - _Layer25: 25
+    - _Layer26: 26
+    - _Layer27: 27
+    - _Layer28: 28
+    - _Layer29: 29
+    - _Layer3: 3
+    - _Layer30: 30
+    - _Layer31: 31
+    - _Layer4: 4
+    - _Layer5: 5
+    - _Layer6: 6
+    - _Layer7: 7
+    - _Layer8: 8
+    - _Layer9: 9
+    - _Mode0: 0
+    - _Mode1: 0
+    - _Mode10: 0
+    - _Mode11: 0
+    - _Mode12: 0
+    - _Mode13: 0
+    - _Mode14: 0
+    - _Mode15: 0
+    - _Mode16: 0
+    - _Mode17: 0
+    - _Mode18: 0
+    - _Mode19: 0
+    - _Mode2: 0
+    - _Mode20: 0
+    - _Mode21: 0
+    - _Mode22: 0
+    - _Mode23: 0
+    - _Mode24: 0
+    - _Mode25: 0
+    - _Mode26: 0
+    - _Mode27: 0
+    - _Mode28: 0
+    - _Mode29: 0
+    - _Mode3: 0
+    - _Mode30: 0
+    - _Mode31: 0
+    - _Mode4: 0
+    - _Mode5: 0
+    - _Mode6: 0
+    - _Mode7: 0
+    - _Mode8: 0
+    - _Mode9: 0
+    - _OutlineWidth0: 0
+    - _OutlineWidth1: 0
+    - _OutlineWidth10: 0
+    - _OutlineWidth11: 0
+    - _OutlineWidth12: 0
+    - _OutlineWidth13: 0
+    - _OutlineWidth14: 0
+    - _OutlineWidth15: 0
+    - _OutlineWidth16: 0
+    - _OutlineWidth17: 0
+    - _OutlineWidth18: 0
+    - _OutlineWidth19: 0
+    - _OutlineWidth2: 0
+    - _OutlineWidth20: 0
+    - _OutlineWidth21: 0
+    - _OutlineWidth22: 0
+    - _OutlineWidth23: 0
+    - _OutlineWidth24: 0
+    - _OutlineWidth25: 0
+    - _OutlineWidth26: 0
+    - _OutlineWidth27: 0
+    - _OutlineWidth28: 0
+    - _OutlineWidth29: 0
+    - _OutlineWidth3: 0
+    - _OutlineWidth30: 0
+    - _OutlineWidth31: 0
+    - _OutlineWidth4: 0
+    - _OutlineWidth5: 0
+    - _OutlineWidth6: 0
+    - _OutlineWidth7: 0
+    - _OutlineWidth8: 0
+    - _OutlineWidth9: 0
+    - _PivotSize: 0
+    - _Project: 0
+    - _RenderType: 1
+    - _RootIndex0: 0
+    - _RootIndex1: 0
+    - _RootIndex10: 0
+    - _RootIndex11: 0
+    - _RootIndex12: 0
+    - _RootIndex13: 0
+    - _RootIndex14: 0
+    - _RootIndex15: 0
+    - _RootIndex16: 0
+    - _RootIndex17: 0
+    - _RootIndex18: 0
+    - _RootIndex19: 0
+    - _RootIndex2: 0
+    - _RootIndex20: 0
+    - _RootIndex21: 0
+    - _RootIndex22: 0
+    - _RootIndex23: 0
+    - _RootIndex24: 0
+    - _RootIndex25: 0
+    - _RootIndex26: 0
+    - _RootIndex27: 0
+    - _RootIndex28: 0
+    - _RootIndex29: 0
+    - _RootIndex3: 0
+    - _RootIndex30: 0
+    - _RootIndex31: 0
+    - _RootIndex4: 0
+    - _RootIndex5: 0
+    - _RootIndex6: 0
+    - _RootIndex7: 0
+    - _RootIndex8: 0
+    - _RootIndex9: 0
+    - _ShadowIntensity0: 0
+    - _ShadowIntensity1: 0
+    - _ShadowIntensity10: 0
+    - _ShadowIntensity11: 0
+    - _ShadowIntensity12: 0
+    - _ShadowIntensity13: 0
+    - _ShadowIntensity14: 0
+    - _ShadowIntensity15: 0
+    - _ShadowIntensity16: 0
+    - _ShadowIntensity17: 0
+    - _ShadowIntensity18: 0
+    - _ShadowIntensity19: 0
+    - _ShadowIntensity2: 0
+    - _ShadowIntensity20: 0
+    - _ShadowIntensity21: 0
+    - _ShadowIntensity22: 0
+    - _ShadowIntensity23: 0
+    - _ShadowIntensity24: 0
+    - _ShadowIntensity25: 0
+    - _ShadowIntensity26: 0
+    - _ShadowIntensity27: 0
+    - _ShadowIntensity28: 0
+    - _ShadowIntensity29: 0
+    - _ShadowIntensity3: 0
+    - _ShadowIntensity30: 0
+    - _ShadowIntensity31: 0
+    - _ShadowIntensity4: 0
+    - _ShadowIntensity5: 0
+    - _ShadowIntensity6: 0
+    - _ShadowIntensity7: 0
+    - _ShadowIntensity8: 0
+    - _ShadowIntensity9: 0
+    - _ShakeAmplitude0: 0
+    - _ShakeAmplitude1: 0
+    - _ShakeAmplitude10: 0
+    - _ShakeAmplitude11: 0
+    - _ShakeAmplitude12: 0
+    - _ShakeAmplitude13: 0
+    - _ShakeAmplitude14: 0
+    - _ShakeAmplitude15: 0
+    - _ShakeAmplitude16: 0
+    - _ShakeAmplitude17: 0
+    - _ShakeAmplitude18: 0
+    - _ShakeAmplitude19: 0
+    - _ShakeAmplitude2: 0
+    - _ShakeAmplitude20: 0
+    - _ShakeAmplitude21: 0
+    - _ShakeAmplitude22: 0
+    - _ShakeAmplitude23: 0
+    - _ShakeAmplitude24: 0
+    - _ShakeAmplitude25: 0
+    - _ShakeAmplitude26: 0
+    - _ShakeAmplitude27: 0
+    - _ShakeAmplitude28: 0
+    - _ShakeAmplitude29: 0
+    - _ShakeAmplitude3: 0
+    - _ShakeAmplitude30: 0
+    - _ShakeAmplitude31: 0
+    - _ShakeAmplitude4: 0
+    - _ShakeAmplitude5: 0
+    - _ShakeAmplitude6: 0
+    - _ShakeAmplitude7: 0
+    - _ShakeAmplitude8: 0
+    - _ShakeAmplitude9: 0
+    - _ShakeBlend0: 0
+    - _ShakeBlend1: 0
+    - _ShakeBlend10: 0
+    - _ShakeBlend11: 0
+    - _ShakeBlend12: 0
+    - _ShakeBlend13: 0
+    - _ShakeBlend14: 0
+    - _ShakeBlend15: 0
+    - _ShakeBlend16: 0
+    - _ShakeBlend17: 0
+    - _ShakeBlend18: 0
+    - _ShakeBlend19: 0
+    - _ShakeBlend2: 0
+    - _ShakeBlend20: 0
+    - _ShakeBlend21: 0
+    - _ShakeBlend22: 0
+    - _ShakeBlend23: 0
+    - _ShakeBlend24: 0
+    - _ShakeBlend25: 0
+    - _ShakeBlend26: 0
+    - _ShakeBlend27: 0
+    - _ShakeBlend28: 0
+    - _ShakeBlend29: 0
+    - _ShakeBlend3: 0
+    - _ShakeBlend30: 0
+    - _ShakeBlend31: 0
+    - _ShakeBlend4: 0
+    - _ShakeBlend5: 0
+    - _ShakeBlend6: 0
+    - _ShakeBlend7: 0
+    - _ShakeBlend8: 0
+    - _ShakeBlend9: 0
+    - _ShakeFrequency0: 20
+    - _ShakeFrequency1: 20
+    - _ShakeFrequency10: 20
+    - _ShakeFrequency11: 20
+    - _ShakeFrequency12: 20
+    - _ShakeFrequency13: 20
+    - _ShakeFrequency14: 20
+    - _ShakeFrequency15: 20
+    - _ShakeFrequency16: 20
+    - _ShakeFrequency17: 20
+    - _ShakeFrequency18: 20
+    - _ShakeFrequency19: 20
+    - _ShakeFrequency2: 20
+    - _ShakeFrequency20: 20
+    - _ShakeFrequency21: 20
+    - _ShakeFrequency22: 20
+    - _ShakeFrequency23: 20
+    - _ShakeFrequency24: 20
+    - _ShakeFrequency25: 20
+    - _ShakeFrequency26: 20
+    - _ShakeFrequency27: 20
+    - _ShakeFrequency28: 20
+    - _ShakeFrequency29: 20
+    - _ShakeFrequency3: 20
+    - _ShakeFrequency30: 20
+    - _ShakeFrequency31: 20
+    - _ShakeFrequency4: 20
+    - _ShakeFrequency5: 20
+    - _ShakeFrequency6: 20
+    - _ShakeFrequency7: 20
+    - _ShakeFrequency8: 20
+    - _ShakeFrequency9: 20
+    - _SourceBlend: 1
+    - _Spacing0: 0
+    - _Spacing1: 0
+    - _Spacing10: 0
+    - _Spacing11: 0
+    - _Spacing12: 0
+    - _Spacing13: 0
+    - _Spacing14: 0
+    - _Spacing15: 0
+    - _Spacing16: 0
+    - _Spacing17: 0
+    - _Spacing18: 0
+    - _Spacing19: 0
+    - _Spacing2: 0
+    - _Spacing20: 0
+    - _Spacing21: 0
+    - _Spacing22: 0
+    - _Spacing23: 0
+    - _Spacing24: 0
+    - _Spacing25: 0
+    - _Spacing26: 0
+    - _Spacing27: 0
+    - _Spacing28: 0
+    - _Spacing29: 0
+    - _Spacing3: 0
+    - _Spacing30: 0
+    - _Spacing31: 0
+    - _Spacing4: 0
+    - _Spacing5: 0
+    - _Spacing6: 0
+    - _Spacing7: 0
+    - _Spacing8: 0
+    - _Spacing9: 0
+    - _TextInput0: 0
+    - _TextInput1: 0
+    - _TextInput10: 0
+    - _TextInput11: 0
+    - _TextInput12: 0
+    - _TextInput13: 0
+    - _TextInput14: 0
+    - _TextInput15: 0
+    - _TextInput16: 0
+    - _TextInput17: 0
+    - _TextInput18: 0
+    - _TextInput19: 0
+    - _TextInput2: 0
+    - _TextInput20: 0
+    - _TextInput21: 0
+    - _TextInput22: 0
+    - _TextInput23: 0
+    - _TextInput24: 0
+    - _TextInput25: 0
+    - _TextInput26: 0
+    - _TextInput27: 0
+    - _TextInput28: 0
+    - _TextInput29: 0
+    - _TextInput3: 0
+    - _TextInput30: 0
+    - _TextInput31: 0
+    - _TextInput4: 0
+    - _TextInput5: 0
+    - _TextInput6: 0
+    - _TextInput7: 0
+    - _TextInput8: 0
+    - _TextInput9: 0
+    - _TextLabel0: 0
+    - _TextLabel1: 0
+    - _TextLabel10: 0
+    - _TextLabel11: 0
+    - _TextLabel12: 0
+    - _TextLabel13: 0
+    - _TextLabel14: 0
+    - _TextLabel15: 0
+    - _TextLabel16: 0
+    - _TextLabel17: 0
+    - _TextLabel18: 0
+    - _TextLabel19: 0
+    - _TextLabel2: 0
+    - _TextLabel20: 0
+    - _TextLabel21: 0
+    - _TextLabel22: 0
+    - _TextLabel23: 0
+    - _TextLabel24: 0
+    - _TextLabel25: 0
+    - _TextLabel26: 0
+    - _TextLabel27: 0
+    - _TextLabel28: 0
+    - _TextLabel29: 0
+    - _TextLabel3: 0
+    - _TextLabel30: 0
+    - _TextLabel31: 0
+    - _TextLabel4: 0
+    - _TextLabel5: 0
+    - _TextLabel6: 0
+    - _TextLabel7: 0
+    - _TextLabel8: 0
+    - _TextLabel9: 0
+    - _TypewriterMode0: 0
+    - _TypewriterMode1: 0
+    - _TypewriterMode10: 0
+    - _TypewriterMode11: 0
+    - _TypewriterMode12: 0
+    - _TypewriterMode13: 0
+    - _TypewriterMode14: 0
+    - _TypewriterMode15: 0
+    - _TypewriterMode16: 0
+    - _TypewriterMode17: 0
+    - _TypewriterMode18: 0
+    - _TypewriterMode19: 0
+    - _TypewriterMode2: 0
+    - _TypewriterMode20: 0
+    - _TypewriterMode21: 0
+    - _TypewriterMode22: 0
+    - _TypewriterMode23: 0
+    - _TypewriterMode24: 0
+    - _TypewriterMode25: 0
+    - _TypewriterMode26: 0
+    - _TypewriterMode27: 0
+    - _TypewriterMode28: 0
+    - _TypewriterMode29: 0
+    - _TypewriterMode3: 0
+    - _TypewriterMode30: 0
+    - _TypewriterMode31: 0
+    - _TypewriterMode4: 0
+    - _TypewriterMode5: 0
+    - _TypewriterMode6: 0
+    - _TypewriterMode7: 0
+    - _TypewriterMode8: 0
+    - _TypewriterMode9: 0
+    - _TypewriterProgress0: 1
+    - _TypewriterProgress1: 1
+    - _TypewriterProgress10: 1
+    - _TypewriterProgress11: 1
+    - _TypewriterProgress12: 1
+    - _TypewriterProgress13: 1
+    - _TypewriterProgress14: 1
+    - _TypewriterProgress15: 1
+    - _TypewriterProgress16: 1
+    - _TypewriterProgress17: 1
+    - _TypewriterProgress18: 1
+    - _TypewriterProgress19: 1
+    - _TypewriterProgress2: 1
+    - _TypewriterProgress20: 1
+    - _TypewriterProgress21: 1
+    - _TypewriterProgress22: 1
+    - _TypewriterProgress23: 1
+    - _TypewriterProgress24: 1
+    - _TypewriterProgress25: 1
+    - _TypewriterProgress26: 1
+    - _TypewriterProgress27: 1
+    - _TypewriterProgress28: 1
+    - _TypewriterProgress29: 1
+    - _TypewriterProgress3: 1
+    - _TypewriterProgress30: 1
+    - _TypewriterProgress31: 1
+    - _TypewriterProgress4: 1
+    - _TypewriterProgress5: 1
+    - _TypewriterProgress6: 1
+    - _TypewriterProgress7: 1
+    - _TypewriterProgress8: 1
+    - _TypewriterProgress9: 1
+    - _Use0: 1
+    - _Use1: 0
+    - _Use10: 0
+    - _Use11: 0
+    - _Use12: 0
+    - _Use13: 0
+    - _Use14: 0
+    - _Use15: 0
+    - _Use16: 0
+    - _Use17: 0
+    - _Use18: 0
+    - _Use19: 0
+    - _Use2: 0
+    - _Use20: 0
+    - _Use21: 0
+    - _Use22: 0
+    - _Use23: 0
+    - _Use24: 0
+    - _Use25: 0
+    - _Use26: 0
+    - _Use27: 0
+    - _Use28: 0
+    - _Use29: 0
+    - _Use3: 0
+    - _Use30: 0
+    - _Use31: 0
+    - _Use4: 0
+    - _Use5: 0
+    - _Use6: 0
+    - _Use7: 0
+    - _Use8: 0
+    - _Use9: 0
+    - _WorldSpace0: 0
+    - _WorldSpace1: 0
+    - _WorldSpace10: 0
+    - _WorldSpace11: 0
+    - _WorldSpace12: 0
+    - _WorldSpace13: 0
+    - _WorldSpace14: 0
+    - _WorldSpace15: 0
+    - _WorldSpace16: 0
+    - _WorldSpace17: 0
+    - _WorldSpace18: 0
+    - _WorldSpace19: 0
+    - _WorldSpace2: 0
+    - _WorldSpace20: 0
+    - _WorldSpace21: 0
+    - _WorldSpace22: 0
+    - _WorldSpace23: 0
+    - _WorldSpace24: 0
+    - _WorldSpace25: 0
+    - _WorldSpace26: 0
+    - _WorldSpace27: 0
+    - _WorldSpace28: 0
+    - _WorldSpace29: 0
+    - _WorldSpace3: 0
+    - _WorldSpace30: 0
+    - _WorldSpace31: 0
+    - _WorldSpace4: 0
+    - _WorldSpace5: 0
+    - _WorldSpace6: 0
+    - _WorldSpace7: 0
+    - _WorldSpace8: 0
+    - _WorldSpace9: 0
+    - _ZTest: 6
+    - _ZWrite: 0
+    - m_end_animator0: 0
+    - m_end_animator1: 0
+    - m_end_animator10: 0
+    - m_end_animator11: 0
+    - m_end_animator12: 0
+    - m_end_animator13: 0
+    - m_end_animator14: 0
+    - m_end_animator15: 0
+    - m_end_animator16: 0
+    - m_end_animator17: 0
+    - m_end_animator18: 0
+    - m_end_animator19: 0
+    - m_end_animator2: 0
+    - m_end_animator20: 0
+    - m_end_animator21: 0
+    - m_end_animator22: 0
+    - m_end_animator23: 0
+    - m_end_animator24: 0
+    - m_end_animator25: 0
+    - m_end_animator26: 0
+    - m_end_animator27: 0
+    - m_end_animator28: 0
+    - m_end_animator29: 0
+    - m_end_animator3: 0
+    - m_end_animator30: 0
+    - m_end_animator31: 0
+    - m_end_animator4: 0
+    - m_end_animator5: 0
+    - m_end_animator6: 0
+    - m_end_animator7: 0
+    - m_end_animator8: 0
+    - m_end_animator9: 0
+    - m_end_camera_setting: 0
+    - m_end_curve_path0: 0
+    - m_end_curve_path1: 0
+    - m_end_curve_path10: 0
+    - m_end_curve_path11: 0
+    - m_end_curve_path12: 0
+    - m_end_curve_path13: 0
+    - m_end_curve_path14: 0
+    - m_end_curve_path15: 0
+    - m_end_curve_path16: 0
+    - m_end_curve_path17: 0
+    - m_end_curve_path18: 0
+    - m_end_curve_path19: 0
+    - m_end_curve_path2: 0
+    - m_end_curve_path20: 0
+    - m_end_curve_path21: 0
+    - m_end_curve_path22: 0
+    - m_end_curve_path23: 0
+    - m_end_curve_path24: 0
+    - m_end_curve_path25: 0
+    - m_end_curve_path26: 0
+    - m_end_curve_path27: 0
+    - m_end_curve_path28: 0
+    - m_end_curve_path29: 0
+    - m_end_curve_path3: 0
+    - m_end_curve_path30: 0
+    - m_end_curve_path31: 0
+    - m_end_curve_path4: 0
+    - m_end_curve_path5: 0
+    - m_end_curve_path6: 0
+    - m_end_curve_path7: 0
+    - m_end_curve_path8: 0
+    - m_end_curve_path9: 0
+    - m_end_debug: 0
+    - m_end_effect0: 0
+    - m_end_effect1: 0
+    - m_end_effect10: 0
+    - m_end_effect11: 0
+    - m_end_effect12: 0
+    - m_end_effect13: 0
+    - m_end_effect14: 0
+    - m_end_effect15: 0
+    - m_end_effect16: 0
+    - m_end_effect17: 0
+    - m_end_effect18: 0
+    - m_end_effect19: 0
+    - m_end_effect2: 0
+    - m_end_effect20: 0
+    - m_end_effect21: 0
+    - m_end_effect22: 0
+    - m_end_effect23: 0
+    - m_end_effect24: 0
+    - m_end_effect25: 0
+    - m_end_effect26: 0
+    - m_end_effect27: 0
+    - m_end_effect28: 0
+    - m_end_effect29: 0
+    - m_end_effect3: 0
+    - m_end_effect30: 0
+    - m_end_effect31: 0
+    - m_end_effect4: 0
+    - m_end_effect5: 0
+    - m_end_effect6: 0
+    - m_end_effect7: 0
+    - m_end_effect8: 0
+    - m_end_effect9: 0
+    - m_end_outline0: 0
+    - m_end_outline1: 0
+    - m_end_outline10: 0
+    - m_end_outline11: 0
+    - m_end_outline12: 0
+    - m_end_outline13: 0
+    - m_end_outline14: 0
+    - m_end_outline15: 0
+    - m_end_outline16: 0
+    - m_end_outline17: 0
+    - m_end_outline18: 0
+    - m_end_outline19: 0
+    - m_end_outline2: 0
+    - m_end_outline20: 0
+    - m_end_outline21: 0
+    - m_end_outline22: 0
+    - m_end_outline23: 0
+    - m_end_outline24: 0
+    - m_end_outline25: 0
+    - m_end_outline26: 0
+    - m_end_outline27: 0
+    - m_end_outline28: 0
+    - m_end_outline29: 0
+    - m_end_outline3: 0
+    - m_end_outline30: 0
+    - m_end_outline31: 0
+    - m_end_outline4: 0
+    - m_end_outline5: 0
+    - m_end_outline6: 0
+    - m_end_outline7: 0
+    - m_end_outline8: 0
+    - m_end_outline9: 0
+    - m_end_rendering_settings: 0
+    - m_end_root0: 0
+    - m_end_root1: 0
+    - m_end_root2: 0
+    - m_end_root3: 0
+    - m_end_root4: 0
+    - m_end_root_setting: 0
+    - m_end_shadow0: 0
+    - m_end_shadow1: 0
+    - m_end_shadow10: 0
+    - m_end_shadow11: 0
+    - m_end_shadow12: 0
+    - m_end_shadow13: 0
+    - m_end_shadow14: 0
+    - m_end_shadow15: 0
+    - m_end_shadow16: 0
+    - m_end_shadow17: 0
+    - m_end_shadow18: 0
+    - m_end_shadow19: 0
+    - m_end_shadow2: 0
+    - m_end_shadow20: 0
+    - m_end_shadow21: 0
+    - m_end_shadow22: 0
+    - m_end_shadow23: 0
+    - m_end_shadow24: 0
+    - m_end_shadow25: 0
+    - m_end_shadow26: 0
+    - m_end_shadow27: 0
+    - m_end_shadow28: 0
+    - m_end_shadow29: 0
+    - m_end_shadow3: 0
+    - m_end_shadow30: 0
+    - m_end_shadow31: 0
+    - m_end_shadow4: 0
+    - m_end_shadow5: 0
+    - m_end_shadow6: 0
+    - m_end_shadow7: 0
+    - m_end_shadow8: 0
+    - m_end_shadow9: 0
+    - m_end_shake0: 0
+    - m_end_shake1: 0
+    - m_end_shake10: 0
+    - m_end_shake11: 0
+    - m_end_shake12: 0
+    - m_end_shake13: 0
+    - m_end_shake14: 0
+    - m_end_shake15: 0
+    - m_end_shake16: 0
+    - m_end_shake17: 0
+    - m_end_shake18: 0
+    - m_end_shake19: 0
+    - m_end_shake2: 0
+    - m_end_shake20: 0
+    - m_end_shake21: 0
+    - m_end_shake22: 0
+    - m_end_shake23: 0
+    - m_end_shake24: 0
+    - m_end_shake25: 0
+    - m_end_shake26: 0
+    - m_end_shake27: 0
+    - m_end_shake28: 0
+    - m_end_shake29: 0
+    - m_end_shake3: 0
+    - m_end_shake30: 0
+    - m_end_shake31: 0
+    - m_end_shake4: 0
+    - m_end_shake5: 0
+    - m_end_shake6: 0
+    - m_end_shake7: 0
+    - m_end_shake8: 0
+    - m_end_shake9: 0
+    - m_end_spacing0: 0
+    - m_end_spacing1: 0
+    - m_end_spacing10: 0
+    - m_end_spacing11: 0
+    - m_end_spacing12: 0
+    - m_end_spacing13: 0
+    - m_end_spacing14: 0
+    - m_end_spacing15: 0
+    - m_end_spacing16: 0
+    - m_end_spacing17: 0
+    - m_end_spacing18: 0
+    - m_end_spacing19: 0
+    - m_end_spacing2: 0
+    - m_end_spacing20: 0
+    - m_end_spacing21: 0
+    - m_end_spacing22: 0
+    - m_end_spacing23: 0
+    - m_end_spacing24: 0
+    - m_end_spacing25: 0
+    - m_end_spacing26: 0
+    - m_end_spacing27: 0
+    - m_end_spacing28: 0
+    - m_end_spacing29: 0
+    - m_end_spacing3: 0
+    - m_end_spacing30: 0
+    - m_end_spacing31: 0
+    - m_end_spacing4: 0
+    - m_end_spacing5: 0
+    - m_end_spacing6: 0
+    - m_end_spacing7: 0
+    - m_end_spacing8: 0
+    - m_end_spacing9: 0
+    - m_end_text_setting: 0
+    - m_end_text_setting0: 0
+    - m_end_text_setting1: 0
+    - m_end_text_setting10: 0
+    - m_end_text_setting11: 0
+    - m_end_text_setting12: 0
+    - m_end_text_setting13: 0
+    - m_end_text_setting14: 0
+    - m_end_text_setting15: 0
+    - m_end_text_setting16: 0
+    - m_end_text_setting17: 0
+    - m_end_text_setting18: 0
+    - m_end_text_setting19: 0
+    - m_end_text_setting2: 0
+    - m_end_text_setting20: 0
+    - m_end_text_setting21: 0
+    - m_end_text_setting22: 0
+    - m_end_text_setting23: 0
+    - m_end_text_setting24: 0
+    - m_end_text_setting25: 0
+    - m_end_text_setting26: 0
+    - m_end_text_setting27: 0
+    - m_end_text_setting28: 0
+    - m_end_text_setting29: 0
+    - m_end_text_setting3: 0
+    - m_end_text_setting30: 0
+    - m_end_text_setting31: 0
+    - m_end_text_setting4: 0
+    - m_end_text_setting5: 0
+    - m_end_text_setting6: 0
+    - m_end_text_setting7: 0
+    - m_end_text_setting8: 0
+    - m_end_text_setting9: 0
+    - m_end_typewriter0: 0
+    - m_end_typewriter1: 0
+    - m_end_typewriter10: 0
+    - m_end_typewriter11: 0
+    - m_end_typewriter12: 0
+    - m_end_typewriter13: 0
+    - m_end_typewriter14: 0
+    - m_end_typewriter15: 0
+    - m_end_typewriter16: 0
+    - m_end_typewriter17: 0
+    - m_end_typewriter18: 0
+    - m_end_typewriter19: 0
+    - m_end_typewriter2: 0
+    - m_end_typewriter20: 0
+    - m_end_typewriter21: 0
+    - m_end_typewriter22: 0
+    - m_end_typewriter23: 0
+    - m_end_typewriter24: 0
+    - m_end_typewriter25: 0
+    - m_end_typewriter26: 0
+    - m_end_typewriter27: 0
+    - m_end_typewriter28: 0
+    - m_end_typewriter29: 0
+    - m_end_typewriter3: 0
+    - m_end_typewriter30: 0
+    - m_end_typewriter31: 0
+    - m_end_typewriter4: 0
+    - m_end_typewriter5: 0
+    - m_end_typewriter6: 0
+    - m_end_typewriter7: 0
+    - m_end_typewriter8: 0
+    - m_end_typewriter9: 0
+    - m_start_animator0: 0
+    - m_start_animator1: 0
+    - m_start_animator10: 0
+    - m_start_animator11: 0
+    - m_start_animator12: 0
+    - m_start_animator13: 0
+    - m_start_animator14: 0
+    - m_start_animator15: 0
+    - m_start_animator16: 0
+    - m_start_animator17: 0
+    - m_start_animator18: 0
+    - m_start_animator19: 0
+    - m_start_animator2: 0
+    - m_start_animator20: 0
+    - m_start_animator21: 0
+    - m_start_animator22: 0
+    - m_start_animator23: 0
+    - m_start_animator24: 0
+    - m_start_animator25: 0
+    - m_start_animator26: 0
+    - m_start_animator27: 0
+    - m_start_animator28: 0
+    - m_start_animator29: 0
+    - m_start_animator3: 0
+    - m_start_animator30: 0
+    - m_start_animator31: 0
+    - m_start_animator4: 0
+    - m_start_animator5: 0
+    - m_start_animator6: 0
+    - m_start_animator7: 0
+    - m_start_animator8: 0
+    - m_start_animator9: 0
+    - m_start_camera_setting: 0
+    - m_start_curve_path0: 0
+    - m_start_curve_path1: 0
+    - m_start_curve_path10: 0
+    - m_start_curve_path11: 0
+    - m_start_curve_path12: 0
+    - m_start_curve_path13: 0
+    - m_start_curve_path14: 0
+    - m_start_curve_path15: 0
+    - m_start_curve_path16: 0
+    - m_start_curve_path17: 0
+    - m_start_curve_path18: 0
+    - m_start_curve_path19: 0
+    - m_start_curve_path2: 0
+    - m_start_curve_path20: 0
+    - m_start_curve_path21: 0
+    - m_start_curve_path22: 0
+    - m_start_curve_path23: 0
+    - m_start_curve_path24: 0
+    - m_start_curve_path25: 0
+    - m_start_curve_path26: 0
+    - m_start_curve_path27: 0
+    - m_start_curve_path28: 0
+    - m_start_curve_path29: 0
+    - m_start_curve_path3: 0
+    - m_start_curve_path30: 0
+    - m_start_curve_path31: 0
+    - m_start_curve_path4: 0
+    - m_start_curve_path5: 0
+    - m_start_curve_path6: 0
+    - m_start_curve_path7: 0
+    - m_start_curve_path8: 0
+    - m_start_curve_path9: 0
+    - m_start_debug: 0
+    - m_start_effect0: 0
+    - m_start_effect1: 0
+    - m_start_effect10: 0
+    - m_start_effect11: 0
+    - m_start_effect12: 0
+    - m_start_effect13: 0
+    - m_start_effect14: 0
+    - m_start_effect15: 0
+    - m_start_effect16: 0
+    - m_start_effect17: 0
+    - m_start_effect18: 0
+    - m_start_effect19: 0
+    - m_start_effect2: 0
+    - m_start_effect20: 0
+    - m_start_effect21: 0
+    - m_start_effect22: 0
+    - m_start_effect23: 0
+    - m_start_effect24: 0
+    - m_start_effect25: 0
+    - m_start_effect26: 0
+    - m_start_effect27: 0
+    - m_start_effect28: 0
+    - m_start_effect29: 0
+    - m_start_effect3: 0
+    - m_start_effect30: 0
+    - m_start_effect31: 0
+    - m_start_effect4: 0
+    - m_start_effect5: 0
+    - m_start_effect6: 0
+    - m_start_effect7: 0
+    - m_start_effect8: 0
+    - m_start_effect9: 0
+    - m_start_outline0: 0
+    - m_start_outline1: 0
+    - m_start_outline10: 0
+    - m_start_outline11: 0
+    - m_start_outline12: 0
+    - m_start_outline13: 0
+    - m_start_outline14: 0
+    - m_start_outline15: 0
+    - m_start_outline16: 0
+    - m_start_outline17: 0
+    - m_start_outline18: 0
+    - m_start_outline19: 0
+    - m_start_outline2: 0
+    - m_start_outline20: 0
+    - m_start_outline21: 0
+    - m_start_outline22: 0
+    - m_start_outline23: 0
+    - m_start_outline24: 0
+    - m_start_outline25: 0
+    - m_start_outline26: 0
+    - m_start_outline27: 0
+    - m_start_outline28: 0
+    - m_start_outline29: 0
+    - m_start_outline3: 0
+    - m_start_outline30: 0
+    - m_start_outline31: 0
+    - m_start_outline4: 0
+    - m_start_outline5: 0
+    - m_start_outline6: 0
+    - m_start_outline7: 0
+    - m_start_outline8: 0
+    - m_start_outline9: 0
+    - m_start_rendering_settings: 0
+    - m_start_root0: 0
+    - m_start_root1: 0
+    - m_start_root2: 0
+    - m_start_root3: 0
+    - m_start_root4: 0
+    - m_start_root_setting: 0
+    - m_start_shadow0: 0
+    - m_start_shadow1: 0
+    - m_start_shadow10: 0
+    - m_start_shadow11: 0
+    - m_start_shadow12: 0
+    - m_start_shadow13: 0
+    - m_start_shadow14: 0
+    - m_start_shadow15: 0
+    - m_start_shadow16: 0
+    - m_start_shadow17: 0
+    - m_start_shadow18: 0
+    - m_start_shadow19: 0
+    - m_start_shadow2: 0
+    - m_start_shadow20: 0
+    - m_start_shadow21: 0
+    - m_start_shadow22: 0
+    - m_start_shadow23: 0
+    - m_start_shadow24: 0
+    - m_start_shadow25: 0
+    - m_start_shadow26: 0
+    - m_start_shadow27: 0
+    - m_start_shadow28: 0
+    - m_start_shadow29: 0
+    - m_start_shadow3: 0
+    - m_start_shadow30: 0
+    - m_start_shadow31: 0
+    - m_start_shadow4: 0
+    - m_start_shadow5: 0
+    - m_start_shadow6: 0
+    - m_start_shadow7: 0
+    - m_start_shadow8: 0
+    - m_start_shadow9: 0
+    - m_start_shake0: 0
+    - m_start_shake1: 0
+    - m_start_shake10: 0
+    - m_start_shake11: 0
+    - m_start_shake12: 0
+    - m_start_shake13: 0
+    - m_start_shake14: 0
+    - m_start_shake15: 0
+    - m_start_shake16: 0
+    - m_start_shake17: 0
+    - m_start_shake18: 0
+    - m_start_shake19: 0
+    - m_start_shake2: 0
+    - m_start_shake20: 0
+    - m_start_shake21: 0
+    - m_start_shake22: 0
+    - m_start_shake23: 0
+    - m_start_shake24: 0
+    - m_start_shake25: 0
+    - m_start_shake26: 0
+    - m_start_shake27: 0
+    - m_start_shake28: 0
+    - m_start_shake29: 0
+    - m_start_shake3: 0
+    - m_start_shake30: 0
+    - m_start_shake31: 0
+    - m_start_shake4: 0
+    - m_start_shake5: 0
+    - m_start_shake6: 0
+    - m_start_shake7: 0
+    - m_start_shake8: 0
+    - m_start_shake9: 0
+    - m_start_spacing0: 0
+    - m_start_spacing1: 0
+    - m_start_spacing10: 0
+    - m_start_spacing11: 0
+    - m_start_spacing12: 0
+    - m_start_spacing13: 0
+    - m_start_spacing14: 0
+    - m_start_spacing15: 0
+    - m_start_spacing16: 0
+    - m_start_spacing17: 0
+    - m_start_spacing18: 0
+    - m_start_spacing19: 0
+    - m_start_spacing2: 0
+    - m_start_spacing20: 0
+    - m_start_spacing21: 0
+    - m_start_spacing22: 0
+    - m_start_spacing23: 0
+    - m_start_spacing24: 0
+    - m_start_spacing25: 0
+    - m_start_spacing26: 0
+    - m_start_spacing27: 0
+    - m_start_spacing28: 0
+    - m_start_spacing29: 0
+    - m_start_spacing3: 0
+    - m_start_spacing30: 0
+    - m_start_spacing31: 0
+    - m_start_spacing4: 0
+    - m_start_spacing5: 0
+    - m_start_spacing6: 0
+    - m_start_spacing7: 0
+    - m_start_spacing8: 0
+    - m_start_spacing9: 0
+    - m_start_text_setting: 0
+    - m_start_text_setting0: 0
+    - m_start_text_setting1: 0
+    - m_start_text_setting10: 0
+    - m_start_text_setting11: 0
+    - m_start_text_setting12: 0
+    - m_start_text_setting13: 0
+    - m_start_text_setting14: 0
+    - m_start_text_setting15: 0
+    - m_start_text_setting16: 0
+    - m_start_text_setting17: 0
+    - m_start_text_setting18: 0
+    - m_start_text_setting19: 0
+    - m_start_text_setting2: 0
+    - m_start_text_setting20: 0
+    - m_start_text_setting21: 0
+    - m_start_text_setting22: 0
+    - m_start_text_setting23: 0
+    - m_start_text_setting24: 0
+    - m_start_text_setting25: 0
+    - m_start_text_setting26: 0
+    - m_start_text_setting27: 0
+    - m_start_text_setting28: 0
+    - m_start_text_setting29: 0
+    - m_start_text_setting3: 0
+    - m_start_text_setting30: 0
+    - m_start_text_setting31: 0
+    - m_start_text_setting4: 0
+    - m_start_text_setting5: 0
+    - m_start_text_setting6: 0
+    - m_start_text_setting7: 0
+    - m_start_text_setting8: 0
+    - m_start_text_setting9: 0
+    - m_start_typewriter0: 0
+    - m_start_typewriter1: 0
+    - m_start_typewriter10: 0
+    - m_start_typewriter11: 0
+    - m_start_typewriter12: 0
+    - m_start_typewriter13: 0
+    - m_start_typewriter14: 0
+    - m_start_typewriter15: 0
+    - m_start_typewriter16: 0
+    - m_start_typewriter17: 0
+    - m_start_typewriter18: 0
+    - m_start_typewriter19: 0
+    - m_start_typewriter2: 0
+    - m_start_typewriter20: 0
+    - m_start_typewriter21: 0
+    - m_start_typewriter22: 0
+    - m_start_typewriter23: 0
+    - m_start_typewriter24: 0
+    - m_start_typewriter25: 0
+    - m_start_typewriter26: 0
+    - m_start_typewriter27: 0
+    - m_start_typewriter28: 0
+    - m_start_typewriter29: 0
+    - m_start_typewriter3: 0
+    - m_start_typewriter30: 0
+    - m_start_typewriter31: 0
+    - m_start_typewriter4: 0
+    - m_start_typewriter5: 0
+    - m_start_typewriter6: 0
+    - m_start_typewriter7: 0
+    - m_start_typewriter8: 0
+    - m_start_typewriter9: 0
+    - shader_is_using_thry_editor: 0
+    - shader_master_label: 0
+    m_Colors:
+    - _BoundsColor: {r: 0, g: 1, b: 0, a: 1}
+    - _CameraPosition: {r: 0, g: 0, b: 0, a: 0}
+    - _CameraRotation: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveDataTX0_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX0_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX10_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX10_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX11_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX11_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX12_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX12_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX13_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX13_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX14_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX14_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX15_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX15_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX16_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX16_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX17_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX17_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX18_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX18_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX19_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX19_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX1_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX1_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX20_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX20_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX21_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX21_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX22_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX22_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX23_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX23_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX24_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX24_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX25_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX25_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX26_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX26_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX27_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX27_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX28_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX28_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX29_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX29_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX2_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX2_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX30_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX30_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX31_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX31_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX3_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX3_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX4_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX4_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX5_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX5_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX6_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX6_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX7_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX7_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX8_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX8_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX9_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTX9_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY0_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY0_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY10_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY10_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY11_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY11_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY12_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY12_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY13_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY13_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY14_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY14_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY15_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY15_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY16_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY16_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY17_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY17_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY18_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY18_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY19_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY19_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY1_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY1_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY20_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY20_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY21_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY21_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY22_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY22_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY23_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY23_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY24_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY24_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY25_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY25_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY26_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY26_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY27_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY27_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY28_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY28_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY29_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY29_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY2_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY2_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY30_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY30_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY31_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY31_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY3_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY3_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY4_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY4_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY5_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY5_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY6_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY6_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY7_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY7_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY8_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY8_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY9_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTY9_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ0_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ0_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ10_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ10_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ11_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ11_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ12_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ12_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ13_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ13_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ14_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ14_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ15_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ15_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ16_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ16_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ17_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ17_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ18_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ18_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ19_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ19_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ1_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ1_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ20_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ20_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ21_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ21_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ22_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ22_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ23_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ23_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ24_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ24_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ25_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ25_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ26_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ26_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ27_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ27_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ28_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ28_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ29_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ29_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ2_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ2_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ30_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ30_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ31_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ31_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ3_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ3_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ4_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ4_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ5_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ5_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ6_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ6_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ7_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ7_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ8_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ8_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ9_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataTZ9_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX0_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX0_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX10_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX10_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX11_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX11_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX12_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX12_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX13_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX13_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX14_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX14_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX15_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX15_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX16_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX16_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX17_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX17_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX18_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX18_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX19_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX19_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX1_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX1_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX20_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX20_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX21_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX21_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX22_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX22_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX23_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX23_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX24_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX24_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX25_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX25_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX26_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX26_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX27_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX27_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX28_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX28_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX29_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX29_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX2_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX2_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX30_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX30_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX31_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX31_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX3_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX3_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX4_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX4_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX5_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX5_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX6_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX6_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX7_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX7_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX8_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX8_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX9_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataX9_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY0_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY0_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY10_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY10_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY11_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY11_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY12_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY12_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY13_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY13_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY14_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY14_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY15_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY15_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY16_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY16_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY17_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY17_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY18_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY18_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY19_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY19_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY1_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY1_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY20_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY20_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY21_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY21_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY22_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY22_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY23_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY23_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY24_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY24_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY25_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY25_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY26_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY26_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY27_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY27_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY28_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY28_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY29_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY29_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY2_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY2_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY30_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY30_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY31_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY31_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY3_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY3_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY4_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY4_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY5_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY5_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY6_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY6_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY7_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY7_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY8_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY8_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY9_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataY9_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ0_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ0_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ10_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ10_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ11_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ11_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ12_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ12_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ13_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ13_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ14_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ14_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ15_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ15_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ16_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ16_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ17_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ17_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ18_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ18_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ19_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ19_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ1_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ1_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ20_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ20_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ21_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ21_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ22_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ22_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ23_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ23_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ24_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ24_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ25_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ25_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ26_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ26_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ27_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ27_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ28_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ28_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ29_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ29_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ2_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ2_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ30_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ30_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ31_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ31_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ3_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ3_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ4_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ4_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ5_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ5_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ6_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ6_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ7_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ7_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ8_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ8_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ9_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _CurveDataZ9_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _OutlineColor0: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor1: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor10: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor11: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor12: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor13: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor14: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor15: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor16: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor17: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor18: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor19: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor2: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor20: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor21: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor22: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor23: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor24: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor25: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor26: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor27: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor28: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor29: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor3: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor30: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor31: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor4: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor5: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor6: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor7: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor8: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor9: {r: 0, g: 0, b: 0, a: 1}
+    - _Pivot0: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot1: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot10: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot11: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot12: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot13: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot14: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot15: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot16: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot17: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot18: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot19: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot2: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot20: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot21: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot22: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot23: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot24: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot25: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot26: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot27: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot28: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot29: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot3: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot30: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot31: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot4: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot5: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot6: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot7: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot8: {r: 0, g: 0, b: 0, a: 0}
+    - _Pivot9: {r: 0, g: 0, b: 0, a: 0}
+    - _PivotColor: {r: 1, g: 0, b: 0, a: 1}
+    - _Position0: {r: 0, g: 0, b: 50, a: 0}
+    - _Position1: {r: 0, g: 0, b: 50, a: 0}
+    - _Position10: {r: 0, g: 0, b: 50, a: 0}
+    - _Position11: {r: 0, g: 0, b: 50, a: 0}
+    - _Position12: {r: 0, g: 0, b: 50, a: 0}
+    - _Position13: {r: 0, g: 0, b: 50, a: 0}
+    - _Position14: {r: 0, g: 0, b: 50, a: 0}
+    - _Position15: {r: 0, g: 0, b: 50, a: 0}
+    - _Position16: {r: 0, g: 0, b: 50, a: 0}
+    - _Position17: {r: 0, g: 0, b: 50, a: 0}
+    - _Position18: {r: 0, g: 0, b: 50, a: 0}
+    - _Position19: {r: 0, g: 0, b: 50, a: 0}
+    - _Position2: {r: 0, g: 0, b: 50, a: 0}
+    - _Position20: {r: 0, g: 0, b: 50, a: 0}
+    - _Position21: {r: 0, g: 0, b: 50, a: 0}
+    - _Position22: {r: 0, g: 0, b: 50, a: 0}
+    - _Position23: {r: 0, g: 0, b: 50, a: 0}
+    - _Position24: {r: 0, g: 0, b: 50, a: 0}
+    - _Position25: {r: 0, g: 0, b: 50, a: 0}
+    - _Position26: {r: 0, g: 0, b: 50, a: 0}
+    - _Position27: {r: 0, g: 0, b: 50, a: 0}
+    - _Position28: {r: 0, g: 0, b: 50, a: 0}
+    - _Position29: {r: 0, g: 0, b: 50, a: 0}
+    - _Position3: {r: 0, g: 0, b: 50, a: 0}
+    - _Position30: {r: 0, g: 0, b: 50, a: 0}
+    - _Position31: {r: 0, g: 0, b: 50, a: 0}
+    - _Position4: {r: 0, g: 0, b: 50, a: 0}
+    - _Position5: {r: 0, g: 0, b: 50, a: 0}
+    - _Position6: {r: 0, g: 0, b: 50, a: 0}
+    - _Position7: {r: 0, g: 0, b: 50, a: 0}
+    - _Position8: {r: 0, g: 0, b: 50, a: 0}
+    - _Position9: {r: 0, g: 0, b: 50, a: 0}
+    - _RootMatrix0_Row0: {r: 1, g: 0, b: 0, a: 0}
+    - _RootMatrix0_Row1: {r: 0, g: 1, b: 0, a: 0}
+    - _RootMatrix0_Row2: {r: 0, g: 0, b: 1, a: 0}
+    - _RootMatrix1_Row0: {r: 1, g: 0, b: 0, a: 0}
+    - _RootMatrix1_Row1: {r: 0, g: 1, b: 0, a: 0}
+    - _RootMatrix1_Row2: {r: 0, g: 0, b: 1, a: 0}
+    - _RootMatrix2_Row0: {r: 1, g: 0, b: 0, a: 0}
+    - _RootMatrix2_Row1: {r: 0, g: 1, b: 0, a: 0}
+    - _RootMatrix2_Row2: {r: 0, g: 0, b: 1, a: 0}
+    - _RootMatrix3_Row0: {r: 1, g: 0, b: 0, a: 0}
+    - _RootMatrix3_Row1: {r: 0, g: 1, b: 0, a: 0}
+    - _RootMatrix3_Row2: {r: 0, g: 0, b: 1, a: 0}
+    - _RootMatrix4_Row0: {r: 1, g: 0, b: 0, a: 0}
+    - _RootMatrix4_Row1: {r: 0, g: 1, b: 0, a: 0}
+    - _RootMatrix4_Row2: {r: 0, g: 0, b: 1, a: 0}
+    - _RootPosition0: {r: 0, g: 0, b: 0, a: 0}
+    - _RootPosition1: {r: 0, g: 0, b: 0, a: 0}
+    - _RootPosition2: {r: 0, g: 0, b: 0, a: 0}
+    - _RootPosition3: {r: 0, g: 0, b: 0, a: 0}
+    - _RootPosition4: {r: 0, g: 0, b: 0, a: 0}
+    - _RootRotation0: {r: 0, g: 0, b: 0, a: 0}
+    - _RootRotation1: {r: 0, g: 0, b: 0, a: 0}
+    - _RootRotation2: {r: 0, g: 0, b: 0, a: 0}
+    - _RootRotation3: {r: 0, g: 0, b: 0, a: 0}
+    - _RootRotation4: {r: 0, g: 0, b: 0, a: 0}
+    - _RootScale0: {r: 1, g: 1, b: 1, a: 0}
+    - _RootScale1: {r: 1, g: 1, b: 1, a: 0}
+    - _RootScale2: {r: 1, g: 1, b: 1, a: 0}
+    - _RootScale3: {r: 1, g: 1, b: 1, a: 0}
+    - _RootScale4: {r: 1, g: 1, b: 1, a: 0}
+    - _Rotation0: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation1: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation10: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation11: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation12: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation13: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation14: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation15: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation16: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation17: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation18: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation19: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation2: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation20: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation21: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation22: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation23: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation24: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation25: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation26: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation27: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation28: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation29: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation3: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation30: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation31: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation4: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation5: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation6: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation7: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation8: {r: 0, g: 0, b: 0, a: 0}
+    - _Rotation9: {r: 0, g: 0, b: 0, a: 0}
+    - _Scale0: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale1: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale10: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale11: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale12: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale13: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale14: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale15: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale16: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale17: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale18: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale19: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale2: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale20: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale21: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale22: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale23: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale24: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale25: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale26: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale27: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale28: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale29: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale3: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale30: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale31: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale4: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale5: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale6: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale7: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale8: {r: 1, g: 1, b: 1, a: 0}
+    - _Scale9: {r: 1, g: 1, b: 1, a: 0}
+    - _ShadowColor0: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor1: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor10: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor11: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor12: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor13: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor14: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor15: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor16: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor17: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor18: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor19: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor2: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor20: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor21: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor22: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor23: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor24: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor25: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor26: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor27: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor28: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor29: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor3: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor30: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor31: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor4: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor5: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor6: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor7: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor8: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor9: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowOffset0: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset1: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset10: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset11: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset12: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset13: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset14: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset15: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset16: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset17: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset18: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset19: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset2: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset20: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset21: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset22: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset23: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset24: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset25: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset26: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset27: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset28: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset29: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset3: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset30: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset31: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset4: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset5: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset6: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset7: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset8: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset9: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _TextColor0: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor1: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor10: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor11: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor12: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor13: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor14: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor15: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor16: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor17: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor18: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor19: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor2: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor20: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor21: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor22: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor23: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor24: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor25: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor26: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor27: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor28: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor29: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor3: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor30: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor31: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor4: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor5: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor6: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor7: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor8: {r: 1, g: 1, b: 1, a: 1}
+    - _TextColor9: {r: 1, g: 1, b: 1, a: 1}
+    - _TypewriterDirection0: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection1: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection10: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection11: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection12: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection13: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection14: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection15: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection16: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection17: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection18: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection19: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection2: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection20: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection21: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection22: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection23: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection24: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection25: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection26: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection27: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection28: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection29: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection3: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection30: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection31: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection4: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection5: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection6: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection7: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection8: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterDirection9: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation0: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation1: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation10: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation11: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation12: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation13: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation14: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation15: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation16: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation17: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation18: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation19: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation2: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation20: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation21: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation22: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation23: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation24: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation25: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation26: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation27: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation28: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation29: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation3: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation30: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation31: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation4: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation5: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation6: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation7: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation8: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterRotation9: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []

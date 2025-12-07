@@ -1,0 +1,11 @@
+# Exclude Other folder (development files)
+Other/
+Other.meta
+
+# Unity generated
+*.meta
+!*.shader.meta
+
+# Temporary files
+*.tmp
+*.bak
