@@ -1,0 +1,177 @@
+# Typography
+
+GPU テキストレンダリング for Unity / VRChat
+
+[![Unity 2022.3+](https://img.shields.io/badge/Unity-2022.3+-black.svg)](https://unity.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+[English](README.md)
+
+**1 ドローコール**で **32 テキスト**を高品質描画。C# ランタイム不要の完全 GPU 駆動。
+
+## パフォーマンス
+
+|                | Fragment Math | Fragment Texture |
+|----------------|--------------:|-----------------:|
+| **Typography** |        **55** |            **2** |
+| SSVFX          |         3,702 |              102 |
+| TexSvfx        |         5,585 |              210 |
+
+Fragment 命令数 **1/102**（vs TexSvfx, SSVFX）。処理を Vertex Shader に集約し、解像度が上がるほど差が拡大。
+
+|                |         Avg |   比率   |
+|----------------|------------:|-------:|
+| **Typography** | **0.540ms** | **1x** |
+| SSVFX          |     1.205ms |   2.2x |
+| TexSvfx        |     6.127ms |  11.4x |
+
+## 機能
+
+- MSDF による高品質エッジ（拡大縮小でもシャープ）
+- Unicode 対応（日本語、絵文字、合字）
+- 最大 8 フォント同時使用
+- Text / Image モード
+- 5 Root Transform（階層構造）
+- Typewriter / Curve Path / Shake エフェクト
+- Outline / Drop Shadow
+
+## インストール
+
+1. [Thry Editor](https://github.com/Thryrallo/ThryEditor) をインポート
+2. Typography unitypackage をインポート
+3. `Typography/Mesh.asset` を MeshFilter に設定
+4. Material 作成 → Shader: `GekikaraStore/Typography`
+
+## 基本的な使い方
+
+1. **Fonts** セクションでフォント追加
+2. **Text Settings** でテキスト入力、「Gen」クリック
+3. Position / Rotation / Scale で配置調整
+
+## プロパティ
+
+### Global
+
+| プロパティ | 説明 |
+|-----------|------|
+| Project | プロジェクト名（同一プロジェクトのマテリアルはアトラスを共有） |
+
+### Camera Settings
+
+| プロパティ | 説明 |
+|-----------|------|
+| Position | 仮想カメラ位置（スクリーン座標モード用） |
+| Rotation | 仮想カメラ回転 |
+| FOV | 視野角（10-120） |
+
+### Root Transforms
+
+| プロパティ | 説明 |
+|-----------|------|
+| Position | ルート位置（cm） |
+| Rotation | ルート回転 |
+| Scale | ルートスケール |
+
+5つのルートを定義可能。テキストを Root に割り当てると階層的に変形。
+
+### Text Settings
+
+| プロパティ | 説明 |
+|-----------|------|
+| Root | 親ルート（None / Root 1-5） |
+| World Space | ON: ワールド座標、OFF: スクリーン座標 |
+| Mode | Text_Horizontal / Text_Vertical / Image |
+| Text | テキスト入力 + Gen ボタン |
+| Font | フォント選択（Fonts で追加したもの） |
+| Layer | 描画順（0-31、大きいほど前面） |
+| Color | テキスト色（HDR 対応） |
+| Position | 位置（cm） |
+| Rotation | 回転（ZXY 順序、Unity 準拠） |
+| Scale | スケール |
+| Pivot | 回転中心（文字幅単位） |
+
+### Animator
+
+| プロパティ | 説明 |
+|-----------|------|
+| **Typewriter** | |
+| Mode | Left to Right / Right to Left / Center Out |
+| Progress | 表示進行（0-1） |
+| Direction | 出現時の移動方向 |
+| Rotation | 出現時の回転 |
+| **Kerning & Tracking** | |
+| Spacing | 文字間隔（-1 〜 1） |
+
+### Effector
+
+| プロパティ | 説明 |
+|-----------|------|
+| **Curve Path** | |
+| X/Y/Z Curve | 各軸のカーブ |
+| Intensity | 変形強度（0-1） |
+| Offset | カーブ開始位置（0-1） |
+| Speed | アニメーション速度 |
+| Rotation | カーブに沿った回転（0-1） |
+| **Shake** | |
+| Amplitude | 振幅（0-1） |
+| Frequency | 周波数（0-20） |
+| Blend | 文字単位↔行単位のブレンド |
+| **Outline** | |
+| Width | 太さ（0-0.1） |
+| Color | 色（HDR） |
+| **Drop Shadow** | |
+| Intensity | 強度（0-1） |
+| Offset | オフセット |
+| Color | 色（HDR） |
+
+### Rendering Settings
+
+| プロパティ | 説明 |
+|-----------|------|
+| Fade Min/Max | 距離フェード範囲 |
+| Render Type | Opaque / Transparent / Overlay |
+| Cull | カリングモード |
+| ZTest | 深度テスト |
+| ZWrite | 深度書き込み |
+| Source/Destination Blend | ブレンドモード |
+
+### Debug
+
+| プロパティ | 説明 |
+|-----------|------|
+| Pivot Color/Size | ピボット表示（エディタのみ） |
+| Bounds Color/Width | バウンディングボックス表示 |
+
+## 仕様
+
+| 項目    | 値             |
+|-------|---------------|
+| テキスト数 | 32            |
+| フォント数 | 8             |
+| Atlas | 4096×4096 BC7 |
+| 最大文字数 | 32            |
+
+## 依存関係
+
+- [Thry Editor](https://github.com/Thryrallo/ThryEditor) - マテリアルエディタ
+
+## ライセンス
+
+MIT - [LICENSE](LICENSE) 参照
+
+本プロジェクトは [msdf-atlas-gen](https://github.com/Chlumsky/msdf-atlas-gen)（MIT License）を使用しています。詳細は [THIRD-PARTY-LICENSES.md](THIRD-PARTY-LICENSES.md) を参照してください。
+
+## サンプル
+
+https://vrchat.com/home/avatar/avtr_20c77b57-edc0-4de3-bace-3b7b21b998bd
+
+## 謝辞
+
+本プロジェクトは [Krzysztof Narkowicz (knarkowicz)](https://knarkowicz.wordpress.com/) 氏の [ShaderToyText](https://www.shadertoy.com/view/XtfyRS) に着想を得ています。GPU テキストレンダリングへの洗練されたアプローチが本作品の基盤となりました。知識をコミュニティに共有してくださったことに感謝いたします。
+
+## Special Thanks（敬称略）
+- 皐月-Satuki
+- ぷくぷくまる
+- UniTea（グループ）
+- Cute Aggression（グループ）
+- その他の告知に協力してくださった皆様
