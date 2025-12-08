@@ -2433,14 +2433,15 @@ Shader "GekikaraStore/Typography"
         [HideInInspector] m_end_text_setting ("Text Settings", Float) = 0
 
         [HideInInspector] m_start_rendering_settings ("Rendering Settings", Float) = 0
+            _AlphaCutoff ("Alpha Cutoff", Range(0.0001, 1)) = 0.0001
             _FadeMin ("Fade Min", Float) = 0
             _FadeMax ("Fade Max", Float) = 20
             [ThryWideEnum(Opaque, 0, Transparent, 1, Overlay, 2)] _RenderType ("Render Type", Int) = 1
             [Enum(UnityEngine.Rendering.CullMode)] _Cull ("Cull", Float) = 0
-            [Enum(UnityEngine.Rendering.CompareFunction)] _ZTest ("ZTest", Float) = 6
+            [Enum(UnityEngine.Rendering.CompareFunction)] _ZTest ("ZTest", Float) = 4
             [Enum(UnityEngine.Rendering.BlendMode)] _SourceBlend ("Source Blend", Float) = 1
             [Enum(UnityEngine.Rendering.BlendMode)] _DestinationBlend ("Destination Blend", Float) = 10
-            [Enum(Off, 0, On, 1)] _ZWrite ("ZWrite", Int) = 0
+            [Enum(Off, 0, On, 1)] _ZWrite ("ZWrite", Int) = 1
 
             [HideInInspector] m_start_debug ("Debug", Float) = 0
                 [HDR] _PivotColor ("Pivot Color", Color) = (1, 0, 0, 1)
@@ -2507,6 +2508,10 @@ Shader "GekikaraStore/Typography"
             #define TEXT_GLYPH_SCALE 0.1
             #define TEXT_COUNT 32
 
+            // Depth range constants for screen/world space separation
+            #define SCREEN_SPACE_DEPTH_MAX 0.05
+            #define WORLD_SPACE_DEPTH_MIN 0.05
+
             #define TYPEWRITER_LTR 0
             #define TYPEWRITER_RTL 1
             #define TYPEWRITER_CENTER_OUT 2
@@ -2539,7 +2544,8 @@ Shader "GekikaraStore/Typography"
             float4 _CameraRotation;
             float _CameraFOV;
 
-            // Fade
+            // Fade and Alpha Cutoff
+            float _AlphaCutoff;
             float _FadeMin;
             float _FadeMax;
 
@@ -2800,7 +2806,7 @@ Shader "GekikaraStore/Typography"
                 {
                     float half_display = display_count * 0.5;
                     float dist_from_center = abs(char_pos - center_offset);
-                    distance_to_edge = half_display - dist_from_center + 0.5;
+                    distance_to_edge = half_display - dist_from_center;
                 }
                 return 1.0 - saturate(distance_to_edge);
             }
@@ -2829,6 +2835,37 @@ Shader "GekikaraStore/Typography"
                 #endif
             }
 
+            // Screen space projection with layer-based depth (always in front of world space)
+            float4 project_screen_space(float2 screen_xy, float layer)
+            {
+                // Layer-based depth: layer 0 = closest, layer 31 = furthest within screen space range
+                float layer_depth = (layer + 0.5) / 32.0 * SCREEN_SPACE_DEPTH_MAX;
+                #if defined(UNITY_REVERSED_Z)
+                    // Reversed-Z: Near=1, Far=0 - screen space uses 1.0~0.95 range
+                    float depth = 1.0 - layer_depth;
+                #else
+                    // Standard Z: Near=0, Far=1 - screen space uses 0.0~0.05 range
+                    float depth = layer_depth;
+                #endif
+                return float4(screen_xy, depth, 1.0);
+            }
+
+            // World space projection with depth remapped behind screen space
+            float4 project_world_space(float4 local_pos)
+            {
+                float4 clip = UnityObjectToClipPos(local_pos);
+                float ndc_z = clip.z / clip.w;
+                #if defined(UNITY_REVERSED_Z)
+                    // Reversed-Z: remap from [1,0] to [0.95, 0] (behind screen space)
+                    float remapped_z = ndc_z * (1.0 - WORLD_SPACE_DEPTH_MIN);
+                #else
+                    // Standard Z: remap from [0,1] to [0.05, 1.0] (behind screen space)
+                    float remapped_z = lerp(WORLD_SPACE_DEPTH_MIN, 1.0, ndc_z);
+                #endif
+                return float4(clip.xy, remapped_z * clip.w, clip.w);
+            }
+
+            // Custom camera projection for screen space (calculates screen XY from world position)
             float4 project_custom_camera(float3 world_pos, float3 cam_pos, float3x3 cam_rot, float tan_half_fov, float aspect, int layer)
             {
                 float3 relative = world_pos - cam_pos;
@@ -2839,9 +2876,14 @@ Shader "GekikaraStore/Typography"
                 float2 clip;
                 clip.x = view_pos.x / (tan_half_fov * aspect);
                 clip.y = view_pos.y / tan_half_fov;
-                // Layer-based pseudo depth (reversed-Z): layer 0 = back (depth 0.0), layer 31 = front (depth 1.0)
-                float pseudo_depth = (layer + 0.5) / 32.0;
-                return float4(clip.x, clip.y, pseudo_depth * view_pos.z, view_pos.z);
+                // Layer-based depth within screen space range
+                float layer_depth = (layer + 0.5) / 32.0 * SCREEN_SPACE_DEPTH_MAX;
+                #if defined(UNITY_REVERSED_Z)
+                    float depth = 1.0 - layer_depth;
+                #else
+                    float depth = layer_depth;
+                #endif
+                return float4(clip.x, clip.y, depth * view_pos.z, view_pos.z);
             }
 
             // ============================================================================
@@ -2970,7 +3012,7 @@ Shader "GekikaraStore/Typography"
                 float3 corner_offset = (v.uv2.x - 0.5) * 2.0 * world_right + (v.uv2.y - 0.5) * 2.0 * world_up; \
                 float3 corner_world = world_pos + corner_offset; \
                 if (_WorldSpace##N > 0.5) { \
-                    o.vertex = UnityObjectToClipPos(float4(corner_world, 1.0)); \
+                    o.vertex = project_world_space(float4(corner_world, 1.0)); \
                 } else { \
                     o.vertex = project_custom_camera(corner_world, cam_pos, cam_rot, tan_half_fov, aspect, _Layer##N); \
                 } \
@@ -3123,7 +3165,7 @@ Shader "GekikaraStore/Typography"
                     float4 img = SAMPLE_IMAGE(i.text_id, glyph_uv);
                     accum_color = img.rgb * i.text_color.rgb;
                     accum_alpha = img.a * i.text_color.a * opacity_mult;
-                    clip(accum_alpha - 0.01);
+                    clip(accum_alpha - _AlphaCutoff);
                     return float4(accum_color, accum_alpha);
                 }
 
@@ -3206,7 +3248,7 @@ Shader "GekikaraStore/Typography"
 
                 #endif
 
-                clip(accum_alpha - 0.01);
+                clip(accum_alpha - _AlphaCutoff);
                 return float4(accum_color, accum_alpha);
             }
             ENDCG
