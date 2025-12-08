@@ -11,13 +11,15 @@ Render **32 texts** in **1 draw call** with high quality. Fully GPU-driven, no C
 
 ## Performance
 
-|                | Fragment Math | Fragment Texture |
-|----------------|--------------:|-----------------:|
-| **Typography** |        **55** |            **2** |
-| SSVFX          |         3,702 |              102 |
-| TexSvfx        |         5,585 |              210 |
+Fragment shader instruction counts (Unity compiled shader stats, d3d11):
 
-**1/102** fragment instructions (vs TexSvfx, SSVFX). Processing concentrated in Vertex Shader - performance gap widens with resolution.
+|                | Math | Texture | Branch |
+|----------------|-----:|--------:|-------:|
+| **Typography** | **55** | **2** | **4** |
+| SSVFX          | 3,702 | 102 | 201 |
+| TexSvfx        | 5,585 | 210 | 255 |
+
+**1/100** fragment instructions vs alternatives. Processing concentrated in Vertex Shader - performance gap widens with resolution.
 
 |                |         Avg |  Ratio |
 |----------------|------------:|-------:|
@@ -172,6 +174,7 @@ This project was inspired by [ShaderToyText](https://www.shadertoy.com/view/Xtfy
 ## Special Thanks
 - 皐月-Satuki
 - ぷくぷくまる
+- あまね
+- 一ノ瀬
 - UniTea (group)
-- Cute Aggression (group)
 - Everyone who helped with announcements

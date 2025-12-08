@@ -11,13 +11,15 @@ GPU テキストレンダリング for Unity / VRChat
 
 ## パフォーマンス
 
-|                | Fragment Math | Fragment Texture |
-|----------------|--------------:|-----------------:|
-| **Typography** |        **55** |            **2** |
-| SSVFX          |         3,702 |              102 |
-| TexSvfx        |         5,585 |              210 |
+Fragment Shader 命令数（Unity compiled shader stats, d3d11）：
 
-Fragment 命令数 **1/102**（vs TexSvfx, SSVFX）。処理を Vertex Shader に集約し、解像度が上がるほど差が拡大。
+|                | Math | Texture | Branch |
+|----------------|-----:|--------:|-------:|
+| **Typography** | **55** | **2** | **4** |
+| SSVFX          | 3,702 | 102 | 201 |
+| TexSvfx        | 5,585 | 210 | 255 |
+
+Fragment 命令数 **1/100**。処理を Vertex Shader に集約し、解像度が上がるほど差が拡大。
 
 |                |         Avg |   比率   |
 |----------------|------------:|-------:|
@@ -172,6 +174,7 @@ https://vrchat.com/home/avatar/avtr_20c77b57-edc0-4de3-bace-3b7b21b998bd
 ## Special Thanks（敬称略）
 - 皐月-Satuki
 - ぷくぷくまる
+- あまね
+- 一ノ瀬
 - UniTea（グループ）
-- Cute Aggression（グループ）
 - その他の告知に協力してくださった皆様
