@@ -6,9 +6,6 @@ Shader "GekikaraStore/Typography"
         [HideInInspector] shader_master_label("<b><i><color=#858585>T</color><color=#9D9D9D>y</color><color=#B5B5B5>p</color><color=#CECECE>o</color><color=#E6E6E6>g</color><color=#FFFFFF>r</color><color=#E6E6E6>a</color><color=#CECECE>p</color><color=#B5B5B5>h</color><color=#9D9D9D>y</color></i></b>", Float) = 0
 
         [Project] _Project ("Project", Int) = 0
-        [HideInInspector] _FontTextureArray ("Font Texture Array", 2DArray) = "" {}
-        [HideInInspector] _DataTexture ("Data Texture", 2D) = "" {}
-        [HideInInspector] _AtlasSize ("Atlas Size", float) = 32.0
 
         [HideInInspector] m_start_camera_setting ("Camera Settings", Float) = 0
             [Vector3] _CameraPosition ("Position", Vector) = (0, 0, 0, 0)
@@ -81,10 +78,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator0 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter0 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode0 ("Mode", Int) = 0
-                        _TypewriterProgress0 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection0 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation0 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType0 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode0 ("Direction --{condition_showS:(_TypewriterType0==0)}", Int) = 0
+                        _TypewriterProgress0 ("Progress --{condition_showS:(_TypewriterType0==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection0 ("Offset --{condition_showS:(_TypewriterType0==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation0 ("Rotation --{condition_showS:(_TypewriterType0==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible0 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
+                        _BlockAnimating0 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
+                        _BlockProgress0 ("Progress --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection0 ("Direction --{condition_showS:(_TypewriterType0==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation0 ("Rotation --{condition_showS:(_TypewriterType0==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay0 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter0 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing0 ("Kerning & Tracking", Float) = 0
@@ -122,13 +126,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake0 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline0 ("Outline", Float) = 0
-                        _OutlineWidth0 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth0 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor0 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline0 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow0 ("Drop Shadow", Float) = 0
                         _ShadowIntensity0 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset0 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness0 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor0 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow0 ("Drop Shadow", Float) = 0
 
@@ -144,7 +149,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput1 ("Text", Int) = 0
                 [HideInInspector] _FontIndex1 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture1 ("Image", 2D) = "white" {}
-                [IntRange] _Layer1 ("Layer", Range(0, 31)) = 1
+                [IntRange] _Layer1 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor1 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position1 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation1 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -155,10 +160,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator1 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter1 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode1 ("Mode", Int) = 0
-                        _TypewriterProgress1 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection1 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation1 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType1 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode1 ("Direction --{condition_showS:(_TypewriterType1==0)}", Int) = 0
+                        _TypewriterProgress1 ("Progress --{condition_showS:(_TypewriterType1==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection1 ("Offset --{condition_showS:(_TypewriterType1==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation1 ("Rotation --{condition_showS:(_TypewriterType1==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible1 ("Visible Count --{condition_showS:(_TypewriterType1==1)}", Int) = 0
+                        _BlockAnimating1 ("Animating Count --{condition_showS:(_TypewriterType1==1)}", Int) = 0
+                        _BlockProgress1 ("Progress --{condition_showS:(_TypewriterType1==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection1 ("Direction --{condition_showS:(_TypewriterType1==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation1 ("Rotation --{condition_showS:(_TypewriterType1==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay1 ("Char Delay --{condition_showS:(_TypewriterType1==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter1 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing1 ("Kerning & Tracking", Float) = 0
@@ -196,13 +208,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake1 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline1 ("Outline", Float) = 0
-                        _OutlineWidth1 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth1 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor1 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline1 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow1 ("Drop Shadow", Float) = 0
                         _ShadowIntensity1 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset1 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness1 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor1 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow1 ("Drop Shadow", Float) = 0
 
@@ -218,7 +231,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput2 ("Text", Int) = 0
                 [HideInInspector] _FontIndex2 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture2 ("Image", 2D) = "white" {}
-                [IntRange] _Layer2 ("Layer", Range(0, 31)) = 2
+                [IntRange] _Layer2 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor2 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position2 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation2 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -229,10 +242,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator2 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter2 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode2 ("Mode", Int) = 0
-                        _TypewriterProgress2 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection2 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation2 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType2 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode2 ("Direction --{condition_showS:(_TypewriterType2==0)}", Int) = 0
+                        _TypewriterProgress2 ("Progress --{condition_showS:(_TypewriterType2==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection2 ("Offset --{condition_showS:(_TypewriterType2==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation2 ("Rotation --{condition_showS:(_TypewriterType2==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible2 ("Visible Count --{condition_showS:(_TypewriterType2==1)}", Int) = 0
+                        _BlockAnimating2 ("Animating Count --{condition_showS:(_TypewriterType2==1)}", Int) = 0
+                        _BlockProgress2 ("Progress --{condition_showS:(_TypewriterType2==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection2 ("Direction --{condition_showS:(_TypewriterType2==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation2 ("Rotation --{condition_showS:(_TypewriterType2==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay2 ("Char Delay --{condition_showS:(_TypewriterType2==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter2 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing2 ("Kerning & Tracking", Float) = 0
@@ -270,13 +290,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake2 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline2 ("Outline", Float) = 0
-                        _OutlineWidth2 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth2 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor2 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline2 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow2 ("Drop Shadow", Float) = 0
                         _ShadowIntensity2 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset2 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness2 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor2 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow2 ("Drop Shadow", Float) = 0
 
@@ -292,7 +313,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput3 ("Text", Int) = 0
                 [HideInInspector] _FontIndex3 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture3 ("Image", 2D) = "white" {}
-                [IntRange] _Layer3 ("Layer", Range(0, 31)) = 3
+                [IntRange] _Layer3 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor3 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position3 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation3 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -303,10 +324,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator3 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter3 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode3 ("Mode", Int) = 0
-                        _TypewriterProgress3 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection3 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation3 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType3 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode3 ("Direction --{condition_showS:(_TypewriterType3==0)}", Int) = 0
+                        _TypewriterProgress3 ("Progress --{condition_showS:(_TypewriterType3==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection3 ("Offset --{condition_showS:(_TypewriterType3==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation3 ("Rotation --{condition_showS:(_TypewriterType3==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible3 ("Visible Count --{condition_showS:(_TypewriterType3==1)}", Int) = 0
+                        _BlockAnimating3 ("Animating Count --{condition_showS:(_TypewriterType3==1)}", Int) = 0
+                        _BlockProgress3 ("Progress --{condition_showS:(_TypewriterType3==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection3 ("Direction --{condition_showS:(_TypewriterType3==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation3 ("Rotation --{condition_showS:(_TypewriterType3==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay3 ("Char Delay --{condition_showS:(_TypewriterType3==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter3 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing3 ("Kerning & Tracking", Float) = 0
@@ -344,13 +372,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake3 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline3 ("Outline", Float) = 0
-                        _OutlineWidth3 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth3 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor3 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline3 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow3 ("Drop Shadow", Float) = 0
                         _ShadowIntensity3 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset3 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness3 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor3 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow3 ("Drop Shadow", Float) = 0
 
@@ -366,7 +395,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput4 ("Text", Int) = 0
                 [HideInInspector] _FontIndex4 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture4 ("Image", 2D) = "white" {}
-                [IntRange] _Layer4 ("Layer", Range(0, 31)) = 4
+                [IntRange] _Layer4 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor4 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position4 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation4 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -377,10 +406,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator4 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter4 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode4 ("Mode", Int) = 0
-                        _TypewriterProgress4 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection4 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation4 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType4 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode4 ("Direction --{condition_showS:(_TypewriterType4==0)}", Int) = 0
+                        _TypewriterProgress4 ("Progress --{condition_showS:(_TypewriterType4==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection4 ("Offset --{condition_showS:(_TypewriterType4==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation4 ("Rotation --{condition_showS:(_TypewriterType4==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible4 ("Visible Count --{condition_showS:(_TypewriterType4==1)}", Int) = 0
+                        _BlockAnimating4 ("Animating Count --{condition_showS:(_TypewriterType4==1)}", Int) = 0
+                        _BlockProgress4 ("Progress --{condition_showS:(_TypewriterType4==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection4 ("Direction --{condition_showS:(_TypewriterType4==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation4 ("Rotation --{condition_showS:(_TypewriterType4==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay4 ("Char Delay --{condition_showS:(_TypewriterType4==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter4 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing4 ("Kerning & Tracking", Float) = 0
@@ -418,13 +454,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake4 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline4 ("Outline", Float) = 0
-                        _OutlineWidth4 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth4 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor4 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline4 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow4 ("Drop Shadow", Float) = 0
                         _ShadowIntensity4 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset4 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness4 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor4 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow4 ("Drop Shadow", Float) = 0
 
@@ -440,7 +477,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput5 ("Text", Int) = 0
                 [HideInInspector] _FontIndex5 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture5 ("Image", 2D) = "white" {}
-                [IntRange] _Layer5 ("Layer", Range(0, 31)) = 5
+                [IntRange] _Layer5 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor5 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position5 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation5 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -451,10 +488,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator5 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter5 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode5 ("Mode", Int) = 0
-                        _TypewriterProgress5 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection5 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation5 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType5 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode5 ("Direction --{condition_showS:(_TypewriterType5==0)}", Int) = 0
+                        _TypewriterProgress5 ("Progress --{condition_showS:(_TypewriterType5==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection5 ("Offset --{condition_showS:(_TypewriterType5==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation5 ("Rotation --{condition_showS:(_TypewriterType5==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible5 ("Visible Count --{condition_showS:(_TypewriterType5==1)}", Int) = 0
+                        _BlockAnimating5 ("Animating Count --{condition_showS:(_TypewriterType5==1)}", Int) = 0
+                        _BlockProgress5 ("Progress --{condition_showS:(_TypewriterType5==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection5 ("Direction --{condition_showS:(_TypewriterType5==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation5 ("Rotation --{condition_showS:(_TypewriterType5==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay5 ("Char Delay --{condition_showS:(_TypewriterType5==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter5 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing5 ("Kerning & Tracking", Float) = 0
@@ -492,13 +536,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake5 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline5 ("Outline", Float) = 0
-                        _OutlineWidth5 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth5 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor5 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline5 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow5 ("Drop Shadow", Float) = 0
                         _ShadowIntensity5 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset5 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness5 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor5 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow5 ("Drop Shadow", Float) = 0
 
@@ -514,7 +559,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput6 ("Text", Int) = 0
                 [HideInInspector] _FontIndex6 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture6 ("Image", 2D) = "white" {}
-                [IntRange] _Layer6 ("Layer", Range(0, 31)) = 6
+                [IntRange] _Layer6 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor6 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position6 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation6 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -525,10 +570,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator6 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter6 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode6 ("Mode", Int) = 0
-                        _TypewriterProgress6 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection6 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation6 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType6 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode6 ("Direction --{condition_showS:(_TypewriterType6==0)}", Int) = 0
+                        _TypewriterProgress6 ("Progress --{condition_showS:(_TypewriterType6==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection6 ("Offset --{condition_showS:(_TypewriterType6==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation6 ("Rotation --{condition_showS:(_TypewriterType6==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible6 ("Visible Count --{condition_showS:(_TypewriterType6==1)}", Int) = 0
+                        _BlockAnimating6 ("Animating Count --{condition_showS:(_TypewriterType6==1)}", Int) = 0
+                        _BlockProgress6 ("Progress --{condition_showS:(_TypewriterType6==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection6 ("Direction --{condition_showS:(_TypewriterType6==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation6 ("Rotation --{condition_showS:(_TypewriterType6==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay6 ("Char Delay --{condition_showS:(_TypewriterType6==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter6 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing6 ("Kerning & Tracking", Float) = 0
@@ -566,13 +618,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake6 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline6 ("Outline", Float) = 0
-                        _OutlineWidth6 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth6 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor6 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline6 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow6 ("Drop Shadow", Float) = 0
                         _ShadowIntensity6 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset6 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness6 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor6 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow6 ("Drop Shadow", Float) = 0
 
@@ -588,7 +641,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput7 ("Text", Int) = 0
                 [HideInInspector] _FontIndex7 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture7 ("Image", 2D) = "white" {}
-                [IntRange] _Layer7 ("Layer", Range(0, 31)) = 7
+                [IntRange] _Layer7 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor7 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position7 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation7 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -599,10 +652,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator7 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter7 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode7 ("Mode", Int) = 0
-                        _TypewriterProgress7 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection7 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation7 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType7 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode7 ("Direction --{condition_showS:(_TypewriterType7==0)}", Int) = 0
+                        _TypewriterProgress7 ("Progress --{condition_showS:(_TypewriterType7==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection7 ("Offset --{condition_showS:(_TypewriterType7==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation7 ("Rotation --{condition_showS:(_TypewriterType7==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible7 ("Visible Count --{condition_showS:(_TypewriterType7==1)}", Int) = 0
+                        _BlockAnimating7 ("Animating Count --{condition_showS:(_TypewriterType7==1)}", Int) = 0
+                        _BlockProgress7 ("Progress --{condition_showS:(_TypewriterType7==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection7 ("Direction --{condition_showS:(_TypewriterType7==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation7 ("Rotation --{condition_showS:(_TypewriterType7==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay7 ("Char Delay --{condition_showS:(_TypewriterType7==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter7 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing7 ("Kerning & Tracking", Float) = 0
@@ -640,13 +700,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake7 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline7 ("Outline", Float) = 0
-                        _OutlineWidth7 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth7 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor7 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline7 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow7 ("Drop Shadow", Float) = 0
                         _ShadowIntensity7 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset7 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness7 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor7 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow7 ("Drop Shadow", Float) = 0
 
@@ -662,7 +723,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput8 ("Text", Int) = 0
                 [HideInInspector] _FontIndex8 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture8 ("Image", 2D) = "white" {}
-                [IntRange] _Layer8 ("Layer", Range(0, 31)) = 8
+                [IntRange] _Layer8 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor8 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position8 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation8 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -673,10 +734,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator8 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter8 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode8 ("Mode", Int) = 0
-                        _TypewriterProgress8 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection8 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation8 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType8 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode8 ("Direction --{condition_showS:(_TypewriterType8==0)}", Int) = 0
+                        _TypewriterProgress8 ("Progress --{condition_showS:(_TypewriterType8==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection8 ("Offset --{condition_showS:(_TypewriterType8==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation8 ("Rotation --{condition_showS:(_TypewriterType8==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible8 ("Visible Count --{condition_showS:(_TypewriterType8==1)}", Int) = 0
+                        _BlockAnimating8 ("Animating Count --{condition_showS:(_TypewriterType8==1)}", Int) = 0
+                        _BlockProgress8 ("Progress --{condition_showS:(_TypewriterType8==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection8 ("Direction --{condition_showS:(_TypewriterType8==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation8 ("Rotation --{condition_showS:(_TypewriterType8==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay8 ("Char Delay --{condition_showS:(_TypewriterType8==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter8 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing8 ("Kerning & Tracking", Float) = 0
@@ -714,13 +782,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake8 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline8 ("Outline", Float) = 0
-                        _OutlineWidth8 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth8 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor8 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline8 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow8 ("Drop Shadow", Float) = 0
                         _ShadowIntensity8 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset8 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness8 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor8 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow8 ("Drop Shadow", Float) = 0
 
@@ -736,7 +805,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput9 ("Text", Int) = 0
                 [HideInInspector] _FontIndex9 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture9 ("Image", 2D) = "white" {}
-                [IntRange] _Layer9 ("Layer", Range(0, 31)) = 9
+                [IntRange] _Layer9 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor9 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position9 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation9 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -747,10 +816,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator9 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter9 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode9 ("Mode", Int) = 0
-                        _TypewriterProgress9 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection9 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation9 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType9 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode9 ("Direction --{condition_showS:(_TypewriterType9==0)}", Int) = 0
+                        _TypewriterProgress9 ("Progress --{condition_showS:(_TypewriterType9==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection9 ("Offset --{condition_showS:(_TypewriterType9==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation9 ("Rotation --{condition_showS:(_TypewriterType9==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible9 ("Visible Count --{condition_showS:(_TypewriterType9==1)}", Int) = 0
+                        _BlockAnimating9 ("Animating Count --{condition_showS:(_TypewriterType9==1)}", Int) = 0
+                        _BlockProgress9 ("Progress --{condition_showS:(_TypewriterType9==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection9 ("Direction --{condition_showS:(_TypewriterType9==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation9 ("Rotation --{condition_showS:(_TypewriterType9==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay9 ("Char Delay --{condition_showS:(_TypewriterType9==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter9 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing9 ("Kerning & Tracking", Float) = 0
@@ -788,13 +864,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake9 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline9 ("Outline", Float) = 0
-                        _OutlineWidth9 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth9 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor9 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline9 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow9 ("Drop Shadow", Float) = 0
                         _ShadowIntensity9 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset9 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness9 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor9 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow9 ("Drop Shadow", Float) = 0
 
@@ -810,7 +887,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput10 ("Text", Int) = 0
                 [HideInInspector] _FontIndex10 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture10 ("Image", 2D) = "white" {}
-                [IntRange] _Layer10 ("Layer", Range(0, 31)) = 10
+                [IntRange] _Layer10 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor10 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position10 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation10 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -821,10 +898,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator10 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter10 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode10 ("Mode", Int) = 0
-                        _TypewriterProgress10 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection10 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation10 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType10 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode10 ("Direction --{condition_showS:(_TypewriterType10==0)}", Int) = 0
+                        _TypewriterProgress10 ("Progress --{condition_showS:(_TypewriterType10==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection10 ("Offset --{condition_showS:(_TypewriterType10==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation10 ("Rotation --{condition_showS:(_TypewriterType10==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible10 ("Visible Count --{condition_showS:(_TypewriterType10==1)}", Int) = 0
+                        _BlockAnimating10 ("Animating Count --{condition_showS:(_TypewriterType10==1)}", Int) = 0
+                        _BlockProgress10 ("Progress --{condition_showS:(_TypewriterType10==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection10 ("Direction --{condition_showS:(_TypewriterType10==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation10 ("Rotation --{condition_showS:(_TypewriterType10==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay10 ("Char Delay --{condition_showS:(_TypewriterType10==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter10 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing10 ("Kerning & Tracking", Float) = 0
@@ -862,13 +946,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake10 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline10 ("Outline", Float) = 0
-                        _OutlineWidth10 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth10 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor10 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline10 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow10 ("Drop Shadow", Float) = 0
                         _ShadowIntensity10 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset10 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness10 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor10 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow10 ("Drop Shadow", Float) = 0
 
@@ -884,7 +969,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput11 ("Text", Int) = 0
                 [HideInInspector] _FontIndex11 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture11 ("Image", 2D) = "white" {}
-                [IntRange] _Layer11 ("Layer", Range(0, 31)) = 11
+                [IntRange] _Layer11 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor11 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position11 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation11 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -895,10 +980,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator11 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter11 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode11 ("Mode", Int) = 0
-                        _TypewriterProgress11 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection11 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation11 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType11 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode11 ("Direction --{condition_showS:(_TypewriterType11==0)}", Int) = 0
+                        _TypewriterProgress11 ("Progress --{condition_showS:(_TypewriterType11==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection11 ("Offset --{condition_showS:(_TypewriterType11==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation11 ("Rotation --{condition_showS:(_TypewriterType11==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible11 ("Visible Count --{condition_showS:(_TypewriterType11==1)}", Int) = 0
+                        _BlockAnimating11 ("Animating Count --{condition_showS:(_TypewriterType11==1)}", Int) = 0
+                        _BlockProgress11 ("Progress --{condition_showS:(_TypewriterType11==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection11 ("Direction --{condition_showS:(_TypewriterType11==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation11 ("Rotation --{condition_showS:(_TypewriterType11==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay11 ("Char Delay --{condition_showS:(_TypewriterType11==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter11 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing11 ("Kerning & Tracking", Float) = 0
@@ -936,13 +1028,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake11 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline11 ("Outline", Float) = 0
-                        _OutlineWidth11 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth11 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor11 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline11 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow11 ("Drop Shadow", Float) = 0
                         _ShadowIntensity11 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset11 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness11 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor11 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow11 ("Drop Shadow", Float) = 0
 
@@ -958,7 +1051,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput12 ("Text", Int) = 0
                 [HideInInspector] _FontIndex12 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture12 ("Image", 2D) = "white" {}
-                [IntRange] _Layer12 ("Layer", Range(0, 31)) = 12
+                [IntRange] _Layer12 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor12 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position12 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation12 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -969,10 +1062,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator12 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter12 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode12 ("Mode", Int) = 0
-                        _TypewriterProgress12 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection12 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation12 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType12 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode12 ("Direction --{condition_showS:(_TypewriterType12==0)}", Int) = 0
+                        _TypewriterProgress12 ("Progress --{condition_showS:(_TypewriterType12==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection12 ("Offset --{condition_showS:(_TypewriterType12==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation12 ("Rotation --{condition_showS:(_TypewriterType12==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible12 ("Visible Count --{condition_showS:(_TypewriterType12==1)}", Int) = 0
+                        _BlockAnimating12 ("Animating Count --{condition_showS:(_TypewriterType12==1)}", Int) = 0
+                        _BlockProgress12 ("Progress --{condition_showS:(_TypewriterType12==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection12 ("Direction --{condition_showS:(_TypewriterType12==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation12 ("Rotation --{condition_showS:(_TypewriterType12==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay12 ("Char Delay --{condition_showS:(_TypewriterType12==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter12 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing12 ("Kerning & Tracking", Float) = 0
@@ -1010,13 +1110,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake12 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline12 ("Outline", Float) = 0
-                        _OutlineWidth12 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth12 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor12 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline12 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow12 ("Drop Shadow", Float) = 0
                         _ShadowIntensity12 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset12 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness12 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor12 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow12 ("Drop Shadow", Float) = 0
 
@@ -1032,7 +1133,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput13 ("Text", Int) = 0
                 [HideInInspector] _FontIndex13 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture13 ("Image", 2D) = "white" {}
-                [IntRange] _Layer13 ("Layer", Range(0, 31)) = 13
+                [IntRange] _Layer13 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor13 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position13 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation13 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -1043,10 +1144,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator13 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter13 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode13 ("Mode", Int) = 0
-                        _TypewriterProgress13 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection13 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation13 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType13 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode13 ("Direction --{condition_showS:(_TypewriterType13==0)}", Int) = 0
+                        _TypewriterProgress13 ("Progress --{condition_showS:(_TypewriterType13==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection13 ("Offset --{condition_showS:(_TypewriterType13==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation13 ("Rotation --{condition_showS:(_TypewriterType13==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible13 ("Visible Count --{condition_showS:(_TypewriterType13==1)}", Int) = 0
+                        _BlockAnimating13 ("Animating Count --{condition_showS:(_TypewriterType13==1)}", Int) = 0
+                        _BlockProgress13 ("Progress --{condition_showS:(_TypewriterType13==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection13 ("Direction --{condition_showS:(_TypewriterType13==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation13 ("Rotation --{condition_showS:(_TypewriterType13==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay13 ("Char Delay --{condition_showS:(_TypewriterType13==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter13 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing13 ("Kerning & Tracking", Float) = 0
@@ -1084,13 +1192,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake13 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline13 ("Outline", Float) = 0
-                        _OutlineWidth13 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth13 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor13 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline13 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow13 ("Drop Shadow", Float) = 0
                         _ShadowIntensity13 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset13 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness13 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor13 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow13 ("Drop Shadow", Float) = 0
 
@@ -1106,7 +1215,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput14 ("Text", Int) = 0
                 [HideInInspector] _FontIndex14 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture14 ("Image", 2D) = "white" {}
-                [IntRange] _Layer14 ("Layer", Range(0, 31)) = 14
+                [IntRange] _Layer14 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor14 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position14 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation14 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -1117,10 +1226,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator14 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter14 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode14 ("Mode", Int) = 0
-                        _TypewriterProgress14 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection14 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation14 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType14 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode14 ("Direction --{condition_showS:(_TypewriterType14==0)}", Int) = 0
+                        _TypewriterProgress14 ("Progress --{condition_showS:(_TypewriterType14==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection14 ("Offset --{condition_showS:(_TypewriterType14==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation14 ("Rotation --{condition_showS:(_TypewriterType14==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible14 ("Visible Count --{condition_showS:(_TypewriterType14==1)}", Int) = 0
+                        _BlockAnimating14 ("Animating Count --{condition_showS:(_TypewriterType14==1)}", Int) = 0
+                        _BlockProgress14 ("Progress --{condition_showS:(_TypewriterType14==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection14 ("Direction --{condition_showS:(_TypewriterType14==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation14 ("Rotation --{condition_showS:(_TypewriterType14==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay14 ("Char Delay --{condition_showS:(_TypewriterType14==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter14 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing14 ("Kerning & Tracking", Float) = 0
@@ -1158,13 +1274,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake14 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline14 ("Outline", Float) = 0
-                        _OutlineWidth14 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth14 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor14 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline14 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow14 ("Drop Shadow", Float) = 0
                         _ShadowIntensity14 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset14 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness14 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor14 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow14 ("Drop Shadow", Float) = 0
 
@@ -1180,7 +1297,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput15 ("Text", Int) = 0
                 [HideInInspector] _FontIndex15 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture15 ("Image", 2D) = "white" {}
-                [IntRange] _Layer15 ("Layer", Range(0, 31)) = 15
+                [IntRange] _Layer15 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor15 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position15 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation15 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -1191,10 +1308,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator15 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter15 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode15 ("Mode", Int) = 0
-                        _TypewriterProgress15 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection15 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation15 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType15 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode15 ("Direction --{condition_showS:(_TypewriterType15==0)}", Int) = 0
+                        _TypewriterProgress15 ("Progress --{condition_showS:(_TypewriterType15==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection15 ("Offset --{condition_showS:(_TypewriterType15==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation15 ("Rotation --{condition_showS:(_TypewriterType15==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible15 ("Visible Count --{condition_showS:(_TypewriterType15==1)}", Int) = 0
+                        _BlockAnimating15 ("Animating Count --{condition_showS:(_TypewriterType15==1)}", Int) = 0
+                        _BlockProgress15 ("Progress --{condition_showS:(_TypewriterType15==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection15 ("Direction --{condition_showS:(_TypewriterType15==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation15 ("Rotation --{condition_showS:(_TypewriterType15==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay15 ("Char Delay --{condition_showS:(_TypewriterType15==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter15 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing15 ("Kerning & Tracking", Float) = 0
@@ -1232,13 +1356,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake15 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline15 ("Outline", Float) = 0
-                        _OutlineWidth15 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth15 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor15 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline15 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow15 ("Drop Shadow", Float) = 0
                         _ShadowIntensity15 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset15 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness15 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor15 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow15 ("Drop Shadow", Float) = 0
 
@@ -1254,7 +1379,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput16 ("Text", Int) = 0
                 [HideInInspector] _FontIndex16 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture16 ("Image", 2D) = "white" {}
-                [IntRange] _Layer16 ("Layer", Range(0, 31)) = 16
+                [IntRange] _Layer16 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor16 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position16 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation16 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -1265,10 +1390,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator16 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter16 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode16 ("Mode", Int) = 0
-                        _TypewriterProgress16 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection16 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation16 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType16 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode16 ("Direction --{condition_showS:(_TypewriterType16==0)}", Int) = 0
+                        _TypewriterProgress16 ("Progress --{condition_showS:(_TypewriterType16==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection16 ("Offset --{condition_showS:(_TypewriterType16==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation16 ("Rotation --{condition_showS:(_TypewriterType16==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible16 ("Visible Count --{condition_showS:(_TypewriterType16==1)}", Int) = 0
+                        _BlockAnimating16 ("Animating Count --{condition_showS:(_TypewriterType16==1)}", Int) = 0
+                        _BlockProgress16 ("Progress --{condition_showS:(_TypewriterType16==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection16 ("Direction --{condition_showS:(_TypewriterType16==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation16 ("Rotation --{condition_showS:(_TypewriterType16==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay16 ("Char Delay --{condition_showS:(_TypewriterType16==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter16 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing16 ("Kerning & Tracking", Float) = 0
@@ -1306,13 +1438,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake16 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline16 ("Outline", Float) = 0
-                        _OutlineWidth16 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth16 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor16 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline16 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow16 ("Drop Shadow", Float) = 0
                         _ShadowIntensity16 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset16 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness16 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor16 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow16 ("Drop Shadow", Float) = 0
 
@@ -1328,7 +1461,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput17 ("Text", Int) = 0
                 [HideInInspector] _FontIndex17 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture17 ("Image", 2D) = "white" {}
-                [IntRange] _Layer17 ("Layer", Range(0, 31)) = 17
+                [IntRange] _Layer17 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor17 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position17 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation17 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -1339,10 +1472,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator17 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter17 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode17 ("Mode", Int) = 0
-                        _TypewriterProgress17 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection17 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation17 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType17 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode17 ("Direction --{condition_showS:(_TypewriterType17==0)}", Int) = 0
+                        _TypewriterProgress17 ("Progress --{condition_showS:(_TypewriterType17==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection17 ("Offset --{condition_showS:(_TypewriterType17==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation17 ("Rotation --{condition_showS:(_TypewriterType17==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible17 ("Visible Count --{condition_showS:(_TypewriterType17==1)}", Int) = 0
+                        _BlockAnimating17 ("Animating Count --{condition_showS:(_TypewriterType17==1)}", Int) = 0
+                        _BlockProgress17 ("Progress --{condition_showS:(_TypewriterType17==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection17 ("Direction --{condition_showS:(_TypewriterType17==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation17 ("Rotation --{condition_showS:(_TypewriterType17==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay17 ("Char Delay --{condition_showS:(_TypewriterType17==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter17 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing17 ("Kerning & Tracking", Float) = 0
@@ -1380,13 +1520,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake17 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline17 ("Outline", Float) = 0
-                        _OutlineWidth17 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth17 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor17 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline17 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow17 ("Drop Shadow", Float) = 0
                         _ShadowIntensity17 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset17 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness17 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor17 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow17 ("Drop Shadow", Float) = 0
 
@@ -1402,7 +1543,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput18 ("Text", Int) = 0
                 [HideInInspector] _FontIndex18 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture18 ("Image", 2D) = "white" {}
-                [IntRange] _Layer18 ("Layer", Range(0, 31)) = 18
+                [IntRange] _Layer18 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor18 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position18 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation18 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -1413,10 +1554,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator18 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter18 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode18 ("Mode", Int) = 0
-                        _TypewriterProgress18 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection18 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation18 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType18 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode18 ("Direction --{condition_showS:(_TypewriterType18==0)}", Int) = 0
+                        _TypewriterProgress18 ("Progress --{condition_showS:(_TypewriterType18==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection18 ("Offset --{condition_showS:(_TypewriterType18==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation18 ("Rotation --{condition_showS:(_TypewriterType18==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible18 ("Visible Count --{condition_showS:(_TypewriterType18==1)}", Int) = 0
+                        _BlockAnimating18 ("Animating Count --{condition_showS:(_TypewriterType18==1)}", Int) = 0
+                        _BlockProgress18 ("Progress --{condition_showS:(_TypewriterType18==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection18 ("Direction --{condition_showS:(_TypewriterType18==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation18 ("Rotation --{condition_showS:(_TypewriterType18==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay18 ("Char Delay --{condition_showS:(_TypewriterType18==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter18 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing18 ("Kerning & Tracking", Float) = 0
@@ -1454,13 +1602,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake18 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline18 ("Outline", Float) = 0
-                        _OutlineWidth18 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth18 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor18 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline18 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow18 ("Drop Shadow", Float) = 0
                         _ShadowIntensity18 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset18 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness18 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor18 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow18 ("Drop Shadow", Float) = 0
 
@@ -1476,7 +1625,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput19 ("Text", Int) = 0
                 [HideInInspector] _FontIndex19 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture19 ("Image", 2D) = "white" {}
-                [IntRange] _Layer19 ("Layer", Range(0, 31)) = 19
+                [IntRange] _Layer19 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor19 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position19 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation19 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -1487,10 +1636,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator19 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter19 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode19 ("Mode", Int) = 0
-                        _TypewriterProgress19 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection19 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation19 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType19 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode19 ("Direction --{condition_showS:(_TypewriterType19==0)}", Int) = 0
+                        _TypewriterProgress19 ("Progress --{condition_showS:(_TypewriterType19==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection19 ("Offset --{condition_showS:(_TypewriterType19==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation19 ("Rotation --{condition_showS:(_TypewriterType19==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible19 ("Visible Count --{condition_showS:(_TypewriterType19==1)}", Int) = 0
+                        _BlockAnimating19 ("Animating Count --{condition_showS:(_TypewriterType19==1)}", Int) = 0
+                        _BlockProgress19 ("Progress --{condition_showS:(_TypewriterType19==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection19 ("Direction --{condition_showS:(_TypewriterType19==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation19 ("Rotation --{condition_showS:(_TypewriterType19==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay19 ("Char Delay --{condition_showS:(_TypewriterType19==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter19 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing19 ("Kerning & Tracking", Float) = 0
@@ -1528,13 +1684,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake19 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline19 ("Outline", Float) = 0
-                        _OutlineWidth19 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth19 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor19 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline19 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow19 ("Drop Shadow", Float) = 0
                         _ShadowIntensity19 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset19 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness19 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor19 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow19 ("Drop Shadow", Float) = 0
 
@@ -1550,7 +1707,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput20 ("Text", Int) = 0
                 [HideInInspector] _FontIndex20 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture20 ("Image", 2D) = "white" {}
-                [IntRange] _Layer20 ("Layer", Range(0, 31)) = 20
+                [IntRange] _Layer20 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor20 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position20 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation20 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -1561,10 +1718,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator20 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter20 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode20 ("Mode", Int) = 0
-                        _TypewriterProgress20 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection20 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation20 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType20 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode20 ("Direction --{condition_showS:(_TypewriterType20==0)}", Int) = 0
+                        _TypewriterProgress20 ("Progress --{condition_showS:(_TypewriterType20==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection20 ("Offset --{condition_showS:(_TypewriterType20==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation20 ("Rotation --{condition_showS:(_TypewriterType20==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible20 ("Visible Count --{condition_showS:(_TypewriterType20==1)}", Int) = 0
+                        _BlockAnimating20 ("Animating Count --{condition_showS:(_TypewriterType20==1)}", Int) = 0
+                        _BlockProgress20 ("Progress --{condition_showS:(_TypewriterType20==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection20 ("Direction --{condition_showS:(_TypewriterType20==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation20 ("Rotation --{condition_showS:(_TypewriterType20==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay20 ("Char Delay --{condition_showS:(_TypewriterType20==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter20 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing20 ("Kerning & Tracking", Float) = 0
@@ -1602,13 +1766,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake20 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline20 ("Outline", Float) = 0
-                        _OutlineWidth20 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth20 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor20 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline20 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow20 ("Drop Shadow", Float) = 0
                         _ShadowIntensity20 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset20 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness20 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor20 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow20 ("Drop Shadow", Float) = 0
 
@@ -1624,7 +1789,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput21 ("Text", Int) = 0
                 [HideInInspector] _FontIndex21 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture21 ("Image", 2D) = "white" {}
-                [IntRange] _Layer21 ("Layer", Range(0, 31)) = 21
+                [IntRange] _Layer21 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor21 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position21 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation21 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -1635,10 +1800,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator21 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter21 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode21 ("Mode", Int) = 0
-                        _TypewriterProgress21 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection21 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation21 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType21 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode21 ("Direction --{condition_showS:(_TypewriterType21==0)}", Int) = 0
+                        _TypewriterProgress21 ("Progress --{condition_showS:(_TypewriterType21==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection21 ("Offset --{condition_showS:(_TypewriterType21==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation21 ("Rotation --{condition_showS:(_TypewriterType21==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible21 ("Visible Count --{condition_showS:(_TypewriterType21==1)}", Int) = 0
+                        _BlockAnimating21 ("Animating Count --{condition_showS:(_TypewriterType21==1)}", Int) = 0
+                        _BlockProgress21 ("Progress --{condition_showS:(_TypewriterType21==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection21 ("Direction --{condition_showS:(_TypewriterType21==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation21 ("Rotation --{condition_showS:(_TypewriterType21==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay21 ("Char Delay --{condition_showS:(_TypewriterType21==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter21 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing21 ("Kerning & Tracking", Float) = 0
@@ -1676,13 +1848,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake21 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline21 ("Outline", Float) = 0
-                        _OutlineWidth21 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth21 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor21 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline21 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow21 ("Drop Shadow", Float) = 0
                         _ShadowIntensity21 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset21 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness21 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor21 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow21 ("Drop Shadow", Float) = 0
 
@@ -1698,7 +1871,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput22 ("Text", Int) = 0
                 [HideInInspector] _FontIndex22 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture22 ("Image", 2D) = "white" {}
-                [IntRange] _Layer22 ("Layer", Range(0, 31)) = 22
+                [IntRange] _Layer22 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor22 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position22 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation22 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -1709,10 +1882,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator22 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter22 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode22 ("Mode", Int) = 0
-                        _TypewriterProgress22 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection22 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation22 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType22 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode22 ("Direction --{condition_showS:(_TypewriterType22==0)}", Int) = 0
+                        _TypewriterProgress22 ("Progress --{condition_showS:(_TypewriterType22==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection22 ("Offset --{condition_showS:(_TypewriterType22==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation22 ("Rotation --{condition_showS:(_TypewriterType22==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible22 ("Visible Count --{condition_showS:(_TypewriterType22==1)}", Int) = 0
+                        _BlockAnimating22 ("Animating Count --{condition_showS:(_TypewriterType22==1)}", Int) = 0
+                        _BlockProgress22 ("Progress --{condition_showS:(_TypewriterType22==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection22 ("Direction --{condition_showS:(_TypewriterType22==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation22 ("Rotation --{condition_showS:(_TypewriterType22==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay22 ("Char Delay --{condition_showS:(_TypewriterType22==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter22 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing22 ("Kerning & Tracking", Float) = 0
@@ -1750,13 +1930,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake22 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline22 ("Outline", Float) = 0
-                        _OutlineWidth22 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth22 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor22 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline22 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow22 ("Drop Shadow", Float) = 0
                         _ShadowIntensity22 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset22 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness22 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor22 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow22 ("Drop Shadow", Float) = 0
 
@@ -1772,7 +1953,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput23 ("Text", Int) = 0
                 [HideInInspector] _FontIndex23 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture23 ("Image", 2D) = "white" {}
-                [IntRange] _Layer23 ("Layer", Range(0, 31)) = 23
+                [IntRange] _Layer23 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor23 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position23 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation23 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -1783,10 +1964,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator23 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter23 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode23 ("Mode", Int) = 0
-                        _TypewriterProgress23 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection23 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation23 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType23 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode23 ("Direction --{condition_showS:(_TypewriterType23==0)}", Int) = 0
+                        _TypewriterProgress23 ("Progress --{condition_showS:(_TypewriterType23==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection23 ("Offset --{condition_showS:(_TypewriterType23==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation23 ("Rotation --{condition_showS:(_TypewriterType23==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible23 ("Visible Count --{condition_showS:(_TypewriterType23==1)}", Int) = 0
+                        _BlockAnimating23 ("Animating Count --{condition_showS:(_TypewriterType23==1)}", Int) = 0
+                        _BlockProgress23 ("Progress --{condition_showS:(_TypewriterType23==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection23 ("Direction --{condition_showS:(_TypewriterType23==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation23 ("Rotation --{condition_showS:(_TypewriterType23==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay23 ("Char Delay --{condition_showS:(_TypewriterType23==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter23 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing23 ("Kerning & Tracking", Float) = 0
@@ -1824,13 +2012,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake23 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline23 ("Outline", Float) = 0
-                        _OutlineWidth23 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth23 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor23 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline23 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow23 ("Drop Shadow", Float) = 0
                         _ShadowIntensity23 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset23 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness23 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor23 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow23 ("Drop Shadow", Float) = 0
 
@@ -1846,7 +2035,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput24 ("Text", Int) = 0
                 [HideInInspector] _FontIndex24 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture24 ("Image", 2D) = "white" {}
-                [IntRange] _Layer24 ("Layer", Range(0, 31)) = 24
+                [IntRange] _Layer24 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor24 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position24 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation24 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -1857,10 +2046,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator24 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter24 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode24 ("Mode", Int) = 0
-                        _TypewriterProgress24 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection24 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation24 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType24 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode24 ("Direction --{condition_showS:(_TypewriterType24==0)}", Int) = 0
+                        _TypewriterProgress24 ("Progress --{condition_showS:(_TypewriterType24==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection24 ("Offset --{condition_showS:(_TypewriterType24==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation24 ("Rotation --{condition_showS:(_TypewriterType24==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible24 ("Visible Count --{condition_showS:(_TypewriterType24==1)}", Int) = 0
+                        _BlockAnimating24 ("Animating Count --{condition_showS:(_TypewriterType24==1)}", Int) = 0
+                        _BlockProgress24 ("Progress --{condition_showS:(_TypewriterType24==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection24 ("Direction --{condition_showS:(_TypewriterType24==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation24 ("Rotation --{condition_showS:(_TypewriterType24==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay24 ("Char Delay --{condition_showS:(_TypewriterType24==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter24 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing24 ("Kerning & Tracking", Float) = 0
@@ -1898,13 +2094,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake24 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline24 ("Outline", Float) = 0
-                        _OutlineWidth24 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth24 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor24 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline24 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow24 ("Drop Shadow", Float) = 0
                         _ShadowIntensity24 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset24 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness24 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor24 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow24 ("Drop Shadow", Float) = 0
 
@@ -1920,7 +2117,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput25 ("Text", Int) = 0
                 [HideInInspector] _FontIndex25 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture25 ("Image", 2D) = "white" {}
-                [IntRange] _Layer25 ("Layer", Range(0, 31)) = 25
+                [IntRange] _Layer25 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor25 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position25 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation25 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -1931,10 +2128,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator25 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter25 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode25 ("Mode", Int) = 0
-                        _TypewriterProgress25 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection25 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation25 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType25 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode25 ("Direction --{condition_showS:(_TypewriterType25==0)}", Int) = 0
+                        _TypewriterProgress25 ("Progress --{condition_showS:(_TypewriterType25==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection25 ("Offset --{condition_showS:(_TypewriterType25==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation25 ("Rotation --{condition_showS:(_TypewriterType25==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible25 ("Visible Count --{condition_showS:(_TypewriterType25==1)}", Int) = 0
+                        _BlockAnimating25 ("Animating Count --{condition_showS:(_TypewriterType25==1)}", Int) = 0
+                        _BlockProgress25 ("Progress --{condition_showS:(_TypewriterType25==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection25 ("Direction --{condition_showS:(_TypewriterType25==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation25 ("Rotation --{condition_showS:(_TypewriterType25==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay25 ("Char Delay --{condition_showS:(_TypewriterType25==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter25 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing25 ("Kerning & Tracking", Float) = 0
@@ -1972,13 +2176,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake25 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline25 ("Outline", Float) = 0
-                        _OutlineWidth25 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth25 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor25 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline25 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow25 ("Drop Shadow", Float) = 0
                         _ShadowIntensity25 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset25 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness25 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor25 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow25 ("Drop Shadow", Float) = 0
 
@@ -1994,7 +2199,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput26 ("Text", Int) = 0
                 [HideInInspector] _FontIndex26 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture26 ("Image", 2D) = "white" {}
-                [IntRange] _Layer26 ("Layer", Range(0, 31)) = 26
+                [IntRange] _Layer26 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor26 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position26 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation26 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -2005,10 +2210,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator26 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter26 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode26 ("Mode", Int) = 0
-                        _TypewriterProgress26 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection26 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation26 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType26 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode26 ("Direction --{condition_showS:(_TypewriterType26==0)}", Int) = 0
+                        _TypewriterProgress26 ("Progress --{condition_showS:(_TypewriterType26==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection26 ("Offset --{condition_showS:(_TypewriterType26==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation26 ("Rotation --{condition_showS:(_TypewriterType26==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible26 ("Visible Count --{condition_showS:(_TypewriterType26==1)}", Int) = 0
+                        _BlockAnimating26 ("Animating Count --{condition_showS:(_TypewriterType26==1)}", Int) = 0
+                        _BlockProgress26 ("Progress --{condition_showS:(_TypewriterType26==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection26 ("Direction --{condition_showS:(_TypewriterType26==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation26 ("Rotation --{condition_showS:(_TypewriterType26==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay26 ("Char Delay --{condition_showS:(_TypewriterType26==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter26 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing26 ("Kerning & Tracking", Float) = 0
@@ -2046,13 +2258,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake26 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline26 ("Outline", Float) = 0
-                        _OutlineWidth26 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth26 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor26 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline26 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow26 ("Drop Shadow", Float) = 0
                         _ShadowIntensity26 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset26 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness26 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor26 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow26 ("Drop Shadow", Float) = 0
 
@@ -2068,7 +2281,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput27 ("Text", Int) = 0
                 [HideInInspector] _FontIndex27 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture27 ("Image", 2D) = "white" {}
-                [IntRange] _Layer27 ("Layer", Range(0, 31)) = 27
+                [IntRange] _Layer27 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor27 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position27 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation27 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -2079,10 +2292,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator27 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter27 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode27 ("Mode", Int) = 0
-                        _TypewriterProgress27 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection27 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation27 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType27 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode27 ("Direction --{condition_showS:(_TypewriterType27==0)}", Int) = 0
+                        _TypewriterProgress27 ("Progress --{condition_showS:(_TypewriterType27==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection27 ("Offset --{condition_showS:(_TypewriterType27==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation27 ("Rotation --{condition_showS:(_TypewriterType27==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible27 ("Visible Count --{condition_showS:(_TypewriterType27==1)}", Int) = 0
+                        _BlockAnimating27 ("Animating Count --{condition_showS:(_TypewriterType27==1)}", Int) = 0
+                        _BlockProgress27 ("Progress --{condition_showS:(_TypewriterType27==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection27 ("Direction --{condition_showS:(_TypewriterType27==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation27 ("Rotation --{condition_showS:(_TypewriterType27==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay27 ("Char Delay --{condition_showS:(_TypewriterType27==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter27 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing27 ("Kerning & Tracking", Float) = 0
@@ -2120,13 +2340,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake27 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline27 ("Outline", Float) = 0
-                        _OutlineWidth27 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth27 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor27 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline27 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow27 ("Drop Shadow", Float) = 0
                         _ShadowIntensity27 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset27 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness27 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor27 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow27 ("Drop Shadow", Float) = 0
 
@@ -2142,7 +2363,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput28 ("Text", Int) = 0
                 [HideInInspector] _FontIndex28 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture28 ("Image", 2D) = "white" {}
-                [IntRange] _Layer28 ("Layer", Range(0, 31)) = 28
+                [IntRange] _Layer28 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor28 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position28 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation28 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -2153,10 +2374,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator28 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter28 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode28 ("Mode", Int) = 0
-                        _TypewriterProgress28 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection28 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation28 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType28 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode28 ("Direction --{condition_showS:(_TypewriterType28==0)}", Int) = 0
+                        _TypewriterProgress28 ("Progress --{condition_showS:(_TypewriterType28==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection28 ("Offset --{condition_showS:(_TypewriterType28==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation28 ("Rotation --{condition_showS:(_TypewriterType28==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible28 ("Visible Count --{condition_showS:(_TypewriterType28==1)}", Int) = 0
+                        _BlockAnimating28 ("Animating Count --{condition_showS:(_TypewriterType28==1)}", Int) = 0
+                        _BlockProgress28 ("Progress --{condition_showS:(_TypewriterType28==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection28 ("Direction --{condition_showS:(_TypewriterType28==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation28 ("Rotation --{condition_showS:(_TypewriterType28==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay28 ("Char Delay --{condition_showS:(_TypewriterType28==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter28 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing28 ("Kerning & Tracking", Float) = 0
@@ -2194,13 +2422,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake28 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline28 ("Outline", Float) = 0
-                        _OutlineWidth28 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth28 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor28 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline28 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow28 ("Drop Shadow", Float) = 0
                         _ShadowIntensity28 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset28 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness28 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor28 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow28 ("Drop Shadow", Float) = 0
 
@@ -2216,7 +2445,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput29 ("Text", Int) = 0
                 [HideInInspector] _FontIndex29 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture29 ("Image", 2D) = "white" {}
-                [IntRange] _Layer29 ("Layer", Range(0, 31)) = 29
+                [IntRange] _Layer29 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor29 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position29 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation29 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -2227,10 +2456,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator29 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter29 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode29 ("Mode", Int) = 0
-                        _TypewriterProgress29 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection29 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation29 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType29 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode29 ("Direction --{condition_showS:(_TypewriterType29==0)}", Int) = 0
+                        _TypewriterProgress29 ("Progress --{condition_showS:(_TypewriterType29==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection29 ("Offset --{condition_showS:(_TypewriterType29==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation29 ("Rotation --{condition_showS:(_TypewriterType29==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible29 ("Visible Count --{condition_showS:(_TypewriterType29==1)}", Int) = 0
+                        _BlockAnimating29 ("Animating Count --{condition_showS:(_TypewriterType29==1)}", Int) = 0
+                        _BlockProgress29 ("Progress --{condition_showS:(_TypewriterType29==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection29 ("Direction --{condition_showS:(_TypewriterType29==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation29 ("Rotation --{condition_showS:(_TypewriterType29==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay29 ("Char Delay --{condition_showS:(_TypewriterType29==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter29 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing29 ("Kerning & Tracking", Float) = 0
@@ -2268,13 +2504,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake29 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline29 ("Outline", Float) = 0
-                        _OutlineWidth29 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth29 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor29 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline29 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow29 ("Drop Shadow", Float) = 0
                         _ShadowIntensity29 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset29 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness29 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor29 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow29 ("Drop Shadow", Float) = 0
 
@@ -2290,7 +2527,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput30 ("Text", Int) = 0
                 [HideInInspector] _FontIndex30 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture30 ("Image", 2D) = "white" {}
-                [IntRange] _Layer30 ("Layer", Range(0, 31)) = 30
+                [IntRange] _Layer30 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor30 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position30 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation30 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -2301,10 +2538,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator30 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter30 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode30 ("Mode", Int) = 0
-                        _TypewriterProgress30 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection30 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation30 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType30 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode30 ("Direction --{condition_showS:(_TypewriterType30==0)}", Int) = 0
+                        _TypewriterProgress30 ("Progress --{condition_showS:(_TypewriterType30==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection30 ("Offset --{condition_showS:(_TypewriterType30==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation30 ("Rotation --{condition_showS:(_TypewriterType30==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible30 ("Visible Count --{condition_showS:(_TypewriterType30==1)}", Int) = 0
+                        _BlockAnimating30 ("Animating Count --{condition_showS:(_TypewriterType30==1)}", Int) = 0
+                        _BlockProgress30 ("Progress --{condition_showS:(_TypewriterType30==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection30 ("Direction --{condition_showS:(_TypewriterType30==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation30 ("Rotation --{condition_showS:(_TypewriterType30==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay30 ("Char Delay --{condition_showS:(_TypewriterType30==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter30 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing30 ("Kerning & Tracking", Float) = 0
@@ -2342,13 +2586,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake30 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline30 ("Outline", Float) = 0
-                        _OutlineWidth30 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth30 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor30 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline30 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow30 ("Drop Shadow", Float) = 0
                         _ShadowIntensity30 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset30 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness30 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor30 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow30 ("Drop Shadow", Float) = 0
 
@@ -2364,7 +2609,7 @@ Shader "GekikaraStore/Typography"
                 [Content] _TextInput31 ("Text", Int) = 0
                 [HideInInspector] _FontIndex31 ("Font", Int) = 0
                 [HideInInspector][ImageTexture] _ImageTexture31 ("Image", 2D) = "white" {}
-                [IntRange] _Layer31 ("Layer", Range(0, 31)) = 31
+                [IntRange] _Layer31 ("Layer", Range(0, 31)) = 0
                 [HDR] _TextColor31 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _Position31 ("Position", Vector) = (0, 0, 50, 0)
                 [Vector3] _Rotation31 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -2375,10 +2620,17 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_animator31 ("Animator", Float) = 0
 
                     [HideInInspector] m_start_typewriter31 ("Typewriter", Float) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode31 ("Mode", Int) = 0
-                        _TypewriterProgress31 ("Progress", Range(0, 1)) = 1
-                        [Vector3] _TypewriterDirection31 ("Direction", Vector) = (0, 0, 0, 0)
-                        [Vector3] _TypewriterRotation31 ("Rotation", Vector) = (0, 0, 0, 0)
+                        [Enum(Sequential, 0, Block, 1)] _TypewriterType31 ("Type", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode31 ("Direction --{condition_showS:(_TypewriterType31==0)}", Int) = 0
+                        _TypewriterProgress31 ("Progress --{condition_showS:(_TypewriterType31==0)}", Range(0, 1)) = 1
+                        [Vector3] _TypewriterDirection31 ("Offset --{condition_showS:(_TypewriterType31==0)}", Vector) = (0, 0, 0, 0)
+                        [Vector3] _TypewriterRotation31 ("Rotation --{condition_showS:(_TypewriterType31==0)}", Vector) = (0, 0, 0, 0)
+                        _BlockVisible31 ("Visible Count --{condition_showS:(_TypewriterType31==1)}", Int) = 0
+                        _BlockAnimating31 ("Animating Count --{condition_showS:(_TypewriterType31==1)}", Int) = 0
+                        _BlockProgress31 ("Progress --{condition_showS:(_TypewriterType31==1)}", Range(0, 1)) = 0
+                        [Vector3] _BlockDirection31 ("Direction --{condition_showS:(_TypewriterType31==1)}", Vector) = (0, -1, 0, 0)
+                        [Vector3] _BlockRotation31 ("Rotation --{condition_showS:(_TypewriterType31==1)}", Vector) = (0, 0, 0, 0)
+                        _BlockCharDelay31 ("Char Delay --{condition_showS:(_TypewriterType31==1)}", Range(0, 1)) = 0.3
                     [HideInInspector] m_end_typewriter31 ("Typewriter", Float) = 0
 
                     [HideInInspector] m_start_spacing31 ("Kerning & Tracking", Float) = 0
@@ -2416,13 +2668,14 @@ Shader "GekikaraStore/Typography"
                     [HideInInspector] m_end_shake31 ("Shake", Float) = 0
 
                     [HideInInspector] m_start_outline31 ("Outline", Float) = 0
-                        _OutlineWidth31 ("Width", Range(0, 0.1)) = 0
+                        _OutlineWidth31 ("Width", Range(0, 1)) = 0
                         [HDR]_OutlineColor31 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline31 ("Outline", Float) = 0
 
                     [HideInInspector] m_start_shadow31 ("Drop Shadow", Float) = 0
                         _ShadowIntensity31 ("Intensity", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset31 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        _ShadowSoftness31 ("Softness", Range(0, 1)) = 0
                         [HDR]_ShadowColor31 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow31 ("Drop Shadow", Float) = 0
 
@@ -2433,6 +2686,7 @@ Shader "GekikaraStore/Typography"
         [HideInInspector] m_end_text_setting ("Text Settings", Float) = 0
 
         [HideInInspector] m_start_rendering_settings ("Rendering Settings", Float) = 0
+            _AlphaCutoff ("Alpha Cutoff", Range(0, 1)) = 0.01
             _FadeMin ("Fade Min", Float) = 0
             _FadeMax ("Fade Max", Float) = 20
             [ThryWideEnum(Opaque, 0, Transparent, 1, Overlay, 2)] _RenderType ("Render Type", Int) = 1
@@ -2442,12 +2696,18 @@ Shader "GekikaraStore/Typography"
             [Enum(UnityEngine.Rendering.BlendMode)] _DestinationBlend ("Destination Blend", Float) = 10
             [Enum(Off, 0, On, 1)] _ZWrite ("ZWrite", Int) = 0
 
-            [HideInInspector] m_start_debug ("Debug", Float) = 0
-                [HDR] _PivotColor ("Pivot Color", Color) = (1, 0, 0, 1)
+            [HideInInspector] m_start_debug_settings ("Debug", Float) = 0
                 _PivotSize ("Pivot Size", Range(0, 1)) = 0
-                [HDR] _BoundsColor ("Bounds Color", Color) = (0, 1, 0, 1)
+                [HDR]_PivotColor ("Pivot Color", Color) = (0, 1, 0, 1)
                 _BoundsWidth ("Bounds Width", Range(0, 1)) = 0
-            [HideInInspector] m_end_debug ("Debug", Float) = 0
+                [HDR]_BoundsColor ("Bounds Color", Color) = (1, 0, 0, 1)
+            [HideInInspector] m_end_debug_settings ("Debug", Float) = 0
+
+            [HideInInspector] m_start_internal_settings ("Internal", Float) = 0
+                [HideInInspector] _FontTextureArray ("Font Texture Array", 2DArray) = "" {}
+                [HideInInspector] _DataTexture ("Data Texture", 2D) = "" {}
+                [HideInInspector] _AtlasSize ("Atlas Size", float) = 32.0
+            [HideInInspector] m_end_internal_settings ("Internal", Float) = 0
         [HideInInspector] m_end_rendering_settings ("Rendering Settings", Float) = 0
     }
 
@@ -2499,6 +2759,7 @@ Shader "GekikaraStore/Typography"
             #define TEXTURE_DATA_EPSILON 0.5
             #define ATLAS_UV_INNER_SCALE 0.9375
             #define ATLAS_UV_MARGIN 0.03125
+            #define ATLAS_TEXTURE_SIZE 4096.0
             #define MSDF_FIXED_DYNAMIC_RANGE 2.0
             #define EPSILON 1e-6
             #define DEG2RAD 0.017453292519943295
@@ -2506,6 +2767,10 @@ Shader "GekikaraStore/Typography"
             #define CM_TO_METER_SCALE 0.01
             #define TEXT_GLYPH_SCALE 0.1
             #define TEXT_COUNT 32
+
+            // Depth range constants for screen/world space separation
+            #define SCREEN_SPACE_DEPTH_MAX 0.05
+            #define WORLD_SPACE_DEPTH_MIN 0.05
 
             #define TYPEWRITER_LTR 0
             #define TYPEWRITER_RTL 1
@@ -2539,7 +2804,8 @@ Shader "GekikaraStore/Typography"
             float4 _CameraRotation;
             float _CameraFOV;
 
-            // Fade
+            // Fade and Alpha Cutoff
+            float _AlphaCutoff;
             float _FadeMin;
             float _FadeMax;
 
@@ -2566,10 +2832,17 @@ Shader "GekikaraStore/Typography"
                 float4 _Scale##N; \
                 float4 _Pivot##N; \
                 int _FontIndex##N; \
+                int _TypewriterType##N; \
                 int _TypewriterMode##N; \
                 float _TypewriterProgress##N; \
                 float4 _TypewriterDirection##N; \
                 float4 _TypewriterRotation##N; \
+                int _BlockVisible##N; \
+                int _BlockAnimating##N; \
+                float _BlockProgress##N; \
+                float4 _BlockDirection##N; \
+                float4 _BlockRotation##N; \
+                float _BlockCharDelay##N; \
                 float _Spacing##N; \
                 float4 _CurveDataX##N##_0; \
                 float4 _CurveDataX##N##_1; \
@@ -2594,6 +2867,7 @@ Shader "GekikaraStore/Typography"
                 float4 _OutlineColor##N; \
                 float _ShadowIntensity##N; \
                 float4 _ShadowOffset##N; \
+                float _ShadowSoftness##N; \
                 float4 _ShadowColor##N;
 
             // Declare all text variables
@@ -2657,14 +2931,15 @@ Shader "GekikaraStore/Typography"
                 nointerpolation float2 shake_offset : TEXCOORD4;
                 nointerpolation float fade : TEXCOORD5;
                 nointerpolation float4 text_color : TEXCOORD6;
-                nointerpolation float4 outline : TEXCOORD7;     // width, color.rgb (alpha in outline_alpha)
-                nointerpolation float4 shadow : TEXCOORD8;      // intensity, offset.xy, outline_alpha
-                nointerpolation float3 shadow_color : TEXCOORD9;
-                nointerpolation uint mode : TEXCOORD10;         // 0=Text, 1=Image, 2=Pivot
+                nointerpolation float4 outline : TEXCOORD7;     // width, color.rgb
+                nointerpolation float4 shadow : TEXCOORD8;      // intensity, offset.xy, softness
+                nointerpolation float4 shadow_color : TEXCOORD9; // color.rgb, outline_alpha
+                nointerpolation uint mode : TEXCOORD10;         // 0=Text, 1=Image, 2=Vertical, 3=Pivot
                 nointerpolation uint text_id : TEXCOORD11;      // for Image mode texture selection
+                nointerpolation float block_fade : TEXCOORD12;  // Block animation fade (1.0 = visible, 0.0 = hidden)
                 #if defined(UNITY_EDITOR)
-                nointerpolation float4 debug_pivot : TEXCOORD12;  // pivot_size, pivot_color.rgb
-                nointerpolation float4 debug_bounds : TEXCOORD13; // bounds_width, bounds_color.rgb
+                nointerpolation float4 debug_pivot : TEXCOORD13;  // pivot_size, pivot_color.rgb
+                nointerpolation float4 debug_bounds : TEXCOORD14; // bounds_width, bounds_color.rgb
                 #endif
                 UNITY_VERTEX_OUTPUT_STEREO
             };
@@ -2676,6 +2951,19 @@ Shader "GekikaraStore/Typography"
             inline half median(half3 rgb)
             {
                 return max(min(rgb.r, rgb.g), min(max(rgb.r, rgb.g), rgb.b));
+            }
+
+            // Linear step function (Chlumsky's method for screen-independent edges)
+            inline float linearStep(float a, float b, float x)
+            {
+                return saturate((x - a) / (b - a));
+            }
+
+            // IQ-style distance falloff for soft shadow (no asymptotic residue)
+            inline float distanceFalloff(float sd, float size)
+            {
+                float t = saturate((sd + size) / size);
+                return t * t;
             }
 
             float2 calculate_atlas_uv(uint char_index, float2 glyph_uv, float atlas_size)
@@ -2800,7 +3088,7 @@ Shader "GekikaraStore/Typography"
                 {
                     float half_display = display_count * 0.5;
                     float dist_from_center = abs(char_pos - center_offset);
-                    distance_to_edge = half_display - dist_from_center + 0.5;
+                    distance_to_edge = half_display - dist_from_center;
                 }
                 return 1.0 - saturate(distance_to_edge);
             }
@@ -2829,6 +3117,37 @@ Shader "GekikaraStore/Typography"
                 #endif
             }
 
+            // Screen space projection with layer-based depth (always in front of world space)
+            float4 project_screen_space(float2 screen_xy, float layer)
+            {
+                // Layer-based depth: layer 0 = closest, layer 31 = furthest within screen space range
+                float layer_depth = (layer + 0.5) / 32.0 * SCREEN_SPACE_DEPTH_MAX;
+                #if defined(UNITY_REVERSED_Z)
+                    // Reversed-Z: Near=1, Far=0 - screen space uses 1.0~0.95 range
+                    float depth = 1.0 - layer_depth;
+                #else
+                    // Standard Z: Near=0, Far=1 - screen space uses 0.0~0.05 range
+                    float depth = layer_depth;
+                #endif
+                return float4(screen_xy, depth, 1.0);
+            }
+
+            // World space projection with depth remapped behind screen space
+            float4 project_world_space(float4 local_pos)
+            {
+                float4 clip = UnityObjectToClipPos(local_pos);
+                float ndc_z = clip.z / clip.w;
+                #if defined(UNITY_REVERSED_Z)
+                    // Reversed-Z: remap from [1,0] to [0.95, 0] (behind screen space)
+                    float remapped_z = ndc_z * (1.0 - WORLD_SPACE_DEPTH_MIN);
+                #else
+                    // Standard Z: remap from [0,1] to [0.05, 1.0] (behind screen space)
+                    float remapped_z = lerp(WORLD_SPACE_DEPTH_MIN, 1.0, ndc_z);
+                #endif
+                return float4(clip.xy, remapped_z * clip.w, clip.w);
+            }
+
+            // Custom camera projection for screen space (calculates screen XY from world position)
             float4 project_custom_camera(float3 world_pos, float3 cam_pos, float3x3 cam_rot, float tan_half_fov, float aspect, int layer)
             {
                 float3 relative = world_pos - cam_pos;
@@ -2839,9 +3158,14 @@ Shader "GekikaraStore/Typography"
                 float2 clip;
                 clip.x = view_pos.x / (tan_half_fov * aspect);
                 clip.y = view_pos.y / tan_half_fov;
-                // Layer-based pseudo depth (reversed-Z): layer 0 = back (depth 0.0), layer 31 = front (depth 1.0)
-                float pseudo_depth = (layer + 0.5) / 32.0;
-                return float4(clip.x, clip.y, pseudo_depth * view_pos.z, view_pos.z);
+                // Layer-based depth within screen space range
+                float layer_depth = (layer + 0.5) / 32.0 * SCREEN_SPACE_DEPTH_MAX;
+                #if defined(UNITY_REVERSED_Z)
+                    float depth = 1.0 - layer_depth;
+                #else
+                    float depth = layer_depth;
+                #endif
+                return float4(clip.x, clip.y, depth * view_pos.z, view_pos.z);
             }
 
             // ============================================================================
@@ -2880,8 +3204,27 @@ Shader "GekikaraStore/Typography"
                     char_count = (uint)(meta_pixel.r * UINT16_MAX + TEXTURE_DATA_EPSILON); \
                     uint data_font_index = (uint)(meta_pixel.g * UINT16_MAX + TEXTURE_DATA_EPSILON); \
                     if ((uint)char_pos >= char_count) { o.vertex = float4(0,0,-1,1); return o; } \
-                    anim_factor = calculate_typewriter_visibility(char_pos, char_count, _TypewriterMode##N, _TypewriterProgress##N); \
-                    if (anim_factor >= 1.0 - EPSILON) { o.vertex = float4(0,0,-1,1); return o; } \
+                    /* Typewriter Type: 0=Sequential, 1=Block */ \
+                    if (_TypewriterType##N == 0) { \
+                        /* Sequential mode */ \
+                        anim_factor = calculate_typewriter_visibility(char_pos, char_count, _TypewriterMode##N, _TypewriterProgress##N); \
+                        if (anim_factor >= 1.0 - EPSILON) { o.vertex = float4(0,0,-1,1); return o; } \
+                    } else { \
+                        /* Block mode */ \
+                        int total_display = _BlockVisible##N + _BlockAnimating##N; \
+                        bool is_visible_static = (char_pos < _BlockVisible##N); \
+                        bool is_animating = (char_pos >= _BlockVisible##N) && (char_pos < total_display); \
+                        if (!is_visible_static && !is_animating) { o.vertex = float4(0,0,-1,1); return o; } \
+                        if (is_animating) { \
+                            int pos_in_anim = char_pos - _BlockVisible##N; \
+                            float max_delay = _BlockCharDelay##N; \
+                            float char_delay = (float)pos_in_anim / max((float)_BlockAnimating##N - 1.0, 1.0) * max_delay; \
+                            float local_progress = saturate((_BlockProgress##N - char_delay) / max(1.0 - char_delay, EPSILON)); \
+                            float block_anim_factor = 1.0 - local_progress; \
+                            o.block_fade = 1.0 - block_anim_factor; \
+                            anim_factor = block_anim_factor; \
+                        } \
+                    } \
                     uint char_index = 0; \
                     float char_value = 0; \
                     if (char_pos == 0) char_value = meta_pixel.b; \
@@ -2908,10 +3251,12 @@ Shader "GekikaraStore/Typography"
                 } \
                 float3 typewriter_rot = float3(0, 0, 0); \
                 if (anim_factor > EPSILON) { \
-                    if (dot(_TypewriterRotation##N.xyz, _TypewriterRotation##N.xyz) > EPSILON) { \
-                        typewriter_rot = _TypewriterRotation##N.xyz * DEG2RAD * anim_factor; \
+                    float3 anim_direction = (_TypewriterType##N == 0) ? _TypewriterDirection##N.xyz : _BlockDirection##N.xyz; \
+                    float3 anim_rotation = (_TypewriterType##N == 0) ? _TypewriterRotation##N.xyz : _BlockRotation##N.xyz; \
+                    if (dot(anim_rotation, anim_rotation) > EPSILON) { \
+                        typewriter_rot = anim_rotation * DEG2RAD * anim_factor; \
                     } \
-                    local_pos += _TypewriterDirection##N.xyz * anim_factor * TEXT_GLYPH_SCALE; \
+                    local_pos += anim_direction * anim_factor * TEXT_GLYPH_SCALE; \
                 } \
                 float curve_rot_z = 0.0; \
                 float normalized_pos = (float)char_pos / max(char_count - 1, 1); \
@@ -2970,14 +3315,14 @@ Shader "GekikaraStore/Typography"
                 float3 corner_offset = (v.uv2.x - 0.5) * 2.0 * world_right + (v.uv2.y - 0.5) * 2.0 * world_up; \
                 float3 corner_world = world_pos + corner_offset; \
                 if (_WorldSpace##N > 0.5) { \
-                    o.vertex = UnityObjectToClipPos(float4(corner_world, 1.0)); \
+                    o.vertex = project_world_space(float4(corner_world, 1.0)); \
                 } else { \
                     o.vertex = project_custom_camera(corner_world, cam_pos, cam_rot, tan_half_fov, aspect, _Layer##N); \
                 } \
                 o.text_color = _TextColor##N; \
                 o.outline = float4(_OutlineWidth##N, _OutlineColor##N.rgb); \
-                o.shadow = float4(_ShadowIntensity##N, _ShadowOffset##N.xy, _OutlineColor##N.a); \
-                o.shadow_color = _ShadowColor##N.rgb; \
+                o.shadow = float4(_ShadowIntensity##N, _ShadowOffset##N.xy, _ShadowSoftness##N); \
+                o.shadow_color = float4(_ShadowColor##N.rgb, _OutlineColor##N.a); \
                 o.mode = is_pivot ? 3 : (uint)_Mode##N; \
                 o.text_id = N; \
                 UNITY_EDITOR_ONLY(o.debug_pivot = float4(_PivotSize, _PivotColor.rgb);) \
@@ -3004,9 +3349,10 @@ Shader "GekikaraStore/Typography"
                 o.text_color = float4(1, 1, 1, 1);
                 o.outline = float4(0, 0, 0, 0);
                 o.shadow = float4(0, 0, 0, 0);
-                o.shadow_color = float3(0, 0, 0);
+                o.shadow_color = float4(0, 0, 0, 0);
                 o.mode = 0;
                 o.text_id = 0;
+                o.block_fade = 1.0;
                 #if defined(UNITY_EDITOR)
                 o.debug_pivot = float4(0, 0, 0, 0);
                 o.debug_bounds = float4(0, 0, 0, 0);
@@ -3029,80 +3375,42 @@ Shader "GekikaraStore/Typography"
                 // Process text based on text_id
                 switch(text_id)
                 {
-                case 0: PROCESS_TEXT(0); break;
-                case 1: PROCESS_TEXT(1); break;
-                case 2: PROCESS_TEXT(2); break;
-                case 3: PROCESS_TEXT(3); break;
-                case 4: PROCESS_TEXT(4); break;
-                case 5: PROCESS_TEXT(5); break;
-                case 6: PROCESS_TEXT(6); break;
-                case 7: PROCESS_TEXT(7); break;
-                case 8: PROCESS_TEXT(8); break;
-                case 9: PROCESS_TEXT(9); break;
-                case 10: PROCESS_TEXT(10); break;
-                case 11: PROCESS_TEXT(11); break;
-                case 12: PROCESS_TEXT(12); break;
-                case 13: PROCESS_TEXT(13); break;
-                case 14: PROCESS_TEXT(14); break;
-                case 15: PROCESS_TEXT(15); break;
-                case 16: PROCESS_TEXT(16); break;
-                case 17: PROCESS_TEXT(17); break;
-                case 18: PROCESS_TEXT(18); break;
-                case 19: PROCESS_TEXT(19); break;
-                case 20: PROCESS_TEXT(20); break;
-                case 21: PROCESS_TEXT(21); break;
-                case 22: PROCESS_TEXT(22); break;
-                case 23: PROCESS_TEXT(23); break;
-                case 24: PROCESS_TEXT(24); break;
-                case 25: PROCESS_TEXT(25); break;
-                case 26: PROCESS_TEXT(26); break;
-                case 27: PROCESS_TEXT(27); break;
-                case 28: PROCESS_TEXT(28); break;
-                case 29: PROCESS_TEXT(29); break;
-                case 30: PROCESS_TEXT(30); break;
-                case 31: PROCESS_TEXT(31); break;
+                    case 0: PROCESS_TEXT(0); break;
+                    case 1: PROCESS_TEXT(1); break;
+                    case 2: PROCESS_TEXT(2); break;
+                    case 3: PROCESS_TEXT(3); break;
+                    case 4: PROCESS_TEXT(4); break;
+                    case 5: PROCESS_TEXT(5); break;
+                    case 6: PROCESS_TEXT(6); break;
+                    case 7: PROCESS_TEXT(7); break;
+                    case 8: PROCESS_TEXT(8); break;
+                    case 9: PROCESS_TEXT(9); break;
+                    case 10: PROCESS_TEXT(10); break;
+                    case 11: PROCESS_TEXT(11); break;
+                    case 12: PROCESS_TEXT(12); break;
+                    case 13: PROCESS_TEXT(13); break;
+                    case 14: PROCESS_TEXT(14); break;
+                    case 15: PROCESS_TEXT(15); break;
+                    case 16: PROCESS_TEXT(16); break;
+                    case 17: PROCESS_TEXT(17); break;
+                    case 18: PROCESS_TEXT(18); break;
+                    case 19: PROCESS_TEXT(19); break;
+                    case 20: PROCESS_TEXT(20); break;
+                    case 21: PROCESS_TEXT(21); break;
+                    case 22: PROCESS_TEXT(22); break;
+                    case 23: PROCESS_TEXT(23); break;
+                    case 24: PROCESS_TEXT(24); break;
+                    case 25: PROCESS_TEXT(25); break;
+                    case 26: PROCESS_TEXT(26); break;
+                    case 27: PROCESS_TEXT(27); break;
+                    case 28: PROCESS_TEXT(28); break;
+                    case 29: PROCESS_TEXT(29); break;
+                    case 30: PROCESS_TEXT(30); break;
+                    case 31: PROCESS_TEXT(31); break;
                 }
 
                 return o;
             }
-
-            // ============================================================================
-            // Image Sampling Macro (uses shared sampler to avoid 16 sampler limit)
-            // ============================================================================
-            #define SAMPLE_IMG(tex, uv) tex.Sample(sampler_linear_repeat, uv)
-            #define SAMPLE_IMAGE(id, uv) \
-                ((id) == 0 ? SAMPLE_IMG(_ImageTexture0, uv) : \
-                 (id) == 1 ? SAMPLE_IMG(_ImageTexture1, uv) : \
-                 (id) == 2 ? SAMPLE_IMG(_ImageTexture2, uv) : \
-                 (id) == 3 ? SAMPLE_IMG(_ImageTexture3, uv) : \
-                 (id) == 4 ? SAMPLE_IMG(_ImageTexture4, uv) : \
-                 (id) == 5 ? SAMPLE_IMG(_ImageTexture5, uv) : \
-                 (id) == 6 ? SAMPLE_IMG(_ImageTexture6, uv) : \
-                 (id) == 7 ? SAMPLE_IMG(_ImageTexture7, uv) : \
-                 (id) == 8 ? SAMPLE_IMG(_ImageTexture8, uv) : \
-                 (id) == 9 ? SAMPLE_IMG(_ImageTexture9, uv) : \
-                 (id) == 10 ? SAMPLE_IMG(_ImageTexture10, uv) : \
-                 (id) == 11 ? SAMPLE_IMG(_ImageTexture11, uv) : \
-                 (id) == 12 ? SAMPLE_IMG(_ImageTexture12, uv) : \
-                 (id) == 13 ? SAMPLE_IMG(_ImageTexture13, uv) : \
-                 (id) == 14 ? SAMPLE_IMG(_ImageTexture14, uv) : \
-                 (id) == 15 ? SAMPLE_IMG(_ImageTexture15, uv) : \
-                 (id) == 16 ? SAMPLE_IMG(_ImageTexture16, uv) : \
-                 (id) == 17 ? SAMPLE_IMG(_ImageTexture17, uv) : \
-                 (id) == 18 ? SAMPLE_IMG(_ImageTexture18, uv) : \
-                 (id) == 19 ? SAMPLE_IMG(_ImageTexture19, uv) : \
-                 (id) == 20 ? SAMPLE_IMG(_ImageTexture20, uv) : \
-                 (id) == 21 ? SAMPLE_IMG(_ImageTexture21, uv) : \
-                 (id) == 22 ? SAMPLE_IMG(_ImageTexture22, uv) : \
-                 (id) == 23 ? SAMPLE_IMG(_ImageTexture23, uv) : \
-                 (id) == 24 ? SAMPLE_IMG(_ImageTexture24, uv) : \
-                 (id) == 25 ? SAMPLE_IMG(_ImageTexture25, uv) : \
-                 (id) == 26 ? SAMPLE_IMG(_ImageTexture26, uv) : \
-                 (id) == 27 ? SAMPLE_IMG(_ImageTexture27, uv) : \
-                 (id) == 28 ? SAMPLE_IMG(_ImageTexture28, uv) : \
-                 (id) == 29 ? SAMPLE_IMG(_ImageTexture29, uv) : \
-                 (id) == 30 ? SAMPLE_IMG(_ImageTexture30, uv) : \
-                 SAMPLE_IMG(_ImageTexture31, uv))
 
             // ============================================================================
             // Fragment Shader
@@ -3117,24 +3425,58 @@ Shader "GekikaraStore/Typography"
                 half3 accum_color = half3(0, 0, 0);
                 half accum_alpha = 0.0;
 
-                // Image mode: direct texture sampling
+                // Image mode
                 if (i.mode == 1)
                 {
-                    float4 img = SAMPLE_IMAGE(i.text_id, glyph_uv);
-                    accum_color = img.rgb * i.text_color.rgb;
-                    accum_alpha = img.a * i.text_color.a * opacity_mult;
-                    clip(accum_alpha - 0.01);
+                    float4 image_color = float4(1, 1, 1, 1);
+                    switch(i.text_id)
+                    {
+                    case 0: image_color = _ImageTexture0.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 1: image_color = _ImageTexture1.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 2: image_color = _ImageTexture2.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 3: image_color = _ImageTexture3.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 4: image_color = _ImageTexture4.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 5: image_color = _ImageTexture5.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 6: image_color = _ImageTexture6.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 7: image_color = _ImageTexture7.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 8: image_color = _ImageTexture8.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 9: image_color = _ImageTexture9.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 10: image_color = _ImageTexture10.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 11: image_color = _ImageTexture11.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 12: image_color = _ImageTexture12.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 13: image_color = _ImageTexture13.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 14: image_color = _ImageTexture14.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 15: image_color = _ImageTexture15.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 16: image_color = _ImageTexture16.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 17: image_color = _ImageTexture17.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 18: image_color = _ImageTexture18.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 19: image_color = _ImageTexture19.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 20: image_color = _ImageTexture20.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 21: image_color = _ImageTexture21.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 22: image_color = _ImageTexture22.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 23: image_color = _ImageTexture23.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 24: image_color = _ImageTexture24.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 25: image_color = _ImageTexture25.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 26: image_color = _ImageTexture26.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 27: image_color = _ImageTexture27.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 28: image_color = _ImageTexture28.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 29: image_color = _ImageTexture29.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 30: image_color = _ImageTexture30.Sample(sampler_linear_repeat, glyph_uv); break;
+                    case 31: image_color = _ImageTexture31.Sample(sampler_linear_repeat, glyph_uv); break;
+                    }
+                    half image_alpha = image_color.a * i.text_color.a * opacity_mult;
+                    accum_color = image_color.rgb * i.text_color.rgb;
+                    accum_alpha = image_alpha;
+                    clip(accum_alpha - _AlphaCutoff);
                     return float4(accum_color, accum_alpha);
                 }
 
-                // Pivot mode: crosshair at text center (Editor only)
+                // Pivot mode (Editor only)
                 #if defined(UNITY_EDITOR)
                 if (i.mode == 3)
                 {
-                    float pivot_size = i.debug_pivot.x;
                     float3 pivot_color = i.debug_pivot.yzw;
                     float2 center_dist = abs(glyph_uv - 0.5);
-                    // Crosshair
                     float cross_h = step(center_dist.y, 0.05) * step(center_dist.x, 0.5);
                     float cross_v = step(center_dist.x, 0.05) * step(center_dist.y, 0.5);
                     float cross = max(cross_h, cross_v);
@@ -3147,14 +3489,23 @@ Shader "GekikaraStore/Typography"
                 uint char_index = i.char_index;
                 uint font_index = i.font_index;
 
+                // pxSize calculation (Chlumsky's method for screen-independent edges)
+                float cellSize = ATLAS_TEXTURE_SIZE / _AtlasSize;
+                float pxRange = max(2.0, cellSize / 32.0);
+                float pxSize = min(
+                    0.5 / pxRange * (fwidth(glyph_uv.x) * cellSize + fwidth(glyph_uv.y) * cellSize),
+                    0.25
+                );
+
                 float2 atlas_uv = calculate_atlas_uv(char_index, glyph_uv, _AtlasSize);
                 half3 msdf = UNITY_SAMPLE_TEX2DARRAY(_FontTextureArray, float3(atlas_uv, font_index)).rgb;
                 half med = median(msdf);
-                float sdf = (med - 0.5) * MSDF_FIXED_DYNAMIC_RANGE;
-                float main_opacity = saturate(sdf + 0.5);
+                float sd = 2.0 * med - 1.0;
+                float main_opacity = linearStep(-pxSize, pxSize, sd);
 
-                // Shadow (from interpolants)
+                // Shadow (from interpolants) - IQ-style soft shadow using MTSDF Alpha
                 float shadow_intensity = i.shadow.x;
+                float shadow_softness = i.shadow.w;
                 if (shadow_intensity > EPSILON)
                 {
                     float2 shadow_uv = glyph_uv - i.shadow.yz;
@@ -3162,23 +3513,36 @@ Shader "GekikaraStore/Typography"
                     if (shadow_bounds.x * shadow_bounds.y > 0.5)
                     {
                         float2 shadow_atlas_uv = calculate_atlas_uv(char_index, shadow_uv, _AtlasSize);
-                        half3 shadow_msdf = UNITY_SAMPLE_TEX2DARRAY(_FontTextureArray, float3(shadow_atlas_uv, font_index)).rgb;
-                        half shadow_med = median(shadow_msdf);
-                        float shadow_sdf = (shadow_med - 0.5) * MSDF_FIXED_DYNAMIC_RANGE;
-                        float shadow_opacity = saturate(shadow_sdf + 0.5);
+                        half4 shadow_mtsdf = UNITY_SAMPLE_TEX2DARRAY(_FontTextureArray, float3(shadow_atlas_uv, font_index));
+
+                        float shadow_opacity;
+                        if (shadow_softness > EPSILON)
+                        {
+                            // Soft shadow: use Alpha (True SDF) + IQ-style distance falloff
+                            float shadow_sdf = 2.0 * shadow_mtsdf.a - 1.0;
+                            shadow_opacity = distanceFalloff(shadow_sdf, shadow_softness);
+                        }
+                        else
+                        {
+                            // Hard shadow: use RGB (MSDF) + linearStep
+                            half shadow_med = median(shadow_mtsdf.rgb);
+                            float shadow_sd = 2.0 * shadow_med - 1.0;
+                            shadow_opacity = linearStep(-pxSize, pxSize, shadow_sd);
+                        }
+
                         half shadow_alpha = shadow_opacity * shadow_intensity * opacity_mult;
-                        accum_color = i.shadow_color * shadow_alpha;
+                        accum_color = i.shadow_color.rgb * shadow_alpha;
                         accum_alpha = shadow_alpha;
                     }
                 }
 
                 // Outline (from interpolants)
-                float outline_width = i.outline.x;
+                float outline_width = i.outline.x * 0.5;  // UI 0-1 to internal 0-0.5
                 if (outline_width > EPSILON)
                 {
-                    float outline_sdf = (med - 0.5 + outline_width) * MSDF_FIXED_DYNAMIC_RANGE;
-                    float outline_opacity = saturate(outline_sdf + 0.5);
-                    half outline_alpha = outline_opacity * i.shadow.w * opacity_mult;  // shadow.w = outline color alpha
+                    float outline_sd = sd + outline_width;
+                    float outline_opacity = linearStep(-pxSize, pxSize, outline_sd);
+                    half outline_alpha = outline_opacity * i.shadow_color.w * opacity_mult;  // shadow_color.w = outline color alpha
                     accum_color = i.outline.yzw * outline_alpha + accum_color * (1.0 - outline_alpha);
                     accum_alpha = outline_alpha + accum_alpha * (1.0 - outline_alpha);
                 }
@@ -3206,7 +3570,12 @@ Shader "GekikaraStore/Typography"
 
                 #endif
 
-                clip(accum_alpha - 0.01);
+                // Clip based on accumulated alpha (before block fade)
+                clip(accum_alpha - _AlphaCutoff);
+
+                // Apply block fade after clip (for smooth Block animation)
+                accum_alpha *= i.block_fade;
+
                 return float4(accum_color, accum_alpha);
             }
             ENDCG

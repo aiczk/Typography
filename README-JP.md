@@ -11,13 +11,15 @@ GPU テキストレンダリング for Unity / VRChat
 
 ## パフォーマンス
 
-|                | Fragment Math | Fragment Texture |
-|----------------|--------------:|-----------------:|
-| **Typography** |        **55** |            **2** |
-| SSVFX          |         3,702 |              102 |
-| TexSvfx        |         5,585 |              210 |
+Fragment Shader 命令数（Unity compiled shader stats, d3d11）：
 
-Fragment 命令数 **1/102**（vs TexSvfx, SSVFX）。処理を Vertex Shader に集約し、解像度が上がるほど差が拡大。
+|                | Math | Texture | Branch |
+|----------------|-----:|--------:|-------:|
+| **Typography** | **55** | **2** | **4** |
+| SSVFX          | 3,702 | 102 | 201 |
+| TexSvfx        | 5,585 | 210 | 255 |
+
+Fragment 命令数 **1/100**。処理を Vertex Shader に集約し、解像度が上がるほど差が拡大。
 
 |                |         Avg |   比率   |
 |----------------|------------:|-------:|
@@ -92,15 +94,19 @@ Fragment 命令数 **1/102**（vs TexSvfx, SSVFX）。処理を Vertex Shader �
 
 ### Animator
 
-| プロパティ | 説明 |
-|-----------|------|
-| **Typewriter** | |
-| Mode | Left to Right / Right to Left / Center Out |
-| Progress | 表示進行（0-1） |
-| Direction | 出現時の移動方向 |
-| Rotation | 出現時の回転 |
-| **Kerning & Tracking** | |
-| Spacing | 文字間隔（-1 〜 1） |
+| プロパティ | 説明                                                     |
+|-----------|--------------------------------------------------------|
+| **Typewriter** |                                                        |
+| Type | Sequential（1文字ずつ）/ Block（固定ウィンドウ）                      |
+| Direction | Left to Right / Right to Left / Center Out（Sequential） |
+| Progress | 表示進行（0-1、Sequential）                                   |
+| Offset | 出現時の移動オフセット                                            |
+| Rotation | 出現時の回転                                                 |
+| Visible Count | 静止表示文字数（Block）                                         |
+| Animating Count | アニメーションさせる文字数（Block）                                   |
+| Char Delay | 文字ごとの遅延（Block）                                         |
+| **Kerning & Tracking** |                                                        |
+| Spacing | 文字間隔（-1 〜 1）                                           |
 
 ### Effector
 
@@ -122,6 +128,7 @@ Fragment 命令数 **1/102**（vs TexSvfx, SSVFX）。処理を Vertex Shader �
 | **Drop Shadow** | |
 | Intensity | 強度（0-1） |
 | Offset | オフセット |
+| Softness | ソフトシャドウのぼかし（0-1） |
 | Color | 色（HDR） |
 
 ### Rendering Settings
@@ -172,6 +179,7 @@ https://vrchat.com/home/avatar/avtr_20c77b57-edc0-4de3-bace-3b7b21b998bd
 ## Special Thanks（敬称略）
 - 皐月-Satuki
 - ぷくぷくまる
+- あまね
+- 一ノ瀬
 - UniTea（グループ）
-- Cute Aggression（グループ）
 - その他の告知に協力してくださった皆様

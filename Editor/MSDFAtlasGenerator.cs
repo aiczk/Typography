@@ -98,7 +98,7 @@ namespace Typography.Editor
             var startInfo = new ProcessStartInfo
             {
                 FileName = atlasGenPath,
-                Arguments = $"-font \"{fontPath}\" -charset \"{charsetPath}\" -type msdf -dimensions {AtlasResolution} {AtlasResolution} -uniformgrid -uniformcols {atlasSize} -uniformcell {cellSize} {cellSize} -pxpadding 6 -pxrange {pxRange} -imageout \"{outputPath}\"",
+                Arguments = $"-font \"{fontPath}\" -charset \"{charsetPath}\" -type mtsdf -dimensions {AtlasResolution} {AtlasResolution} -uniformgrid -uniformcols {atlasSize} -uniformcell {cellSize} {cellSize} -pxpadding 6 -pxrange {pxRange} -threads 0 -imageout \"{outputPath}\"",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,

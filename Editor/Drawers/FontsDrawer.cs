@@ -7,26 +7,24 @@ namespace Typography.Editor.Drawers
 {
     /// <summary>
     /// Font list drawer using ReorderableList (non-reorderable).
-    /// Stores font paths in material tags and provides a unified list UI.
+    /// Fonts are stored per-Project in ProjectFontsStorage (shared across all materials with same Project).
     /// </summary>
     public class FontsDrawer : MaterialPropertyDrawer
     {
-        private const string TagCountKey = "_Fonts_Count";
-        private const string TagFontPrefix = "_Fonts_Font_";
         private const int MaxFonts = 8;
         private const float ElementHeight = 20f;
         private const float HeaderHeight = 18f;
         private const float FooterHeight = 20f;
         private const float Padding = 2f;
 
-        // Cache per material instance
-        private static readonly Dictionary<int, ReorderableListState> _stateCache = new();
+        // Cache per project (not per material)
+        private static readonly Dictionary<string, ReorderableListState> _stateCache = new();
 
         private class ReorderableListState
         {
             public List<Font> Fonts;
             public ReorderableList List;
-            public Material Material;
+            public string Project;
         }
 
         public FontsDrawer() { }
@@ -43,11 +41,11 @@ namespace Typography.Editor.Drawers
         {
             var state = GetOrCreateState(prop, editor);
             if (state?.List == null) return;
-            
+
             // Adjust for MaterialPropertyDrawer indent
             Rect listRect = EditorGUI.IndentedRect(position);
             int oldIndent = EditorGUI.indentLevel;
-            
+
             EditorGUI.indentLevel = 0;
             state.List.DoList(listRect);
             EditorGUI.indentLevel = oldIndent;
@@ -58,23 +56,44 @@ namespace Typography.Editor.Drawers
             Material mat = editor?.target as Material;
             if (mat == null) return null;
 
-            int instanceId = mat.GetInstanceID();
+            string project = ProjectDrawer.GetProject(mat);
 
-            if (!_stateCache.TryGetValue(instanceId, out var state) || state.Material != mat)
+            // マイグレーション: 既存マテリアルタグからStorageへ
+            ProjectFontsStorage.MigrateFromMaterialTags(project, mat);
+
+            if (!_stateCache.TryGetValue(project, out var state) || state.Project != project)
             {
-                state = CreateState(mat);
-                _stateCache[instanceId] = state;
+                state = CreateState(project);
+                _stateCache[project] = state;
+            }
+            else
+            {
+                // Storageから最新のFontsを同期
+                var storageFonts = ProjectFontsStorage.GetFonts(project);
+                if (!FontsEqual(state.Fonts, storageFonts))
+                {
+                    state.Fonts.Clear();
+                    state.Fonts.AddRange(storageFonts);
+                }
             }
 
             return state;
         }
 
-        private ReorderableListState CreateState(Material mat)
+        private static bool FontsEqual(List<Font> a, List<Font> b)
+        {
+            if (a.Count != b.Count) return false;
+            for (int i = 0; i < a.Count; i++)
+                if (a[i] != b[i]) return false;
+            return true;
+        }
+
+        private ReorderableListState CreateState(string project)
         {
             var state = new ReorderableListState
             {
-                Material = mat,
-                Fonts = LoadFonts(mat)
+                Project = project,
+                Fonts = ProjectFontsStorage.GetFonts(project)
             };
 
             state.List = new ReorderableList(
@@ -92,7 +111,7 @@ namespace Typography.Editor.Drawers
 
                 drawHeaderCallback = rect =>
                 {
-                    EditorGUI.LabelField(rect, $"Fonts ({state.Fonts.Count})");
+                    EditorGUI.LabelField(rect, $"Fonts ({state.Fonts.Count}) [Project: {project}]");
                 },
 
                 drawElementCallback = (rect, index, isActive, isFocused) =>
@@ -102,7 +121,7 @@ namespace Typography.Editor.Drawers
 
                     // Index label
                     Rect indexRect = new Rect(rect.x, rect.y, 20f, rect.height);
-                    EditorGUI.LabelField(indexRect, $"{index.ToString()}:", EditorStyles.boldLabel);
+                    EditorGUI.LabelField(indexRect, $"{index}:", EditorStyles.boldLabel);
 
                     // Font field
                     Rect fontRect = new Rect(rect.x + 15f, rect.y, rect.width - 15f, rect.height);
@@ -111,7 +130,7 @@ namespace Typography.Editor.Drawers
                     if (EditorGUI.EndChangeCheck())
                     {
                         state.Fonts[index] = newFont;
-                        SaveFonts(mat, state.Fonts);
+                        ProjectFontsStorage.SetFonts(project, state.Fonts);
                     }
                 },
 
@@ -120,7 +139,7 @@ namespace Typography.Editor.Drawers
                     if (state.Fonts.Count < MaxFonts)
                     {
                         state.Fonts.Add(null);
-                        SaveFonts(mat, state.Fonts);
+                        ProjectFontsStorage.SetFonts(project, state.Fonts);
                     }
                 },
 
@@ -129,7 +148,7 @@ namespace Typography.Editor.Drawers
                     if (list.index >= 0 && list.index < state.Fonts.Count)
                     {
                         state.Fonts.RemoveAt(list.index);
-                        SaveFonts(mat, state.Fonts);
+                        ProjectFontsStorage.SetFonts(project, state.Fonts);
                     }
                 },
 
@@ -144,11 +163,12 @@ namespace Typography.Editor.Drawers
         #region Static API (for external access)
 
         /// <summary>
-        /// Gets all fonts from material (excludes trailing nulls).
+        /// Gets all fonts for the material's project (excludes trailing nulls).
         /// </summary>
         public static List<Font> GetAllFonts(Material mat)
         {
-            var fonts = LoadFonts(mat);
+            string project = ProjectDrawer.GetProject(mat);
+            var fonts = ProjectFontsStorage.GetFonts(project);
             // Remove trailing nulls but keep intermediate nulls
             while (fonts.Count > 0 && fonts[fonts.Count - 1] == null)
                 fonts.RemoveAt(fonts.Count - 1);
@@ -156,105 +176,30 @@ namespace Typography.Editor.Drawers
         }
 
         /// <summary>
-        /// Gets font at specific index.
+        /// Gets font at specific index for the material's project.
         /// </summary>
         public static Font GetFont(Material mat, int index)
         {
-            var fonts = LoadFonts(mat);
+            string project = ProjectDrawer.GetProject(mat);
+            var fonts = ProjectFontsStorage.GetFonts(project);
             return index >= 0 && index < fonts.Count ? fonts[index] : null;
         }
 
-        #endregion
-
-        #region Persistence
-
-        private static List<Font> LoadFonts(Material mat)
+        /// <summary>
+        /// Invalidates cache for a specific project.
+        /// </summary>
+        public static void InvalidateCache(string project)
         {
-            var fonts = new List<Font>();
-
-            string countStr = mat.GetTag(TagCountKey, false, "0");
-            if (!int.TryParse(countStr, out int count))
-                count = 0;
-
-            // Migrate from old format if count is 0 but old tags exist
-            if (count == 0)
-            {
-                fonts = MigrateFromOldFormat(mat);
-                if (fonts.Count > 0)
-                {
-                    SaveFonts(mat, fonts);
-                    return fonts;
-                }
-            }
-
-            for (int i = 0; i < count; i++)
-            {
-                string path = mat.GetTag(TagFontPrefix + i, false, "");
-                Font font = string.IsNullOrEmpty(path) ? null : AssetDatabase.LoadAssetAtPath<Font>(path);
-                fonts.Add(font);
-            }
-
-            return fonts;
-        }
-
-        private static void SaveFonts(Material mat, List<Font> fonts)
-        {
-            Undo.RecordObject(mat, "Change Fonts");
-
-            // Clear old entries first
-            string oldCountStr = mat.GetTag(TagCountKey, false, "0");
-            if (int.TryParse(oldCountStr, out int oldCount))
-            {
-                for (int i = fonts.Count; i < oldCount; i++)
-                    mat.SetOverrideTag(TagFontPrefix + i, "");
-            }
-
-            // Save new entries
-            mat.SetOverrideTag(TagCountKey, fonts.Count.ToString());
-            for (int i = 0; i < fonts.Count; i++)
-            {
-                string path = fonts[i] != null ? AssetDatabase.GetAssetPath(fonts[i]) : "";
-                mat.SetOverrideTag(TagFontPrefix + i, path);
-            }
-
-            EditorUtility.SetDirty(mat);
-
-            // Invalidate cache
-            int instanceId = mat.GetInstanceID();
-            if (_stateCache.ContainsKey(instanceId))
-                _stateCache.Remove(instanceId);
+            if (_stateCache.ContainsKey(project))
+                _stateCache.Remove(project);
         }
 
         /// <summary>
-        /// Migrate from old FontSettingDrawer format (_FontSetting_Font_N)
+        /// Clears all cache.
         /// </summary>
-        private static List<Font> MigrateFromOldFormat(Material mat)
+        public static void ClearCache()
         {
-            var fonts = new List<Font>();
-
-            // Try multiple old formats
-            string[] oldPrefixes = { "_FontSettings_Font_", "_FontSetting_Font_" };
-
-            foreach (var oldPrefix in oldPrefixes)
-            {
-                for (int i = 0; i < MaxFonts; i++)
-                {
-                    string path = mat.GetTag(oldPrefix + i, false, "");
-                    if (string.IsNullOrEmpty(path))
-                        break;
-
-                    Font font = AssetDatabase.LoadAssetAtPath<Font>(path);
-                    if (font != null)
-                        fonts.Add(font);
-                    else
-                        break;
-                }
-
-                if (fonts.Count > 0)
-                    break;
-            }
-
-            return fonts;
+            _stateCache.Clear();
         }
 
         #endregion

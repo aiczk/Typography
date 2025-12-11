@@ -11,13 +11,15 @@ Render **32 texts** in **1 draw call** with high quality. Fully GPU-driven, no C
 
 ## Performance
 
-|                | Fragment Math | Fragment Texture |
-|----------------|--------------:|-----------------:|
-| **Typography** |        **55** |            **2** |
-| SSVFX          |         3,702 |              102 |
-| TexSvfx        |         5,585 |              210 |
+Fragment shader instruction counts (Unity compiled shader stats, d3d11):
 
-**1/102** fragment instructions (vs TexSvfx, SSVFX). Processing concentrated in Vertex Shader - performance gap widens with resolution.
+|                | Math | Texture | Branch |
+|----------------|-----:|--------:|-------:|
+| **Typography** | **55** | **2** | **4** |
+| SSVFX          | 3,702 | 102 | 201 |
+| TexSvfx        | 5,585 | 210 | 255 |
+
+**1/100** fragment instructions vs alternatives. Processing concentrated in Vertex Shader - performance gap widens with resolution.
 
 |                |         Avg |  Ratio |
 |----------------|------------:|-------:|
@@ -95,10 +97,14 @@ Render **32 texts** in **1 draw call** with high quality. Fully GPU-driven, no C
 | Property | Description |
 |----------|-------------|
 | **Typewriter** | |
-| Mode | Left to Right / Right to Left / Center Out |
-| Progress | Display progress (0-1) |
-| Direction | Movement direction on appear |
+| Type | Sequential (1 char at a time) / Block (fixed window) |
+| Direction | Left to Right / Right to Left / Center Out (Sequential) |
+| Progress | Display progress (0-1, Sequential) |
+| Offset | Movement offset on appear |
 | Rotation | Rotation on appear |
+| Visible Count | Static visible chars (Block) |
+| Animating Count | Transitioning chars (Block) |
+| Char Delay | Per-char stagger (Block) |
 | **Kerning & Tracking** | |
 | Spacing | Character spacing (-1 to 1) |
 
@@ -122,6 +128,7 @@ Render **32 texts** in **1 draw call** with high quality. Fully GPU-driven, no C
 | **Drop Shadow** | |
 | Intensity | Intensity (0-1) |
 | Offset | Offset |
+| Softness | Soft shadow blur (0-1) |
 | Color | Color (HDR) |
 
 ### Rendering Settings
@@ -172,6 +179,7 @@ This project was inspired by [ShaderToyText](https://www.shadertoy.com/view/Xtfy
 ## Special Thanks
 - 皐月-Satuki
 - ぷくぷくまる
+- あまね
+- 一ノ瀬
 - UniTea (group)
-- Cute Aggression (group)
 - Everyone who helped with announcements
