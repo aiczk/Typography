@@ -2701,13 +2701,13 @@ Shader "GekikaraStore/Typography"
                 [HDR]_PivotColor ("Pivot Color", Color) = (0, 1, 0, 1)
                 _BoundsWidth ("Bounds Width", Range(0, 1)) = 0
                 [HDR]_BoundsColor ("Bounds Color", Color) = (1, 0, 0, 1)
+        
+                [HideInInspector] m_start_internal_settings ("Internal", Float) = 0
+                    _FontTextureArray ("Font Texture Array", 2DArray) = "" {}
+                    _DataTexture ("Data Texture", 2D) = "" {}
+                    _AtlasSize ("Atlas Size", float) = 32.0
+                [HideInInspector] m_end_internal_settings ("Internal", Float) = 0
             [HideInInspector] m_end_debug_settings ("Debug", Float) = 0
-
-            [HideInInspector] m_start_internal_settings ("Internal", Float) = 0
-                [HideInInspector] _FontTextureArray ("Font Texture Array", 2DArray) = "" {}
-                [HideInInspector] _DataTexture ("Data Texture", 2D) = "" {}
-                [HideInInspector] _AtlasSize ("Atlas Size", float) = 32.0
-            [HideInInspector] m_end_internal_settings ("Internal", Float) = 0
         [HideInInspector] m_end_rendering_settings ("Rendering Settings", Float) = 0
     }
 
