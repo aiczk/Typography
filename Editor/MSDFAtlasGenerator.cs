@@ -236,7 +236,7 @@ namespace Typography.Editor
             while (enumerator.MoveNext())
             {
                 string element = enumerator.Current.ToString();
-                if (string.IsNullOrEmpty(element) || char.IsControl(element[0])) continue;
+                if (string.IsNullOrEmpty(element) || char.IsControl(element[0]) || char.IsWhiteSpace(element[0])) continue;
                 if (elements.Contains(element)) continue;
                 elements.Add(element);
             }
