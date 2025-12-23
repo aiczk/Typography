@@ -9,54 +9,53 @@ namespace Typography.Editor.Drawers
     /// </summary>
     public class RootTransformDrawer : MaterialPropertyDrawer
     {
-        private const float DEG2RAD = Mathf.Deg2Rad;
+        private const float Deg2Rad = Mathf.Deg2Rad;
 
         public override void OnGUI(Rect position, MaterialProperty prop, GUIContent label, MaterialEditor editor)
         {
             EditorGUI.BeginChangeCheck();
 
             // Vector3 field (like [Vector3] drawer)
-            Vector4 value = prop.vectorValue;
-            Vector3 v3 = EditorGUI.Vector3Field(position, label, new Vector3(value.x, value.y, value.z));
-            if (EditorGUI.EndChangeCheck())
-            {
-                prop.vectorValue = new Vector4(v3.x, v3.y, v3.z, value.w);
+            var value = prop.vectorValue;
+            var v3 = EditorGUI.Vector3Field(position, label, new Vector3(value.x, value.y, value.z));
+            if (!EditorGUI.EndChangeCheck()) return;
+            
+            prop.vectorValue = new Vector4(v3.x, v3.y, v3.z, value.w);
 
-                foreach (var target in prop.targets)
-                {
-                    if (target is Material mat)
-                        UpdateAllRootMatrices(mat);
-                }
+            foreach (var target in prop.targets)
+            {
+                if (target is not Material mat) continue;
+                UpdateAllRootMatrices(mat);
             }
         }
 
         public static void UpdateAllRootMatrices(Material mat)
         {
-            for (int i = 0; i < 5; i++)
+            for (var i = 0; i < 5; i++)
                 UpdateRootMatrix(mat, i);
         }
 
         public static void UpdateRootMatrix(Material mat, int rootIndex)
         {
-            string rotProp = $"_RootRotation{rootIndex}";
-            string scaleProp = $"_RootScale{rootIndex}";
-            string row0Prop = $"_RootMatrix{rootIndex}_Row0";
-            string row1Prop = $"_RootMatrix{rootIndex}_Row1";
-            string row2Prop = $"_RootMatrix{rootIndex}_Row2";
+            var rotProp = $"_RootRotation{rootIndex}";
+            var scaleProp = $"_RootScale{rootIndex}";
+            var row0Prop = $"_RootMatrix{rootIndex}_Row0";
+            var row1Prop = $"_RootMatrix{rootIndex}_Row1";
+            var row2Prop = $"_RootMatrix{rootIndex}_Row2";
 
             if (!mat.HasProperty(rotProp) || !mat.HasProperty(scaleProp))
                 return;
 
-            Vector4 rotation = mat.GetVector(rotProp);
-            Vector4 scale = mat.GetVector(scaleProp);
+            var rotation = mat.GetVector(rotProp);
+            var scale = mat.GetVector(scaleProp);
 
             // Build rotation matrix (Euler XYZ)
-            float sx = Mathf.Sin(rotation.x * DEG2RAD);
-            float cx = Mathf.Cos(rotation.x * DEG2RAD);
-            float sy = Mathf.Sin(rotation.y * DEG2RAD);
-            float cy = Mathf.Cos(rotation.y * DEG2RAD);
-            float sz = Mathf.Sin(rotation.z * DEG2RAD);
-            float cz = Mathf.Cos(rotation.z * DEG2RAD);
+            var sx = Mathf.Sin(rotation.x * Deg2Rad);
+            var cx = Mathf.Cos(rotation.x * Deg2Rad);
+            var sy = Mathf.Sin(rotation.y * Deg2Rad);
+            var cy = Mathf.Cos(rotation.y * Deg2Rad);
+            var sz = Mathf.Sin(rotation.z * Deg2Rad);
+            var cz = Mathf.Cos(rotation.z * Deg2Rad);
 
             // Rotation matrix (same as shader's rotation_matrix)
             // Row-major: [cy*cz, -cy*sz, sy]
@@ -64,19 +63,19 @@ namespace Typography.Editor.Drawers
             //            [-cx*sy*cz + sx*sz, cx*sy*sz + sx*cz, cx*cy]
 
             // Apply scale to rotation matrix (rotation * scale)
-            Vector4 row0 = new Vector4(
+            var row0 = new Vector4(
                 cy * cz * scale.x,
                 -cy * sz * scale.y,
                 sy * scale.z,
                 0
             );
-            Vector4 row1 = new Vector4(
+            var row1 = new Vector4(
                 (sx * sy * cz + cx * sz) * scale.x,
                 (-sx * sy * sz + cx * cz) * scale.y,
                 -sx * cy * scale.z,
                 0
             );
-            Vector4 row2 = new Vector4(
+            var row2 = new Vector4(
                 (-cx * sy * cz + sx * sz) * scale.x,
                 (cx * sy * sz + sx * cz) * scale.y,
                 cx * cy * scale.z,

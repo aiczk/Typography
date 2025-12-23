@@ -21,21 +21,26 @@ Fragment Shader 命令数（Unity compiled shader stats, d3d11）：
 
 Fragment 命令数 **1/100**。処理を Vertex Shader に集約し、解像度が上がるほど差が拡大。
 
-|                |         Avg |   比率   |
+|                |         Avg |     比率 |
 |----------------|------------:|-------:|
-| **Typography** | **0.540ms** | **1x** |
-| SSVFX          |     1.205ms |   2.2x |
-| TexSvfx        |     6.127ms |  11.4x |
+| **Typography** | **0.471ms** | **1x** |
+| SSVFX          |     0.851ms |  1.8x  |
+| TexSvfx        |     6.094ms |  13.0x |
+
+> Imagery も同等のパフォーマンス（0.500ms）を実現
 
 ## 機能
 
 - MSDF による高品質エッジ（拡大縮小でもシャープ）
 - Unicode 対応（日本語、絵文字、合字）
 - 最大 8 フォント同時使用
-- Text / Image モード
 - 5 Root Transform（階層構造）
 - Typewriter / Curve Path / Shake エフェクト
-- Outline / Drop Shadow
+- Outline / Drop Shadow / Gradient
+- Stencil バッファ対応
+- VR スケール調整
+
+> 画像専用の軽量シェーダー `GekikaraStore/Imagery` も同梱しています。
 
 ## インストール
 
@@ -81,8 +86,8 @@ Fragment 命令数 **1/100**。処理を Vertex Shader に集約し、解像度�
 | プロパティ | 説明 |
 |-----------|------|
 | Root | 親ルート（None / Root 1-5） |
-| World Space | ON: ワールド座標、OFF: スクリーン座標 |
-| Mode | Text_Horizontal / Text_Vertical / Image |
+| Space | Screen / World 座標モード |
+| Mode | Text_Horizontal / Text_Vertical |
 | Text | テキスト入力 + Gen ボタン |
 | Font | フォント選択（Fonts で追加したもの） |
 | Layer | 描画順（0-31、大きいほど前面） |
@@ -94,19 +99,23 @@ Fragment 命令数 **1/100**。処理を Vertex Shader に集約し、解像度�
 
 ### Animator
 
-| プロパティ | 説明                                                     |
-|-----------|--------------------------------------------------------|
-| **Typewriter** |                                                        |
-| Type | Sequential（1文字ずつ）/ Block（固定ウィンドウ）                      |
+| プロパティ | 説明 |
+|-----------|------|
+| **Typewriter** | |
+| Type | Sequential（1文字ずつ）/ Block（固定ウィンドウ） |
 | Direction | Left to Right / Right to Left / Center Out（Sequential） |
-| Progress | 表示進行（0-1、Sequential）                                   |
-| Offset | 出現時の移動オフセット                                            |
-| Rotation | 出現時の回転                                                 |
-| Visible Count | 静止表示文字数（Block）                                         |
-| Animating Count | アニメーションさせる文字数（Block）                                   |
-| Char Delay | 文字ごとの遅延（Block）                                         |
-| **Kerning & Tracking** |                                                        |
-| Spacing | 文字間隔（-1 〜 1）                                           |
+| Centering | テキスト中央揃え（Enable / Disable） |
+| Progress | 表示進行（0-1、Sequential） |
+| Smooth | 文字表示フェード幅（0-1） |
+| Offset | 出現時の移動オフセット |
+| Rotation | 出現時の回転 |
+| Scale | 出現時のスケールアニメーション |
+| Visible Count | 静止表示文字数（Block） |
+| Animating Count | アニメーションさせる文字数（Block） |
+| Char Delay | 文字ごとの遅延（Block） |
+| **Kerning & Tracking** | |
+| Anchor | Spacing 基準点（Center / Left / Right） |
+| Spacing | 文字間隔（-1 〜 1） |
 
 ### Effector
 
@@ -123,13 +132,21 @@ Fragment 命令数 **1/100**。処理を Vertex Shader に集約し、解像度�
 | Frequency | 周波数（0-20） |
 | Blend | 文字単位↔行単位のブレンド |
 | **Outline** | |
-| Width | 太さ（0-0.1） |
+| Mode | Outline（塗りあり）/ Stroke（輪郭線のみ） |
+| Width | 太さ（0-1） |
 | Color | 色（HDR） |
 | **Drop Shadow** | |
 | Intensity | 強度（0-1） |
-| Offset | オフセット |
 | Softness | ソフトシャドウのぼかし（0-1） |
+| Dither | ディザパターン（Hash / IGN / R2） |
+| Samples | サンプル数（4-32） |
+| Offset | オフセット |
 | Color | 色（HDR） |
+| **Gradient** | |
+| Intensity | グラデーション強度（0-1） |
+| Mode | 方向（Horizontal / Vertical） |
+| Color A | 開始色（HDR） |
+| Color B | 終了色（HDR） |
 
 ### Rendering Settings
 
@@ -141,13 +158,20 @@ Fragment 命令数 **1/100**。処理を Vertex Shader に集約し、解像度�
 | ZTest | 深度テスト |
 | ZWrite | 深度書き込み |
 | Source/Destination Blend | ブレンドモード |
+| **Stencil** | |
+| Reference | ステンシル参照値（0-255） |
+| Read/Write Mask | マスク値 |
+| Compare | 比較関数 |
+| Pass/Fail/ZFail | ステンシル操作 |
+| **Utility** | |
+| Quad Padding | 文字Quadサイズ拡張（0-1） |
+| VR Scale | VR環境スケール（0.1-1） |
 
-### Debug
+## Typography Debugger
 
-| プロパティ | 説明 |
-|-----------|------|
-| Pivot Color/Size | ピボット表示（エディタのみ） |
-| Bounds Color/Width | バウンディングボックス表示 |
+ScreenSpace テキスト専用のエディタウィンドウ。
+`Typography > Debugger` からアクセス。
+AnimationWindow 連携によるキーフレーム編集が可能（アルファ版）。
 
 ## 仕様
 

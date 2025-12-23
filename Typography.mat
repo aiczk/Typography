@@ -162,7 +162,109 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlphaCutoff: 0.0001
+    - _AtlasCellSize: 128
+    - _AtlasHalfInvPxRange: 0.125
+    - _AtlasInvSize: 0.03125
+    - _AtlasMask: 31
+    - _AtlasShift: 5
     - _AtlasSize: 32
+    - _BlockAnimating0: 0
+    - _BlockAnimating1: 0
+    - _BlockAnimating10: 0
+    - _BlockAnimating11: 0
+    - _BlockAnimating12: 0
+    - _BlockAnimating13: 0
+    - _BlockAnimating14: 0
+    - _BlockAnimating15: 0
+    - _BlockAnimating16: 0
+    - _BlockAnimating17: 0
+    - _BlockAnimating18: 0
+    - _BlockAnimating19: 0
+    - _BlockAnimating2: 0
+    - _BlockAnimating20: 0
+    - _BlockAnimating21: 0
+    - _BlockAnimating22: 0
+    - _BlockAnimating23: 0
+    - _BlockAnimating24: 0
+    - _BlockAnimating25: 0
+    - _BlockAnimating26: 0
+    - _BlockAnimating27: 0
+    - _BlockAnimating28: 0
+    - _BlockAnimating29: 0
+    - _BlockAnimating3: 0
+    - _BlockAnimating30: 0
+    - _BlockAnimating31: 0
+    - _BlockAnimating4: 0
+    - _BlockAnimating5: 0
+    - _BlockAnimating6: 0
+    - _BlockAnimating7: 0
+    - _BlockAnimating8: 0
+    - _BlockAnimating9: 0
+    - _BlockCharDelay0: 0.3
+    - _BlockCharDelay1: 0.3
+    - _BlockCharDelay10: 0.3
+    - _BlockCharDelay11: 0.3
+    - _BlockCharDelay12: 0.3
+    - _BlockCharDelay13: 0.3
+    - _BlockCharDelay14: 0.3
+    - _BlockCharDelay15: 0.3
+    - _BlockCharDelay16: 0.3
+    - _BlockCharDelay17: 0.3
+    - _BlockCharDelay18: 0.3
+    - _BlockCharDelay19: 0.3
+    - _BlockCharDelay2: 0.3
+    - _BlockCharDelay20: 0.3
+    - _BlockCharDelay21: 0.3
+    - _BlockCharDelay22: 0.3
+    - _BlockCharDelay23: 0.3
+    - _BlockCharDelay24: 0.3
+    - _BlockCharDelay25: 0.3
+    - _BlockCharDelay26: 0.3
+    - _BlockCharDelay27: 0.3
+    - _BlockCharDelay28: 0.3
+    - _BlockCharDelay29: 0.3
+    - _BlockCharDelay3: 0.3
+    - _BlockCharDelay30: 0.3
+    - _BlockCharDelay31: 0.3
+    - _BlockCharDelay4: 0.3
+    - _BlockCharDelay5: 0.3
+    - _BlockCharDelay6: 0.3
+    - _BlockCharDelay7: 0.3
+    - _BlockCharDelay8: 0.3
+    - _BlockCharDelay9: 0.3
+    - _BlockVisible0: 0
+    - _BlockVisible1: 0
+    - _BlockVisible10: 0
+    - _BlockVisible11: 0
+    - _BlockVisible12: 0
+    - _BlockVisible13: 0
+    - _BlockVisible14: 0
+    - _BlockVisible15: 0
+    - _BlockVisible16: 0
+    - _BlockVisible17: 0
+    - _BlockVisible18: 0
+    - _BlockVisible19: 0
+    - _BlockVisible2: 0
+    - _BlockVisible20: 0
+    - _BlockVisible21: 0
+    - _BlockVisible22: 0
+    - _BlockVisible23: 0
+    - _BlockVisible24: 0
+    - _BlockVisible25: 0
+    - _BlockVisible26: 0
+    - _BlockVisible27: 0
+    - _BlockVisible28: 0
+    - _BlockVisible29: 0
+    - _BlockVisible3: 0
+    - _BlockVisible30: 0
+    - _BlockVisible31: 0
+    - _BlockVisible4: 0
+    - _BlockVisible5: 0
+    - _BlockVisible6: 0
+    - _BlockVisible7: 0
+    - _BlockVisible8: 0
+    - _BlockVisible9: 0
     - _BoundsWidth: 0
     - _CameraFOV: 60
     - _Cull: 0
@@ -426,6 +528,70 @@ Material:
     - _FontIndex8: 0
     - _FontIndex9: 0
     - _Fonts: 0
+    - _GradientIntensity0: 0
+    - _GradientIntensity1: 0
+    - _GradientIntensity10: 0
+    - _GradientIntensity11: 0
+    - _GradientIntensity12: 0
+    - _GradientIntensity13: 0
+    - _GradientIntensity14: 0
+    - _GradientIntensity15: 0
+    - _GradientIntensity16: 0
+    - _GradientIntensity17: 0
+    - _GradientIntensity18: 0
+    - _GradientIntensity19: 0
+    - _GradientIntensity2: 0
+    - _GradientIntensity20: 0
+    - _GradientIntensity21: 0
+    - _GradientIntensity22: 0
+    - _GradientIntensity23: 0
+    - _GradientIntensity24: 0
+    - _GradientIntensity25: 0
+    - _GradientIntensity26: 0
+    - _GradientIntensity27: 0
+    - _GradientIntensity28: 0
+    - _GradientIntensity29: 0
+    - _GradientIntensity3: 0
+    - _GradientIntensity30: 0
+    - _GradientIntensity31: 0
+    - _GradientIntensity4: 0
+    - _GradientIntensity5: 0
+    - _GradientIntensity6: 0
+    - _GradientIntensity7: 0
+    - _GradientIntensity8: 0
+    - _GradientIntensity9: 0
+    - _GradientMode0: 0
+    - _GradientMode1: 0
+    - _GradientMode10: 0
+    - _GradientMode11: 0
+    - _GradientMode12: 0
+    - _GradientMode13: 0
+    - _GradientMode14: 0
+    - _GradientMode15: 0
+    - _GradientMode16: 0
+    - _GradientMode17: 0
+    - _GradientMode18: 0
+    - _GradientMode19: 0
+    - _GradientMode2: 0
+    - _GradientMode20: 0
+    - _GradientMode21: 0
+    - _GradientMode22: 0
+    - _GradientMode23: 0
+    - _GradientMode24: 0
+    - _GradientMode25: 0
+    - _GradientMode26: 0
+    - _GradientMode27: 0
+    - _GradientMode28: 0
+    - _GradientMode29: 0
+    - _GradientMode3: 0
+    - _GradientMode30: 0
+    - _GradientMode31: 0
+    - _GradientMode4: 0
+    - _GradientMode5: 0
+    - _GradientMode6: 0
+    - _GradientMode7: 0
+    - _GradientMode8: 0
+    - _GradientMode9: 0
     - _Layer0: 0
     - _Layer1: 1
     - _Layer10: 10
@@ -490,6 +656,38 @@ Material:
     - _Mode7: 0
     - _Mode8: 0
     - _Mode9: 0
+    - _OutlineMode0: 0
+    - _OutlineMode1: 0
+    - _OutlineMode10: 0
+    - _OutlineMode11: 0
+    - _OutlineMode12: 0
+    - _OutlineMode13: 0
+    - _OutlineMode14: 0
+    - _OutlineMode15: 0
+    - _OutlineMode16: 0
+    - _OutlineMode17: 0
+    - _OutlineMode18: 0
+    - _OutlineMode19: 0
+    - _OutlineMode2: 0
+    - _OutlineMode20: 0
+    - _OutlineMode21: 0
+    - _OutlineMode22: 0
+    - _OutlineMode23: 0
+    - _OutlineMode24: 0
+    - _OutlineMode25: 0
+    - _OutlineMode26: 0
+    - _OutlineMode27: 0
+    - _OutlineMode28: 0
+    - _OutlineMode29: 0
+    - _OutlineMode3: 0
+    - _OutlineMode30: 0
+    - _OutlineMode31: 0
+    - _OutlineMode4: 0
+    - _OutlineMode5: 0
+    - _OutlineMode6: 0
+    - _OutlineMode7: 0
+    - _OutlineMode8: 0
+    - _OutlineMode9: 0
     - _OutlineWidth0: 0
     - _OutlineWidth1: 0
     - _OutlineWidth10: 0
@@ -524,6 +722,7 @@ Material:
     - _OutlineWidth9: 0
     - _PivotSize: 0
     - _Project: 0
+    - _QuadPadding: 0.5
     - _RenderType: 1
     - _RootIndex0: 0
     - _RootIndex1: 0
@@ -557,6 +756,38 @@ Material:
     - _RootIndex7: 0
     - _RootIndex8: 0
     - _RootIndex9: 0
+    - _ShadowDitherType0: 2
+    - _ShadowDitherType1: 2
+    - _ShadowDitherType10: 2
+    - _ShadowDitherType11: 2
+    - _ShadowDitherType12: 2
+    - _ShadowDitherType13: 2
+    - _ShadowDitherType14: 2
+    - _ShadowDitherType15: 2
+    - _ShadowDitherType16: 2
+    - _ShadowDitherType17: 2
+    - _ShadowDitherType18: 2
+    - _ShadowDitherType19: 2
+    - _ShadowDitherType2: 2
+    - _ShadowDitherType20: 2
+    - _ShadowDitherType21: 2
+    - _ShadowDitherType22: 2
+    - _ShadowDitherType23: 2
+    - _ShadowDitherType24: 2
+    - _ShadowDitherType25: 2
+    - _ShadowDitherType26: 2
+    - _ShadowDitherType27: 2
+    - _ShadowDitherType28: 2
+    - _ShadowDitherType29: 2
+    - _ShadowDitherType3: 2
+    - _ShadowDitherType30: 2
+    - _ShadowDitherType31: 2
+    - _ShadowDitherType4: 2
+    - _ShadowDitherType5: 2
+    - _ShadowDitherType6: 2
+    - _ShadowDitherType7: 2
+    - _ShadowDitherType8: 2
+    - _ShadowDitherType9: 2
     - _ShadowIntensity0: 0
     - _ShadowIntensity1: 0
     - _ShadowIntensity10: 0
@@ -589,6 +820,70 @@ Material:
     - _ShadowIntensity7: 0
     - _ShadowIntensity8: 0
     - _ShadowIntensity9: 0
+    - _ShadowSamples0: 8
+    - _ShadowSamples1: 8
+    - _ShadowSamples10: 8
+    - _ShadowSamples11: 8
+    - _ShadowSamples12: 8
+    - _ShadowSamples13: 8
+    - _ShadowSamples14: 8
+    - _ShadowSamples15: 8
+    - _ShadowSamples16: 8
+    - _ShadowSamples17: 8
+    - _ShadowSamples18: 8
+    - _ShadowSamples19: 8
+    - _ShadowSamples2: 8
+    - _ShadowSamples20: 8
+    - _ShadowSamples21: 8
+    - _ShadowSamples22: 8
+    - _ShadowSamples23: 8
+    - _ShadowSamples24: 8
+    - _ShadowSamples25: 8
+    - _ShadowSamples26: 8
+    - _ShadowSamples27: 8
+    - _ShadowSamples28: 8
+    - _ShadowSamples29: 8
+    - _ShadowSamples3: 8
+    - _ShadowSamples30: 8
+    - _ShadowSamples31: 8
+    - _ShadowSamples4: 8
+    - _ShadowSamples5: 8
+    - _ShadowSamples6: 8
+    - _ShadowSamples7: 8
+    - _ShadowSamples8: 8
+    - _ShadowSamples9: 8
+    - _ShadowSoftness0: 0
+    - _ShadowSoftness1: 0
+    - _ShadowSoftness10: 0
+    - _ShadowSoftness11: 0
+    - _ShadowSoftness12: 0
+    - _ShadowSoftness13: 0
+    - _ShadowSoftness14: 0
+    - _ShadowSoftness15: 0
+    - _ShadowSoftness16: 0
+    - _ShadowSoftness17: 0
+    - _ShadowSoftness18: 0
+    - _ShadowSoftness19: 0
+    - _ShadowSoftness2: 0
+    - _ShadowSoftness20: 0
+    - _ShadowSoftness21: 0
+    - _ShadowSoftness22: 0
+    - _ShadowSoftness23: 0
+    - _ShadowSoftness24: 0
+    - _ShadowSoftness25: 0
+    - _ShadowSoftness26: 0
+    - _ShadowSoftness27: 0
+    - _ShadowSoftness28: 0
+    - _ShadowSoftness29: 0
+    - _ShadowSoftness3: 0
+    - _ShadowSoftness30: 0
+    - _ShadowSoftness31: 0
+    - _ShadowSoftness4: 0
+    - _ShadowSoftness5: 0
+    - _ShadowSoftness6: 0
+    - _ShadowSoftness7: 0
+    - _ShadowSoftness8: 0
+    - _ShadowSoftness9: 0
     - _ShakeAmplitude0: 0
     - _ShakeAmplitude1: 0
     - _ShakeAmplitude10: 0
@@ -718,6 +1013,45 @@ Material:
     - _Spacing7: 0
     - _Spacing8: 0
     - _Spacing9: 0
+    - _SpacingAnchor0: 0
+    - _SpacingAnchor1: 0
+    - _SpacingAnchor10: 0
+    - _SpacingAnchor11: 0
+    - _SpacingAnchor12: 0
+    - _SpacingAnchor13: 0
+    - _SpacingAnchor14: 0
+    - _SpacingAnchor15: 0
+    - _SpacingAnchor16: 0
+    - _SpacingAnchor17: 0
+    - _SpacingAnchor18: 0
+    - _SpacingAnchor19: 0
+    - _SpacingAnchor2: 0
+    - _SpacingAnchor20: 0
+    - _SpacingAnchor21: 0
+    - _SpacingAnchor22: 0
+    - _SpacingAnchor23: 0
+    - _SpacingAnchor24: 0
+    - _SpacingAnchor25: 0
+    - _SpacingAnchor26: 0
+    - _SpacingAnchor27: 0
+    - _SpacingAnchor28: 0
+    - _SpacingAnchor29: 0
+    - _SpacingAnchor3: 0
+    - _SpacingAnchor30: 0
+    - _SpacingAnchor31: 0
+    - _SpacingAnchor4: 0
+    - _SpacingAnchor5: 0
+    - _SpacingAnchor6: 0
+    - _SpacingAnchor7: 0
+    - _SpacingAnchor8: 0
+    - _SpacingAnchor9: 0
+    - _StencilComp: 8
+    - _StencilFail: 0
+    - _StencilPass: 0
+    - _StencilReadMask: 255
+    - _StencilRef: 0
+    - _StencilWriteMask: 255
+    - _StencilZFail: 0
     - _TextInput0: 0
     - _TextInput1: 0
     - _TextInput10: 0
@@ -782,6 +1116,38 @@ Material:
     - _TextLabel7: 0
     - _TextLabel8: 0
     - _TextLabel9: 0
+    - _TypewriterCentering0: 0
+    - _TypewriterCentering1: 0
+    - _TypewriterCentering10: 0
+    - _TypewriterCentering11: 0
+    - _TypewriterCentering12: 0
+    - _TypewriterCentering13: 0
+    - _TypewriterCentering14: 0
+    - _TypewriterCentering15: 0
+    - _TypewriterCentering16: 0
+    - _TypewriterCentering17: 0
+    - _TypewriterCentering18: 0
+    - _TypewriterCentering19: 0
+    - _TypewriterCentering2: 0
+    - _TypewriterCentering20: 0
+    - _TypewriterCentering21: 0
+    - _TypewriterCentering22: 0
+    - _TypewriterCentering23: 0
+    - _TypewriterCentering24: 0
+    - _TypewriterCentering25: 0
+    - _TypewriterCentering26: 0
+    - _TypewriterCentering27: 0
+    - _TypewriterCentering28: 0
+    - _TypewriterCentering29: 0
+    - _TypewriterCentering3: 0
+    - _TypewriterCentering30: 0
+    - _TypewriterCentering31: 0
+    - _TypewriterCentering4: 0
+    - _TypewriterCentering5: 0
+    - _TypewriterCentering6: 0
+    - _TypewriterCentering7: 0
+    - _TypewriterCentering8: 0
+    - _TypewriterCentering9: 0
     - _TypewriterMode0: 0
     - _TypewriterMode1: 0
     - _TypewriterMode10: 0
@@ -846,6 +1212,70 @@ Material:
     - _TypewriterProgress7: 1
     - _TypewriterProgress8: 1
     - _TypewriterProgress9: 1
+    - _TypewriterSmooth0: 1
+    - _TypewriterSmooth1: 1
+    - _TypewriterSmooth10: 1
+    - _TypewriterSmooth11: 1
+    - _TypewriterSmooth12: 1
+    - _TypewriterSmooth13: 1
+    - _TypewriterSmooth14: 1
+    - _TypewriterSmooth15: 1
+    - _TypewriterSmooth16: 1
+    - _TypewriterSmooth17: 1
+    - _TypewriterSmooth18: 1
+    - _TypewriterSmooth19: 1
+    - _TypewriterSmooth2: 1
+    - _TypewriterSmooth20: 1
+    - _TypewriterSmooth21: 1
+    - _TypewriterSmooth22: 1
+    - _TypewriterSmooth23: 1
+    - _TypewriterSmooth24: 1
+    - _TypewriterSmooth25: 1
+    - _TypewriterSmooth26: 1
+    - _TypewriterSmooth27: 1
+    - _TypewriterSmooth28: 1
+    - _TypewriterSmooth29: 1
+    - _TypewriterSmooth3: 1
+    - _TypewriterSmooth30: 1
+    - _TypewriterSmooth31: 1
+    - _TypewriterSmooth4: 1
+    - _TypewriterSmooth5: 1
+    - _TypewriterSmooth6: 1
+    - _TypewriterSmooth7: 1
+    - _TypewriterSmooth8: 1
+    - _TypewriterSmooth9: 1
+    - _TypewriterType0: 0
+    - _TypewriterType1: 0
+    - _TypewriterType10: 0
+    - _TypewriterType11: 0
+    - _TypewriterType12: 0
+    - _TypewriterType13: 0
+    - _TypewriterType14: 0
+    - _TypewriterType15: 0
+    - _TypewriterType16: 0
+    - _TypewriterType17: 0
+    - _TypewriterType18: 0
+    - _TypewriterType19: 0
+    - _TypewriterType2: 0
+    - _TypewriterType20: 0
+    - _TypewriterType21: 0
+    - _TypewriterType22: 0
+    - _TypewriterType23: 0
+    - _TypewriterType24: 0
+    - _TypewriterType25: 0
+    - _TypewriterType26: 0
+    - _TypewriterType27: 0
+    - _TypewriterType28: 0
+    - _TypewriterType29: 0
+    - _TypewriterType3: 0
+    - _TypewriterType30: 0
+    - _TypewriterType31: 0
+    - _TypewriterType4: 0
+    - _TypewriterType5: 0
+    - _TypewriterType6: 0
+    - _TypewriterType7: 0
+    - _TypewriterType8: 0
+    - _TypewriterType9: 0
     - _Use0: 1
     - _Use1: 0
     - _Use10: 0
@@ -878,6 +1308,7 @@ Material:
     - _Use7: 0
     - _Use8: 0
     - _Use9: 0
+    - _VRScale: 0.5
     - _WorldSpace0: 0
     - _WorldSpace1: 0
     - _WorldSpace10: 0
@@ -978,6 +1409,7 @@ Material:
     - m_end_curve_path8: 0
     - m_end_curve_path9: 0
     - m_end_debug: 0
+    - m_end_debug_settings: 0
     - m_end_effect0: 0
     - m_end_effect1: 0
     - m_end_effect10: 0
@@ -1010,6 +1442,39 @@ Material:
     - m_end_effect7: 0
     - m_end_effect8: 0
     - m_end_effect9: 0
+    - m_end_gradient0: 0
+    - m_end_gradient1: 0
+    - m_end_gradient10: 0
+    - m_end_gradient11: 0
+    - m_end_gradient12: 0
+    - m_end_gradient13: 0
+    - m_end_gradient14: 0
+    - m_end_gradient15: 0
+    - m_end_gradient16: 0
+    - m_end_gradient17: 0
+    - m_end_gradient18: 0
+    - m_end_gradient19: 0
+    - m_end_gradient2: 0
+    - m_end_gradient20: 0
+    - m_end_gradient21: 0
+    - m_end_gradient22: 0
+    - m_end_gradient23: 0
+    - m_end_gradient24: 0
+    - m_end_gradient25: 0
+    - m_end_gradient26: 0
+    - m_end_gradient27: 0
+    - m_end_gradient28: 0
+    - m_end_gradient29: 0
+    - m_end_gradient3: 0
+    - m_end_gradient30: 0
+    - m_end_gradient31: 0
+    - m_end_gradient4: 0
+    - m_end_gradient5: 0
+    - m_end_gradient6: 0
+    - m_end_gradient7: 0
+    - m_end_gradient8: 0
+    - m_end_gradient9: 0
+    - m_end_internal_settings: 0
     - m_end_outline0: 0
     - m_end_outline1: 0
     - m_end_outline10: 0
@@ -1145,6 +1610,7 @@ Material:
     - m_end_spacing7: 0
     - m_end_spacing8: 0
     - m_end_spacing9: 0
+    - m_end_stencil: 0
     - m_end_text_setting: 0
     - m_end_text_setting0: 0
     - m_end_text_setting1: 0
@@ -1210,6 +1676,7 @@ Material:
     - m_end_typewriter7: 0
     - m_end_typewriter8: 0
     - m_end_typewriter9: 0
+    - m_end_utility_settings: 0
     - m_start_animator0: 0
     - m_start_animator1: 0
     - m_start_animator10: 0
@@ -1308,6 +1775,39 @@ Material:
     - m_start_effect7: 0
     - m_start_effect8: 0
     - m_start_effect9: 0
+    - m_start_gradient0: 0
+    - m_start_gradient1: 0
+    - m_start_gradient10: 0
+    - m_start_gradient11: 0
+    - m_start_gradient12: 0
+    - m_start_gradient13: 0
+    - m_start_gradient14: 0
+    - m_start_gradient15: 0
+    - m_start_gradient16: 0
+    - m_start_gradient17: 0
+    - m_start_gradient18: 0
+    - m_start_gradient19: 0
+    - m_start_gradient2: 0
+    - m_start_gradient20: 0
+    - m_start_gradient21: 0
+    - m_start_gradient22: 0
+    - m_start_gradient23: 0
+    - m_start_gradient24: 0
+    - m_start_gradient25: 0
+    - m_start_gradient26: 0
+    - m_start_gradient27: 0
+    - m_start_gradient28: 0
+    - m_start_gradient29: 0
+    - m_start_gradient3: 0
+    - m_start_gradient30: 0
+    - m_start_gradient31: 0
+    - m_start_gradient4: 0
+    - m_start_gradient5: 0
+    - m_start_gradient6: 0
+    - m_start_gradient7: 0
+    - m_start_gradient8: 0
+    - m_start_gradient9: 0
+    - m_start_internal_settings: 0
     - m_start_outline0: 0
     - m_start_outline1: 0
     - m_start_outline10: 0
@@ -1443,7 +1943,8 @@ Material:
     - m_start_spacing7: 0
     - m_start_spacing8: 0
     - m_start_spacing9: 0
-    - m_start_text_setting: 0
+    - m_start_stencil: 0
+    - m_start_text_setting: 1
     - m_start_text_setting0: 0
     - m_start_text_setting1: 0
     - m_start_text_setting10: 0
@@ -1508,12 +2009,45 @@ Material:
     - m_start_typewriter7: 0
     - m_start_typewriter8: 0
     - m_start_typewriter9: 0
+    - m_start_utility_settings: 0
     - shader_is_using_thry_editor: 0
     - shader_master_label: 0
     m_Colors:
     - _BoundsColor: {r: 0, g: 1, b: 0, a: 1}
     - _CameraPosition: {r: 0, g: 0, b: 0, a: 0}
     - _CameraRotation: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter0: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter1: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter10: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter11: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter12: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter13: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter14: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter15: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter16: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter17: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter18: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter19: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter2: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter20: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter21: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter22: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter23: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter24: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter25: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter26: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter27: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter28: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter29: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter3: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter30: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter31: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter4: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter5: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter6: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter7: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter8: {r: 0, g: 0, b: 0, a: 0}
+    - _CurveCenter9: {r: 0, g: 0, b: 0, a: 0}
     - _CurveDataTX0_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
     - _CurveDataTX0_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
     - _CurveDataTX10_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
@@ -1898,6 +2432,70 @@ Material:
     - _CurveDataZ8_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
     - _CurveDataZ9_0: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
     - _CurveDataZ9_1: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _GradientColorA0: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA1: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA10: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA11: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA12: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA13: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA14: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA15: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA16: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA17: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA18: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA19: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA2: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA20: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA21: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA22: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA23: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA24: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA25: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA26: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA27: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA28: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA29: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA3: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA30: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA31: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA4: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA5: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA6: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA7: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA8: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorA9: {r: 1, g: 1, b: 1, a: 1}
+    - _GradientColorB0: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB1: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB10: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB11: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB12: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB13: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB14: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB15: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB16: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB17: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB18: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB19: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB2: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB20: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB21: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB22: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB23: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB24: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB25: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB26: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB27: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB28: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB29: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB3: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB30: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB31: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB4: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB5: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB6: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB7: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB8: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColorB9: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor0: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor1: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor10: {r: 0, g: 0, b: 0, a: 1}
@@ -2249,4 +2847,36 @@ Material:
     - _TypewriterRotation7: {r: 0, g: 0, b: 0, a: 0}
     - _TypewriterRotation8: {r: 0, g: 0, b: 0, a: 0}
     - _TypewriterRotation9: {r: 0, g: 0, b: 0, a: 0}
+    - _TypewriterScale0: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale1: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale10: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale11: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale12: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale13: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale14: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale15: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale16: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale17: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale18: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale19: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale2: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale20: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale21: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale22: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale23: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale24: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale25: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale26: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale27: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale28: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale29: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale3: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale30: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale31: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale4: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale5: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale6: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale7: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale8: {r: 1, g: 1, b: 1, a: 0}
+    - _TypewriterScale9: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

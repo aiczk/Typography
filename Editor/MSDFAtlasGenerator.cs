@@ -10,15 +10,20 @@ namespace Typography.Editor
 {
     public static class MSDFAtlasGenerator
     {
+        private static readonly int AtlasInvSize = Shader.PropertyToID("_AtlasInvSize");
+        private static readonly int AtlasMask = Shader.PropertyToID("_AtlasMask");
+        private static readonly int AtlasShift = Shader.PropertyToID("_AtlasShift");
+        private static readonly int AtlasCellSize = Shader.PropertyToID("_AtlasCellSize");
+        private static readonly int AtlasHalfInvPxRange = Shader.PropertyToID("_AtlasHalfInvPxRange");
         private const int AtlasResolution = 4096;
 
         public static string GetMsdfAtlasGenPath()
         {
             // Find msdf-atlas-gen.exe relative to this script's location
-            string[] guids = AssetDatabase.FindAssets("msdf-atlas-gen");
-            foreach (string guid in guids)
+            var guids = AssetDatabase.FindAssets("msdf-atlas-gen");
+            foreach (var guid in guids)
             {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
+                var path = AssetDatabase.GUIDToAssetPath(guid);
                 if (path.EndsWith("msdf-atlas-gen.exe"))
                 {
                     return Path.GetFullPath(path);
@@ -26,31 +31,27 @@ namespace Typography.Editor
             }
             // Fallback to same folder as MSDFAtlasGenerator.cs
             var scriptPath = AssetDatabase.FindAssets("MSDFAtlasGenerator t:MonoScript");
-            if (scriptPath.Length > 0)
-            {
-                string csPath = AssetDatabase.GUIDToAssetPath(scriptPath[0]);
-                string dir = Path.GetDirectoryName(csPath);
-                return Path.GetFullPath(Path.Combine(dir, "msdf-atlas-gen.exe"));
-            }
-            return null;
+            if (scriptPath.Length <= 0) return null;
+            
+            var csPath = AssetDatabase.GUIDToAssetPath(scriptPath[0]);
+            var dir = Path.GetDirectoryName(csPath);
+            return Path.GetFullPath(Path.Combine(dir!, "msdf-atlas-gen.exe"));
         }
 
         public static string GetFontPath(Font font)
         {
             if (font == null) return null;
 
-            string assetPath = AssetDatabase.GetAssetPath(font);
+            var assetPath = AssetDatabase.GetAssetPath(font);
             if (string.IsNullOrEmpty(assetPath)) return null;
 
-            string fullPath = Path.GetFullPath(assetPath);
+            var fullPath = Path.GetFullPath(assetPath);
 
-            if (!File.Exists(fullPath))
-            {
-                Debug.LogError($"Font file not found at: {fullPath}");
-                return null;
-            }
+            if (File.Exists(fullPath)) return fullPath;
+            
+            Debug.LogError($"Font file not found at: {fullPath}");
+            return null;
 
-            return fullPath;
         }
 
         /// <summary>
@@ -71,34 +72,34 @@ namespace Typography.Editor
                 return null;
             }
 
-            string atlasGenPath = GetMsdfAtlasGenPath();
+            var atlasGenPath = GetMsdfAtlasGenPath();
             if (!File.Exists(atlasGenPath))
             {
                 Debug.LogError($"msdf-atlas-gen.exe not found at: {atlasGenPath}");
                 return null;
             }
 
-            string fontPath = GetFontPath(font);
+            var fontPath = GetFontPath(font);
             if (string.IsNullOrEmpty(fontPath)) return null;
 
             // Create temp charset file in same directory as msdf-atlas-gen.exe
-            string atlasGenDir = Path.GetDirectoryName(atlasGenPath);
-            string charsetPath = Path.Combine(atlasGenDir, "temp_charset_gen.txt");
-            string escapedCharacters = string.Join("", characters).Replace("\\", @"\\").Replace("\"", "\\\"");
-            string characterString = "\"" + escapedCharacters + "\"";
+            var atlasGenDir = Path.GetDirectoryName(atlasGenPath);
+            var charsetPath = Path.Combine(atlasGenDir!, "temp_charset_gen.txt");
+            var escapedCharacters = string.Join("", characters).Replace("\\", @"\\").Replace("\"", "\\\"");
+            var characterString = "\"" + escapedCharacters + "\"";
             File.WriteAllText(charsetPath, characterString, System.Text.Encoding.UTF8);
 
             // Delete existing output if exists
             if (File.Exists(outputPath)) File.Delete(outputPath);
 
             // Calculate parameters
-            int cellSize = AtlasResolution / atlasSize;
-            int pxRange = Mathf.Max(2, cellSize / 32);
+            var cellSize = AtlasResolution / atlasSize;
+            var pxRange = Mathf.Max(2, cellSize / 32);
 
             var startInfo = new ProcessStartInfo
             {
                 FileName = atlasGenPath,
-                Arguments = $"-font \"{fontPath}\" -charset \"{charsetPath}\" -type mtsdf -dimensions {AtlasResolution} {AtlasResolution} -uniformgrid -uniformcols {atlasSize} -uniformcell {cellSize} {cellSize} -pxpadding 6 -pxrange {pxRange} -threads 0 -imageout \"{outputPath}\"",
+                Arguments = $"-font \"{fontPath}\" -charset \"{charsetPath}\" -type mtsdf -dimensions {AtlasResolution} {AtlasResolution} -uniformgrid -uniformcols {atlasSize} -uniformcell {cellSize} {cellSize} -pxpadding 32 -pxrange {pxRange} -threads 0 -imageout \"{outputPath}\"",
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -112,37 +113,34 @@ namespace Typography.Editor
                 using var process = Process.Start(startInfo);
                 if (process == null)
                 {
-                    EditorUtility.ClearProgressBar();
                     Debug.LogError("Failed to start msdf-atlas-gen process");
                     return null;
                 }
 
-                string output = process.StandardOutput.ReadToEnd();
-                string error = process.StandardError.ReadToEnd();
+                var output = process.StandardOutput.ReadToEnd();
+                var error = process.StandardError.ReadToEnd();
                 process.WaitForExit();
 
-                EditorUtility.ClearProgressBar();
-
-                if (process.ExitCode == 0 && File.Exists(outputPath))
+                if (process.ExitCode != 0 || !File.Exists(outputPath))
                 {
-                    // Convert to asset path
-                    string relativePath = "Assets" + outputPath.Substring(Application.dataPath.Length).Replace("\\", "/");
-
-                    // Return path for batch import later
-                    return relativePath;
+                    Debug.LogError($"msdf-atlas-gen failed. Exit code: {process.ExitCode}");
+                    if (!string.IsNullOrEmpty(output)) Debug.LogError($"Output: {output}");
+                    if (!string.IsNullOrEmpty(error)) Debug.LogError($"Error: {error}");
+                    return null;
                 }
 
-                Debug.LogError($"msdf-atlas-gen failed. Exit code: {process.ExitCode}");
-                if (!string.IsNullOrEmpty(output)) Debug.LogError($"Output: {output}");
-                if (!string.IsNullOrEmpty(error)) Debug.LogError($"Error: {error}");
+                var relativePath = "Assets" + outputPath.Substring(Application.dataPath.Length).Replace("\\", "/");
+                return relativePath;
             }
             catch (System.Exception e)
             {
-                EditorUtility.ClearProgressBar();
                 Debug.LogError($"Failed to run msdf-atlas-gen: {e.Message}");
+                return null;
             }
-
-            return null;
+            finally
+            {
+                EditorUtility.ClearProgressBar();
+            }
         }
 
         /// <summary>
@@ -225,19 +223,43 @@ namespace Typography.Editor
         }
 
         /// <summary>
+        /// Bakes atlas parameters to material for shader optimization.
+        /// Call this when _AtlasSize changes.
+        /// </summary>
+        public static void BakeAtlasParams(Material mat, int atlasSize)
+        {
+            if (mat == null || atlasSize <= 0) return;
+
+            var invSize = 1.0f / atlasSize;
+            var mask = atlasSize - 1;
+            var shift = (int)Mathf.Log(atlasSize, 2);
+            var cellSize = AtlasResolution * invSize;
+            var halfInvPxRange = 0.5f / Mathf.Max(2.0f, cellSize / 32.0f);
+
+            mat.SetFloat(AtlasInvSize, invSize);
+            mat.SetInt(AtlasMask, mask);
+            mat.SetInt(AtlasShift, shift);
+            mat.SetFloat(AtlasCellSize, cellSize);
+            mat.SetFloat(AtlasHalfInvPxRange, halfInvPxRange);
+        }
+
+        /// <summary>
         /// Extracts unique text elements (grapheme clusters) from input string.
         /// Used for building character mapping for MSDF atlas generation.
         /// </summary>
         public static List<string> ExtractUniqueTextElements(string input)
         {
             var elements = new List<string>();
+            var seen = new HashSet<string>();
             var enumerator = System.Globalization.StringInfo.GetTextElementEnumerator(input);
 
             while (enumerator.MoveNext())
             {
-                string element = enumerator.Current.ToString();
-                if (string.IsNullOrEmpty(element) || char.IsControl(element[0]) || char.IsWhiteSpace(element[0])) continue;
-                if (elements.Contains(element)) continue;
+                var element = enumerator.Current.ToString();
+                if (string.IsNullOrEmpty(element) || char.IsControl(element[0]) || char.IsWhiteSpace(element[0]))
+                    continue;
+                if (!seen.Add(element))
+                    continue;
                 elements.Add(element);
             }
 

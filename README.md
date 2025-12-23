@@ -21,21 +21,26 @@ Fragment shader instruction counts (Unity compiled shader stats, d3d11):
 
 **1/100** fragment instructions vs alternatives. Processing concentrated in Vertex Shader - performance gap widens with resolution.
 
-|                |         Avg |  Ratio |
-|----------------|------------:|-------:|
-| **Typography** | **0.540ms** | **1x** |
-| SSVFX          |     1.205ms |   2.2x |
-| TexSvfx        |     6.127ms |  11.4x |
+|                |         Avg |    Ratio |
+|----------------|------------:|---------:|
+| **Typography** | **0.471ms** | **1x** |
+| SSVFX          |     0.851ms |   1.8x |
+| TexSV          |     6.094ms |  13.0x |
+
+> Imagery also achieved comparable performance (0.500ms).
 
 ## Features
 
 - High-quality edges with MSDF (sharp at any scale)
 - Unicode support (Japanese, emoji, ligatures)
 - Up to 8 fonts simultaneously
-- Text / Image mode
 - 5 Root Transforms (hierarchical structure)
 - Typewriter / Curve Path / Shake effects
-- Outline / Drop Shadow
+- Outline / Drop Shadow / Gradient
+- Stencil buffer support
+- VR Scale adjustment
+
+> Lightweight image-only shader `GekikaraStore/Imagery` is also included.
 
 ## Installation
 
@@ -81,8 +86,8 @@ Fragment shader instruction counts (Unity compiled shader stats, d3d11):
 | Property | Description |
 |----------|-------------|
 | Root | Parent root (None / Root 1-5) |
-| World Space | ON: world coordinates, OFF: screen coordinates |
-| Mode | Text_Horizontal / Text_Vertical / Image |
+| Space | Screen / World coordinate mode |
+| Mode | Text_Horizontal / Text_Vertical |
 | Text | Text input + Gen button |
 | Font | Font selection (from Fonts section) |
 | Layer | Draw order (0-31, higher = front) |
@@ -99,13 +104,17 @@ Fragment shader instruction counts (Unity compiled shader stats, d3d11):
 | **Typewriter** | |
 | Type | Sequential (1 char at a time) / Block (fixed window) |
 | Direction | Left to Right / Right to Left / Center Out (Sequential) |
+| Centering | Center text alignment (Enable / Disable) |
 | Progress | Display progress (0-1, Sequential) |
+| Smooth | Fade width on appear (0-1) |
 | Offset | Movement offset on appear |
 | Rotation | Rotation on appear |
+| Scale | Scale animation on appear |
 | Visible Count | Static visible chars (Block) |
 | Animating Count | Transitioning chars (Block) |
 | Char Delay | Per-char stagger (Block) |
 | **Kerning & Tracking** | |
+| Anchor | Spacing anchor (Center / Left / Right) |
 | Spacing | Character spacing (-1 to 1) |
 
 ### Effector
@@ -123,13 +132,21 @@ Fragment shader instruction counts (Unity compiled shader stats, d3d11):
 | Frequency | Frequency (0-20) |
 | Blend | Per-character to per-line blend |
 | **Outline** | |
-| Width | Width (0-0.1) |
+| Mode | Outline (filled) / Stroke (outline only) |
+| Width | Width (0-1) |
 | Color | Color (HDR) |
 | **Drop Shadow** | |
 | Intensity | Intensity (0-1) |
-| Offset | Offset |
 | Softness | Soft shadow blur (0-1) |
+| Dither | Dither pattern (Hash / IGN / R2) |
+| Samples | Sample count (4-32) |
+| Offset | Offset |
 | Color | Color (HDR) |
+| **Gradient** | |
+| Intensity | Gradient intensity (0-1) |
+| Mode | Direction (Horizontal / Vertical) |
+| Color A | Start color (HDR) |
+| Color B | End color (HDR) |
 
 ### Rendering Settings
 
@@ -141,13 +158,20 @@ Fragment shader instruction counts (Unity compiled shader stats, d3d11):
 | ZTest | Depth test |
 | ZWrite | Depth write |
 | Source/Destination Blend | Blend mode |
+| **Stencil** | |
+| Reference | Stencil reference value (0-255) |
+| Read/Write Mask | Mask value |
+| Compare | Comparison function |
+| Pass/Fail/ZFail | Stencil operation |
+| **Utility** | |
+| Quad Padding | Character quad size expansion (0-1) |
+| VR Scale | VR environment scale (0.1-1) |
 
-### Debug
+## Typography Debugger
 
-| Property | Description |
-|----------|-------------|
-| Pivot Color/Size | Pivot display (Editor only) |
-| Bounds Color/Width | Bounding box display |
+Editor window for ScreenSpace text.
+Access via `Typography > Debugger`.
+Supports AnimationWindow integration for keyframe editing (alpha).
 
 ## Specifications
 

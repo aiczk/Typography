@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,14 +15,14 @@ namespace Typography.Editor.Drawers
 
         public override void OnGUI(Rect position, MaterialProperty prop, GUIContent label, MaterialEditor editor)
         {
-            Material mat = (Material)prop.targets[0];
+            var mat = (Material)prop.targets[0];
 
-            string project = mat.GetTag(TagProject, false, DefaultProject);
+            var project = mat.GetTag(TagProject, false, DefaultProject);
             if (string.IsNullOrEmpty(project))
                 project = DefaultProject;
 
             EditorGUI.BeginChangeCheck();
-            string newProject = EditorGUI.TextField(position, label, project);
+            var newProject = EditorGUI.DelayedTextField(position, label, project);
             if (EditorGUI.EndChangeCheck())
             {
                 // Sanitize: remove invalid path characters
@@ -37,7 +38,7 @@ namespace Typography.Editor.Drawers
 
         public static string GetProject(Material mat)
         {
-            string project = mat.GetTag(TagProject, false, DefaultProject);
+            var project = mat.GetTag(TagProject, false, DefaultProject);
             return string.IsNullOrEmpty(project) ? DefaultProject : project;
         }
 
@@ -46,12 +47,8 @@ namespace Typography.Editor.Drawers
             if (string.IsNullOrEmpty(name))
                 return DefaultProject;
 
-            // Remove invalid path characters
-            char[] invalid = System.IO.Path.GetInvalidFileNameChars();
-            foreach (char c in invalid)
-                name = name.Replace(c.ToString(), "");
-
-            return name.Trim();
+            var invalid = System.IO.Path.GetInvalidFileNameChars();
+            return new string(name.Where(c => !invalid.Contains(c)).ToArray()).Trim();
         }
 
         public override float GetPropertyHeight(MaterialProperty prop, string label, MaterialEditor editor)

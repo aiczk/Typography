@@ -2,7 +2,10 @@
     "name": "Typography.Editor",
     "rootNamespace": "Typography.Editor",
     "references": [
-        "ThryAssemblyDefinition"
+        "ThryAssemblyDefinition",
+        "Unity.Mathematics",
+        "Unity.Collections",
+        "Typography"
     ],
     "includePlatforms": [
         "Editor"
