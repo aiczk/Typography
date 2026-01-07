@@ -21,22 +21,33 @@ namespace Typography.Editor.Core
         {
             TypographyAssetPaths.EnsureDirectoryExists(assetPath);
 
-            var asset = creator();
             var existing = AssetDatabase.LoadAssetAtPath<T>(assetPath);
 
             if (existing != null)
             {
-                // For Texture2D, check if dimensions match before using CopySerialized
-                // CopySerialized can corrupt pixel data when texture dimensions change
+                var asset = creator();
+
+                // Check dimensions for Texture2D
                 if (existing is Texture2D existingTex && asset is Texture2D newTex)
                 {
                     if (existingTex.width != newTex.width || existingTex.height != newTex.height ||
                         existingTex.format != newTex.format)
                     {
-                        // Size/format mismatch: delete and recreate
-                        Object.DestroyImmediate(asset);
+                        // Size/format mismatch: delete existing and create new
                         AssetDatabase.DeleteAsset(assetPath);
-                        asset = creator();
+                        AssetDatabase.CreateAsset(asset, assetPath);
+                        return AssetDatabase.LoadAssetAtPath<T>(assetPath);
+                    }
+                }
+
+                // Check dimensions for Texture2DArray
+                if (existing is Texture2DArray existingArr && asset is Texture2DArray newArr)
+                {
+                    if (existingArr.width != newArr.width || existingArr.height != newArr.height ||
+                        existingArr.depth != newArr.depth || existingArr.format != newArr.format)
+                    {
+                        // Size/format/depth mismatch: delete existing and create new
+                        AssetDatabase.DeleteAsset(assetPath);
                         AssetDatabase.CreateAsset(asset, assetPath);
                         return AssetDatabase.LoadAssetAtPath<T>(assetPath);
                     }
@@ -47,7 +58,8 @@ namespace Typography.Editor.Core
                 return existing;
             }
 
-            AssetDatabase.CreateAsset(asset, assetPath);
+            var newAsset = creator();
+            AssetDatabase.CreateAsset(newAsset, assetPath);
             return AssetDatabase.LoadAssetAtPath<T>(assetPath);
         }
 

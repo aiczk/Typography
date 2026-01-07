@@ -538,10 +538,10 @@ void apply_texture_to_color(
 struct EffectParams
 {
     float4 text_color;      // rgba=text_color
-    float4 outline;         // x=width*0.5, y=round, zw=unused
+    float4 outline;         // x=width*0.5, y=round, zw=_
     float4 outline_color;   // rgba=color
     float4 shadow;          // x=intensity, yz=offset, w=softness
-    float4 shadow_color;    // rgb=shadow_color, a=unused
+    float4 shadow_color;    // rgb=shadow_color, a=_
 };
 
 void apply_effects(

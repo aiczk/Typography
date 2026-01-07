@@ -205,7 +205,7 @@ inline uint2 pcg2d(uint2 v)
     return v;
 }
 
-// High-quality 2D hash using PCG (replaces old LCG-based hash22)
+// High-quality 2D hash using PCG
 // Better distribution, similar performance (~4 cycles)
 float2 hash22(float2 p)
 {

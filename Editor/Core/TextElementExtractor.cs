@@ -28,7 +28,7 @@ namespace Typography.Editor.Core
         }
 
         /// <summary>
-        /// Extracts unique text elements, excluding whitespace and control characters.
+        /// Extracts unique text elements, excluding control characters.
         /// Used for building character sets for atlas generation.
         /// </summary>
         public static List<string> ExtractUniqueElements(string text)
@@ -42,7 +42,7 @@ namespace Typography.Editor.Core
             {
                 var element = enumerator.Current.ToString();
                 if (string.IsNullOrEmpty(element)) continue;
-                if (char.IsControl(element[0]) || char.IsWhiteSpace(element[0])) continue;
+                if (char.IsControl(element[0])) continue;
                 if (!seen.Add(element)) continue;
                 elements.Add(element);
             }

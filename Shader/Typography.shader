@@ -4981,7 +4981,7 @@ Shader "GekikaraStore/Typography"
             {
                 UNITY_SETUP_INSTANCE_ID(IN[0]);
 
-                // 三角形フィルタリング: 各Quadの2つ目の三角形をスキップ
+                // Triangle filtering: skip second triangle of each quad
                 float2 uv2_avg = (IN[0].uv2 + IN[1].uv2 + IN[2].uv2) / 3;
                 if (uv2_avg.x + uv2_avg.y > 1.0) return;
 

@@ -152,19 +152,27 @@ namespace Typography.Editor
             if (assetPaths == null || assetPaths.Count == 0)
                 return new List<Texture2D>();
 
+            var validPaths = assetPaths.Where(path => !string.IsNullOrEmpty(path)).ToList();
+
+            // 1. Configure importer settings first (no reimport yet)
+            foreach (var path in validPaths)
+                ConfigureTextureImporter(path);
+
+            // 2. Write settings to .meta files
+            foreach (var path in validPaths)
+                AssetDatabase.WriteImportSettingsIfDirty(path);
+
+            // 3. Batch import all at once
             AssetDatabase.StartAssetEditing();
             try
             {
-                foreach (var path in assetPaths.Where(path => !string.IsNullOrEmpty(path)))
+                foreach (var path in validPaths)
                     AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
             }
             finally
             {
                 AssetDatabase.StopAssetEditing();
             }
-
-            foreach (var path in assetPaths.Where(path => !string.IsNullOrEmpty(path)))
-                ConfigureTextureImporter(path);
 
             return assetPaths.Select(path =>
                 string.IsNullOrEmpty(path) ? null : AssetDatabase.LoadAssetAtPath<Texture2D>(path)
@@ -196,8 +204,6 @@ namespace Typography.Editor
             standaloneSettings.maxTextureSize = AtlasResolution;
             standaloneSettings.compressionQuality = 100;
             importer.SetPlatformTextureSettings(standaloneSettings);
-
-            importer.SaveAndReimport();
         }
 
         /// <summary>

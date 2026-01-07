@@ -16,10 +16,10 @@ struct text_v2f
     nointerpolation uint2 anim_packed : TEXCOORD3; // 2 (x: opacity_mult|shake.x, y: shake.y|block_fade)
     nointerpolation uint quad_packed : TEXCOORD4;  // 1 (quad_padding|rcp_sample_count as f16)
     nointerpolation uint2 text_color : TEXCOORD5;  // 2 (RGBA as f16)
-    nointerpolation uint2 outline : TEXCOORD6;     // 2 (width*0.5|round, blur|unused as f16)
+    nointerpolation uint2 outline : TEXCOORD6;     // 2 (width*0.5|round, blur|_ as f16)
     nointerpolation uint2 outline_color : TEXCOORD7;// 2 (R|G, B|A as f16)
     nointerpolation uint2 shadow : TEXCOORD8;      // 2 (intensity|offset.x, offset.y|blur_radius as f16)
-    nointerpolation uint2 shadow_color : TEXCOORD9;// 2 (R|G, B|unused as f16)
+    nointerpolation uint2 shadow_color : TEXCOORD9;// 2 (R|G, B|_ as f16)
     nointerpolation uint2 texturing : TEXCOORD10;  // 2 (matcap_intensity|matcap_bevel, matcap_blend|texture_intensity as f16)
     float3 world_pos : TEXCOORD11;                 // 3 (world position for matcap/texture view direction)
     nointerpolation float3 surface_normal : TEXCOORD12; // 3 (surface normal for matcap, NOT normalized)
@@ -482,7 +482,7 @@ inline bool process_text(
     o.quad_packed = pack_f16x2(quad_padding, rcp(max((float)p.shadow_samples, 1.0)));
     o.texturing = uint2(pack_f16x2(p.matcap_intensity, p.matcap_bevel), pack_f16x2(p.matcap_blend, p.texture_intensity));
 
-    // World position and surface normal for matcap (normalize省略 - fragment側で正規化)
+    // World position and surface normal for matcap (normalize deferred to fragment)
     float3 matcap_normal = char_rotation_scale._m02_m12_m22;  // Skip normalize
     if (p.world_space == 1) {
         o.world_pos = mul(unity_ObjectToWorld, float4(corner_world, 1.0)).xyz;

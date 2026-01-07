@@ -26,6 +26,11 @@ namespace Typography.Editor.Core
             TypographyAssetPaths.EnsureProjectDirectoryExists(project);
 
             var allProjectMaterials = FindAllProjectMaterials(project);
+
+            // Include the current material (may not be assigned to any Renderer in scene)
+            if (!allProjectMaterials.Contains(mat))
+                allProjectMaterials.Add(mat);
+
             var perFontChars = CollectPerFontCharacters(allProjectMaterials, fonts.Count);
 
             var (perFontCharacters, fontIndexToArrayIndex, usedFontIndices) =

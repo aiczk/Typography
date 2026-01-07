@@ -95,10 +95,10 @@ namespace Typography.Editor.Drawers
             state.List = new ReorderableList(
                 state.Fonts,
                 typeof(Font),
-                false,  // draggable = false (並び替え無効)
-                true,   // displayHeader
-                true,   // displayAddButton
-                true    // displayRemoveButton
+                false,
+                true,
+                true,
+                true
             )
             {
                 elementHeight = ElementHeight,
