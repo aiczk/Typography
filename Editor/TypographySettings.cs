@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.IO;
+using Typography.Editor.Core;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,9 +11,6 @@ namespace Typography.Editor
     /// </summary>
     public class TypographySettings : ScriptableObject
     {
-        private const string AtlasRootFolder = "Assets/Typography_Atlases";
-        private const int MaxFonts = 8;
-
         [SerializeField] public List<Font> fonts = new();
 
         private static readonly Dictionary<string, TypographySettings> Cache = new();
@@ -31,7 +28,6 @@ namespace Typography.Editor
             Undo.RecordObject(storage, "Change Project Fonts");
             storage.fonts = new List<Font>(fonts);
             EditorUtility.SetDirty(storage);
-            AssetDatabase.SaveAssetIfDirty(storage);
         }
 
         public static TypographySettings GetOrCreate(string project)
@@ -42,15 +38,12 @@ namespace Typography.Editor
             if (Cache.TryGetValue(project, out var cached) && cached != null)
                 return cached;
 
-            var safeName = string.Join("_", project.Split(Path.GetInvalidFileNameChars()));
-            var assetPath = GetAssetPath(safeName);
+            var assetPath = TypographyAssetPaths.GetSettingsPath(project);
             var storage = AssetDatabase.LoadAssetAtPath<TypographySettings>(assetPath);
 
             if (storage == null)
             {
-                var projectDir = $"{AtlasRootFolder}/{safeName}";
-                if (!Directory.Exists(projectDir))
-                    Directory.CreateDirectory(projectDir);
+                TypographyAssetPaths.EnsureProjectDirectoryExists(project);
 
                 storage = CreateInstance<TypographySettings>();
                 AssetDatabase.CreateAsset(storage, assetPath);
@@ -70,7 +63,7 @@ namespace Typography.Editor
 
             var fonts = LoadFontsFromMaterialTags(mat);
             if (fonts.Count <= 0) return;
-            
+
             storage.fonts = fonts;
             EditorUtility.SetDirty(storage);
             AssetDatabase.SaveAssetIfDirty(storage);
@@ -92,9 +85,8 @@ namespace Typography.Editor
             foreach (var prefix in prefixes)
             {
                 var fonts = LoadFontsWithPrefix(mat, prefix);
-                if (fonts.Count <= 0) continue;
-                
-                return fonts;
+                if (fonts.Count > 0)
+                    return fonts;
             }
 
             return new List<Font>();
@@ -104,7 +96,7 @@ namespace Typography.Editor
         {
             var fonts = new List<Font>();
 
-            for (var i = 0; i < MaxFonts; i++)
+            for (var i = 0; i < 256; i++)
             {
                 var path = mat.GetTag(prefix + i, false, "");
                 if (string.IsNullOrEmpty(path))
@@ -139,11 +131,6 @@ namespace Typography.Editor
         {
             while (fonts.Count > 0 && fonts[^1] == null)
                 fonts.RemoveAt(fonts.Count - 1);
-        }
-
-        private static string GetAssetPath(string safeName)
-        {
-            return $"{AtlasRootFolder}/{safeName}/{safeName}_Settings.asset";
         }
     }
 }

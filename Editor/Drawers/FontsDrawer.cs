@@ -12,7 +12,6 @@ namespace Typography.Editor.Drawers
     /// </summary>
     public class FontsDrawer : MaterialPropertyDrawer
     {
-        private const int MaxFonts = 8;
         private const float ElementHeight = 20f;
         private const float HeaderHeight = 18f;
         private const float FooterHeight = 20f;
@@ -133,7 +132,6 @@ namespace Typography.Editor.Drawers
 
                 onAddCallback = _ =>
                 {
-                    if (state.Fonts.Count >= MaxFonts) return;
                     state.Fonts.Add(null);
                     TypographySettings.SetFonts(project, state.Fonts);
                 },
@@ -146,8 +144,6 @@ namespace Typography.Editor.Drawers
                     state.Fonts.RemoveAt(list.index);
                     TypographySettings.SetFonts(project, state.Fonts);
                 },
-
-                onCanAddCallback = _ => state.Fonts.Count < MaxFonts,
 
                 onCanRemoveCallback = _ => state.Fonts.Count > 0
             };
