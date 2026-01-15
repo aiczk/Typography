@@ -11,13 +11,13 @@ Shader "GekikaraStore/Typography"
 
         [Project] _Project ("Project", Int) = 0
 
-        [HideInInspector] m_start_camera_setting ("<b><i><color=#C0C0C0>C</color><color=#C4C4C4>a</color><color=#C8C8C8>m</color><color=#CCCCCC>e</color><color=#D0D0D0>r</color><color=#D4D4D4>a</color> <color=#DDDDDD>S</color><color=#E1E1E1>e</color><color=#E5E5E5>t</color><color=#E9E9E9>t</color><color=#EEEEEE>i</color><color=#F2F2F2>n</color><color=#F6F6F6>g</color><color=#FAFAFA>s</color></i></b>", Float) = 0
+        [HideInInspector] m_start_camera_setting ("Camera Settings", Float) = 0
             [Vector3] _CameraPosition ("Position", Vector) = (0, 0, -100, 0)
             [Vector3] _CameraRotation ("Rotation", Vector) = (0, 0, 0, 0)
             _CameraFOV ("FOV", Range(10, 120)) = 60.0
         [HideInInspector] m_end_camera_setting ("Camera Settings", Float) = 0
         
-        [HideInInspector] m_start_root_setting ("<b><i><color=#FF8000>R</color><color=#FF8811>o</color><color=#FF9022>o</color><color=#FF9933>t</color> <color=#FFAA55>T</color><color=#FFB266>r</color><color=#FFBB77>a</color><color=#FFC388>n</color><color=#FFCC99>s</color><color=#FFD4AA>f</color><color=#FFDDBB>o</color><color=#FFE5CC>r</color><color=#FFEEDD>m</color><color=#FFF6EE>s</color></i></b>", Float) = 0
+        [HideInInspector] m_start_root_setting ("Root Transforms", Float) = 0
             [HideInInspector] m_start_root0 ("Root 1", Float) = 0
                 [Vector3] _RootPosition0 ("Position", Vector) = (0, 0, 0, 0)
                 [RootTransform] _RootRotation0 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -60,7 +60,7 @@ Shader "GekikaraStore/Typography"
             [HideInInspector] m_end_root4 ("Root 5", Float) = 0
         [HideInInspector] m_end_root_setting ("Root Transforms", Float) = 0
 
-        [HideInInspector] m_start_image_setting ("<b><i><color=#008040>I</color><color=#12894D>m</color><color=#24925B>a</color><color=#369B68>g</color><color=#48A476>e</color> <color=#6DB691>S</color><color=#7FBF9F>e</color><color=#91C8AD>t</color><color=#A3D1BA>t</color><color=#B6DAC8>i</color><color=#C8E3D6>n</color><color=#DAECE3>g</color><color=#ECF5F1>s</color></i></b>", Float) = 0
+        [HideInInspector] m_start_image_setting ("Image Settings", Float) = 0
         
             [HideInInspector][Toggle] _ImageUse0 ("", Float) = 0
             [HideInInspector] m_start_image_setting0 (" --{reference_property:_ImageUse0}", Float) = 0
@@ -864,7 +864,7 @@ Shader "GekikaraStore/Typography"
 
         [HideInInspector] m_end_image_setting ("Image Settings", Float) = 0
         
-        [HideInInspector] m_start_text_setting ("<b><i><color=#008080>T</color><color=#138989>e</color><color=#279393>x</color><color=#3A9D9D>t</color> <color=#62B0B0>S</color><color=#75BABA>e</color><color=#89C4C4>t</color><color=#9CCECE>t</color><color=#B0D7D7>i</color><color=#C4E1E1>n</color><color=#D7EBEB>g</color><color=#EBF5F5>s</color></i></b>", Float) = 0
+        [HideInInspector] m_start_text_setting ("Text Settings", Float) = 0
             [Fonts] _Fonts ("Fonts", Int) = 0
             [HideInInspector][Toggle] _Use0 ("", Float) = 1
             //ifex _Use0==0
@@ -4228,7 +4228,7 @@ Shader "GekikaraStore/Typography"
 
         [HideInInspector] m_end_text_setting ("Text Settings", Float) = 0
 
-        [HideInInspector] m_start_particle_setting ("<b><i><color=#400080>P</color><color=#4B0F87>a</color><color=#561E8E>r</color><color=#612D96>t</color><color=#6C3C9D>i</color><color=#784BA5>c</color><color=#835AAC>l</color><color=#8E69B4>e</color> <color=#A587C3>S</color><color=#B096CA>e</color><color=#BBA5D2>t</color><color=#C6B4D9>t</color><color=#D2C3E1>i</color><color=#DDD2E8>n</color><color=#E8E1F0>g</color><color=#F3F0F7>s</color></i></b>", Float) = 0
+        [HideInInspector] m_start_particle_setting ("Particle Settings", Float) = 0
             [Enum(Screen,0,World,1)] _Particle0Space ("Space", Int) = 0
             [IntRange] _Particle0Multiplier ("Multiplier", Range(0, 25)) = 1
             [Enum(Sphere,0,Cube,1)] _Particle0Distribution ("Distribution", Int) = 0
@@ -4248,7 +4248,7 @@ Shader "GekikaraStore/Typography"
             [HideInInspector] m_end_particle_0_effect ("Effect", Float) = 0
         [HideInInspector] m_end_particle_setting ("Particle Settings", Float) = 0
 
-        [HideInInspector] m_start_rendering_settings ("<b><i><color=#808080>R</color><color=#878787>e</color><color=#8E8E8E>n</color><color=#959595>d</color><color=#9C9C9C>e</color><color=#A3A3A3>r</color><color=#AAAAAA>i</color><color=#B1B1B1>n</color><color=#B8B8B8>g</color> <color=#C6C6C6>S</color><color=#CDCDCD>e</color><color=#D4D4D4>t</color><color=#DBDBDB>t</color><color=#E2E2E2>i</color><color=#E9E9E9>n</color><color=#F0F0F0>g</color><color=#F7F7F7>s</color></i></b>", Float) = 0
+        [HideInInspector] m_start_rendering_settings ("Rendering Settings", Float) = 0
             _FadeMin ("Fade Min", Float) = 0
             _FadeMax ("Fade Max", Float) = 99999
             [ThryWideEnum(Opaque, 0, Transparent, 1, Overlay, 2)] _RenderType ("Render Type", Int) = 1
