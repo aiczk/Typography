@@ -12,7 +12,7 @@ namespace Typography.Editor.Core
     public static class TextureBuilder
     {
         public const int DefaultTextureSize = 512;
-        public const int MaxSlotsPerType = 32;
+        public const int MaxSlotsPerType = 10;
         public const int TextureTypeCount = 3;  // Image, MatCap, Overlay
 
         private static readonly string[] TexturePrefixes = { "_ImageTexture", "_MatCapTex", "_TextureTex" };

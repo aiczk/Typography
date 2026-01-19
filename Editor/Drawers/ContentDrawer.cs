@@ -13,7 +13,7 @@ namespace Typography.Editor.Drawers
     public class ContentDrawer : MaterialPropertyDrawer
     {
         private const string TagTextPrefix = "_TextInput_Text_";
-        private const int MaxTextInputs = 32;
+        private const int MaxTextInputs = 10;
 
         private static float RowHeight => EditorGUIUtility.singleLineHeight;
         private const float ButtonWidth = 50f;

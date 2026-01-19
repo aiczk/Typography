@@ -28,7 +28,7 @@ struct image_v2f
 // ============================================================================
 // Image Shader Variables
 // ============================================================================
-#define IMAGE_COUNT 32
+#define IMAGE_COUNT 10
 
 // _TextureArray declared in Typography.shader (96 layers: Image 0-31, MatCap 32-63, Overlay 64-95)
 SamplerState image_sampler_linear_repeat;

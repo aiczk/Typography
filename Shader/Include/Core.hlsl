@@ -17,7 +17,7 @@
 #define GOLDEN_ANGLE 2.3999632297286533
 #define CM_TO_METER_SCALE 0.01
 #define TEXT_GLYPH_SCALE 0.1
-#define TEXT_COUNT 32
+#define TEXT_COUNT 10
 
 // Texture layer types (for indexing lookup texture)
 #define TEXTURE_TYPE_IMAGE   0
