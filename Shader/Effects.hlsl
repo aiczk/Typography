@@ -33,11 +33,13 @@ float catmull_rom(float p0, float p1, float p2, float p3, float t)
     return mad(p0, h0, mad(p1, h1, mad(p2, h2, p3 * h3)));
 }
 
-// Helper: branchless sample extraction (avoids dynamic array indexing)
+// Helper: branchless sample extraction (swizzle + dot trick)
 inline float get_curve_sample(float4 data0, float4 data1, int i)
 {
-    return (i < 4) ? ((i == 0) ? data0.x : (i == 1) ? data0.y : (i == 2) ? data0.z : data0.w)
-                   : ((i == 4) ? data1.x : (i == 5) ? data1.y : (i == 6) ? data1.z : data1.w);
+    float4 data = (i < 4) ? data0 : data1;
+    int j = i & 3;
+    float4 mask = float4(j == 0, j == 1, j == 2, j == 3);
+    return dot(data, mask);
 }
 
 float sample_baked_curve(float4 data0, float4 data1, float t)
@@ -112,9 +114,10 @@ float3 sample_baked_tangent_3d(float normalized_pos, float phase,
 }
 
 // ============================================================================
-// Typewriter Effect
+// Typewriter Effect (After Effects style)
 // ============================================================================
-// fade_width: 0 = hard cut, 1 = 1 char fade (default)
+// fade_width: 0 = hard cut, higher = smoother transition
+// Returns anim_factor: 0 = fully visible, 1 = fully hidden
 float calculate_typewriter_visibility(int char_pos, int char_count, int mode, float progress, float fade_width)
 {
     float display_count = char_count * saturate(progress);
@@ -128,18 +131,21 @@ float calculate_typewriter_visibility(int char_pos, int char_count, int mode, fl
     else
     {
         // CenterOut: expand radius must reach edge chars at progress=1
-        // max_dist_from_center = center_offset, need distance_to_edge >= 1.0
         float half_display = saturate(progress) * (center_offset + 1.0);
         float dist_from_center = abs(char_pos - center_offset);
         distance_to_edge = half_display - dist_from_center;
     }
 
-    // fade_width controls transition zone
-    // 0 = hard cut (step), 1 = 1 char fade
+    // Hard edge mode
     if (fade_width <= EPSILON)
         return (distance_to_edge > 0.0) ? 0.0 : 1.0;
 
-    return 1.0 - saturate(distance_to_edge / fade_width);
+    // After Effects-style smooth falloff with easing
+    float normalized_distance = distance_to_edge / fade_width;
+    float visibility = saturate(normalized_distance * 0.5 + 0.5);
+    visibility = ease_smooth(visibility);
+
+    return 1.0 - visibility;
 }
 
 // ============================================================================
@@ -182,14 +188,6 @@ float2 calculate_atlas_uv_fast(uint char_index, float2 glyph_uv, AtlasParams p)
     atlas_pos.y = (float)(p.mask - (adjusted_index >> p.shift));
     float2 clamped_uv = saturate(glyph_uv * ATLAS_UV_INNER_SCALE + ATLAS_UV_MARGIN);
     return (atlas_pos + clamped_uv) * p.inv_size;
-}
-
-// Compute edge softness for antialiasing from UV derivatives (call once per fragment)
-// With emrange, duv directly gives em per screen pixel
-// Uses max() instead of add for uniform grid text (saves 1 ADD)
-inline float compute_softness(float2 duv, AtlasParams p)
-{
-    return min(p.half_inv_emrange * max(duv.x, duv.y), 0.5);
 }
 
 // MSDF sampling with pre-computed atlas_pos and half_inv_softness
@@ -306,14 +304,11 @@ void apply_shadow_soft(
     float rcp_sample_count)
 {
     // === 1. Mip Level Calculation ===
-    // blur_radius in glyph UV space → texels → mip level
-    // Higher multiplier = softer blur
     float cell_size = ATLAS_TEXTURE_SIZE * p.inv_size;
     float blur_texels = blur_radius * cell_size;
     float mip = log2(max(blur_texels, 1.0));
 
     // === 2. Dither Rotation (LUT) ===
-    // dither_type: 0 = Uniform, 1 = Golden Angle, 2 = Halton
     uint dither_idx = ((uint)screen_pos.x + (uint)screen_pos.y * 4u) & 0xFu;
     float2x2 rot;
     switch (dither_type)
@@ -324,7 +319,6 @@ void apply_shadow_soft(
     }
 
     // === 3. Mip-based Multi-sampling (dynamic sample count) ===
-    // Higher scale = wider sample spread = softer blur
     float scale = blur_radius * sqrt(32.0 * rcp_sample_count);
     float half_inv_softness2 = half_inv_softness * 0.5;
     float total_opacity = 0.0;
@@ -351,7 +345,6 @@ void apply_shadow_soft(
 }
 
 // Shadow effect dispatcher (entry point)
-// Optimized: atlas_pos and half_inv_softness pre-computed by caller
 void apply_shadow_effect(
     inout half3 accum_color,
     inout half accum_alpha,
@@ -375,7 +368,7 @@ void apply_shadow_effect(
     float blur_radius = shadow_params.w;
     float2 shadow_uv = glyph_uv - shadow_params.yz;
 
-    // S2: Dispatch to specialized function (reduces warp divergence)
+    // Dispatch to specialized function (reduces warp divergence)
     if (blur_radius > EPSILON)
     {
         apply_shadow_soft(accum_color, accum_alpha, shadow_uv, atlas_pos, font_index, p,
@@ -443,93 +436,95 @@ void apply_main_text(
     accum_alpha = main_alpha + accum_alpha * (1.0 - main_alpha);
 }
 
-// Matcap effect with view-dependent reflection
-// Uses reflect(rd, n) formula for camera-responsive matcap
-// view_dir: precomputed in vertex shader (world_pos - cam_pos, NOT normalized - normalize here)
-// surface_normal: quad surface normal (NOT normalized - normalize here)
-// bevel: SDF distance for normal curvature
-// blend: 0 = multiply mode, 1 = replace mode (matcap color only)
-// matcap_layer: texture array layer index from GetTextureLayerIndex()
-void apply_matcap_effect(
+// Procedural Surface Effect
+// Applies noise-based patterns to text color
+// mode: 0=Simplex, 1=Voronoi, 2=FBM, 3=Turbulence, 4=Ridged, 5=Marble
+// blend_mode: 0=Multiply, 1=Replace, 2=Add
+void apply_surface_effect(
     inout half3 accum_color,
-    float sd,
     float main_opacity,
     float2 glyph_uv,
-    float3 view_dir,
-    float3 surface_normal,
-    uint matcap_layer,
+    float3 world_pos,
+    float time,
+    uint mode,
     float intensity,
-    float bevel,
-    float blend)
+    float scale,
+    float speed,
+    float3 effect_color,
+    uint blend_mode)
 {
     if (intensity <= EPSILON || main_opacity <= EPSILON)
         return;
 
-    // Normalize view_dir and surface_normal in fragment shader (moved from vertex for perf)
-    float3 rd = normalize(view_dir);
-    surface_normal = normalize(surface_normal);
-    float3 n;
+    // Use world position for seamless patterns across characters
+    float2 uv = world_pos.xy * scale;
+    float anim_time = time * speed;
 
-    // Fast path: no bevel (flat matcap) - skips UV calc, normalize
+    // Generate noise value based on mode
+    float noise_value = 0.0;
+
     [branch]
-    if (bevel <= EPSILON)
+    switch (mode)
     {
-        n = surface_normal;
+        case SURFACE_MODE_SIMPLEX:
+            // Animated simplex noise
+            noise_value = simplex3d(float3(uv, anim_time)) * 0.5 + 0.5;
+            break;
+
+        case SURFACE_MODE_VORONOI:
+            // Animated voronoi cells
+            float2 vor = voronoi(uv + float2(anim_time * 0.3, anim_time * 0.2));
+            noise_value = vor.x;  // Cell distance
+            break;
+
+        case SURFACE_MODE_FBM:
+            // Animated fractal noise (4 octaves)
+            noise_value = fbm_animated(uv, anim_time, 4) * 0.5 + 0.5;
+            break;
+
+        case SURFACE_MODE_TURBULENCE:
+            // Sharp valleys - fire, smoke effect
+            noise_value = turbulence_animated(uv, anim_time, 4);
+            break;
+
+        case SURFACE_MODE_RIDGED:
+            // Sharp ridges - lightning, cracks
+            noise_value = ridged_animated(uv, anim_time, 4);
+            break;
+
+        case SURFACE_MODE_MARBLE:
+            // Classic marble veins
+            noise_value = marble_animated(uv, anim_time, 2.0);
+            break;
+
+        default:
+            return;
     }
-    else
+
+    // Generate effect color from noise
+    half3 noise_color = effect_color * noise_value;
+
+    // Apply blend mode
+    half3 result;
+    [branch]
+    switch (blend_mode)
     {
-        // Simplified bevel: uv_dir * uv_len = uv_centered, (1-height) = (1-t)^2
-        // Skip normalize - minor visual difference, significant perf gain
-        float t = saturate(sd / bevel);
-        float one_minus_t = 1.0 - t;
-        float2 uv_centered = glyph_uv - 0.5;
-        float tilt = one_minus_t * one_minus_t * 2.0;
-        n = surface_normal + float3(uv_centered * tilt, 0);
+        case 0:  // Multiply
+            result = accum_color * (1.0 - intensity + noise_color * intensity);
+            break;
+        case 1:  // Replace
+            result = noise_color;
+            break;
+        case 2:  // Add
+            result = accum_color + noise_color * intensity;
+            break;
+        default:
+            result = accum_color;
+            break;
     }
-
-    // Matcap UV using reflect formula (rsqrt optimization)
-    float3 r = reflect(rd, n);
-    r.z = 1.0 - r.z;
-    float inv_m = 0.5 * rsqrt(dot(r, r));
-    float2 matcap_uv = r.xy * inv_m + 0.5;
-
-    // Sample matcap from combined texture array
-    half3 matcap_color = UNITY_SAMPLE_TEX2DARRAY_LOD(_TextureArray, float3(matcap_uv, matcap_layer), 0).rgb;
-
-    // Blend modes: 0 = multiply (accum * matcap), 1 = replace (matcap only)
-    half3 multiply_result = accum_color * matcap_color;
-    half3 replace_result = matcap_color;
-    half3 blended_matcap = lerp(multiply_result, replace_result, blend);
 
     // Apply with intensity and opacity
-    accum_color = lerp(accum_color, blended_matcap, intensity * main_opacity);
-}
-
-// Texture overlay effect - modifies text_color BEFORE compositing
-// This prevents color bleeding at anti-aliased edges
-// uv_mode: 0 = Glyph UV, 1 = World UV
-// overlay_layer: texture array layer index from GetTextureLayerIndex()
-void apply_texture_to_color(
-    inout float4 text_color,
-    float2 glyph_uv,
-    float3 world_pos,
-    uint overlay_layer,
-    float intensity,
-    uint uv_mode)
-{
-    if (intensity <= EPSILON)
-        return;
-
-    // Select UV based on mode: 0 = Glyph UV, 1 = World UV
-    float2 overlay_uv = (uv_mode == 0u) ? glyph_uv : world_pos.xy;
-
-    // Sample overlay from combined texture array
-    half4 overlay_sample = UNITY_SAMPLE_TEX2DARRAY(_TextureArray, float3(overlay_uv, overlay_layer));
-    half3 tinted_texture = overlay_sample.rgb * text_color.rgb;
-
-    // Blend into text color (texture alpha controls blend)
-    half blend_factor = intensity * overlay_sample.a;
-    text_color.rgb = lerp(text_color.rgb, tinted_texture, blend_factor);
+    accum_color = lerp(accum_color, saturate(result), intensity * main_opacity);
 }
 
 // ============================================================================
@@ -547,7 +542,7 @@ struct EffectParams
 void apply_effects(
     inout half3 accum_color,
     inout half accum_alpha,
-    out MSDFSample msdf_out,    // Output MSDF sample for reuse (MatCap, etc.)
+    out MSDFSample msdf_out,    // Output MSDF sample for reuse
     float2 adjusted_uv,         // Pre-computed: (glyph_uv - 0.5) * quad_padding + 0.5
     AtlasParams p,              // Pre-loaded atlas parameters
     uint char_index,
@@ -558,28 +553,27 @@ void apply_effects(
     float rcp_sample_count,     // Pre-computed: rcp(sample_count)
     uint packed_info)           // bits 0-7: font_idx, 8-9: dither, 10-17: samples, 18: outline_mode
 {
-    // Unpack settings (skip bits 0-7 = font_index, passed separately)
+    // Unpack settings (matches original v2.2.1 layout)
     uint dither_type = (packed_info >> 8) & 0x3u;
     uint sample_count = (packed_info >> 10) & 0xFFu;
     uint outline_mode = (packed_info >> 18) & 0x1u;
 
     // Compute softness once (fwidth is expensive, avoid duplicate calls)
     float2 duv = fwidth(adjusted_uv);
-    float softness = compute_softness(duv, p);
-
-    // Pre-compute half_inv_softness once (saves 4-6 cycles per linearStep call)
+    float softness = min(p.half_inv_emrange * max(duv.x, duv.y), 0.5);
     float half_inv_softness = 0.5 * rcp(softness);
 
-    // Pre-compute atlas_pos once (saves 4-6 ALU per soft shadow sample)
+    // Pre-compute atlas_pos once
     uint adjusted_index = char_index - 1u;
     float2 atlas_pos;
     atlas_pos.x = (float)(adjusted_index & p.mask);
     atlas_pos.y = (float)(p.mask - (adjusted_index >> p.shift));
 
-    // Shadow uses adjusted_uv (can render in padding area)
+    // Shadow effect (renders behind text)
     apply_shadow_effect(accum_color, accum_alpha, adjusted_uv,
         atlas_pos, font_index, p, half_inv_softness, opacity_mult,
-        params.shadow, params.shadow_color.rgb, screen_pos, dither_type, sample_count, rcp_sample_count);
+        params.shadow, params.shadow_color.rgb,
+        screen_pos, dither_type, sample_count, rcp_sample_count);
 
     // Branchless glyph area check (avoids warp divergence from early return)
     float in_glyph = all(saturate(adjusted_uv) == adjusted_uv);
@@ -591,7 +585,6 @@ void apply_effects(
     float masked_opacity_mult = opacity_mult * in_glyph;
 
     // Outline with width and round support (uses half_inv_softness)
-    // params.outline: x=width*0.5, y=round
     apply_outline_effect(accum_color, accum_alpha,
         msdf.sd, msdf.sd_rounded, half_inv_softness, masked_opacity_mult,
         params.outline.x, params.outline.y,
@@ -604,7 +597,7 @@ void apply_effects(
     apply_main_text(accum_color, accum_alpha,
         msdf.opacity, masked_opacity_mult * fill_mask, params.text_color);
 
-    // Output MSDF sample for reuse by other effects (MatCap, etc.)
+    // Output MSDF sample for reuse by other effects
     msdf_out = msdf;
 }
 

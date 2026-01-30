@@ -19,39 +19,30 @@
 #define TEXT_GLYPH_SCALE 0.1
 #define TEXT_COUNT 10
 
-// Texture layer types (for indexing lookup texture)
-#define TEXTURE_TYPE_IMAGE   0
-#define TEXTURE_TYPE_MATCAP  1
-#define TEXTURE_TYPE_OVERLAY 2
+static const float3x3 IDENTITY_MATRIX3 = float3x3(1,0,0, 0,1,0, 0,0,1);
 
-// Optimized Layer index lookup texture (32x2, RG16 format)
-// Row 0: R = Image layer
-// Row 1: R = MatCap layer, G = Overlay layer (packed for Text pass optimization)
+// Surface effect modes (for Text pass procedural effects)
+#define SURFACE_MODE_SIMPLEX    0
+#define SURFACE_MODE_VORONOI    1
+#define SURFACE_MODE_FBM        2
+#define SURFACE_MODE_TURBULENCE 3
+#define SURFACE_MODE_RIDGED     4
+#define SURFACE_MODE_MARBLE     5
+
+// Texture layer types (for Image pass texture lookup)
+#define TEXTURE_TYPE_IMAGE   0
+
+// Layer index lookup texture for Image pass (32x2, RG16 format)
 // Value 255 = no texture assigned, 0-254 = layer index
 Texture2D<float2> _TextureLayerLUT;
 
-// Get texture layer index for a slot and type (Image pass)
+// Get texture layer index for Image pass
 // Returns -1 if no texture assigned
 inline int GetTextureLayerIndex(uint slot_id, uint texture_type)
 {
-    // Row 0 for Image, Row 1 for MatCap/Overlay
-    uint row = texture_type == TEXTURE_TYPE_IMAGE ? 0 : 1;
-    float2 value = _TextureLayerLUT.Load(int3(slot_id, row, 0));
-    // Select channel: Image uses R, MatCap uses R, Overlay uses G
-    float channel = (texture_type == TEXTURE_TYPE_OVERLAY) ? value.g : value.r;
-    // Texture stores exact integer/255, truncation is safe (avoids +0.5 ADD)
-    int layer = (int)(channel * 255.0);
+    float2 value = _TextureLayerLUT.Load(int3(slot_id, 0, 0));
+    int layer = (int)(value.r * 255.0);
     return layer >= 255 ? -1 : layer;
-}
-
-// Optimized: Get both MatCap and Overlay layer indices in single texture fetch (Text pass)
-// Returns int2(matcap_layer, overlay_layer), -1 if no texture assigned
-inline int2 GetTextLayerIndices(uint slot_id)
-{
-    float2 value = _TextureLayerLUT.Load(int3(slot_id, 1, 0));  // Row 1: R=MatCap, G=Overlay
-    // Texture stores exact integer/255, truncation is safe (avoids +0.5 ADD)
-    int2 layers = (int2)(value * 255.0);
-    return int2(layers.x >= 255 ? -1 : layers.x, layers.y >= 255 ? -1 : layers.y);
 }
 
 // Depth range constants for screen/world space separation
@@ -155,6 +146,72 @@ inline float linearStepSymmetric(float halfWidth, float x)
     return saturate(x * (0.5 * rcp(halfWidth)) + 0.5);
 }
 
+// ============================================================================
+// Easing Functions (After Effects style)
+// ============================================================================
+
+// Smooth ease-in-out (Hermite interpolation)
+inline float ease_smooth(float t)
+{
+    return t * t * (3.0 - 2.0 * t);
+}
+
+// Smoother ease-in-out (quintic, Ken Perlin's smootherstep)
+inline float ease_smoother(float t)
+{
+    return t * t * t * (t * (t * 6.0 - 15.0) + 10.0);
+}
+
+// Ease out cubic (deceleration)
+inline float ease_out_cubic(float t)
+{
+    float f = 1.0 - t;
+    return 1.0 - f * f * f;
+}
+
+// Ease in-out cubic
+inline float ease_in_out_cubic(float t)
+{
+    return t < 0.5
+        ? 4.0 * t * t * t
+        : 1.0 - pow(-2.0 * t + 2.0, 3.0) * 0.5;
+}
+
+// Gaussian falloff for smooth range transitions (After Effects "Smooth" shape)
+// distance: signed distance from center of transition
+// width: falloff width (sigma-like parameter)
+inline float gaussian_falloff(float distance, float width)
+{
+    float normalized = distance / max(width, EPSILON);
+    return exp(-normalized * normalized * 2.0);
+}
+
+// Smooth range selector (After Effects style)
+// Returns 0-1 opacity based on position in range with smooth falloff
+// position: current position (e.g., char_pos / char_count)
+// range_start: where full opacity begins (0-1)
+// range_end: where full opacity ends (0-1)
+// falloff: width of smooth transition (0 = hard edge, 1 = full smooth)
+inline float smooth_range_selector(float position, float range_start, float range_end, float falloff)
+{
+    if (falloff <= EPSILON)
+    {
+        // Hard edge
+        return (position >= range_start && position <= range_end) ? 1.0 : 0.0;
+    }
+
+    float half_falloff = falloff * 0.5;
+
+    // Smooth transition at start edge
+    float start_fade = saturate((position - range_start + half_falloff) / falloff);
+
+    // Smooth transition at end edge
+    float end_fade = saturate((range_end - position + half_falloff) / falloff);
+
+    // Apply easing for smoother result
+    return ease_smooth(start_fade) * ease_smooth(end_fade);
+}
+
 // Fast version with pre-computed inverse: half_inv = 0.5 * rcp(halfWidth)
 // Saves 4-6 cycles by eliminating rcp() call
 inline float linearStepSymmetric_fast(float x, float half_inv)
@@ -211,6 +268,185 @@ float2 hash22(float2 p)
 {
     uint2 q = pcg2d(asuint(p));
     return float2(q) * (1.0 / 4294967296.0);
+}
+
+// Value noise hash (fast, for value noise base)
+inline float hash21(float2 p)
+{
+    float3 p3 = frac(float3(p.xyx) * 0.1031);
+    p3 += dot(p3, p3.yzx + 33.33);
+    return frac((p3.x + p3.y) * p3.z);
+}
+
+// ============================================================================
+// Procedural Noise Functions
+// ============================================================================
+
+// Simplex 2D Noise (optimized for GPU)
+// Returns value in range [-1, 1]
+float simplex2d(float2 p)
+{
+    const float K1 = 0.366025404; // (sqrt(3)-1)/2
+    const float K2 = 0.211324865; // (3-sqrt(3))/6
+
+    float2 i = floor(p + (p.x + p.y) * K1);
+    float2 a = p - i + (i.x + i.y) * K2;
+    float2 o = (a.x > a.y) ? float2(1.0, 0.0) : float2(0.0, 1.0);
+    float2 b = a - o + K2;
+    float2 c = a - 1.0 + 2.0 * K2;
+
+    float3 h = max(0.5 - float3(dot(a,a), dot(b,b), dot(c,c)), 0.0);
+    h = h * h * h * h;
+
+    float3 n = float3(
+        dot(a, hash22(i) * 2.0 - 1.0),
+        dot(b, hash22(i + o) * 2.0 - 1.0),
+        dot(c, hash22(i + 1.0) * 2.0 - 1.0)
+    );
+
+    return dot(n, h) * 70.0;
+}
+
+// Simplex 3D Noise (for time-animated effects)
+// p.xy = position, p.z = time
+float simplex3d(float3 p)
+{
+    // Skew input space
+    const float F3 = 0.333333333;
+    const float G3 = 0.166666667;
+
+    float3 s = floor(p + dot(p, float3(F3, F3, F3)));
+    float3 x = p - s + dot(s, float3(G3, G3, G3));
+
+    float3 e = step(float3(0.0, 0.0, 0.0), x - x.yzx);
+    float3 i1 = e * (1.0 - e.zxy);
+    float3 i2 = 1.0 - e.zxy * (1.0 - e);
+
+    float3 x1 = x - i1 + G3;
+    float3 x2 = x - i2 + 2.0 * G3;
+    float3 x3 = x - 1.0 + 3.0 * G3;
+
+    float4 w = max(0.6 - float4(dot(x,x), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+    w = w * w * w * w;
+
+    float4 d = float4(
+        dot(x, hash22(s.xy + s.z * 31.0).xyy * 2.0 - 1.0),
+        dot(x1, hash22(s.xy + i1.xy + (s.z + i1.z) * 31.0).xyy * 2.0 - 1.0),
+        dot(x2, hash22(s.xy + i2.xy + (s.z + i2.z) * 31.0).xyy * 2.0 - 1.0),
+        dot(x3, hash22(s.xy + 1.0 + (s.z + 1.0) * 31.0).xyy * 2.0 - 1.0)
+    );
+
+    return dot(d, w) * 52.0;
+}
+
+// Voronoi Noise (cell/organic patterns)
+// Returns: x = cell distance, y = cell ID
+float2 voronoi(float2 p)
+{
+    float2 n = floor(p);
+    float2 f = frac(p);
+
+    float min_dist = 8.0;
+    float2 min_point = float2(0.0, 0.0);
+
+    for (int j = -1; j <= 1; j++)
+    {
+        for (int i = -1; i <= 1; i++)
+        {
+            float2 neighbor = float2(i, j);
+            float2 cell_pt = hash22(n + neighbor);
+            float2 diff = neighbor + cell_pt - f;
+            float dist = dot(diff, diff);
+
+            if (dist < min_dist)
+            {
+                min_dist = dist;
+                min_point = n + neighbor + cell_pt;
+            }
+        }
+    }
+
+    return float2(sqrt(min_dist), hash21(min_point));
+}
+
+// FBM (Fractal Brownian Motion) - layered noise
+// octaves: number of layers (2-6 recommended)
+float fbm(float2 p, int octaves)
+{
+    float value = 0.0;
+    float amplitude = 0.5;
+    float frequency = 1.0;
+
+    for (int i = 0; i < octaves; i++)
+    {
+        value += amplitude * simplex2d(p * frequency);
+        frequency *= 2.0;
+        amplitude *= 0.5;
+    }
+
+    return value;
+}
+
+// Animated FBM with time
+float fbm_animated(float2 p, float time, int octaves)
+{
+    float value = 0.0;
+    float amplitude = 0.5;
+    float frequency = 1.0;
+
+    for (int i = 0; i < octaves; i++)
+    {
+        value += amplitude * simplex3d(float3(p * frequency, time + i * 0.5));
+        frequency *= 2.0;
+        amplitude *= 0.5;
+    }
+
+    return value;
+}
+
+// Turbulence - abs(noise) summed, creates sharp valleys (fire, smoke)
+float turbulence_animated(float2 p, float time, int octaves)
+{
+    float value = 0.0;
+    float amplitude = 0.5;
+    float frequency = 1.0;
+
+    for (int i = 0; i < octaves; i++)
+    {
+        value += amplitude * abs(simplex3d(float3(p * frequency, time + i * 0.5)));
+        frequency *= 2.0;
+        amplitude *= 0.5;
+    }
+
+    return value;
+}
+
+// Ridged noise - 1 - abs(noise), creates sharp ridges (lightning, cracks)
+float ridged_animated(float2 p, float time, int octaves)
+{
+    float value = 0.0;
+    float amplitude = 0.5;
+    float frequency = 1.0;
+    float prev = 1.0;
+
+    for (int i = 0; i < octaves; i++)
+    {
+        float n = 1.0 - abs(simplex3d(float3(p * frequency, time + i * 0.5)));
+        n = n * n;  // Square for sharper ridges
+        value += n * amplitude * prev;
+        prev = n;
+        frequency *= 2.0;
+        amplitude *= 0.5;
+    }
+
+    return value;
+}
+
+// Marble - sine wave modulated by noise (elegant, classic)
+float marble_animated(float2 p, float time, float turbulence_scale)
+{
+    float turb = turbulence_animated(p, time, 4) * turbulence_scale;
+    return sin(p.x * 3.0 + turb * 5.0) * 0.5 + 0.5;
 }
 
 // ============================================================================
@@ -338,6 +574,21 @@ float3x3 rotation_matrix(float3 rotation)
     );
 }
 
+// Robust rotation detection using dot product
+inline bool has_rotation(float3 rotation_vector)
+{
+    return dot(rotation_vector, rotation_vector) > EPSILON;
+}
+
+// Combine rotation matrix with non-uniform scale: rotation * diag(scale)
+inline float3x3 build_rotation_scale_matrix(float3x3 rot, float3 scale)
+{
+    return float3x3(
+        rot._m00 * scale.x, rot._m01 * scale.y, rot._m02 * scale.z,
+        rot._m10 * scale.x, rot._m11 * scale.y, rot._m12 * scale.z,
+        rot._m20 * scale.x, rot._m21 * scale.y, rot._m22 * scale.z);
+}
+
 inline float3 get_camera_position()
 {
     #if UNITY_SINGLE_PASS_STEREO
@@ -385,7 +636,7 @@ inline float get_vr_scale(float vr_scale_property)
         case 3: root_matrix = float3x3(_RootMatrix2_Row0.xyz, _RootMatrix2_Row1.xyz, _RootMatrix2_Row2.xyz); root_pos = _RootPosition2.xyz; break; \
         case 4: root_matrix = float3x3(_RootMatrix3_Row0.xyz, _RootMatrix3_Row1.xyz, _RootMatrix3_Row2.xyz); root_pos = _RootPosition3.xyz; break; \
         case 5: root_matrix = float3x3(_RootMatrix4_Row0.xyz, _RootMatrix4_Row1.xyz, _RootMatrix4_Row2.xyz); root_pos = _RootPosition4.xyz; break; \
-        default: root_matrix = float3x3(1,0,0, 0,1,0, 0,0,1); root_pos = float3(0,0,0); break; \
+        default: root_matrix = IDENTITY_MATRIX3; root_pos = float3(0,0,0); break; \
     } \
 }
 

@@ -341,7 +341,7 @@ Shader "GekikaraStore/Typography"
                         _BlockVisible0 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _BlockAnimating0 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _TypewriterProgress0 ("Progress", Range(0, 1)) = 1
-                        _TypewriterSmooth0 ("Smooth", Range(0, 1)) = 1
+                        _TypewriterSmooth0 ("Fade Width", Range(0, 32)) = 4
                         _BlockCharDelay0 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection0 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation0 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -391,29 +391,23 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor0 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline0 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow0 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow0 ("Shadow", Float) = 0
                         _ShadowIntensity0 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness0 ("Softness", Range(0, 1)) = 0
+                        _ShadowSoftness0 ("Softness", Range(0, 0.5)) = 0
                         [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType0 ("Dither", Int) = 1
                         [IntRange] _ShadowSamples0 ("Samples", Range(4, 32)) = 8
-                        [Vector2]_ShadowOffset0 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        [Vector2]_ShadowOffset0 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor0 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow0 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow0 ("Shadow", Float) = 0
 
-                    [HideInInspector] m_start_matcap0 ("MatCap", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTextures0 ("", Int) = 0
-                        [StylizedLargeTexture] _MatCapTex0 ("Texture--{reference_properties:[_ApplyTextures0]}", 2D) = "white" {}
-                        _MatCapIntensity0 ("Intensity", Range(0, 1)) = 0
-                        _MatCapBevel0 ("Bevel", Range(0, 1)) = 0
-                        _MatCapBlend0 ("Replace", Range(0, 1)) = 0
-                    [HideInInspector] m_end_matcap0 ("MatCap", Float) = 0
-
-                    [HideInInspector] m_start_texture0 ("Texture", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTexturesT0 ("", Int) = 0
-                        [StylizedLargeTexture] _TextureTex0 ("Texture--{reference_properties:[_ApplyTexturesT0]}", 2D) = "white" {}
-                        _TextureIntensity0 ("Intensity", Range(0, 1)) = 0
-                        [Enum(Glyph UV, 0, World UV, 1)] _TextureUVMode0 ("UV Mode", Int) = 0
-                    [HideInInspector] m_end_texture0 ("Texture", Float) = 0
+                    [HideInInspector] m_start_surface0 ("Surface Effect", Float) = 0
+                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode0 ("Mode", Int) = 0
+                        _SurfaceIntensity0 ("Intensity", Range(0, 1)) = 0
+                        _SurfaceScale0 ("Scale", Range(0.1, 10)) = 1
+                        _SurfaceSpeed0 ("Speed", Range(0, 5)) = 1
+                        [HDR]_SurfaceColor0 ("Color", Color) = (1, 1, 1, 1)
+                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend0 ("Blend", Int) = 0
+                    [HideInInspector] m_end_surface0 ("Surface Effect", Float) = 0
 
                 [HideInInspector] m_end_effect0 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting0 ("", Float) = 0
@@ -446,7 +440,7 @@ Shader "GekikaraStore/Typography"
                         _BlockVisible1 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _BlockAnimating1 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _TypewriterProgress1 ("Progress", Range(0, 1)) = 1
-                        _TypewriterSmooth1 ("Smooth", Range(0, 1)) = 1
+                        _TypewriterSmooth1 ("Fade Width", Range(0, 32)) = 4
                         _BlockCharDelay1 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection1 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation1 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -496,29 +490,23 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor1 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline1 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow1 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow1 ("Shadow", Float) = 0
                         _ShadowIntensity1 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness1 ("Softness", Range(0, 1)) = 0
+                        _ShadowSoftness1 ("Softness", Range(0, 0.5)) = 0
                         [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType1 ("Dither", Int) = 1
                         [IntRange] _ShadowSamples1 ("Samples", Range(4, 32)) = 8
-                        [Vector2]_ShadowOffset1 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        [Vector2]_ShadowOffset1 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor1 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow1 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow1 ("Shadow", Float) = 0
 
-                    [HideInInspector] m_start_matcap1 ("MatCap", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTextures1 ("", Int) = 0
-                        [StylizedLargeTexture] _MatCapTex1 ("Texture--{reference_properties:[_ApplyTextures1]}", 2D) = "white" {}
-                        _MatCapIntensity1 ("Intensity", Range(0, 1)) = 0
-                        _MatCapBevel1 ("Bevel", Range(0, 1)) = 0
-                        _MatCapBlend1 ("Replace", Range(0, 1)) = 0
-                    [HideInInspector] m_end_matcap1 ("MatCap", Float) = 0
-
-                    [HideInInspector] m_start_texture1 ("Texture", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTexturesT1 ("", Int) = 0
-                        [StylizedLargeTexture] _TextureTex1 ("Texture--{reference_properties:[_ApplyTexturesT1]}", 2D) = "white" {}
-                        _TextureIntensity1 ("Intensity", Range(0, 1)) = 0
-                        [Enum(Glyph UV, 0, World UV, 1)] _TextureUVMode1 ("UV Mode", Int) = 0
-                    [HideInInspector] m_end_texture1 ("Texture", Float) = 0
+                    [HideInInspector] m_start_surface1 ("Surface Effect", Float) = 0
+                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode1 ("Mode", Int) = 0
+                        _SurfaceIntensity1 ("Intensity", Range(0, 1)) = 0
+                        _SurfaceScale1 ("Scale", Range(0.1, 10)) = 1
+                        _SurfaceSpeed1 ("Speed", Range(0, 5)) = 1
+                        [HDR]_SurfaceColor1 ("Color", Color) = (1, 1, 1, 1)
+                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend1 ("Blend", Int) = 0
+                    [HideInInspector] m_end_surface1 ("Surface Effect", Float) = 0
 
                 [HideInInspector] m_end_effect1 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting1 ("", Float) = 0
@@ -551,7 +539,7 @@ Shader "GekikaraStore/Typography"
                         _BlockVisible2 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _BlockAnimating2 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _TypewriterProgress2 ("Progress", Range(0, 1)) = 1
-                        _TypewriterSmooth2 ("Smooth", Range(0, 1)) = 1
+                        _TypewriterSmooth2 ("Fade Width", Range(0, 32)) = 4
                         _BlockCharDelay2 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection2 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation2 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -601,29 +589,23 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor2 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline2 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow2 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow2 ("Shadow", Float) = 0
                         _ShadowIntensity2 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness2 ("Softness", Range(0, 1)) = 0
+                        _ShadowSoftness2 ("Softness", Range(0, 0.5)) = 0
                         [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType2 ("Dither", Int) = 1
                         [IntRange] _ShadowSamples2 ("Samples", Range(4, 32)) = 8
-                        [Vector2]_ShadowOffset2 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        [Vector2]_ShadowOffset2 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor2 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow2 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow2 ("Shadow", Float) = 0
 
-                    [HideInInspector] m_start_matcap2 ("MatCap", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTextures2 ("", Int) = 0
-                        [StylizedLargeTexture] _MatCapTex2 ("Texture--{reference_properties:[_ApplyTextures2]}", 2D) = "white" {}
-                        _MatCapIntensity2 ("Intensity", Range(0, 1)) = 0
-                        _MatCapBevel2 ("Bevel", Range(0, 1)) = 0
-                        _MatCapBlend2 ("Replace", Range(0, 1)) = 0
-                    [HideInInspector] m_end_matcap2 ("MatCap", Float) = 0
-
-                    [HideInInspector] m_start_texture2 ("Texture", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTexturesT2 ("", Int) = 0
-                        [StylizedLargeTexture] _TextureTex2 ("Texture--{reference_properties:[_ApplyTexturesT2]}", 2D) = "white" {}
-                        _TextureIntensity2 ("Intensity", Range(0, 1)) = 0
-                        [Enum(Glyph UV, 0, World UV, 1)] _TextureUVMode2 ("UV Mode", Int) = 0
-                    [HideInInspector] m_end_texture2 ("Texture", Float) = 0
+                    [HideInInspector] m_start_surface2 ("Surface Effect", Float) = 0
+                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode2 ("Mode", Int) = 0
+                        _SurfaceIntensity2 ("Intensity", Range(0, 1)) = 0
+                        _SurfaceScale2 ("Scale", Range(0.1, 10)) = 1
+                        _SurfaceSpeed2 ("Speed", Range(0, 5)) = 1
+                        [HDR]_SurfaceColor2 ("Color", Color) = (1, 1, 1, 1)
+                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend2 ("Blend", Int) = 0
+                    [HideInInspector] m_end_surface2 ("Surface Effect", Float) = 0
 
                 [HideInInspector] m_end_effect2 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting2 ("", Float) = 0
@@ -656,7 +638,7 @@ Shader "GekikaraStore/Typography"
                         _BlockVisible3 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _BlockAnimating3 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _TypewriterProgress3 ("Progress", Range(0, 1)) = 1
-                        _TypewriterSmooth3 ("Smooth", Range(0, 1)) = 1
+                        _TypewriterSmooth3 ("Fade Width", Range(0, 32)) = 4
                         _BlockCharDelay3 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection3 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation3 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -706,29 +688,23 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor3 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline3 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow3 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow3 ("Shadow", Float) = 0
                         _ShadowIntensity3 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness3 ("Softness", Range(0, 1)) = 0
+                        _ShadowSoftness3 ("Softness", Range(0, 0.5)) = 0
                         [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType3 ("Dither", Int) = 1
                         [IntRange] _ShadowSamples3 ("Samples", Range(4, 32)) = 8
-                        [Vector2]_ShadowOffset3 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        [Vector2]_ShadowOffset3 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor3 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow3 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow3 ("Shadow", Float) = 0
 
-                    [HideInInspector] m_start_matcap3 ("MatCap", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTextures3 ("", Int) = 0
-                        [StylizedLargeTexture] _MatCapTex3 ("Texture--{reference_properties:[_ApplyTextures3]}", 2D) = "white" {}
-                        _MatCapIntensity3 ("Intensity", Range(0, 1)) = 0
-                        _MatCapBevel3 ("Bevel", Range(0, 1)) = 0
-                        _MatCapBlend3 ("Replace", Range(0, 1)) = 0
-                    [HideInInspector] m_end_matcap3 ("MatCap", Float) = 0
-
-                    [HideInInspector] m_start_texture3 ("Texture", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTexturesT3 ("", Int) = 0
-                        [StylizedLargeTexture] _TextureTex3 ("Texture--{reference_properties:[_ApplyTexturesT3]}", 2D) = "white" {}
-                        _TextureIntensity3 ("Intensity", Range(0, 1)) = 0
-                        [Enum(Glyph UV, 0, World UV, 1)] _TextureUVMode3 ("UV Mode", Int) = 0
-                    [HideInInspector] m_end_texture3 ("Texture", Float) = 0
+                    [HideInInspector] m_start_surface3 ("Surface Effect", Float) = 0
+                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode3 ("Mode", Int) = 0
+                        _SurfaceIntensity3 ("Intensity", Range(0, 1)) = 0
+                        _SurfaceScale3 ("Scale", Range(0.1, 10)) = 1
+                        _SurfaceSpeed3 ("Speed", Range(0, 5)) = 1
+                        [HDR]_SurfaceColor3 ("Color", Color) = (1, 1, 1, 1)
+                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend3 ("Blend", Int) = 0
+                    [HideInInspector] m_end_surface3 ("Surface Effect", Float) = 0
 
                 [HideInInspector] m_end_effect3 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting3 ("", Float) = 0
@@ -761,7 +737,7 @@ Shader "GekikaraStore/Typography"
                         _BlockVisible4 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _BlockAnimating4 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _TypewriterProgress4 ("Progress", Range(0, 1)) = 1
-                        _TypewriterSmooth4 ("Smooth", Range(0, 1)) = 1
+                        _TypewriterSmooth4 ("Fade Width", Range(0, 32)) = 4
                         _BlockCharDelay4 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection4 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation4 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -811,29 +787,23 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor4 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline4 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow4 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow4 ("Shadow", Float) = 0
                         _ShadowIntensity4 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness4 ("Softness", Range(0, 1)) = 0
+                        _ShadowSoftness4 ("Softness", Range(0, 0.5)) = 0
                         [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType4 ("Dither", Int) = 1
                         [IntRange] _ShadowSamples4 ("Samples", Range(4, 32)) = 8
-                        [Vector2]_ShadowOffset4 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        [Vector2]_ShadowOffset4 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor4 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow4 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow4 ("Shadow", Float) = 0
 
-                    [HideInInspector] m_start_matcap4 ("MatCap", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTextures4 ("", Int) = 0
-                        [StylizedLargeTexture] _MatCapTex4 ("Texture--{reference_properties:[_ApplyTextures4]}", 2D) = "white" {}
-                        _MatCapIntensity4 ("Intensity", Range(0, 1)) = 0
-                        _MatCapBevel4 ("Bevel", Range(0, 1)) = 0
-                        _MatCapBlend4 ("Replace", Range(0, 1)) = 0
-                    [HideInInspector] m_end_matcap4 ("MatCap", Float) = 0
-
-                    [HideInInspector] m_start_texture4 ("Texture", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTexturesT4 ("", Int) = 0
-                        [StylizedLargeTexture] _TextureTex4 ("Texture--{reference_properties:[_ApplyTexturesT4]}", 2D) = "white" {}
-                        _TextureIntensity4 ("Intensity", Range(0, 1)) = 0
-                        [Enum(Glyph UV, 0, World UV, 1)] _TextureUVMode4 ("UV Mode", Int) = 0
-                    [HideInInspector] m_end_texture4 ("Texture", Float) = 0
+                    [HideInInspector] m_start_surface4 ("Surface Effect", Float) = 0
+                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode4 ("Mode", Int) = 0
+                        _SurfaceIntensity4 ("Intensity", Range(0, 1)) = 0
+                        _SurfaceScale4 ("Scale", Range(0.1, 10)) = 1
+                        _SurfaceSpeed4 ("Speed", Range(0, 5)) = 1
+                        [HDR]_SurfaceColor4 ("Color", Color) = (1, 1, 1, 1)
+                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend4 ("Blend", Int) = 0
+                    [HideInInspector] m_end_surface4 ("Surface Effect", Float) = 0
 
                 [HideInInspector] m_end_effect4 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting4 ("", Float) = 0
@@ -866,7 +836,7 @@ Shader "GekikaraStore/Typography"
                         _BlockVisible5 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _BlockAnimating5 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _TypewriterProgress5 ("Progress", Range(0, 1)) = 1
-                        _TypewriterSmooth5 ("Smooth", Range(0, 1)) = 1
+                        _TypewriterSmooth5 ("Fade Width", Range(0, 32)) = 4
                         _BlockCharDelay5 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection5 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation5 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -916,29 +886,23 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor5 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline5 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow5 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow5 ("Shadow", Float) = 0
                         _ShadowIntensity5 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness5 ("Softness", Range(0, 1)) = 0
+                        _ShadowSoftness5 ("Softness", Range(0, 0.5)) = 0
                         [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType5 ("Dither", Int) = 1
                         [IntRange] _ShadowSamples5 ("Samples", Range(4, 32)) = 8
-                        [Vector2]_ShadowOffset5 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        [Vector2]_ShadowOffset5 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor5 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow5 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow5 ("Shadow", Float) = 0
 
-                    [HideInInspector] m_start_matcap5 ("MatCap", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTextures5 ("", Int) = 0
-                        [StylizedLargeTexture] _MatCapTex5 ("Texture--{reference_properties:[_ApplyTextures5]}", 2D) = "white" {}
-                        _MatCapIntensity5 ("Intensity", Range(0, 1)) = 0
-                        _MatCapBevel5 ("Bevel", Range(0, 1)) = 0
-                        _MatCapBlend5 ("Replace", Range(0, 1)) = 0
-                    [HideInInspector] m_end_matcap5 ("MatCap", Float) = 0
-
-                    [HideInInspector] m_start_texture5 ("Texture", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTexturesT5 ("", Int) = 0
-                        [StylizedLargeTexture] _TextureTex5 ("Texture--{reference_properties:[_ApplyTexturesT5]}", 2D) = "white" {}
-                        _TextureIntensity5 ("Intensity", Range(0, 1)) = 0
-                        [Enum(Glyph UV, 0, World UV, 1)] _TextureUVMode5 ("UV Mode", Int) = 0
-                    [HideInInspector] m_end_texture5 ("Texture", Float) = 0
+                    [HideInInspector] m_start_surface5 ("Surface Effect", Float) = 0
+                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode5 ("Mode", Int) = 0
+                        _SurfaceIntensity5 ("Intensity", Range(0, 1)) = 0
+                        _SurfaceScale5 ("Scale", Range(0.1, 10)) = 1
+                        _SurfaceSpeed5 ("Speed", Range(0, 5)) = 1
+                        [HDR]_SurfaceColor5 ("Color", Color) = (1, 1, 1, 1)
+                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend5 ("Blend", Int) = 0
+                    [HideInInspector] m_end_surface5 ("Surface Effect", Float) = 0
 
                 [HideInInspector] m_end_effect5 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting5 ("", Float) = 0
@@ -971,7 +935,7 @@ Shader "GekikaraStore/Typography"
                         _BlockVisible6 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _BlockAnimating6 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _TypewriterProgress6 ("Progress", Range(0, 1)) = 1
-                        _TypewriterSmooth6 ("Smooth", Range(0, 1)) = 1
+                        _TypewriterSmooth6 ("Fade Width", Range(0, 32)) = 4
                         _BlockCharDelay6 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection6 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation6 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -1021,29 +985,23 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor6 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline6 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow6 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow6 ("Shadow", Float) = 0
                         _ShadowIntensity6 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness6 ("Softness", Range(0, 1)) = 0
+                        _ShadowSoftness6 ("Softness", Range(0, 0.5)) = 0
                         [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType6 ("Dither", Int) = 1
                         [IntRange] _ShadowSamples6 ("Samples", Range(4, 32)) = 8
-                        [Vector2]_ShadowOffset6 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        [Vector2]_ShadowOffset6 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor6 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow6 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow6 ("Shadow", Float) = 0
 
-                    [HideInInspector] m_start_matcap6 ("MatCap", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTextures6 ("", Int) = 0
-                        [StylizedLargeTexture] _MatCapTex6 ("Texture--{reference_properties:[_ApplyTextures6]}", 2D) = "white" {}
-                        _MatCapIntensity6 ("Intensity", Range(0, 1)) = 0
-                        _MatCapBevel6 ("Bevel", Range(0, 1)) = 0
-                        _MatCapBlend6 ("Replace", Range(0, 1)) = 0
-                    [HideInInspector] m_end_matcap6 ("MatCap", Float) = 0
-
-                    [HideInInspector] m_start_texture6 ("Texture", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTexturesT6 ("", Int) = 0
-                        [StylizedLargeTexture] _TextureTex6 ("Texture--{reference_properties:[_ApplyTexturesT6]}", 2D) = "white" {}
-                        _TextureIntensity6 ("Intensity", Range(0, 1)) = 0
-                        [Enum(Glyph UV, 0, World UV, 1)] _TextureUVMode6 ("UV Mode", Int) = 0
-                    [HideInInspector] m_end_texture6 ("Texture", Float) = 0
+                    [HideInInspector] m_start_surface6 ("Surface Effect", Float) = 0
+                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode6 ("Mode", Int) = 0
+                        _SurfaceIntensity6 ("Intensity", Range(0, 1)) = 0
+                        _SurfaceScale6 ("Scale", Range(0.1, 10)) = 1
+                        _SurfaceSpeed6 ("Speed", Range(0, 5)) = 1
+                        [HDR]_SurfaceColor6 ("Color", Color) = (1, 1, 1, 1)
+                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend6 ("Blend", Int) = 0
+                    [HideInInspector] m_end_surface6 ("Surface Effect", Float) = 0
 
                 [HideInInspector] m_end_effect6 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting6 ("", Float) = 0
@@ -1076,7 +1034,7 @@ Shader "GekikaraStore/Typography"
                         _BlockVisible7 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _BlockAnimating7 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _TypewriterProgress7 ("Progress", Range(0, 1)) = 1
-                        _TypewriterSmooth7 ("Smooth", Range(0, 1)) = 1
+                        _TypewriterSmooth7 ("Fade Width", Range(0, 32)) = 4
                         _BlockCharDelay7 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection7 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation7 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -1126,29 +1084,23 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor7 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline7 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow7 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow7 ("Shadow", Float) = 0
                         _ShadowIntensity7 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness7 ("Softness", Range(0, 1)) = 0
+                        _ShadowSoftness7 ("Softness", Range(0, 0.5)) = 0
                         [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType7 ("Dither", Int) = 1
                         [IntRange] _ShadowSamples7 ("Samples", Range(4, 32)) = 8
-                        [Vector2]_ShadowOffset7 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        [Vector2]_ShadowOffset7 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor7 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow7 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow7 ("Shadow", Float) = 0
 
-                    [HideInInspector] m_start_matcap7 ("MatCap", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTextures7 ("", Int) = 0
-                        [StylizedLargeTexture] _MatCapTex7 ("Texture--{reference_properties:[_ApplyTextures7]}", 2D) = "white" {}
-                        _MatCapIntensity7 ("Intensity", Range(0, 1)) = 0
-                        _MatCapBevel7 ("Bevel", Range(0, 1)) = 0
-                        _MatCapBlend7 ("Replace", Range(0, 1)) = 0
-                    [HideInInspector] m_end_matcap7 ("MatCap", Float) = 0
-
-                    [HideInInspector] m_start_texture7 ("Texture", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTexturesT7 ("", Int) = 0
-                        [StylizedLargeTexture] _TextureTex7 ("Texture--{reference_properties:[_ApplyTexturesT7]}", 2D) = "white" {}
-                        _TextureIntensity7 ("Intensity", Range(0, 1)) = 0
-                        [Enum(Glyph UV, 0, World UV, 1)] _TextureUVMode7 ("UV Mode", Int) = 0
-                    [HideInInspector] m_end_texture7 ("Texture", Float) = 0
+                    [HideInInspector] m_start_surface7 ("Surface Effect", Float) = 0
+                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode7 ("Mode", Int) = 0
+                        _SurfaceIntensity7 ("Intensity", Range(0, 1)) = 0
+                        _SurfaceScale7 ("Scale", Range(0.1, 10)) = 1
+                        _SurfaceSpeed7 ("Speed", Range(0, 5)) = 1
+                        [HDR]_SurfaceColor7 ("Color", Color) = (1, 1, 1, 1)
+                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend7 ("Blend", Int) = 0
+                    [HideInInspector] m_end_surface7 ("Surface Effect", Float) = 0
 
                 [HideInInspector] m_end_effect7 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting7 ("", Float) = 0
@@ -1181,7 +1133,7 @@ Shader "GekikaraStore/Typography"
                         _BlockVisible8 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _BlockAnimating8 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _TypewriterProgress8 ("Progress", Range(0, 1)) = 1
-                        _TypewriterSmooth8 ("Smooth", Range(0, 1)) = 1
+                        _TypewriterSmooth8 ("Fade Width", Range(0, 32)) = 4
                         _BlockCharDelay8 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection8 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation8 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -1231,29 +1183,23 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor8 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline8 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow8 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow8 ("Shadow", Float) = 0
                         _ShadowIntensity8 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness8 ("Softness", Range(0, 1)) = 0
+                        _ShadowSoftness8 ("Softness", Range(0, 0.5)) = 0
                         [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType8 ("Dither", Int) = 1
                         [IntRange] _ShadowSamples8 ("Samples", Range(4, 32)) = 8
-                        [Vector2]_ShadowOffset8 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        [Vector2]_ShadowOffset8 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor8 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow8 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow8 ("Shadow", Float) = 0
 
-                    [HideInInspector] m_start_matcap8 ("MatCap", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTextures8 ("", Int) = 0
-                        [StylizedLargeTexture] _MatCapTex8 ("Texture--{reference_properties:[_ApplyTextures8]}", 2D) = "white" {}
-                        _MatCapIntensity8 ("Intensity", Range(0, 1)) = 0
-                        _MatCapBevel8 ("Bevel", Range(0, 1)) = 0
-                        _MatCapBlend8 ("Replace", Range(0, 1)) = 0
-                    [HideInInspector] m_end_matcap8 ("MatCap", Float) = 0
-
-                    [HideInInspector] m_start_texture8 ("Texture", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTexturesT8 ("", Int) = 0
-                        [StylizedLargeTexture] _TextureTex8 ("Texture--{reference_properties:[_ApplyTexturesT8]}", 2D) = "white" {}
-                        _TextureIntensity8 ("Intensity", Range(0, 1)) = 0
-                        [Enum(Glyph UV, 0, World UV, 1)] _TextureUVMode8 ("UV Mode", Int) = 0
-                    [HideInInspector] m_end_texture8 ("Texture", Float) = 0
+                    [HideInInspector] m_start_surface8 ("Surface Effect", Float) = 0
+                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode8 ("Mode", Int) = 0
+                        _SurfaceIntensity8 ("Intensity", Range(0, 1)) = 0
+                        _SurfaceScale8 ("Scale", Range(0.1, 10)) = 1
+                        _SurfaceSpeed8 ("Speed", Range(0, 5)) = 1
+                        [HDR]_SurfaceColor8 ("Color", Color) = (1, 1, 1, 1)
+                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend8 ("Blend", Int) = 0
+                    [HideInInspector] m_end_surface8 ("Surface Effect", Float) = 0
 
                 [HideInInspector] m_end_effect8 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting8 ("", Float) = 0
@@ -1286,7 +1232,7 @@ Shader "GekikaraStore/Typography"
                         _BlockVisible9 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _BlockAnimating9 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
                         _TypewriterProgress9 ("Progress", Range(0, 1)) = 1
-                        _TypewriterSmooth9 ("Smooth", Range(0, 1)) = 1
+                        _TypewriterSmooth9 ("Fade Width", Range(0, 32)) = 4
                         _BlockCharDelay9 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection9 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation9 ("Rotation", Vector) = (0, 0, 0, 0)
@@ -1336,29 +1282,23 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor9 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline9 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow9 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow9 ("Shadow", Float) = 0
                         _ShadowIntensity9 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness9 ("Softness", Range(0, 1)) = 0
+                        _ShadowSoftness9 ("Softness", Range(0, 0.5)) = 0
                         [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType9 ("Dither", Int) = 1
                         [IntRange] _ShadowSamples9 ("Samples", Range(4, 32)) = 8
-                        [Vector2]_ShadowOffset9 ("Offset", Vector) = (0.05, -0.05, 0, 0)
+                        [Vector2]_ShadowOffset9 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor9 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow9 ("Drop Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow9 ("Shadow", Float) = 0
 
-                    [HideInInspector] m_start_matcap9 ("MatCap", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTextures9 ("", Int) = 0
-                        [StylizedLargeTexture] _MatCapTex9 ("Texture--{reference_properties:[_ApplyTextures9]}", 2D) = "white" {}
-                        _MatCapIntensity9 ("Intensity", Range(0, 1)) = 0
-                        _MatCapBevel9 ("Bevel", Range(0, 1)) = 0
-                        _MatCapBlend9 ("Replace", Range(0, 1)) = 0
-                    [HideInInspector] m_end_matcap9 ("MatCap", Float) = 0
-
-                    [HideInInspector] m_start_texture9 ("Texture", Float) = 0
-                        [HideInInspector][Apply(1.15)] _ApplyTexturesT9 ("", Int) = 0
-                        [StylizedLargeTexture] _TextureTex9 ("Texture--{reference_properties:[_ApplyTexturesT9]}", 2D) = "white" {}
-                        _TextureIntensity9 ("Intensity", Range(0, 1)) = 0
-                        [Enum(Glyph UV, 0, World UV, 1)] _TextureUVMode9 ("UV Mode", Int) = 0
-                    [HideInInspector] m_end_texture9 ("Texture", Float) = 0
+                    [HideInInspector] m_start_surface9 ("Surface Effect", Float) = 0
+                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode9 ("Mode", Int) = 0
+                        _SurfaceIntensity9 ("Intensity", Range(0, 1)) = 0
+                        _SurfaceScale9 ("Scale", Range(0.1, 10)) = 1
+                        _SurfaceSpeed9 ("Speed", Range(0, 5)) = 1
+                        [HDR]_SurfaceColor9 ("Color", Color) = (1, 1, 1, 1)
+                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend9 ("Blend", Int) = 0
+                    [HideInInspector] m_end_surface9 ("Surface Effect", Float) = 0
 
                 [HideInInspector] m_end_effect9 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting9 ("", Float) = 0
@@ -1437,7 +1377,7 @@ Shader "GekikaraStore/Typography"
 
             [HideInInspector] m_start_internal_settings ("Internal", Float) = 0
                     _FontTextureArray ("Font Texture Array", 2DArray) = "" {}
-                    _TextureArray ("Texture Array", 2DArray) = "" {}
+                    _TextureArray ("Texture Array (Image)", 2DArray) = "" {}
                     _TextureLayerLUT ("Texture Layer LUT", 2D) = "black" {}
                     _DataTexture ("Data Texture", 2D) = "" {}
                     _AtlasInvSize ("Atlas Inv Size", Float) = 0.03125
@@ -1471,7 +1411,7 @@ Shader "GekikaraStore/Typography"
         }
 
         // ====================================================================
-        // Pass 1: Images
+        // Pass 0: Images
         // ====================================================================
         Pass
         {
@@ -1527,10 +1467,17 @@ Shader "GekikaraStore/Typography"
             float4 _RootMatrix4_Row1;
             float4 _RootMatrix4_Row2;
 
-            // Combined texture array (Image/MatCap/Overlay - 96 layers)
+            // Combined texture array for Image pass
             UNITY_DECLARE_TEX2DARRAY(_TextureArray);
 
-            #include "Include/Images.hlsl"
+            // Image Pipeline Dependencies
+            #include "Core.hlsl"
+            #include "Systems/VisibilitySystem.hlsl"
+            #include "Systems/TransformSystem.hlsl"
+            #include "Systems/CullingSystem.hlsl"
+            #include "Systems/QuadSystem.hlsl"
+            #include "Systems/ProjectionSystem.hlsl"
+            #include "Pipelines/ImagePipeline.hlsl"
 
             image_v2f image_vert(image_appdata v)
             {
@@ -1561,24 +1508,24 @@ Shader "GekikaraStore/Typography"
                 // Pack fade (image_id set by process_image)
                 o.fade_id_packed = f32tof16(fade);
 
-                // Load parameters based on image_id
-                ImageParams p;
+                // Load layer based on image_id
+                ImageLayer layer = (ImageLayer)0;
                 switch(image_id)
                 {
-                    case 0: LOAD_IMAGE_PARAMS(0, p); break;
-                    case 1: LOAD_IMAGE_PARAMS(1, p); break;
-                    case 2: LOAD_IMAGE_PARAMS(2, p); break;
-                    case 3: LOAD_IMAGE_PARAMS(3, p); break;
-                    case 4: LOAD_IMAGE_PARAMS(4, p); break;
-                    case 5: LOAD_IMAGE_PARAMS(5, p); break;
-                    case 6: LOAD_IMAGE_PARAMS(6, p); break;
-                    case 7: LOAD_IMAGE_PARAMS(7, p); break;
-                    case 8: LOAD_IMAGE_PARAMS(8, p); break;
-                    default: LOAD_IMAGE_PARAMS(9, p); break;
+                    case 0: LOAD_IMAGE_LAYER(0, layer); break;
+                    case 1: LOAD_IMAGE_LAYER(1, layer); break;
+                    case 2: LOAD_IMAGE_LAYER(2, layer); break;
+                    case 3: LOAD_IMAGE_LAYER(3, layer); break;
+                    case 4: LOAD_IMAGE_LAYER(4, layer); break;
+                    case 5: LOAD_IMAGE_LAYER(5, layer); break;
+                    case 6: LOAD_IMAGE_LAYER(6, layer); break;
+                    case 7: LOAD_IMAGE_LAYER(7, layer); break;
+                    case 8: LOAD_IMAGE_LAYER(8, layer); break;
+                    default: LOAD_IMAGE_LAYER(9, layer); break;
                 }
 
                 // Process image (returns false if culled/disabled)
-                if (!process_image(o, v.uv2, p, image_id, cam_pos, cam_rot_inv, tan_half_fov, aspect, vr_scale))
+                if (!process_image(o, v.uv2, layer, image_id, cam_pos, cam_rot_inv, tan_half_fov, aspect, vr_scale))
                 {
                     o.vertex = float4(0,0,-1,1);
                     return o;
@@ -1612,7 +1559,7 @@ Shader "GekikaraStore/Typography"
         }
 
         // ====================================================================
-        // Pass 2: Text
+        // Pass 1: Text
         // ====================================================================
         Pass
         {
@@ -1645,7 +1592,7 @@ Shader "GekikaraStore/Typography"
             // Font texture array (per-font atlas - declared before includes because Effects.hlsl uses it)
             UNITY_DECLARE_TEX2DARRAY(_FontTextureArray);
 
-            // Combined texture array (Image/MatCap/Overlay - 96 layers)
+            // Combined texture array (Image/Overlay - 96 layers)
             UNITY_DECLARE_TEX2DARRAY(_TextureArray);
 
             // Atlas parameters (declared before includes because Effects.hlsl uses them)
@@ -1694,38 +1641,43 @@ Shader "GekikaraStore/Typography"
             float4 _RootMatrix4_Row1;
             float4 _RootMatrix4_Row2;
 
-            #include "Include/Texts.hlsl"
+            // Text Pipeline Dependencies
+            #include "Core.hlsl"
+            #include "Effects.hlsl"
+            #include "Components/Components.hlsl"
+            #include "Systems/Systems.hlsl"
+            #include "Pipelines/TextPipeline.hlsl"
 
-            // Declare all text variables (using macro from Texts.hlsl)
+            // Declare all text layer variables (using macro from Components.hlsl)
             //ifex _Use0==0
-            DECLARE_TEXT_VARS(0)
+            DECLARE_TEXT_LAYER_VARS(0)
             //endex
             //ifex _Use1==0
-            DECLARE_TEXT_VARS(1)
+            DECLARE_TEXT_LAYER_VARS(1)
             //endex
             //ifex _Use2==0
-            DECLARE_TEXT_VARS(2)
+            DECLARE_TEXT_LAYER_VARS(2)
             //endex
             //ifex _Use3==0
-            DECLARE_TEXT_VARS(3)
+            DECLARE_TEXT_LAYER_VARS(3)
             //endex
             //ifex _Use4==0
-            DECLARE_TEXT_VARS(4)
+            DECLARE_TEXT_LAYER_VARS(4)
             //endex
             //ifex _Use5==0
-            DECLARE_TEXT_VARS(5)
+            DECLARE_TEXT_LAYER_VARS(5)
             //endex
             //ifex _Use6==0
-            DECLARE_TEXT_VARS(6)
+            DECLARE_TEXT_LAYER_VARS(6)
             //endex
             //ifex _Use7==0
-            DECLARE_TEXT_VARS(7)
+            DECLARE_TEXT_LAYER_VARS(7)
             //endex
             //ifex _Use8==0
-            DECLARE_TEXT_VARS(8)
+            DECLARE_TEXT_LAYER_VARS(8)
             //endex
             //ifex _Use9==0
-            DECLARE_TEXT_VARS(9)
+            DECLARE_TEXT_LAYER_VARS(9)
             //endex
 
             // ============================================================================
@@ -1740,14 +1692,15 @@ Shader "GekikaraStore/Typography"
                 o.vertex = float4(0, 0, -1, 1);
                 o.glyph_uv = v.uv2;
                 o.char_index = 0;
-                o.packed_info = (2u << 8) | (8u << 16);  // default: R2 dither, 8 samples
+                o.packed_info = 0;
                 o.anim_packed = uint2(pack_f16x2(0.0, 0.0), pack_f16x2(0.0, 1.0));  // opacity=0, shake=0, block_fade=1
-                o.quad_packed = pack_f16x2(1.0, 1.0);  // quad_padding=1, rcp_sample=1
                 o.text_color = pack_f16x4(float4(1, 1, 1, 1));
-                o.outline = uint2(0, 0);
+                o.outline = uint2(0, pack_f16x2(1.0, 0.0));  // x: width|round=0, y: quad_padding=1|unused
+                o.outline_color = uint2(0, 0);
                 o.shadow = uint2(0, 0);
                 o.shadow_color = uint2(0, 0);
                 o.texturing = uint2(0, 0);
+                o.surface_color = uint2(0, 0);
                 o.world_pos = float3(0, 0, 0);
                 o.surface_normal = float3(0, 0, 1);
 
@@ -1766,45 +1719,45 @@ Shader "GekikaraStore/Typography"
                 float aspect = get_screen_aspect();
                 float vr_scale = get_vr_scale(_VRScale);
 
-                // Load parameters based on text_id
-                TextParams p;
+                // Load layer based on text_id
+                TextLayer layer = (TextLayer)0;
                 switch(text_id)
                 {
                     //ifex _Use0==0
-                    case 0: LOAD_TEXT_PARAMS(0, p); break;
+                    case 0: LOAD_TEXT_LAYER(0, layer); break;
                     //endex
                     //ifex _Use1==0
-                    case 1: LOAD_TEXT_PARAMS(1, p); break;
+                    case 1: LOAD_TEXT_LAYER(1, layer); break;
                     //endex
                     //ifex _Use2==0
-                    case 2: LOAD_TEXT_PARAMS(2, p); break;
+                    case 2: LOAD_TEXT_LAYER(2, layer); break;
                     //endex
                     //ifex _Use3==0
-                    case 3: LOAD_TEXT_PARAMS(3, p); break;
+                    case 3: LOAD_TEXT_LAYER(3, layer); break;
                     //endex
                     //ifex _Use4==0
-                    case 4: LOAD_TEXT_PARAMS(4, p); break;
+                    case 4: LOAD_TEXT_LAYER(4, layer); break;
                     //endex
                     //ifex _Use5==0
-                    case 5: LOAD_TEXT_PARAMS(5, p); break;
+                    case 5: LOAD_TEXT_LAYER(5, layer); break;
                     //endex
                     //ifex _Use6==0
-                    case 6: LOAD_TEXT_PARAMS(6, p); break;
+                    case 6: LOAD_TEXT_LAYER(6, layer); break;
                     //endex
                     //ifex _Use7==0
-                    case 7: LOAD_TEXT_PARAMS(7, p); break;
+                    case 7: LOAD_TEXT_LAYER(7, layer); break;
                     //endex
                     //ifex _Use8==0
-                    case 8: LOAD_TEXT_PARAMS(8, p); break;
+                    case 8: LOAD_TEXT_LAYER(8, layer); break;
                     //endex
                     //ifex _Use9==0
-                    case 9: LOAD_TEXT_PARAMS(9, p); break;
+                    case 9: LOAD_TEXT_LAYER(9, layer); break;
                     //endex
                     default: break;
                 }
 
                 // Process text (returns false if culled/disabled)
-                if (!process_text(o, v.uv2, char_pos, p, text_id, cam_pos, cam_rot_inv, tan_half_fov, aspect, vr_scale, _QuadPadding, _DFC, _DataTexture, _DataTexture_TexelSize))
+                if (!process_text(o, v.uv2, char_pos, layer, text_id, cam_pos, cam_rot_inv, tan_half_fov, aspect, vr_scale, _QuadPadding, _DFC, _DataTexture, _DataTexture_TexelSize))
                 {
                     o.vertex = float4(0, 0, -1, 1);
                     return o;
@@ -1832,13 +1785,13 @@ Shader "GekikaraStore/Typography"
                 float opacity_mult = anim_xy.x;  // Pre-computed (1-anim_factor)*fade in VS
                 float2 shake_offset = float2(anim_xy.y, anim_zw.x);
                 float block_fade = anim_zw.y;
-                float2 quad_unpack = unpack_f16x2(i.quad_packed);
+                float2 quad_unpack = unpack_f16x2(i.outline.y);  // quad_padding | rcp_sample_count
                 float quad_padding = quad_unpack.x;
-                float rcp_sample_count = quad_unpack.y;  // Pre-computed in VS
+                float rcp_sample_count = quad_unpack.y;
 
                 float2 glyph_uv = i.glyph_uv + shake_offset;
 
-                // Pre-compute adjusted_uv and AtlasParams once (optimization: avoids 3x redundant computation)
+                // Pre-compute adjusted_uv and AtlasParams once
                 float2 adjusted_uv = (glyph_uv - 0.5) * quad_padding + 0.5;
                 AtlasParams atlas_params = load_atlas_params();
 
@@ -1848,51 +1801,41 @@ Shader "GekikaraStore/Typography"
                 // Unpack effect params from f16
                 EffectParams params;
                 params.text_color = unpack_f16x4(i.text_color);
-                float2 outline_width_round = unpack_f16x2(i.outline.x);    // x=width*0.5, y=round
+                float2 outline_width_round = unpack_f16x2(i.outline.x);  // x=width*0.5, y=round
                 params.outline = float4(outline_width_round.x, outline_width_round.y, 0, 0);
                 uint effective_char_index = i.char_index;
-                uint text_id = (i.packed_info >> 19) & 0x1Fu;
                 params.outline_color = unpack_f16x4(i.outline_color);
-                params.shadow = float4(unpack_f16x2(i.shadow.x), unpack_f16x2(i.shadow.y));
-                params.shadow_color = float4(unpack_f16x2(i.shadow_color.x), unpack_f16x2(i.shadow_color.y));
 
-                // Unpack texturing params (MatCap + Texture are independent)
-                float2 texturing_xy = unpack_f16x2(i.texturing.x);  // matcap_intensity, matcap_bevel
-                float2 texturing_zw = unpack_f16x2(i.texturing.y);  // matcap_blend, texture_intensity
-                float matcap_intensity = texturing_xy.x;
-                float matcap_bevel = texturing_xy.y;
-                float matcap_blend = texturing_zw.x;
-                float texture_intensity = texturing_zw.y;
-                uint texture_uv_mode = (i.packed_info >> 25) & 0x1u;  // 0=Glyph, 1=World
+                // Unpack shadow params: intensity|softness, offset.x|offset.y
+                float2 shadow_xy = unpack_f16x2(i.shadow.x);  // intensity, softness
+                float2 shadow_offset = unpack_f16x2(i.shadow.y);  // offset.x, offset.y
+                float2 shadow_color_rg = unpack_f16x2(i.shadow_color.x);  // r, g
+                float shadow_color_b = f16tof32(i.shadow_color.y);  // b
+                params.shadow = float4(shadow_xy.x, shadow_offset.x, shadow_offset.y, shadow_xy.y);  // x=intensity, yz=offset, w=softness
+                params.shadow_color = float4(shadow_color_rg.x, shadow_color_rg.y, shadow_color_b, 1);
 
-                // Optimization: Single LUT fetch for both MatCap and Overlay layers
-                bool needs_overlay = texture_intensity > EPSILON;
-                bool needs_matcap = matcap_intensity > EPSILON;
-                int2 layer_indices = int2(-1, -1);  // x=matcap, y=overlay
-                if (needs_overlay || needs_matcap)
-                {
-                    layer_indices = GetTextLayerIndices(text_id);
-                }
+                // Unpack surface effect params
+                float2 surface_xy = unpack_f16x2(i.texturing.x);  // intensity, scale
+                float2 surface_zw = unpack_f16x2(i.texturing.y);  // speed, (unused)
+                float surface_intensity = surface_xy.x;
+                float surface_scale = surface_xy.y;
+                float surface_speed = surface_zw.x;
+                uint surface_mode = (i.packed_info >> 25) & 0x7u;       // 3 bits: 0-5
+                uint surface_blend_mode = (i.packed_info >> 28) & 0x3u; // 2 bits: 0-2
 
-                // Apply Texture to text_color BEFORE compositing (prevents edge bleeding)
-                if (needs_overlay && layer_indices.y >= 0)
-                {
-                    apply_texture_to_color(params.text_color, adjusted_uv, i.world_pos,
-                        (uint)layer_indices.y, texture_intensity, texture_uv_mode);
-                }
+                // Unpack surface color from surface_color field
+                float3 surface_color = float3(
+                    unpack_f16x2(i.surface_color.x),
+                    f16tof32(i.surface_color.y)
+                );
 
                 MSDFSample msdf;
                 apply_effects(accum_color, accum_alpha, msdf, adjusted_uv, atlas_params, effective_char_index, font_index, opacity_mult, params, i.vertex.xy, rcp_sample_count, i.packed_info);
 
-                // Apply MatCap AFTER compositing (reuses MSDF sample from apply_effects)
-                // view_dir precomputed in vertex shader for performance
-                if (needs_matcap && layer_indices.x >= 0)
-                {
-                    apply_matcap_effect(accum_color, msdf.sd, msdf.opacity, adjusted_uv,
-                        i.view_dir, i.surface_normal,
-                        (uint)layer_indices.x,
-                        matcap_intensity, matcap_bevel, matcap_blend);
-                }
+                // Apply procedural surface effect AFTER main compositing
+                apply_surface_effect(accum_color, msdf.opacity, adjusted_uv, i.world_pos,
+                    _Time.y, surface_mode, surface_intensity, surface_scale, surface_speed,
+                    surface_color, surface_blend_mode);
 
                 // Clip based on accumulated alpha (before block fade)
                 clip(accum_alpha - _AlphaCutoff);
@@ -1906,7 +1849,7 @@ Shader "GekikaraStore/Typography"
         }
 
         // ============================================================================
-        // Pass 3: Particle Effect
+        // Pass 2: Particle Effect
         // ============================================================================
         Pass
         {
@@ -1937,10 +1880,14 @@ Shader "GekikaraStore/Typography"
             #pragma fragmentoption ARB_precision_hint_fastest
 
             #include "UnityCG.cginc"
-            #include "Include/Particles.hlsl"
+
+            // Particle Pipeline Dependencies
+            #include "Core.hlsl"
+            #include "Components/ParticleComponent.hlsl"
+            #include "Pipelines/ParticlePipeline.hlsl"
 
             // Particle Properties (using macro for each particle type)
-            DECLARE_PARTICLE_VARS(0)
+            DECLARE_PARTICLE_LAYER_VARS(0)
 
             // Camera (shared with text pass)
             float4 _CameraPosition;
