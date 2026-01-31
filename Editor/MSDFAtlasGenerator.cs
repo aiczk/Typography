@@ -90,7 +90,7 @@ namespace Typography.Editor
             var args = $"-font \"{fontPath}\" -charset \"{charsetPath}\" -type mtsdf " +
                        $"-dimensions {AtlasResolution} {AtlasResolution} " +
                        $"-uniformgrid -uniformcols {atlasSize} -uniformcell {cellSize} {cellSize} " +
-                       $"-emrange 0.3 -threads 0 -coloringstrategy distance " +
+                       $"-emrange 0.5 -threads 0 -coloringstrategy distance " +
                        $"-imageout \"{outputPath}\"";
 
             return ExecuteProcess(atlasGenPath, args, font.name, outputPath);

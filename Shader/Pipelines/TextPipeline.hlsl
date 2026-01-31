@@ -20,14 +20,14 @@ struct text_v2f
     nointerpolation uint packed_info : TEXCOORD2;
     nointerpolation uint2 anim_packed : TEXCOORD3;
     nointerpolation uint2 text_color : TEXCOORD4;
-    nointerpolation uint2 outline : TEXCOORD5;        // x: width|round, y: quad_padding|rcp_sample_count
+    nointerpolation uint2 outline : TEXCOORD5;        // x: width|round, y: quad_padding|unused
     nointerpolation uint2 outline_color : TEXCOORD6;
     nointerpolation uint2 shadow : TEXCOORD7;         // x: intensity|softness, y: offset.x|offset.y
-    nointerpolation uint2 shadow_color : TEXCOORD8;   // x: r|g, y: b|_
+    nointerpolation uint4 shadow_surface_color : TEXCOORD8; // shadow.rg|shadow.b+surface.r|surface.gb|unused
     nointerpolation uint2 texturing : TEXCOORD9;      // x: surface_intensity|scale, y: speed|unused
-    nointerpolation uint2 surface_color : TEXCOORD10; // x: r|g, y: b|unused
-    float3 world_pos : TEXCOORD11;
-    nointerpolation float3 surface_normal : TEXCOORD12;
+    float3 world_pos : TEXCOORD10;
+    nointerpolation float3 surface_normal : TEXCOORD11;
+    // TEXCOORD12-15: available for future use
     UNITY_VERTEX_OUTPUT_STEREO
 };
 
@@ -75,12 +75,11 @@ inline bool process_text(
         layer.spacing.spacing, layer.spacing.anchor,
         layer.visibility.mode);
     float3 local_pos = layout.local_pos;
-    float spacing_val = 1.0 + layer.spacing.spacing;
 
     if (layer.typewriter.centering == 1)
     {
         float align = calculate_center_alignment(
-            data.char_count, layer.spacing.spacing,
+            data.char_count, layout.spacing_val,
             layer.typewriter.type, layer.typewriter.mode,
             layer.typewriter.progress, layer.typewriter.center_smooth,
             layer.block.visible, layer.block.animating);
@@ -96,7 +95,7 @@ inline bool process_text(
         layout.normalized_pos, data.char_count,
         layer.curve.intensity, layer.curve.rotation,
         layer.curve.speed, layer.curve.offset, layer.curve.center,
-        spacing_val, _Time.y,
+        layout.spacing_val, _Time.y,
         layer.curve.x_0, layer.curve.x_1,
         layer.curve.y_0, layer.curve.y_1,
         layer.curve.z_0, layer.curve.z_1);
@@ -140,42 +139,38 @@ inline bool process_text(
     // Stage 10: Pack
     o.glyph_uv = corner_uv;
     o.text_color = pack_f16x4(layer.appearance.color);
-    // Compute rcp_sample_count for soft shadow
-    float rcp_sample_count = rcp(max((float)layer.shadow.samples, 1.0));
     o.outline = uint2(
         pack_f16x2(layer.outline.width * 0.5, layer.outline.round),
-        pack_f16x2(qpad, rcp_sample_count));  // quad_padding | rcp_sample_count
+        pack_f16x2(qpad, 0));  // quad_padding | unused
     o.outline_color = pack_f16x4(layer.outline.color);
     o.shadow = uint2(
         pack_f16x2(layer.shadow.intensity, layer.shadow.softness),
         pack_f16x2(layer.shadow.offset.x, layer.shadow.offset.y));
-    o.shadow_color = uint2(
+    // Pack shadow.rgb + surface.rgb into single uint4 (saves 1 TEXCOORD)
+    o.shadow_surface_color = uint4(
         pack_f16x2(layer.shadow.color.r, layer.shadow.color.g),
-        pack_f16x2(layer.shadow.color.b, 0));
+        pack_f16x2(layer.shadow.color.b, layer.surface.color.r),
+        pack_f16x2(layer.surface.color.g, layer.surface.color.b),
+        0);  // reserved for future use
 
-    // Pack info matching original v2.2.1 layout:
-    // bits 0-7: font_index, 8-9: dither_type, 10-17: samples, 18: outline_mode
-    // bits 19-23: text_id (unused here), 24: world_space, 25-27: surface_mode, 28-29: blend_mode
-    o.packed_info = (data.font_index & 0xFFu)
-        | ((layer.shadow.dither_type & 0x3u) << 8)    // 2 bits: dither type
-        | ((layer.shadow.samples & 0xFFu) << 10)      // 8 bits: sample count
-        | ((layer.outline.mode & 0x1u) << 18)
-        | ((layer.transform.world_space & 0x1u) << 24)
-        | ((layer.surface.mode & 0x7u) << 25)         // 3 bits: 0-5
-        | ((layer.surface.blend_mode & 0x3u) << 28);  // 2 bits: 0-2
+    // Pack info using contiguous bit layout (see Constants.hlsl):
+    // bits 0-7: font_index, bit 8: outline_mode, bit 9: world_space
+    // bits 10-12: surface_mode, bits 13-14: blend_mode, bits 15-31: reserved
+    o.packed_info = PACK_FONT_INDEX(data.font_index)
+        | PACK_OUTLINE_MODE(layer.outline.mode)
+        | PACK_WORLD_SPACE(layer.transform.world_space)
+        | PACK_SURFACE_MODE(layer.surface.mode)
+        | PACK_BLEND_MODE(layer.surface.blend_mode);
 
     float opacity = 1.0 - tw.anim_factor;
     o.anim_packed = uint2(
         pack_f16x2(opacity, shake_off.x),
         pack_f16x2(shake_off.y, tw.block_fade));
 
-    // Surface effect params
+    // Surface effect params (surface.color already packed in shadow_surface_color)
     o.texturing = uint2(
         pack_f16x2(layer.surface.intensity, layer.surface.scale),
         pack_f16x2(layer.surface.speed, 0));
-    o.surface_color = uint2(
-        pack_f16x2(layer.surface.color.r, layer.surface.color.g),
-        pack_f16x2(layer.surface.color.b, 0));
 
     float3 normal = get_surface_normal(char_rot);
     if (layer.transform.world_space == 1)

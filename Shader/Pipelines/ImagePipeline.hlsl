@@ -147,14 +147,14 @@ inline bool process_image(
     // Stage 1: Visibility
     if (!visibility_check(layer.use)) return false;
 
-    // Stage 2: Transform (using Systems)
-    TransformData xform = build_image_transform(
+    // Stage 2: Transform (using unified transform system)
+    TransformData xform = build_transform_unified(
         layer.transform.position, layer.transform.rotation,
-        layer.transform.scale, layer.transform.pivot, vr_scale);
+        layer.transform.scale, layer.transform.pivot, vr_scale,
+        PIVOT_SCALE_IMAGE);
 
-    // Image uses different world_pos calculation (pivot offset)
-    float3 pivot = layer.transform.pivot.xyz * 0.1;
-    float3 pivot_offset = pivot - mul(xform.rotation_scale, pivot);
+    // Image world position with pivot offset (uses pre-computed xform.pivot)
+    float3 pivot_offset = xform.pivot - mul(xform.rotation_scale, xform.pivot);
     float3 world_pos = xform.translation + pivot_offset;
 
     // Stage 3: Root Transform

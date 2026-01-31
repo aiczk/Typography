@@ -48,18 +48,23 @@ inline bool cull_object(
     return frustum_cull_world(world_pos, margin);
 }
 
-// Calculate culling margin for text
-inline float calculate_text_margin(float3 scale)
+// Unified margin calculation
+// base_size: MARGIN_BASE_TEXT or MARGIN_BASE_IMAGE
+inline float calculate_margin_unified(float3 scale, float base_size)
 {
-    float char_half_size = TEXT_GLYPH_SCALE * 0.5;
-    return char_half_size * max(scale.x, scale.y) * 2.0;
+    return base_size * max(scale.x, scale.y) * 2.0;
 }
 
-// Calculate culling margin for image
+// Legacy wrapper: Calculate culling margin for text
+inline float calculate_text_margin(float3 scale)
+{
+    return calculate_margin_unified(scale, MARGIN_BASE_TEXT);
+}
+
+// Legacy wrapper: Calculate culling margin for image
 inline float calculate_image_margin(float3 scale)
 {
-    float image_half_size = 0.05;
-    return image_half_size * max(scale.x, scale.y) * 2.0;
+    return calculate_margin_unified(scale, MARGIN_BASE_IMAGE);
 }
 
 #endif // TYPOGRAPHY_CULLING_SYSTEM_INCLUDED

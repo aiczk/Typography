@@ -393,18 +393,16 @@ Shader "GekikaraStore/Typography"
 
                     [HideInInspector] m_start_shadow0 ("Shadow", Float) = 0
                         _ShadowIntensity0 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness0 ("Softness", Range(0, 0.5)) = 0
-                        [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType0 ("Dither", Int) = 1
-                        [IntRange] _ShadowSamples0 ("Samples", Range(4, 32)) = 8
+                        _ShadowSoftness0 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset0 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor0 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow0 ("Shadow", Float) = 0
 
                     [HideInInspector] m_start_surface0 ("Surface Effect", Float) = 0
-                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode0 ("Mode", Int) = 0
+                        [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode0 ("Mode", Int) = 0
                         _SurfaceIntensity0 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale0 ("Scale", Range(0.1, 10)) = 1
-                        _SurfaceSpeed0 ("Speed", Range(0, 5)) = 1
+                        _SurfaceScale0 ("Scale", Range(1, 15)) = 5
+                        _SurfaceSpeed0 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor0 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend0 ("Blend", Int) = 0
                     [HideInInspector] m_end_surface0 ("Surface Effect", Float) = 0
@@ -492,18 +490,16 @@ Shader "GekikaraStore/Typography"
 
                     [HideInInspector] m_start_shadow1 ("Shadow", Float) = 0
                         _ShadowIntensity1 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness1 ("Softness", Range(0, 0.5)) = 0
-                        [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType1 ("Dither", Int) = 1
-                        [IntRange] _ShadowSamples1 ("Samples", Range(4, 32)) = 8
+                        _ShadowSoftness1 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset1 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor1 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow1 ("Shadow", Float) = 0
 
                     [HideInInspector] m_start_surface1 ("Surface Effect", Float) = 0
-                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode1 ("Mode", Int) = 0
+                        [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode1 ("Mode", Int) = 0
                         _SurfaceIntensity1 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale1 ("Scale", Range(0.1, 10)) = 1
-                        _SurfaceSpeed1 ("Speed", Range(0, 5)) = 1
+                        _SurfaceScale1 ("Scale", Range(1, 15)) = 5
+                        _SurfaceSpeed1 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor1 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend1 ("Blend", Int) = 0
                     [HideInInspector] m_end_surface1 ("Surface Effect", Float) = 0
@@ -591,18 +587,16 @@ Shader "GekikaraStore/Typography"
 
                     [HideInInspector] m_start_shadow2 ("Shadow", Float) = 0
                         _ShadowIntensity2 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness2 ("Softness", Range(0, 0.5)) = 0
-                        [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType2 ("Dither", Int) = 1
-                        [IntRange] _ShadowSamples2 ("Samples", Range(4, 32)) = 8
+                        _ShadowSoftness2 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset2 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor2 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow2 ("Shadow", Float) = 0
 
                     [HideInInspector] m_start_surface2 ("Surface Effect", Float) = 0
-                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode2 ("Mode", Int) = 0
+                        [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode2 ("Mode", Int) = 0
                         _SurfaceIntensity2 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale2 ("Scale", Range(0.1, 10)) = 1
-                        _SurfaceSpeed2 ("Speed", Range(0, 5)) = 1
+                        _SurfaceScale2 ("Scale", Range(1, 15)) = 5
+                        _SurfaceSpeed2 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor2 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend2 ("Blend", Int) = 0
                     [HideInInspector] m_end_surface2 ("Surface Effect", Float) = 0
@@ -690,18 +684,16 @@ Shader "GekikaraStore/Typography"
 
                     [HideInInspector] m_start_shadow3 ("Shadow", Float) = 0
                         _ShadowIntensity3 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness3 ("Softness", Range(0, 0.5)) = 0
-                        [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType3 ("Dither", Int) = 1
-                        [IntRange] _ShadowSamples3 ("Samples", Range(4, 32)) = 8
+                        _ShadowSoftness3 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset3 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor3 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow3 ("Shadow", Float) = 0
 
                     [HideInInspector] m_start_surface3 ("Surface Effect", Float) = 0
-                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode3 ("Mode", Int) = 0
+                        [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode3 ("Mode", Int) = 0
                         _SurfaceIntensity3 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale3 ("Scale", Range(0.1, 10)) = 1
-                        _SurfaceSpeed3 ("Speed", Range(0, 5)) = 1
+                        _SurfaceScale3 ("Scale", Range(1, 15)) = 5
+                        _SurfaceSpeed3 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor3 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend3 ("Blend", Int) = 0
                     [HideInInspector] m_end_surface3 ("Surface Effect", Float) = 0
@@ -789,18 +781,16 @@ Shader "GekikaraStore/Typography"
 
                     [HideInInspector] m_start_shadow4 ("Shadow", Float) = 0
                         _ShadowIntensity4 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness4 ("Softness", Range(0, 0.5)) = 0
-                        [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType4 ("Dither", Int) = 1
-                        [IntRange] _ShadowSamples4 ("Samples", Range(4, 32)) = 8
+                        _ShadowSoftness4 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset4 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor4 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow4 ("Shadow", Float) = 0
 
                     [HideInInspector] m_start_surface4 ("Surface Effect", Float) = 0
-                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode4 ("Mode", Int) = 0
+                        [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode4 ("Mode", Int) = 0
                         _SurfaceIntensity4 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale4 ("Scale", Range(0.1, 10)) = 1
-                        _SurfaceSpeed4 ("Speed", Range(0, 5)) = 1
+                        _SurfaceScale4 ("Scale", Range(1, 15)) = 5
+                        _SurfaceSpeed4 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor4 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend4 ("Blend", Int) = 0
                     [HideInInspector] m_end_surface4 ("Surface Effect", Float) = 0
@@ -888,18 +878,16 @@ Shader "GekikaraStore/Typography"
 
                     [HideInInspector] m_start_shadow5 ("Shadow", Float) = 0
                         _ShadowIntensity5 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness5 ("Softness", Range(0, 0.5)) = 0
-                        [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType5 ("Dither", Int) = 1
-                        [IntRange] _ShadowSamples5 ("Samples", Range(4, 32)) = 8
+                        _ShadowSoftness5 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset5 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor5 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow5 ("Shadow", Float) = 0
 
                     [HideInInspector] m_start_surface5 ("Surface Effect", Float) = 0
-                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode5 ("Mode", Int) = 0
+                        [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode5 ("Mode", Int) = 0
                         _SurfaceIntensity5 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale5 ("Scale", Range(0.1, 10)) = 1
-                        _SurfaceSpeed5 ("Speed", Range(0, 5)) = 1
+                        _SurfaceScale5 ("Scale", Range(1, 15)) = 5
+                        _SurfaceSpeed5 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor5 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend5 ("Blend", Int) = 0
                     [HideInInspector] m_end_surface5 ("Surface Effect", Float) = 0
@@ -987,18 +975,16 @@ Shader "GekikaraStore/Typography"
 
                     [HideInInspector] m_start_shadow6 ("Shadow", Float) = 0
                         _ShadowIntensity6 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness6 ("Softness", Range(0, 0.5)) = 0
-                        [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType6 ("Dither", Int) = 1
-                        [IntRange] _ShadowSamples6 ("Samples", Range(4, 32)) = 8
+                        _ShadowSoftness6 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset6 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor6 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow6 ("Shadow", Float) = 0
 
                     [HideInInspector] m_start_surface6 ("Surface Effect", Float) = 0
-                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode6 ("Mode", Int) = 0
+                        [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode6 ("Mode", Int) = 0
                         _SurfaceIntensity6 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale6 ("Scale", Range(0.1, 10)) = 1
-                        _SurfaceSpeed6 ("Speed", Range(0, 5)) = 1
+                        _SurfaceScale6 ("Scale", Range(1, 15)) = 5
+                        _SurfaceSpeed6 ("Speed", Range(0, 5)) = 0.1
                         [HDR]_SurfaceColor6 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend6 ("Blend", Int) = 0
                     [HideInInspector] m_end_surface6 ("Surface Effect", Float) = 0
@@ -1086,18 +1072,16 @@ Shader "GekikaraStore/Typography"
 
                     [HideInInspector] m_start_shadow7 ("Shadow", Float) = 0
                         _ShadowIntensity7 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness7 ("Softness", Range(0, 0.5)) = 0
-                        [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType7 ("Dither", Int) = 1
-                        [IntRange] _ShadowSamples7 ("Samples", Range(4, 32)) = 8
+                        _ShadowSoftness7 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset7 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor7 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow7 ("Shadow", Float) = 0
 
                     [HideInInspector] m_start_surface7 ("Surface Effect", Float) = 0
-                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode7 ("Mode", Int) = 0
+                        [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode7 ("Mode", Int) = 0
                         _SurfaceIntensity7 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale7 ("Scale", Range(0.1, 10)) = 1
-                        _SurfaceSpeed7 ("Speed", Range(0, 5)) = 1
+                        _SurfaceScale7 ("Scale", Range(1, 15)) = 5
+                        _SurfaceSpeed7 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor7 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend7 ("Blend", Int) = 0
                     [HideInInspector] m_end_surface7 ("Surface Effect", Float) = 0
@@ -1185,18 +1169,16 @@ Shader "GekikaraStore/Typography"
 
                     [HideInInspector] m_start_shadow8 ("Shadow", Float) = 0
                         _ShadowIntensity8 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness8 ("Softness", Range(0, 0.5)) = 0
-                        [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType8 ("Dither", Int) = 1
-                        [IntRange] _ShadowSamples8 ("Samples", Range(4, 32)) = 8
+                        _ShadowSoftness8 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset8 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor8 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow8 ("Shadow", Float) = 0
 
                     [HideInInspector] m_start_surface8 ("Surface Effect", Float) = 0
-                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode8 ("Mode", Int) = 0
+                        [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode8 ("Mode", Int) = 0
                         _SurfaceIntensity8 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale8 ("Scale", Range(0.1, 10)) = 1
-                        _SurfaceSpeed8 ("Speed", Range(0, 5)) = 1
+                        _SurfaceScale8 ("Scale", Range(1, 15)) = 5
+                        _SurfaceSpeed8 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor8 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend8 ("Blend", Int) = 0
                     [HideInInspector] m_end_surface8 ("Surface Effect", Float) = 0
@@ -1284,18 +1266,16 @@ Shader "GekikaraStore/Typography"
 
                     [HideInInspector] m_start_shadow9 ("Shadow", Float) = 0
                         _ShadowIntensity9 ("Intensity", Range(0, 1)) = 0
-                        _ShadowSoftness9 ("Softness", Range(0, 0.5)) = 0
-                        [Enum(Uniform, 0, Golden, 1, Halton, 2)] _ShadowDitherType9 ("Dither", Int) = 1
-                        [IntRange] _ShadowSamples9 ("Samples", Range(4, 32)) = 8
+                        _ShadowSoftness9 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset9 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor9 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow9 ("Shadow", Float) = 0
 
                     [HideInInspector] m_start_surface9 ("Surface Effect", Float) = 0
-                        [Enum(Simplex, 0, Voronoi, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode9 ("Mode", Int) = 0
+                        [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode9 ("Mode", Int) = 0
                         _SurfaceIntensity9 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale9 ("Scale", Range(0.1, 10)) = 1
-                        _SurfaceSpeed9 ("Speed", Range(0, 5)) = 1
+                        _SurfaceScale9 ("Scale", Range(1, 15)) = 5
+                        _SurfaceSpeed9 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor9 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend9 ("Blend", Int) = 0
                     [HideInInspector] m_end_surface9 ("Surface Effect", Float) = 0
@@ -1698,9 +1678,8 @@ Shader "GekikaraStore/Typography"
                 o.outline = uint2(0, pack_f16x2(1.0, 0.0));  // x: width|round=0, y: quad_padding=1|unused
                 o.outline_color = uint2(0, 0);
                 o.shadow = uint2(0, 0);
-                o.shadow_color = uint2(0, 0);
+                o.shadow_surface_color = uint4(0, 0, 0, 0);
                 o.texturing = uint2(0, 0);
-                o.surface_color = uint2(0, 0);
                 o.world_pos = float3(0, 0, 0);
                 o.surface_normal = float3(0, 0, 1);
 
@@ -1779,15 +1758,15 @@ Shader "GekikaraStore/Typography"
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
 
                 // Unpack from f16-packed structures (GPU native instructions)
-                uint font_index = i.packed_info & 0xFFu;
+                // See Constants.hlsl for packed_info bit layout
+                uint font_index = UNPACK_FONT_INDEX(i.packed_info);
                 float2 anim_xy = unpack_f16x2(i.anim_packed.x);  // opacity_mult, shake.x
                 float2 anim_zw = unpack_f16x2(i.anim_packed.y);  // shake.y, block_fade
                 float opacity_mult = anim_xy.x;  // Pre-computed (1-anim_factor)*fade in VS
                 float2 shake_offset = float2(anim_xy.y, anim_zw.x);
                 float block_fade = anim_zw.y;
-                float2 quad_unpack = unpack_f16x2(i.outline.y);  // quad_padding | rcp_sample_count
+                float2 quad_unpack = unpack_f16x2(i.outline.y);  // quad_padding | unused
                 float quad_padding = quad_unpack.x;
-                float rcp_sample_count = quad_unpack.y;
 
                 float2 glyph_uv = i.glyph_uv + shake_offset;
 
@@ -1809,10 +1788,15 @@ Shader "GekikaraStore/Typography"
                 // Unpack shadow params: intensity|softness, offset.x|offset.y
                 float2 shadow_xy = unpack_f16x2(i.shadow.x);  // intensity, softness
                 float2 shadow_offset = unpack_f16x2(i.shadow.y);  // offset.x, offset.y
-                float2 shadow_color_rg = unpack_f16x2(i.shadow_color.x);  // r, g
-                float shadow_color_b = f16tof32(i.shadow_color.y);  // b
                 params.shadow = float4(shadow_xy.x, shadow_offset.x, shadow_offset.y, shadow_xy.y);  // x=intensity, yz=offset, w=softness
-                params.shadow_color = float4(shadow_color_rg.x, shadow_color_rg.y, shadow_color_b, 1);
+
+                // Unpack shadow.rgb + surface.rgb from combined shadow_surface_color (uint4)
+                // Layout: shadow.rg | shadow.b+surface.r | surface.gb | unused
+                float2 shadow_rg = unpack_f16x2(i.shadow_surface_color.x);
+                float2 shadow_b_surface_r = unpack_f16x2(i.shadow_surface_color.y);
+                float2 surface_gb = unpack_f16x2(i.shadow_surface_color.z);
+                params.shadow_color = float4(shadow_rg.x, shadow_rg.y, shadow_b_surface_r.x, 1);
+                float3 surface_color = float3(shadow_b_surface_r.y, surface_gb.x, surface_gb.y);
 
                 // Unpack surface effect params
                 float2 surface_xy = unpack_f16x2(i.texturing.x);  // intensity, scale
@@ -1820,20 +1804,15 @@ Shader "GekikaraStore/Typography"
                 float surface_intensity = surface_xy.x;
                 float surface_scale = surface_xy.y;
                 float surface_speed = surface_zw.x;
-                uint surface_mode = (i.packed_info >> 25) & 0x7u;       // 3 bits: 0-5
-                uint surface_blend_mode = (i.packed_info >> 28) & 0x3u; // 2 bits: 0-2
-
-                // Unpack surface color from surface_color field
-                float3 surface_color = float3(
-                    unpack_f16x2(i.surface_color.x),
-                    f16tof32(i.surface_color.y)
-                );
+                uint surface_mode = UNPACK_SURFACE_MODE(i.packed_info);
+                uint surface_blend_mode = UNPACK_BLEND_MODE(i.packed_info);
 
                 MSDFSample msdf;
-                apply_effects(accum_color, accum_alpha, msdf, adjusted_uv, atlas_params, effective_char_index, font_index, opacity_mult, params, i.vertex.xy, rcp_sample_count, i.packed_info);
+                apply_effects(accum_color, accum_alpha, msdf, adjusted_uv, atlas_params, effective_char_index, font_index, opacity_mult, params, i.packed_info);
 
                 // Apply procedural surface effect AFTER main compositing
-                apply_surface_effect(accum_color, msdf.opacity, adjusted_uv, i.world_pos,
+                // Use opacity_mult to respect Typewriter animation
+                apply_surface_effect(accum_color, msdf.opacity * opacity_mult, adjusted_uv, i.world_pos,
                     _Time.y, surface_mode, surface_intensity, surface_scale, surface_speed,
                     surface_color, surface_blend_mode);
 

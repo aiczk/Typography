@@ -14,18 +14,20 @@ struct TransformData
     float3 pivot;
 };
 
-// Build transform data from parameters
-inline TransformData build_transform(
+// Unified transform builder with configurable pivot scale
+// pivot_scale: PIVOT_SCALE_TEXT (0.1) for text, PIVOT_SCALE_IMAGE (0.1) for images
+inline TransformData build_transform_unified(
     float4 position,
     float4 rotation,
     float4 scale,
     float4 pivot,
-    float vr_scale)
+    float vr_scale,
+    float pivot_scale)
 {
     TransformData result;
 
     result.translation = position.xyz * CM_TO_METER_SCALE * vr_scale;
-    result.pivot = pivot.xyz * TEXT_GLYPH_SCALE;
+    result.pivot = pivot.xyz * pivot_scale;
 
     float3 scale_val = scale.xyz * vr_scale;
     float3x3 rot_matrix = has_rotation(rotation.xyz)
@@ -36,7 +38,18 @@ inline TransformData build_transform(
     return result;
 }
 
-// Build transform for images (different pivot scale)
+// Legacy wrapper: Build transform for text (uses TEXT_GLYPH_SCALE for pivot)
+inline TransformData build_transform(
+    float4 position,
+    float4 rotation,
+    float4 scale,
+    float4 pivot,
+    float vr_scale)
+{
+    return build_transform_unified(position, rotation, scale, pivot, vr_scale, PIVOT_SCALE_TEXT);
+}
+
+// Legacy wrapper: Build transform for images (uses PIVOT_SCALE_IMAGE for pivot)
 inline TransformData build_image_transform(
     float4 position,
     float4 rotation,
@@ -44,18 +57,7 @@ inline TransformData build_image_transform(
     float4 pivot,
     float vr_scale)
 {
-    TransformData result;
-
-    result.translation = position.xyz * CM_TO_METER_SCALE * vr_scale;
-    result.pivot = pivot.xyz * 0.1;  // Image pivot scale
-
-    float3 scale_val = scale.xyz * vr_scale;
-    float3x3 rot_matrix = has_rotation(rotation.xyz)
-        ? rotation_matrix(rotation.xyz * DEG2_RAD)
-        : IDENTITY_MATRIX3;
-    result.rotation_scale = build_rotation_scale_matrix(rot_matrix, scale_val);
-
-    return result;
+    return build_transform_unified(position, rotation, scale, pivot, vr_scale, PIVOT_SCALE_IMAGE);
 }
 
 // Transform local position to world position

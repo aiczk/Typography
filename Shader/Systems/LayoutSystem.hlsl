@@ -11,6 +11,7 @@ struct LayoutResult
 {
     float3 local_pos;
     float normalized_pos;  // 0-1 position in text for curve sampling
+    float spacing_val;     // Pre-computed: 1.0 + spacing (avoids redundant recalculation)
 };
 
 // Calculate character position with spacing and anchor
@@ -45,14 +46,16 @@ inline LayoutResult calculate_layout(
         : float3(char_offset, 0, 0);
 
     result.normalized_pos = (float)char_pos / max(char_count - 1, 1);
+    result.spacing_val = spacing_val;  // Store for reuse
 
     return result;
 }
 
 // Calculate dynamic center alignment offset
+// spacing_val: pre-computed (1.0 + spacing) from calculate_layout
 inline float calculate_center_alignment(
     uint char_count,
-    float spacing,
+    float spacing_val,
     int typewriter_type,
     int typewriter_mode,
     float typewriter_progress,
@@ -60,7 +63,6 @@ inline float calculate_center_alignment(
     int block_visible,
     int block_animating)
 {
-    float spacing_val = 1.0 + spacing;
     float step = spacing_val * TEXT_GLYPH_SCALE;
     float total_length = (char_count - 1) * step;
     float start_pos = -total_length * 0.5;
