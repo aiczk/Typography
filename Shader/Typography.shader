@@ -391,7 +391,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_shadow_glow0 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity0 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness0 ("Softness", Range(0, 1)) = 0
-                        [Vector2]_ShadowOffset0 ("Offset", Vector) = (0.02, -0.02, 0, 0)
+                        [Vector2]_ShadowOffset0 ("Offset", Vector) = (0, 0, 0, 0)
                         [HDR]_ShadowColor0 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow_glow0 ("Shadow & Glow", Float) = 0
 
@@ -486,7 +486,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_shadow_glow1 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity1 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness1 ("Softness", Range(0, 1)) = 0
-                        [Vector2]_ShadowOffset1 ("Offset", Vector) = (0.02, -0.02, 0, 0)
+                        [Vector2]_ShadowOffset1 ("Offset", Vector) = (0, 0, 0, 0)
                         [HDR]_ShadowColor1 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow_glow1 ("Shadow & Glow", Float) = 0
 
@@ -581,7 +581,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_shadow_glow2 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity2 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness2 ("Softness", Range(0, 1)) = 0
-                        [Vector2]_ShadowOffset2 ("Offset", Vector) = (0.02, -0.02, 0, 0)
+                        [Vector2]_ShadowOffset2 ("Offset", Vector) = (0, 0, 0, 0)
                         [HDR]_ShadowColor2 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow_glow2 ("Shadow & Glow", Float) = 0
 
@@ -676,7 +676,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_shadow_glow3 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity3 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness3 ("Softness", Range(0, 1)) = 0
-                        [Vector2]_ShadowOffset3 ("Offset", Vector) = (0.02, -0.02, 0, 0)
+                        [Vector2]_ShadowOffset3 ("Offset", Vector) = (0, 0, 0, 0)
                         [HDR]_ShadowColor3 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow_glow3 ("Shadow & Glow", Float) = 0
 
@@ -771,7 +771,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_shadow_glow4 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity4 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness4 ("Softness", Range(0, 1)) = 0
-                        [Vector2]_ShadowOffset4 ("Offset", Vector) = (0.02, -0.02, 0, 0)
+                        [Vector2]_ShadowOffset4 ("Offset", Vector) = (0, 0, 0, 0)
                         [HDR]_ShadowColor4 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow_glow4 ("Shadow & Glow", Float) = 0
 
@@ -866,7 +866,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_shadow_glow5 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity5 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness5 ("Softness", Range(0, 1)) = 0
-                        [Vector2]_ShadowOffset5 ("Offset", Vector) = (0.02, -0.02, 0, 0)
+                        [Vector2]_ShadowOffset5 ("Offset", Vector) = (0, 0, 0, 0)
                         [HDR]_ShadowColor5 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow_glow5 ("Shadow & Glow", Float) = 0
 
@@ -961,7 +961,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_shadow_glow6 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity6 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness6 ("Softness", Range(0, 1)) = 0
-                        [Vector2]_ShadowOffset6 ("Offset", Vector) = (0.02, -0.02, 0, 0)
+                        [Vector2]_ShadowOffset6 ("Offset", Vector) = (0, 0, 0, 0)
                         [HDR]_ShadowColor6 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow_glow6 ("Shadow & Glow", Float) = 0
 
@@ -1056,7 +1056,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_shadow_glow7 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity7 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness7 ("Softness", Range(0, 1)) = 0
-                        [Vector2]_ShadowOffset7 ("Offset", Vector) = (0.02, -0.02, 0, 0)
+                        [Vector2]_ShadowOffset7 ("Offset", Vector) = (0, 0, 0, 0)
                         [HDR]_ShadowColor7 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow_glow7 ("Shadow & Glow", Float) = 0
 
@@ -1151,7 +1151,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_shadow_glow8 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity8 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness8 ("Softness", Range(0, 1)) = 0
-                        [Vector2]_ShadowOffset8 ("Offset", Vector) = (0.02, -0.02, 0, 0)
+                        [Vector2]_ShadowOffset8 ("Offset", Vector) = (0, 0, 0, 0)
                         [HDR]_ShadowColor8 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow_glow8 ("Shadow & Glow", Float) = 0
 
@@ -1246,7 +1246,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_shadow_glow9 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity9 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness9 ("Softness", Range(0, 1)) = 0
-                        [Vector2]_ShadowOffset9 ("Offset", Vector) = (0.02, -0.02, 0, 0)
+                        [Vector2]_ShadowOffset9 ("Offset", Vector) = (0, 0, 0, 0)
                         [HDR]_ShadowColor9 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_shadow_glow9 ("Shadow & Glow", Float) = 0
 
@@ -1266,7 +1266,7 @@ Shader "GekikaraStore/x.x.x/Typography"
 
         [HideInInspector] m_start_particle_setting ("Particle Settings", Float) = 0
             [Enum(Screen,0,World,1)] _Particle0Space ("Space", Int) = 0
-            [IntRange] _Particle0Multiplier ("Multiplier", Range(0, 25)) = 1
+            [IntRange] _Particle0Multiplier ("Multiplier", Range(0, 25)) = 0
             [Enum(Sphere,0,Cube,1)] _Particle0Distribution ("Distribution", Int) = 0
             [HideInInspector] m_start_particle_0_shape ("Shape", Float) = 1
                 [Enum(Circle,0,Square,1,Triangle,2,Cross,3,Random,4)] _Particle0Shape ("Shape", Int) = 0

@@ -180,7 +180,10 @@ inline bool process_text(
     }
     else
     {
-        o.world_pos = corner;
+        // Use local_pos + corner offset so noise:
+        // 1. Interpolates smoothly across quad (corner - world_pos gives corner offset)
+        // 2. Stays in text-local space (moves with text, not screen)
+        o.world_pos = local_pos + (corner - world_pos);
         o.surface_normal = normal;
     }
     // view_dir calculation moved to FS for v2f bandwidth reduction

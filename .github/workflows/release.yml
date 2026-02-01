@@ -35,5 +35,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "Typography.v${{ steps.version.outputs.version }}.unitypackage"
-          generateReleaseNotes: true
+          bodyFile: "RELEASE_NOTES.md"
           makeLatest: true
