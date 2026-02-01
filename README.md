@@ -15,11 +15,11 @@ Fragment shader instruction counts (Unity compiled shader stats, d3d11):
 
 |                | Math | Texture | Branch |
 |----------------|-----:|--------:|-------:|
-| **Typography** | **55** | **2** | **4** |
+| **Typography** | **920** | **3** | **31** |
 | SSVFX          | 3,702 | 102 | 201 |
 | TexSvfx        | 5,585 | 210 | 255 |
 
-**1/100** fragment instructions vs alternatives. Processing concentrated in Vertex Shader - performance gap widens with resolution.
+**1/4** fragment instructions vs alternatives. Processing concentrated in Vertex Shader - performance gap widens with resolution.
 
 |                |         Avg |    Ratio |
 |----------------|------------:|---------:|
@@ -36,7 +36,7 @@ Fragment shader instruction counts (Unity compiled shader stats, d3d11):
 - Up to 8 fonts simultaneously
 - 5 Root Transforms (hierarchical structure)
 - Typewriter / Curve Path / Shake effects
-- Outline / Drop Shadow / Gradient
+- Outline / Shadow & Glow / Fractal Noise
 - Stencil buffer support
 - VR Scale adjustment
 
@@ -106,7 +106,8 @@ Fragment shader instruction counts (Unity compiled shader stats, d3d11):
 | Direction | Left to Right / Right to Left / Center Out (Sequential) |
 | Centering | Center text alignment (Enable / Disable) |
 | Progress | Display progress (0-1, Sequential) |
-| Smooth | Fade width on appear (0-1) |
+| Smooth | Character appear fade (0-1) |
+| Fade Width | Next character overlap (0-1, 0=wait until complete) |
 | Offset | Movement offset on appear |
 | Rotation | Rotation on appear |
 | Scale | Scale animation on appear |
@@ -135,18 +136,18 @@ Fragment shader instruction counts (Unity compiled shader stats, d3d11):
 | Mode | Outline (filled) / Stroke (outline only) |
 | Width | Width (0-1) |
 | Color | Color (HDR) |
-| **Drop Shadow** | |
+| **Shadow & Glow** | |
 | Intensity | Intensity (0-1) |
 | Softness | Soft shadow blur (0-1) |
-| Dither | Dither pattern (Hash / IGN / R2) |
-| Samples | Sample count (4-32) |
 | Offset | Offset |
 | Color | Color (HDR) |
-| **Gradient** | |
-| Intensity | Gradient intensity (0-1) |
-| Mode | Direction (Horizontal / Vertical) |
-| Color A | Start color (HDR) |
-| Color B | End color (HDR) |
+| **Fractal Noise** | |
+| Mode | Simplex / Curl / FBM / Turbulence / Ridged / Marble |
+| Intensity | Effect intensity (0-1) |
+| Scale | Noise scale |
+| Speed | Animation speed |
+| Color | Effect color (HDR) |
+| Blend | Multiply / Replace / Add |
 
 ### Rendering Settings
 

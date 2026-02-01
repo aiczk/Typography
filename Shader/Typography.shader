@@ -313,7 +313,7 @@ Shader "GekikaraStore/x.x.x/Typography"
         
         [HideInInspector] m_start_text_setting ("Text Settings", Float) = 0
             [Fonts] _Fonts ("Fonts", Int) = 0
-            [HideInInspector][Toggle] _Use0 ("", Float) = 1
+            [HideInInspector][Toggle] _Use0 ("", Float) = 0
             [HideInInspector] m_start_text_setting0 (" --{reference_property:_Use0}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace0 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex0 ("Root", Int) = 0
@@ -408,7 +408,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_end_text_setting0 ("", Float) = 0
             [DynamicThryLabel] _TextLabel0 ("TextLabel0", Int) = 0
 
-            [HideInInspector][Toggle] _Use1 ("", Float) = 1
+            [HideInInspector][Toggle] _Use1 ("", Float) = 0
             [HideInInspector] m_start_text_setting1 (" --{reference_property:_Use1}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace1 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex1 ("Root", Int) = 0
@@ -427,14 +427,14 @@ Shader "GekikaraStore/x.x.x/Typography"
 
                     [HideInInspector] m_start_typewriter1 ("Typewriter", Float) = 0
                         [Enum(Sequential, 0, Block, 1)] _TypewriterType1 ("Type", Int) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode1 ("Direction --{condition_showS:(_TypewriterType0==0)}", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode1 ("Direction --{condition_showS:(_TypewriterType1==0)}", Int) = 0
                         [Enum(Disable, 0, Enable, 1)] _TypewriterCentering1 ("Centering", Int) = 0
-                        _TypewriterCenterSmooth1 ("Center Smooth --{condition_showS:(_TypewriterCentering0==1)}", Range(0, 1)) = 1
-                        _BlockVisible1 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
-                        _BlockAnimating1 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
+                        _TypewriterCenterSmooth1 ("Center Smooth --{condition_showS:(_TypewriterCentering1==1)}", Range(0, 1)) = 1
+                        _BlockVisible1 ("Visible Count --{condition_showS:(_TypewriterType1==1)}", Int) = 0
+                        _BlockAnimating1 ("Animating Count --{condition_showS:(_TypewriterType1==1)}", Int) = 0
                         _TypewriterProgress1 ("Progress", Range(0, 1)) = 1
                         _TypewriterSmooth1 ("Fade Width", Range(0, 32)) = 4
-                        _BlockCharDelay1 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
+                        _BlockCharDelay1 ("Char Delay --{condition_showS:(_TypewriterType1==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection1 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation1 ("Rotation", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterScale1 ("Scale", Vector) = (1, 1, 1, 0)
@@ -503,7 +503,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_end_text_setting1 ("", Float) = 0
             [DynamicThryLabel] _TextLabel1 ("TextLabel1", Int) = 0
 
-            [HideInInspector][Toggle] _Use2 ("", Float) = 1
+            [HideInInspector][Toggle] _Use2 ("", Float) = 0
             [HideInInspector] m_start_text_setting2 (" --{reference_property:_Use2}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace2 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex2 ("Root", Int) = 0
@@ -522,14 +522,14 @@ Shader "GekikaraStore/x.x.x/Typography"
 
                     [HideInInspector] m_start_typewriter2 ("Typewriter", Float) = 0
                         [Enum(Sequential, 0, Block, 1)] _TypewriterType2 ("Type", Int) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode2 ("Direction --{condition_showS:(_TypewriterType0==0)}", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode2 ("Direction --{condition_showS:(_TypewriterType2==0)}", Int) = 0
                         [Enum(Disable, 0, Enable, 1)] _TypewriterCentering2 ("Centering", Int) = 0
-                        _TypewriterCenterSmooth2 ("Center Smooth --{condition_showS:(_TypewriterCentering0==1)}", Range(0, 1)) = 1
-                        _BlockVisible2 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
-                        _BlockAnimating2 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
+                        _TypewriterCenterSmooth2 ("Center Smooth --{condition_showS:(_TypewriterCentering2==1)}", Range(0, 1)) = 1
+                        _BlockVisible2 ("Visible Count --{condition_showS:(_TypewriterType2==1)}", Int) = 0
+                        _BlockAnimating2 ("Animating Count --{condition_showS:(_TypewriterType2==1)}", Int) = 0
                         _TypewriterProgress2 ("Progress", Range(0, 1)) = 1
                         _TypewriterSmooth2 ("Fade Width", Range(0, 32)) = 4
-                        _BlockCharDelay2 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
+                        _BlockCharDelay2 ("Char Delay --{condition_showS:(_TypewriterType2==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection2 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation2 ("Rotation", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterScale2 ("Scale", Vector) = (1, 1, 1, 0)
@@ -598,7 +598,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_end_text_setting2 ("", Float) = 0
             [DynamicThryLabel] _TextLabel2 ("TextLabel2", Int) = 0
 
-            [HideInInspector][Toggle] _Use3 ("", Float) = 1
+            [HideInInspector][Toggle] _Use3 ("", Float) = 0
             [HideInInspector] m_start_text_setting3 (" --{reference_property:_Use3}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace3 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex3 ("Root", Int) = 0
@@ -617,14 +617,14 @@ Shader "GekikaraStore/x.x.x/Typography"
 
                     [HideInInspector] m_start_typewriter3 ("Typewriter", Float) = 0
                         [Enum(Sequential, 0, Block, 1)] _TypewriterType3 ("Type", Int) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode3 ("Direction --{condition_showS:(_TypewriterType0==0)}", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode3 ("Direction --{condition_showS:(_TypewriterType3==0)}", Int) = 0
                         [Enum(Disable, 0, Enable, 1)] _TypewriterCentering3 ("Centering", Int) = 0
-                        _TypewriterCenterSmooth3 ("Center Smooth --{condition_showS:(_TypewriterCentering0==1)}", Range(0, 1)) = 1
-                        _BlockVisible3 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
-                        _BlockAnimating3 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
+                        _TypewriterCenterSmooth3 ("Center Smooth --{condition_showS:(_TypewriterCentering3==1)}", Range(0, 1)) = 1
+                        _BlockVisible3 ("Visible Count --{condition_showS:(_TypewriterType3==1)}", Int) = 0
+                        _BlockAnimating3 ("Animating Count --{condition_showS:(_TypewriterType3==1)}", Int) = 0
                         _TypewriterProgress3 ("Progress", Range(0, 1)) = 1
                         _TypewriterSmooth3 ("Fade Width", Range(0, 32)) = 4
-                        _BlockCharDelay3 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
+                        _BlockCharDelay3 ("Char Delay --{condition_showS:(_TypewriterType3==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection3 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation3 ("Rotation", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterScale3 ("Scale", Vector) = (1, 1, 1, 0)
@@ -693,7 +693,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_end_text_setting3 ("", Float) = 0
             [DynamicThryLabel] _TextLabel3 ("TextLabel3", Int) = 0
 
-            [HideInInspector][Toggle] _Use4 ("", Float) = 1
+            [HideInInspector][Toggle] _Use4 ("", Float) = 0
             [HideInInspector] m_start_text_setting4 (" --{reference_property:_Use4}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace4 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex4 ("Root", Int) = 0
@@ -712,14 +712,14 @@ Shader "GekikaraStore/x.x.x/Typography"
 
                     [HideInInspector] m_start_typewriter4 ("Typewriter", Float) = 0
                         [Enum(Sequential, 0, Block, 1)] _TypewriterType4 ("Type", Int) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode4 ("Direction --{condition_showS:(_TypewriterType0==0)}", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode4 ("Direction --{condition_showS:(_TypewriterType4==0)}", Int) = 0
                         [Enum(Disable, 0, Enable, 1)] _TypewriterCentering4 ("Centering", Int) = 0
-                        _TypewriterCenterSmooth4 ("Center Smooth --{condition_showS:(_TypewriterCentering0==1)}", Range(0, 1)) = 1
-                        _BlockVisible4 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
-                        _BlockAnimating4 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
+                        _TypewriterCenterSmooth4 ("Center Smooth --{condition_showS:(_TypewriterCentering4==1)}", Range(0, 1)) = 1
+                        _BlockVisible4 ("Visible Count --{condition_showS:(_TypewriterType4==1)}", Int) = 0
+                        _BlockAnimating4 ("Animating Count --{condition_showS:(_TypewriterType4==1)}", Int) = 0
                         _TypewriterProgress4 ("Progress", Range(0, 1)) = 1
                         _TypewriterSmooth4 ("Fade Width", Range(0, 32)) = 4
-                        _BlockCharDelay4 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
+                        _BlockCharDelay4 ("Char Delay --{condition_showS:(_TypewriterType4==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection4 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation4 ("Rotation", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterScale4 ("Scale", Vector) = (1, 1, 1, 0)
@@ -788,7 +788,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_end_text_setting4 ("", Float) = 0
             [DynamicThryLabel] _TextLabel4 ("TextLabel4", Int) = 0
 
-            [HideInInspector][Toggle] _Use5 ("", Float) = 1
+            [HideInInspector][Toggle] _Use5 ("", Float) = 0
             [HideInInspector] m_start_text_setting5 (" --{reference_property:_Use5}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace5 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex5 ("Root", Int) = 0
@@ -807,14 +807,14 @@ Shader "GekikaraStore/x.x.x/Typography"
 
                     [HideInInspector] m_start_typewriter5 ("Typewriter", Float) = 0
                         [Enum(Sequential, 0, Block, 1)] _TypewriterType5 ("Type", Int) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode5 ("Direction --{condition_showS:(_TypewriterType0==0)}", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode5 ("Direction --{condition_showS:(_TypewriterType5==0)}", Int) = 0
                         [Enum(Disable, 0, Enable, 1)] _TypewriterCentering5 ("Centering", Int) = 0
-                        _TypewriterCenterSmooth5 ("Center Smooth --{condition_showS:(_TypewriterCentering0==1)}", Range(0, 1)) = 1
-                        _BlockVisible5 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
-                        _BlockAnimating5 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
+                        _TypewriterCenterSmooth5 ("Center Smooth --{condition_showS:(_TypewriterCentering5==1)}", Range(0, 1)) = 1
+                        _BlockVisible5 ("Visible Count --{condition_showS:(_TypewriterType5==1)}", Int) = 0
+                        _BlockAnimating5 ("Animating Count --{condition_showS:(_TypewriterType5==1)}", Int) = 0
                         _TypewriterProgress5 ("Progress", Range(0, 1)) = 1
                         _TypewriterSmooth5 ("Fade Width", Range(0, 32)) = 4
-                        _BlockCharDelay5 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
+                        _BlockCharDelay5 ("Char Delay --{condition_showS:(_TypewriterType5==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection5 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation5 ("Rotation", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterScale5 ("Scale", Vector) = (1, 1, 1, 0)
@@ -883,7 +883,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_end_text_setting5 ("", Float) = 0
             [DynamicThryLabel] _TextLabel5 ("TextLabel5", Int) = 0
 
-            [HideInInspector][Toggle] _Use6 ("", Float) = 1
+            [HideInInspector][Toggle] _Use6 ("", Float) = 0
             [HideInInspector] m_start_text_setting6 (" --{reference_property:_Use6}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace6 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex6 ("Root", Int) = 0
@@ -902,14 +902,14 @@ Shader "GekikaraStore/x.x.x/Typography"
 
                     [HideInInspector] m_start_typewriter6 ("Typewriter", Float) = 0
                         [Enum(Sequential, 0, Block, 1)] _TypewriterType6 ("Type", Int) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode6 ("Direction --{condition_showS:(_TypewriterType0==0)}", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode6 ("Direction --{condition_showS:(_TypewriterType6==0)}", Int) = 0
                         [Enum(Disable, 0, Enable, 1)] _TypewriterCentering6 ("Centering", Int) = 0
-                        _TypewriterCenterSmooth6 ("Center Smooth --{condition_showS:(_TypewriterCentering0==1)}", Range(0, 1)) = 1
-                        _BlockVisible6 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
-                        _BlockAnimating6 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
+                        _TypewriterCenterSmooth6 ("Center Smooth --{condition_showS:(_TypewriterCentering6==1)}", Range(0, 1)) = 1
+                        _BlockVisible6 ("Visible Count --{condition_showS:(_TypewriterType6==1)}", Int) = 0
+                        _BlockAnimating6 ("Animating Count --{condition_showS:(_TypewriterType6==1)}", Int) = 0
                         _TypewriterProgress6 ("Progress", Range(0, 1)) = 1
                         _TypewriterSmooth6 ("Fade Width", Range(0, 32)) = 4
-                        _BlockCharDelay6 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
+                        _BlockCharDelay6 ("Char Delay --{condition_showS:(_TypewriterType6==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection6 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation6 ("Rotation", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterScale6 ("Scale", Vector) = (1, 1, 1, 0)
@@ -978,7 +978,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_end_text_setting6 ("", Float) = 0
             [DynamicThryLabel] _TextLabel6 ("TextLabel6", Int) = 0
 
-            [HideInInspector][Toggle] _Use7 ("", Float) = 1
+            [HideInInspector][Toggle] _Use7 ("", Float) = 0
             [HideInInspector] m_start_text_setting7 (" --{reference_property:_Use7}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace7 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex7 ("Root", Int) = 0
@@ -997,14 +997,14 @@ Shader "GekikaraStore/x.x.x/Typography"
 
                     [HideInInspector] m_start_typewriter7 ("Typewriter", Float) = 0
                         [Enum(Sequential, 0, Block, 1)] _TypewriterType7 ("Type", Int) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode7 ("Direction --{condition_showS:(_TypewriterType0==0)}", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode7 ("Direction --{condition_showS:(_TypewriterType7==0)}", Int) = 0
                         [Enum(Disable, 0, Enable, 1)] _TypewriterCentering7 ("Centering", Int) = 0
-                        _TypewriterCenterSmooth7 ("Center Smooth --{condition_showS:(_TypewriterCentering0==1)}", Range(0, 1)) = 1
-                        _BlockVisible7 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
-                        _BlockAnimating7 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
+                        _TypewriterCenterSmooth7 ("Center Smooth --{condition_showS:(_TypewriterCentering7==1)}", Range(0, 1)) = 1
+                        _BlockVisible7 ("Visible Count --{condition_showS:(_TypewriterType7==1)}", Int) = 0
+                        _BlockAnimating7 ("Animating Count --{condition_showS:(_TypewriterType7==1)}", Int) = 0
                         _TypewriterProgress7 ("Progress", Range(0, 1)) = 1
                         _TypewriterSmooth7 ("Fade Width", Range(0, 32)) = 4
-                        _BlockCharDelay7 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
+                        _BlockCharDelay7 ("Char Delay --{condition_showS:(_TypewriterType7==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection7 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation7 ("Rotation", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterScale7 ("Scale", Vector) = (1, 1, 1, 0)
@@ -1073,7 +1073,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_end_text_setting7 ("", Float) = 0
             [DynamicThryLabel] _TextLabel7 ("TextLabel7", Int) = 0
 
-            [HideInInspector][Toggle] _Use8 ("", Float) = 1
+            [HideInInspector][Toggle] _Use8 ("", Float) = 0
             [HideInInspector] m_start_text_setting8 (" --{reference_property:_Use8}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace8 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex8 ("Root", Int) = 0
@@ -1092,14 +1092,14 @@ Shader "GekikaraStore/x.x.x/Typography"
 
                     [HideInInspector] m_start_typewriter8 ("Typewriter", Float) = 0
                         [Enum(Sequential, 0, Block, 1)] _TypewriterType8 ("Type", Int) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode8 ("Direction --{condition_showS:(_TypewriterType0==0)}", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode8 ("Direction --{condition_showS:(_TypewriterType8==0)}", Int) = 0
                         [Enum(Disable, 0, Enable, 1)] _TypewriterCentering8 ("Centering", Int) = 0
-                        _TypewriterCenterSmooth8 ("Center Smooth --{condition_showS:(_TypewriterCentering0==1)}", Range(0, 1)) = 1
-                        _BlockVisible8 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
-                        _BlockAnimating8 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
+                        _TypewriterCenterSmooth8 ("Center Smooth --{condition_showS:(_TypewriterCentering8==1)}", Range(0, 1)) = 1
+                        _BlockVisible8 ("Visible Count --{condition_showS:(_TypewriterType8==1)}", Int) = 0
+                        _BlockAnimating8 ("Animating Count --{condition_showS:(_TypewriterType8==1)}", Int) = 0
                         _TypewriterProgress8 ("Progress", Range(0, 1)) = 1
                         _TypewriterSmooth8 ("Fade Width", Range(0, 32)) = 4
-                        _BlockCharDelay8 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
+                        _BlockCharDelay8 ("Char Delay --{condition_showS:(_TypewriterType8==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection8 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation8 ("Rotation", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterScale8 ("Scale", Vector) = (1, 1, 1, 0)
@@ -1168,7 +1168,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_end_text_setting8 ("", Float) = 0
             [DynamicThryLabel] _TextLabel8 ("TextLabel8", Int) = 0
 
-            [HideInInspector][Toggle] _Use9 ("", Float) = 1
+            [HideInInspector][Toggle] _Use9 ("", Float) = 0
             [HideInInspector] m_start_text_setting9 (" --{reference_property:_Use9}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace9 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex9 ("Root", Int) = 0
@@ -1187,14 +1187,14 @@ Shader "GekikaraStore/x.x.x/Typography"
 
                     [HideInInspector] m_start_typewriter9 ("Typewriter", Float) = 0
                         [Enum(Sequential, 0, Block, 1)] _TypewriterType9 ("Type", Int) = 0
-                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode9 ("Direction --{condition_showS:(_TypewriterType0==0)}", Int) = 0
+                        [Enum(Left to Right, 0, Right to Left, 1, Center Out, 2)] _TypewriterMode9 ("Direction --{condition_showS:(_TypewriterType9==0)}", Int) = 0
                         [Enum(Disable, 0, Enable, 1)] _TypewriterCentering9 ("Centering", Int) = 0
-                        _TypewriterCenterSmooth9 ("Center Smooth --{condition_showS:(_TypewriterCentering0==1)}", Range(0, 1)) = 1
-                        _BlockVisible9 ("Visible Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
-                        _BlockAnimating9 ("Animating Count --{condition_showS:(_TypewriterType0==1)}", Int) = 0
+                        _TypewriterCenterSmooth9 ("Center Smooth --{condition_showS:(_TypewriterCentering9==1)}", Range(0, 1)) = 1
+                        _BlockVisible9 ("Visible Count --{condition_showS:(_TypewriterType9==1)}", Int) = 0
+                        _BlockAnimating9 ("Animating Count --{condition_showS:(_TypewriterType9==1)}", Int) = 0
                         _TypewriterProgress9 ("Progress", Range(0, 1)) = 1
                         _TypewriterSmooth9 ("Fade Width", Range(0, 32)) = 4
-                        _BlockCharDelay9 ("Char Delay --{condition_showS:(_TypewriterType0==1)}", Range(0, 1)) = 0.3
+                        _BlockCharDelay9 ("Char Delay --{condition_showS:(_TypewriterType9==1)}", Range(0, 1)) = 0.3
                         [Vector3] _TypewriterDirection9 ("Offset", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterRotation9 ("Rotation", Vector) = (0, 0, 0, 0)
                         [Vector3] _TypewriterScale9 ("Scale", Vector) = (1, 1, 1, 0)

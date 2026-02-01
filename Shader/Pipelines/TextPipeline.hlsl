@@ -86,6 +86,9 @@ inline bool process_text(
         local_pos += (layer.visibility.mode == 2) ? float3(0, -align, 0) : float3(align, 0, 0);
     }
 
+    // Stable position for noise (before animation deforms)
+    float3 stable_pos = local_pos;
+
     // Stage 5: Deformation
     TypewriterDeform tw_deform = calculate_typewriter_deform(
         tw.anim_factor, layer.typewriter.direction, layer.typewriter.rotation);
@@ -180,10 +183,10 @@ inline bool process_text(
     }
     else
     {
-        // Use local_pos + corner offset so noise:
+        // Use stable_pos (before animation deforms) + corner offset so noise:
         // 1. Interpolates smoothly across quad (corner - world_pos gives corner offset)
-        // 2. Stays in text-local space (moves with text, not screen)
-        o.world_pos = local_pos + (corner - world_pos);
+        // 2. Stays fixed to character surface (doesn't move with Curve/Typewriter)
+        o.world_pos = stable_pos + (corner - world_pos);
         o.surface_normal = normal;
     }
     // view_dir calculation moved to FS for v2f bandwidth reduction

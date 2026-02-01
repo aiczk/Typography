@@ -110,9 +110,9 @@ def replace_index_in_line(line: str, old_idx: int, new_idx: int) -> str:
     for axis in ['TX', 'TY', 'TZ', 'X', 'Y', 'Z']:
         result = result.replace(f'_CurveData{axis}{old_idx}_', f'_CurveData{axis}{new_idx}_')
 
-    # Standard property suffix
+    # Standard property suffix (includes = for condition expressions like _Prop0==1)
     result = re.sub(
-        rf'([a-zA-Z])({old_idx})(?=\s|"|,|\(|\)|$|\[|\]|\}})',
+        rf'([a-zA-Z])({old_idx})(?=\s|"|,|\(|\)|$|\[|\]|\}}|=)',
         rf'\g<1>{new_idx}', result
     )
 

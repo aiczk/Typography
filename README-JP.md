@@ -15,11 +15,11 @@ Fragment Shader 命令数（Unity compiled shader stats, d3d11）：
 
 |                | Math | Texture | Branch |
 |----------------|-----:|--------:|-------:|
-| **Typography** | **55** | **2** | **4** |
+| **Typography** | **920** | **3** | **31** |
 | SSVFX          | 3,702 | 102 | 201 |
 | TexSvfx        | 5,585 | 210 | 255 |
 
-Fragment 命令数 **1/100**。処理を Vertex Shader に集約し、解像度が上がるほど差が拡大。
+Fragment 命令数 **1/4**。処理を Vertex Shader に集約し、解像度が上がるほど差が拡大。
 
 |                |         Avg |     比率 |
 |----------------|------------:|-------:|
@@ -36,7 +36,7 @@ Fragment 命令数 **1/100**。処理を Vertex Shader に集約し、解像度�
 - 最大 8 フォント同時使用
 - 5 Root Transform（階層構造）
 - Typewriter / Curve Path / Shake エフェクト
-- Outline / Drop Shadow / Gradient
+- Outline / Shadow & Glow / Fractal Noise
 - Stencil バッファ対応
 - VR スケール調整
 
@@ -106,7 +106,8 @@ Fragment 命令数 **1/100**。処理を Vertex Shader に集約し、解像度�
 | Direction | Left to Right / Right to Left / Center Out（Sequential） |
 | Centering | テキスト中央揃え（Enable / Disable） |
 | Progress | 表示進行（0-1、Sequential） |
-| Smooth | 文字表示フェード幅（0-1） |
+| Smooth | 文字出現フェード（0-1） |
+| Fade Width | 次文字の重なり（0-1、0=完全出現まで待機） |
 | Offset | 出現時の移動オフセット |
 | Rotation | 出現時の回転 |
 | Scale | 出現時のスケールアニメーション |
@@ -135,18 +136,18 @@ Fragment 命令数 **1/100**。処理を Vertex Shader に集約し、解像度�
 | Mode | Outline（塗りあり）/ Stroke（輪郭線のみ） |
 | Width | 太さ（0-1） |
 | Color | 色（HDR） |
-| **Drop Shadow** | |
+| **Shadow & Glow** | |
 | Intensity | 強度（0-1） |
 | Softness | ソフトシャドウのぼかし（0-1） |
-| Dither | ディザパターン（Hash / IGN / R2） |
-| Samples | サンプル数（4-32） |
 | Offset | オフセット |
 | Color | 色（HDR） |
-| **Gradient** | |
-| Intensity | グラデーション強度（0-1） |
-| Mode | 方向（Horizontal / Vertical） |
-| Color A | 開始色（HDR） |
-| Color B | 終了色（HDR） |
+| **Fractal Noise** | |
+| Mode | Simplex / Curl / FBM / Turbulence / Ridged / Marble |
+| Intensity | エフェクト強度（0-1） |
+| Scale | ノイズスケール |
+| Speed | アニメーション速度 |
+| Color | エフェクト色（HDR） |
+| Blend | Multiply / Replace / Add |
 
 ### Rendering Settings
 
