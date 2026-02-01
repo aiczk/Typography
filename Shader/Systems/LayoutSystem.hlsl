@@ -77,12 +77,16 @@ inline float calculate_center_alignment(
         float continuous_end = progress_pos - 1.0;
         float blended_end = lerp(discrete_end, continuous_end, typewriter_center_smooth);
 
-        if (typewriter_mode == 1) // RTL
+        if (typewriter_mode == 2) // CenterOut: symmetric, no offset needed
+        {
+            return 0.0;
+        }
+        else if (typewriter_mode == 1) // RTL
         {
             visible_end_f = (float)char_count - 1.0;
             visible_start_f = visible_end_f - blended_end;
         }
-        else // LTR or CenterOut
+        else // LTR
         {
             visible_start_f = 0.0;
             visible_end_f = blended_end;
@@ -90,9 +94,13 @@ inline float calculate_center_alignment(
     }
     else
     {
-        // Block mode
+        // Block mode: interpolate visible range based on progress with smooth blending
         visible_start_f = 0.0;
-        visible_end_f = (float)(block_visible + block_animating) - 1.0;
+        float min_end = max((float)block_visible - 1.0, 0.0);
+        float max_end = (float)(block_visible + block_animating) - 1.0;
+        float continuous_end = lerp(min_end, max_end, typewriter_progress);
+        float discrete_end = min_end + ceil((continuous_end - min_end));
+        visible_end_f = lerp(discrete_end, continuous_end, typewriter_center_smooth);
     }
 
     visible_start_f = max(0.0, visible_start_f);

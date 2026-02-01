@@ -6,28 +6,6 @@
 // Handles frustum culling for screen-space and world-space objects
 // ============================================================================
 
-// Frustum culling for screen-space text
-// Returns true if object should be culled (not visible)
-inline bool cull_screen_space(
-    float3 world_pos,
-    float3 cam_pos,
-    float3x3 cam_rot_inv,
-    float tan_half_fov,
-    float aspect,
-    float margin)
-{
-    return frustum_cull_screen(world_pos, margin, cam_pos, cam_rot_inv, tan_half_fov, aspect);
-}
-
-// Frustum culling for world-space text
-// Returns true if object should be culled (not visible)
-inline bool cull_world_space(
-    float3 world_pos,
-    float margin)
-{
-    return frustum_cull_world(world_pos, margin);
-}
-
 // Combined culling check (selects based on mode)
 inline bool cull_object(
     float3 world_pos,
@@ -53,18 +31,6 @@ inline bool cull_object(
 inline float calculate_margin_unified(float3 scale, float base_size)
 {
     return base_size * max(scale.x, scale.y) * 2.0;
-}
-
-// Legacy wrapper: Calculate culling margin for text
-inline float calculate_text_margin(float3 scale)
-{
-    return calculate_margin_unified(scale, MARGIN_BASE_TEXT);
-}
-
-// Legacy wrapper: Calculate culling margin for image
-inline float calculate_image_margin(float3 scale)
-{
-    return calculate_margin_unified(scale, MARGIN_BASE_IMAGE);
 }
 
 #endif // TYPOGRAPHY_CULLING_SYSTEM_INCLUDED

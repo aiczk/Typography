@@ -226,10 +226,9 @@ void billboard_quad(float3 center, float3 right, float3 up, float quad_size,
                 : mul(unity_ObjectToWorld, float4(base_pos, 1.0)).xyz; \
             float quad_size = 0.01 * psize * p_vr_scale; \
             \
-            bool should_cull = is_screen \
-                ? frustum_cull_screen(world_center, quad_size * 2.0, cam_pos, cam_rot_inv, tan_half_fov, aspect) \
-                : frustum_cull_world(world_center, quad_size * 2.0); \
-            if (should_cull) continue; \
+            if (cull_object(world_center, is_screen ? 0 : 1, 0.0, \
+                            cam_pos, cam_rot_inv, tan_half_fov, aspect, quad_size * 2.0)) \
+                continue; \
             \
             float3 v[4]; \
             float3 rot_dir = float3(r5, r6, r7) - 0.5; \

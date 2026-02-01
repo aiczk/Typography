@@ -38,28 +38,6 @@ inline TransformData build_transform_unified(
     return result;
 }
 
-// Legacy wrapper: Build transform for text (uses TEXT_GLYPH_SCALE for pivot)
-inline TransformData build_transform(
-    float4 position,
-    float4 rotation,
-    float4 scale,
-    float4 pivot,
-    float vr_scale)
-{
-    return build_transform_unified(position, rotation, scale, pivot, vr_scale, PIVOT_SCALE_TEXT);
-}
-
-// Legacy wrapper: Build transform for images (uses PIVOT_SCALE_IMAGE for pivot)
-inline TransformData build_image_transform(
-    float4 position,
-    float4 rotation,
-    float4 scale,
-    float4 pivot,
-    float vr_scale)
-{
-    return build_transform_unified(position, rotation, scale, pivot, vr_scale, PIVOT_SCALE_IMAGE);
-}
-
 // Transform local position to world position
 inline float3 transform_to_world(
     float3 local_pos,

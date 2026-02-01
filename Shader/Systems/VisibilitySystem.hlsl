@@ -144,8 +144,7 @@ inline TypewriterResult calculate_typewriter_visibility_full(
         // Block mode with After Effects-style smooth transitions
         int total_display = block_visible + block_animating;
         bool is_animating = (char_pos >= block_visible) && (char_pos < total_display);
-        // Extend visibility range slightly for smooth fade-in of next block
-        result.is_visible = (char_pos < total_display + 1);
+        result.is_visible = (char_pos < total_display);
 
         int pos_in_anim = max(char_pos - block_visible, 0);
         float max_delay = block_char_delay;
@@ -162,8 +161,8 @@ inline TypewriterResult calculate_typewriter_visibility_full(
         }
         else
         {
-            // Smooth fade using eased transition
-            float visibility = saturate(local_progress / typewriter_smooth);
+            // Smooth fade: clamp smooth to 0-1 range for proper normalization
+            float visibility = saturate(local_progress / min(typewriter_smooth, 1.0));
             visibility = ease_smooth(visibility);
             smooth_factor = 1.0 - visibility;
         }

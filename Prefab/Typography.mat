@@ -12,8 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords:
-  - _USE0_ON
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -160,9 +159,32 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Particle0Gradient:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureArray:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureLayerLUT:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - GeometryShader_Enabled: 1
     - _AlphaCutoff: 0.0001
+    - _ApplyTexturesI0: 0
+    - _ApplyTexturesI1: 0
+    - _ApplyTexturesI2: 0
+    - _ApplyTexturesI3: 0
+    - _ApplyTexturesI4: 0
+    - _ApplyTexturesI5: 0
+    - _ApplyTexturesI6: 0
+    - _ApplyTexturesI7: 0
+    - _ApplyTexturesI8: 0
+    - _ApplyTexturesI9: 0
     - _AtlasCellSize: 128
     - _AtlasHalfInvPxRange: 0.125
     - _AtlasInvSize: 0.03125
@@ -267,7 +289,7 @@ Material:
     - _BlockVisible9: 0
     - _BoundsWidth: 0
     - _CameraFOV: 60
-    - _Cull: 0
+    - _Cull: 2
     - _CurveIntensity0: 0
     - _CurveIntensity1: 0
     - _CurveIntensity10: 0
@@ -492,8 +514,9 @@ Material:
     - _CurveZ7: 0
     - _CurveZ8: 0
     - _CurveZ9: 0
+    - _DFC: 0
     - _DestinationBlend: 10
-    - _FadeMax: 20
+    - _FadeMax: 99999
     - _FadeMin: 0
     - _FontIndex0: 0
     - _FontIndex1: 0
@@ -592,8 +615,115 @@ Material:
     - _GradientMode7: 0
     - _GradientMode8: 0
     - _GradientMode9: 0
+    - _ImageChromaFeathering0: 0
+    - _ImageChromaFeathering1: 0
+    - _ImageChromaFeathering2: 0
+    - _ImageChromaFeathering3: 0
+    - _ImageChromaFeathering4: 0
+    - _ImageChromaFeathering5: 0
+    - _ImageChromaFeathering6: 0
+    - _ImageChromaFeathering7: 0
+    - _ImageChromaFeathering8: 0
+    - _ImageChromaFeathering9: 0
+    - _ImageChromaThreshold0: 0
+    - _ImageChromaThreshold1: 0
+    - _ImageChromaThreshold2: 0
+    - _ImageChromaThreshold3: 0
+    - _ImageChromaThreshold4: 0
+    - _ImageChromaThreshold5: 0
+    - _ImageChromaThreshold6: 0
+    - _ImageChromaThreshold7: 0
+    - _ImageChromaThreshold8: 0
+    - _ImageChromaThreshold9: 0
+    - _ImageFlipbookCols0: 1
+    - _ImageFlipbookCols1: 1
+    - _ImageFlipbookCols2: 1
+    - _ImageFlipbookCols3: 1
+    - _ImageFlipbookCols4: 1
+    - _ImageFlipbookCols5: 1
+    - _ImageFlipbookCols6: 1
+    - _ImageFlipbookCols7: 1
+    - _ImageFlipbookCols8: 1
+    - _ImageFlipbookCols9: 1
+    - _ImageFlipbookRows0: 1
+    - _ImageFlipbookRows1: 1
+    - _ImageFlipbookRows2: 1
+    - _ImageFlipbookRows3: 1
+    - _ImageFlipbookRows4: 1
+    - _ImageFlipbookRows5: 1
+    - _ImageFlipbookRows6: 1
+    - _ImageFlipbookRows7: 1
+    - _ImageFlipbookRows8: 1
+    - _ImageFlipbookRows9: 1
+    - _ImageFlipbookSpeed0: 0
+    - _ImageFlipbookSpeed1: 0
+    - _ImageFlipbookSpeed2: 0
+    - _ImageFlipbookSpeed3: 0
+    - _ImageFlipbookSpeed4: 0
+    - _ImageFlipbookSpeed5: 0
+    - _ImageFlipbookSpeed6: 0
+    - _ImageFlipbookSpeed7: 0
+    - _ImageFlipbookSpeed8: 0
+    - _ImageFlipbookSpeed9: 0
+    - _ImageLabel0: 0
+    - _ImageLabel1: 0
+    - _ImageLabel2: 0
+    - _ImageLabel3: 0
+    - _ImageLabel4: 0
+    - _ImageLabel5: 0
+    - _ImageLabel6: 0
+    - _ImageLabel7: 0
+    - _ImageLabel8: 0
+    - _ImageLabel9: 0
+    - _ImageLayer0: 0
+    - _ImageLayer1: 0
+    - _ImageLayer2: 0
+    - _ImageLayer3: 0
+    - _ImageLayer4: 0
+    - _ImageLayer5: 0
+    - _ImageLayer6: 0
+    - _ImageLayer7: 0
+    - _ImageLayer8: 0
+    - _ImageLayer9: 0
+    - _ImageRootIndex0: 0
+    - _ImageRootIndex1: 0
+    - _ImageRootIndex2: 0
+    - _ImageRootIndex3: 0
+    - _ImageRootIndex4: 0
+    - _ImageRootIndex5: 0
+    - _ImageRootIndex6: 0
+    - _ImageRootIndex7: 0
+    - _ImageRootIndex8: 0
+    - _ImageRootIndex9: 0
+    - _ImageStencilComp: 8
+    - _ImageStencilFail: 0
+    - _ImageStencilPass: 0
+    - _ImageStencilReadMask: 255
+    - _ImageStencilRef: 0
+    - _ImageStencilWriteMask: 255
+    - _ImageStencilZFail: 0
+    - _ImageUse0: 0
+    - _ImageUse1: 0
+    - _ImageUse2: 0
+    - _ImageUse3: 0
+    - _ImageUse4: 0
+    - _ImageUse5: 0
+    - _ImageUse6: 0
+    - _ImageUse7: 0
+    - _ImageUse8: 0
+    - _ImageUse9: 0
+    - _ImageWorldSpace0: 0
+    - _ImageWorldSpace1: 0
+    - _ImageWorldSpace2: 0
+    - _ImageWorldSpace3: 0
+    - _ImageWorldSpace4: 0
+    - _ImageWorldSpace5: 0
+    - _ImageWorldSpace6: 0
+    - _ImageWorldSpace7: 0
+    - _ImageWorldSpace8: 0
+    - _ImageWorldSpace9: 0
     - _Layer0: 0
-    - _Layer1: 1
+    - _Layer1: 0
     - _Layer10: 10
     - _Layer11: 11
     - _Layer12: 12
@@ -604,7 +734,7 @@ Material:
     - _Layer17: 17
     - _Layer18: 18
     - _Layer19: 19
-    - _Layer2: 2
+    - _Layer2: 0
     - _Layer20: 20
     - _Layer21: 21
     - _Layer22: 22
@@ -615,15 +745,15 @@ Material:
     - _Layer27: 27
     - _Layer28: 28
     - _Layer29: 29
-    - _Layer3: 3
+    - _Layer3: 0
     - _Layer30: 30
     - _Layer31: 31
-    - _Layer4: 4
-    - _Layer5: 5
-    - _Layer6: 6
-    - _Layer7: 7
-    - _Layer8: 8
-    - _Layer9: 9
+    - _Layer4: 0
+    - _Layer5: 0
+    - _Layer6: 0
+    - _Layer7: 0
+    - _Layer8: 0
+    - _Layer9: 0
     - _Mode0: 0
     - _Mode1: 0
     - _Mode10: 0
@@ -688,6 +818,16 @@ Material:
     - _OutlineMode7: 0
     - _OutlineMode8: 0
     - _OutlineMode9: 0
+    - _OutlineRound0: 0
+    - _OutlineRound1: 0
+    - _OutlineRound2: 0
+    - _OutlineRound3: 0
+    - _OutlineRound4: 0
+    - _OutlineRound5: 0
+    - _OutlineRound6: 0
+    - _OutlineRound7: 0
+    - _OutlineRound8: 0
+    - _OutlineRound9: 0
     - _OutlineWidth0: 0
     - _OutlineWidth1: 0
     - _OutlineWidth10: 0
@@ -720,6 +860,21 @@ Material:
     - _OutlineWidth7: 0
     - _OutlineWidth8: 0
     - _OutlineWidth9: 0
+    - _Particle0Distribution: 0
+    - _Particle0Hollow: 1
+    - _Particle0Lifetime: 1
+    - _Particle0Multiplier: 1
+    - _Particle0Shape: 0
+    - _Particle0Size: 1
+    - _Particle0Space: 0
+    - _Particle0Speed: 0.2
+    - _ParticleStencilComp: 8
+    - _ParticleStencilFail: 0
+    - _ParticleStencilPass: 0
+    - _ParticleStencilReadMask: 255
+    - _ParticleStencilRef: 0
+    - _ParticleStencilWriteMask: 255
+    - _ParticleStencilZFail: 0
     - _PivotSize: 0
     - _Project: 0
     - _QuadPadding: 0.5
@@ -1052,6 +1207,56 @@ Material:
     - _StencilRef: 0
     - _StencilWriteMask: 255
     - _StencilZFail: 0
+    - _SurfaceBlend0: 0
+    - _SurfaceBlend1: 0
+    - _SurfaceBlend2: 0
+    - _SurfaceBlend3: 0
+    - _SurfaceBlend4: 0
+    - _SurfaceBlend5: 0
+    - _SurfaceBlend6: 0
+    - _SurfaceBlend7: 0
+    - _SurfaceBlend8: 0
+    - _SurfaceBlend9: 0
+    - _SurfaceIntensity0: 0
+    - _SurfaceIntensity1: 0
+    - _SurfaceIntensity2: 0
+    - _SurfaceIntensity3: 0
+    - _SurfaceIntensity4: 0
+    - _SurfaceIntensity5: 0
+    - _SurfaceIntensity6: 0
+    - _SurfaceIntensity7: 0
+    - _SurfaceIntensity8: 0
+    - _SurfaceIntensity9: 0
+    - _SurfaceMode0: 0
+    - _SurfaceMode1: 0
+    - _SurfaceMode2: 0
+    - _SurfaceMode3: 0
+    - _SurfaceMode4: 0
+    - _SurfaceMode5: 0
+    - _SurfaceMode6: 0
+    - _SurfaceMode7: 0
+    - _SurfaceMode8: 0
+    - _SurfaceMode9: 0
+    - _SurfaceScale0: 5
+    - _SurfaceScale1: 5
+    - _SurfaceScale2: 5
+    - _SurfaceScale3: 5
+    - _SurfaceScale4: 5
+    - _SurfaceScale5: 5
+    - _SurfaceScale6: 5
+    - _SurfaceScale7: 5
+    - _SurfaceScale8: 5
+    - _SurfaceScale9: 5
+    - _SurfaceSpeed0: 0.1
+    - _SurfaceSpeed1: 0.1
+    - _SurfaceSpeed2: 0.1
+    - _SurfaceSpeed3: 0.1
+    - _SurfaceSpeed4: 0.1
+    - _SurfaceSpeed5: 0.1
+    - _SurfaceSpeed6: 0.1
+    - _SurfaceSpeed7: 0.1
+    - _SurfaceSpeed8: 0.1
+    - _SurfaceSpeed9: 0.1
     - _TextInput0: 0
     - _TextInput1: 0
     - _TextInput10: 0
@@ -1116,6 +1321,23 @@ Material:
     - _TextLabel7: 0
     - _TextLabel8: 0
     - _TextLabel9: 0
+    - _TextStencilComp: 8
+    - _TextStencilFail: 0
+    - _TextStencilPass: 0
+    - _TextStencilReadMask: 255
+    - _TextStencilRef: 0
+    - _TextStencilWriteMask: 255
+    - _TextStencilZFail: 0
+    - _TypewriterCenterSmooth0: 1
+    - _TypewriterCenterSmooth1: 1
+    - _TypewriterCenterSmooth2: 1
+    - _TypewriterCenterSmooth3: 1
+    - _TypewriterCenterSmooth4: 1
+    - _TypewriterCenterSmooth5: 1
+    - _TypewriterCenterSmooth6: 1
+    - _TypewriterCenterSmooth7: 1
+    - _TypewriterCenterSmooth8: 1
+    - _TypewriterCenterSmooth9: 1
     - _TypewriterCentering0: 0
     - _TypewriterCentering1: 0
     - _TypewriterCentering10: 0
@@ -1212,8 +1434,8 @@ Material:
     - _TypewriterProgress7: 1
     - _TypewriterProgress8: 1
     - _TypewriterProgress9: 1
-    - _TypewriterSmooth0: 1
-    - _TypewriterSmooth1: 1
+    - _TypewriterSmooth0: 4
+    - _TypewriterSmooth1: 4
     - _TypewriterSmooth10: 1
     - _TypewriterSmooth11: 1
     - _TypewriterSmooth12: 1
@@ -1224,7 +1446,7 @@ Material:
     - _TypewriterSmooth17: 1
     - _TypewriterSmooth18: 1
     - _TypewriterSmooth19: 1
-    - _TypewriterSmooth2: 1
+    - _TypewriterSmooth2: 4
     - _TypewriterSmooth20: 1
     - _TypewriterSmooth21: 1
     - _TypewriterSmooth22: 1
@@ -1235,15 +1457,15 @@ Material:
     - _TypewriterSmooth27: 1
     - _TypewriterSmooth28: 1
     - _TypewriterSmooth29: 1
-    - _TypewriterSmooth3: 1
+    - _TypewriterSmooth3: 4
     - _TypewriterSmooth30: 1
     - _TypewriterSmooth31: 1
-    - _TypewriterSmooth4: 1
-    - _TypewriterSmooth5: 1
-    - _TypewriterSmooth6: 1
-    - _TypewriterSmooth7: 1
-    - _TypewriterSmooth8: 1
-    - _TypewriterSmooth9: 1
+    - _TypewriterSmooth4: 4
+    - _TypewriterSmooth5: 4
+    - _TypewriterSmooth6: 4
+    - _TypewriterSmooth7: 4
+    - _TypewriterSmooth8: 4
+    - _TypewriterSmooth9: 4
     - _TypewriterType0: 0
     - _TypewriterType1: 0
     - _TypewriterType10: 0
@@ -1276,7 +1498,7 @@ Material:
     - _TypewriterType7: 0
     - _TypewriterType8: 0
     - _TypewriterType9: 0
-    - _Use0: 1
+    - _Use0: 0
     - _Use1: 0
     - _Use10: 0
     - _Use11: 0
@@ -1308,7 +1530,7 @@ Material:
     - _Use7: 0
     - _Use8: 0
     - _Use9: 0
-    - _VRScale: 0.5
+    - _VRScale: 0.3
     - _WorldSpace0: 0
     - _WorldSpace1: 0
     - _WorldSpace10: 0
@@ -1341,8 +1563,8 @@ Material:
     - _WorldSpace7: 0
     - _WorldSpace8: 0
     - _WorldSpace9: 0
-    - _ZTest: 6
-    - _ZWrite: 0
+    - _ZTest: 4
+    - _ZWrite: 1
     - m_end_animator0: 0
     - m_end_animator1: 0
     - m_end_animator10: 0
@@ -1376,6 +1598,16 @@ Material:
     - m_end_animator8: 0
     - m_end_animator9: 0
     - m_end_camera_setting: 0
+    - m_end_chromakey0: 0
+    - m_end_chromakey1: 0
+    - m_end_chromakey2: 0
+    - m_end_chromakey3: 0
+    - m_end_chromakey4: 0
+    - m_end_chromakey5: 0
+    - m_end_chromakey6: 0
+    - m_end_chromakey7: 0
+    - m_end_chromakey8: 0
+    - m_end_chromakey9: 0
     - m_end_curve_path0: 0
     - m_end_curve_path1: 0
     - m_end_curve_path10: 0
@@ -1442,6 +1674,16 @@ Material:
     - m_end_effect7: 0
     - m_end_effect8: 0
     - m_end_effect9: 0
+    - m_end_flipbook0: 0
+    - m_end_flipbook1: 0
+    - m_end_flipbook2: 0
+    - m_end_flipbook3: 0
+    - m_end_flipbook4: 0
+    - m_end_flipbook5: 0
+    - m_end_flipbook6: 0
+    - m_end_flipbook7: 0
+    - m_end_flipbook8: 0
+    - m_end_flipbook9: 0
     - m_end_gradient0: 0
     - m_end_gradient1: 0
     - m_end_gradient10: 0
@@ -1474,6 +1716,18 @@ Material:
     - m_end_gradient7: 0
     - m_end_gradient8: 0
     - m_end_gradient9: 0
+    - m_end_image_setting: 0
+    - m_end_image_setting0: 0
+    - m_end_image_setting1: 0
+    - m_end_image_setting2: 0
+    - m_end_image_setting3: 0
+    - m_end_image_setting4: 0
+    - m_end_image_setting5: 0
+    - m_end_image_setting6: 0
+    - m_end_image_setting7: 0
+    - m_end_image_setting8: 0
+    - m_end_image_setting9: 0
+    - m_end_image_stencil: 0
     - m_end_internal_settings: 0
     - m_end_outline0: 0
     - m_end_outline1: 0
@@ -1507,6 +1761,10 @@ Material:
     - m_end_outline7: 0
     - m_end_outline8: 0
     - m_end_outline9: 0
+    - m_end_particle_0_effect: 0
+    - m_end_particle_0_shape: 0
+    - m_end_particle_setting: 0
+    - m_end_particle_stencil: 0
     - m_end_rendering_settings: 0
     - m_end_root0: 0
     - m_end_root1: 0
@@ -1611,6 +1869,16 @@ Material:
     - m_end_spacing8: 0
     - m_end_spacing9: 0
     - m_end_stencil: 0
+    - m_end_surface0: 0
+    - m_end_surface1: 0
+    - m_end_surface2: 0
+    - m_end_surface3: 0
+    - m_end_surface4: 0
+    - m_end_surface5: 0
+    - m_end_surface6: 0
+    - m_end_surface7: 0
+    - m_end_surface8: 0
+    - m_end_surface9: 0
     - m_end_text_setting: 0
     - m_end_text_setting0: 0
     - m_end_text_setting1: 0
@@ -1644,6 +1912,7 @@ Material:
     - m_end_text_setting7: 0
     - m_end_text_setting8: 0
     - m_end_text_setting9: 0
+    - m_end_text_stencil: 0
     - m_end_typewriter0: 0
     - m_end_typewriter1: 0
     - m_end_typewriter10: 0
@@ -1709,7 +1978,17 @@ Material:
     - m_start_animator7: 0
     - m_start_animator8: 0
     - m_start_animator9: 0
-    - m_start_camera_setting: 0
+    - m_start_camera_setting: 1
+    - m_start_chromakey0: 0
+    - m_start_chromakey1: 0
+    - m_start_chromakey2: 0
+    - m_start_chromakey3: 0
+    - m_start_chromakey4: 0
+    - m_start_chromakey5: 0
+    - m_start_chromakey6: 0
+    - m_start_chromakey7: 0
+    - m_start_chromakey8: 0
+    - m_start_chromakey9: 0
     - m_start_curve_path0: 0
     - m_start_curve_path1: 0
     - m_start_curve_path10: 0
@@ -1775,6 +2054,16 @@ Material:
     - m_start_effect7: 0
     - m_start_effect8: 0
     - m_start_effect9: 0
+    - m_start_flipbook0: 0
+    - m_start_flipbook1: 0
+    - m_start_flipbook2: 0
+    - m_start_flipbook3: 0
+    - m_start_flipbook4: 0
+    - m_start_flipbook5: 0
+    - m_start_flipbook6: 0
+    - m_start_flipbook7: 0
+    - m_start_flipbook8: 0
+    - m_start_flipbook9: 0
     - m_start_gradient0: 0
     - m_start_gradient1: 0
     - m_start_gradient10: 0
@@ -1807,6 +2096,18 @@ Material:
     - m_start_gradient7: 0
     - m_start_gradient8: 0
     - m_start_gradient9: 0
+    - m_start_image_setting: 0
+    - m_start_image_setting0: 0
+    - m_start_image_setting1: 0
+    - m_start_image_setting2: 0
+    - m_start_image_setting3: 0
+    - m_start_image_setting4: 0
+    - m_start_image_setting5: 0
+    - m_start_image_setting6: 0
+    - m_start_image_setting7: 0
+    - m_start_image_setting8: 0
+    - m_start_image_setting9: 0
+    - m_start_image_stencil: 0
     - m_start_internal_settings: 0
     - m_start_outline0: 0
     - m_start_outline1: 0
@@ -1840,7 +2141,11 @@ Material:
     - m_start_outline7: 0
     - m_start_outline8: 0
     - m_start_outline9: 0
-    - m_start_rendering_settings: 0
+    - m_start_particle_0_effect: 0
+    - m_start_particle_0_shape: 1
+    - m_start_particle_setting: 0
+    - m_start_particle_stencil: 0
+    - m_start_rendering_settings: 1
     - m_start_root0: 0
     - m_start_root1: 0
     - m_start_root2: 0
@@ -1944,7 +2249,17 @@ Material:
     - m_start_spacing8: 0
     - m_start_spacing9: 0
     - m_start_stencil: 0
-    - m_start_text_setting: 1
+    - m_start_surface0: 0
+    - m_start_surface1: 0
+    - m_start_surface2: 0
+    - m_start_surface3: 0
+    - m_start_surface4: 0
+    - m_start_surface5: 0
+    - m_start_surface6: 0
+    - m_start_surface7: 0
+    - m_start_surface8: 0
+    - m_start_surface9: 0
+    - m_start_text_setting: 0
     - m_start_text_setting0: 0
     - m_start_text_setting1: 0
     - m_start_text_setting10: 0
@@ -1977,6 +2292,7 @@ Material:
     - m_start_text_setting7: 0
     - m_start_text_setting8: 0
     - m_start_text_setting9: 0
+    - m_start_text_stencil: 0
     - m_start_typewriter0: 0
     - m_start_typewriter1: 0
     - m_start_typewriter10: 0
@@ -2496,6 +2812,66 @@ Material:
     - _GradientColorB7: {r: 0, g: 0, b: 0, a: 1}
     - _GradientColorB8: {r: 0, g: 0, b: 0, a: 1}
     - _GradientColorB9: {r: 0, g: 0, b: 0, a: 1}
+    - _ImageChromaKey0: {r: 0, g: 1, b: 0, a: 1}
+    - _ImageChromaKey1: {r: 0, g: 1, b: 0, a: 1}
+    - _ImageChromaKey2: {r: 0, g: 1, b: 0, a: 1}
+    - _ImageChromaKey3: {r: 0, g: 1, b: 0, a: 1}
+    - _ImageChromaKey4: {r: 0, g: 1, b: 0, a: 1}
+    - _ImageChromaKey5: {r: 0, g: 1, b: 0, a: 1}
+    - _ImageChromaKey6: {r: 0, g: 1, b: 0, a: 1}
+    - _ImageChromaKey7: {r: 0, g: 1, b: 0, a: 1}
+    - _ImageChromaKey8: {r: 0, g: 1, b: 0, a: 1}
+    - _ImageChromaKey9: {r: 0, g: 1, b: 0, a: 1}
+    - _ImageColor0: {r: 1, g: 1, b: 1, a: 1}
+    - _ImageColor1: {r: 1, g: 1, b: 1, a: 1}
+    - _ImageColor2: {r: 1, g: 1, b: 1, a: 1}
+    - _ImageColor3: {r: 1, g: 1, b: 1, a: 1}
+    - _ImageColor4: {r: 1, g: 1, b: 1, a: 1}
+    - _ImageColor5: {r: 1, g: 1, b: 1, a: 1}
+    - _ImageColor6: {r: 1, g: 1, b: 1, a: 1}
+    - _ImageColor7: {r: 1, g: 1, b: 1, a: 1}
+    - _ImageColor8: {r: 1, g: 1, b: 1, a: 1}
+    - _ImageColor9: {r: 1, g: 1, b: 1, a: 1}
+    - _ImagePivot0: {r: 0, g: 0, b: 0, a: 0}
+    - _ImagePivot1: {r: 0, g: 0, b: 0, a: 0}
+    - _ImagePivot2: {r: 0, g: 0, b: 0, a: 0}
+    - _ImagePivot3: {r: 0, g: 0, b: 0, a: 0}
+    - _ImagePivot4: {r: 0, g: 0, b: 0, a: 0}
+    - _ImagePivot5: {r: 0, g: 0, b: 0, a: 0}
+    - _ImagePivot6: {r: 0, g: 0, b: 0, a: 0}
+    - _ImagePivot7: {r: 0, g: 0, b: 0, a: 0}
+    - _ImagePivot8: {r: 0, g: 0, b: 0, a: 0}
+    - _ImagePivot9: {r: 0, g: 0, b: 0, a: 0}
+    - _ImagePosition0: {r: 0, g: 0, b: 50, a: 0}
+    - _ImagePosition1: {r: 0, g: 0, b: 50, a: 0}
+    - _ImagePosition2: {r: 0, g: 0, b: 50, a: 0}
+    - _ImagePosition3: {r: 0, g: 0, b: 50, a: 0}
+    - _ImagePosition4: {r: 0, g: 0, b: 50, a: 0}
+    - _ImagePosition5: {r: 0, g: 0, b: 50, a: 0}
+    - _ImagePosition6: {r: 0, g: 0, b: 50, a: 0}
+    - _ImagePosition7: {r: 0, g: 0, b: 50, a: 0}
+    - _ImagePosition8: {r: 0, g: 0, b: 50, a: 0}
+    - _ImagePosition9: {r: 0, g: 0, b: 50, a: 0}
+    - _ImageRotation0: {r: 0, g: 0, b: 0, a: 0}
+    - _ImageRotation1: {r: 0, g: 0, b: 0, a: 0}
+    - _ImageRotation2: {r: 0, g: 0, b: 0, a: 0}
+    - _ImageRotation3: {r: 0, g: 0, b: 0, a: 0}
+    - _ImageRotation4: {r: 0, g: 0, b: 0, a: 0}
+    - _ImageRotation5: {r: 0, g: 0, b: 0, a: 0}
+    - _ImageRotation6: {r: 0, g: 0, b: 0, a: 0}
+    - _ImageRotation7: {r: 0, g: 0, b: 0, a: 0}
+    - _ImageRotation8: {r: 0, g: 0, b: 0, a: 0}
+    - _ImageRotation9: {r: 0, g: 0, b: 0, a: 0}
+    - _ImageScale0: {r: 1, g: 1, b: 1, a: 0}
+    - _ImageScale1: {r: 1, g: 1, b: 1, a: 0}
+    - _ImageScale2: {r: 1, g: 1, b: 1, a: 0}
+    - _ImageScale3: {r: 1, g: 1, b: 1, a: 0}
+    - _ImageScale4: {r: 1, g: 1, b: 1, a: 0}
+    - _ImageScale5: {r: 1, g: 1, b: 1, a: 0}
+    - _ImageScale6: {r: 1, g: 1, b: 1, a: 0}
+    - _ImageScale7: {r: 1, g: 1, b: 1, a: 0}
+    - _ImageScale8: {r: 1, g: 1, b: 1, a: 0}
+    - _ImageScale9: {r: 1, g: 1, b: 1, a: 0}
     - _OutlineColor0: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor1: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor10: {r: 0, g: 0, b: 0, a: 1}
@@ -2528,6 +2904,10 @@ Material:
     - _OutlineColor7: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor8: {r: 0, g: 0, b: 0, a: 1}
     - _OutlineColor9: {r: 0, g: 0, b: 0, a: 1}
+    - _Particle0Direction: {r: 0, g: 0, b: 0, a: 0}
+    - _Particle0Position: {r: 0, g: 0, b: 0, a: 0}
+    - _Particle0Rotation: {r: 0, g: 0, b: 0, a: 0}
+    - _Particle0Scale: {r: 3, g: 3, b: 3, a: 0}
     - _Pivot0: {r: 0, g: 0, b: 0, a: 0}
     - _Pivot1: {r: 0, g: 0, b: 0, a: 0}
     - _Pivot10: {r: 0, g: 0, b: 0, a: 0}
@@ -2719,8 +3099,8 @@ Material:
     - _ShadowColor7: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowColor8: {r: 0, g: 0, b: 0, a: 1}
     - _ShadowColor9: {r: 0, g: 0, b: 0, a: 1}
-    - _ShadowOffset0: {r: 0.05, g: -0.05, b: 0, a: 0}
-    - _ShadowOffset1: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset0: {r: 0.02, g: -0.02, b: 0, a: 0}
+    - _ShadowOffset1: {r: 0.02, g: -0.02, b: 0, a: 0}
     - _ShadowOffset10: {r: 0.05, g: -0.05, b: 0, a: 0}
     - _ShadowOffset11: {r: 0.05, g: -0.05, b: 0, a: 0}
     - _ShadowOffset12: {r: 0.05, g: -0.05, b: 0, a: 0}
@@ -2731,7 +3111,7 @@ Material:
     - _ShadowOffset17: {r: 0.05, g: -0.05, b: 0, a: 0}
     - _ShadowOffset18: {r: 0.05, g: -0.05, b: 0, a: 0}
     - _ShadowOffset19: {r: 0.05, g: -0.05, b: 0, a: 0}
-    - _ShadowOffset2: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset2: {r: 0.02, g: -0.02, b: 0, a: 0}
     - _ShadowOffset20: {r: 0.05, g: -0.05, b: 0, a: 0}
     - _ShadowOffset21: {r: 0.05, g: -0.05, b: 0, a: 0}
     - _ShadowOffset22: {r: 0.05, g: -0.05, b: 0, a: 0}
@@ -2742,15 +3122,25 @@ Material:
     - _ShadowOffset27: {r: 0.05, g: -0.05, b: 0, a: 0}
     - _ShadowOffset28: {r: 0.05, g: -0.05, b: 0, a: 0}
     - _ShadowOffset29: {r: 0.05, g: -0.05, b: 0, a: 0}
-    - _ShadowOffset3: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset3: {r: 0.02, g: -0.02, b: 0, a: 0}
     - _ShadowOffset30: {r: 0.05, g: -0.05, b: 0, a: 0}
     - _ShadowOffset31: {r: 0.05, g: -0.05, b: 0, a: 0}
-    - _ShadowOffset4: {r: 0.05, g: -0.05, b: 0, a: 0}
-    - _ShadowOffset5: {r: 0.05, g: -0.05, b: 0, a: 0}
-    - _ShadowOffset6: {r: 0.05, g: -0.05, b: 0, a: 0}
-    - _ShadowOffset7: {r: 0.05, g: -0.05, b: 0, a: 0}
-    - _ShadowOffset8: {r: 0.05, g: -0.05, b: 0, a: 0}
-    - _ShadowOffset9: {r: 0.05, g: -0.05, b: 0, a: 0}
+    - _ShadowOffset4: {r: 0.02, g: -0.02, b: 0, a: 0}
+    - _ShadowOffset5: {r: 0.02, g: -0.02, b: 0, a: 0}
+    - _ShadowOffset6: {r: 0.02, g: -0.02, b: 0, a: 0}
+    - _ShadowOffset7: {r: 0.02, g: -0.02, b: 0, a: 0}
+    - _ShadowOffset8: {r: 0.02, g: -0.02, b: 0, a: 0}
+    - _ShadowOffset9: {r: 0.02, g: -0.02, b: 0, a: 0}
+    - _SurfaceColor0: {r: 1, g: 1, b: 1, a: 1}
+    - _SurfaceColor1: {r: 1, g: 1, b: 1, a: 1}
+    - _SurfaceColor2: {r: 1, g: 1, b: 1, a: 1}
+    - _SurfaceColor3: {r: 1, g: 1, b: 1, a: 1}
+    - _SurfaceColor4: {r: 1, g: 1, b: 1, a: 1}
+    - _SurfaceColor5: {r: 1, g: 1, b: 1, a: 1}
+    - _SurfaceColor6: {r: 1, g: 1, b: 1, a: 1}
+    - _SurfaceColor7: {r: 1, g: 1, b: 1, a: 1}
+    - _SurfaceColor8: {r: 1, g: 1, b: 1, a: 1}
+    - _SurfaceColor9: {r: 1, g: 1, b: 1, a: 1}
     - _TextColor0: {r: 1, g: 1, b: 1, a: 1}
     - _TextColor1: {r: 1, g: 1, b: 1, a: 1}
     - _TextColor10: {r: 1, g: 1, b: 1, a: 1}

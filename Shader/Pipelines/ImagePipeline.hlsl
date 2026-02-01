@@ -163,8 +163,9 @@ inline bool process_image(
     world_pos = apply_root(world_pos, layer.transform.root_index, root_mat, root_pos, vr_scale);
 
     // Stage 4: Culling (using Systems)
-    float margin = calculate_image_margin(layer.transform.scale.xyz * vr_scale);
-    if (cull_screen_space(world_pos, cam_pos, cam_rot_inv, tan_half_fov, aspect, margin))
+    float margin = calculate_margin_unified(layer.transform.scale.xyz * vr_scale, MARGIN_BASE_IMAGE);
+    if (cull_object(world_pos, layer.transform.world_space, 0.0,
+                    cam_pos, cam_rot_inv, tan_half_fov, aspect, margin))
         return false;
 
     // Stage 5: Quad (using Systems)

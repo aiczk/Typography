@@ -106,9 +106,9 @@ inline bool process_text(
         layer.shake.amplitude, layer.shake.frequency, layer.shake.blend);
 
     // Stage 6: Transform
-    TransformData xform = build_transform(
+    TransformData xform = build_transform_unified(
         layer.transform.position, layer.transform.rotation,
-        layer.transform.scale, layer.transform.pivot, vr_scale);
+        layer.transform.scale, layer.transform.pivot, vr_scale, PIVOT_SCALE_TEXT);
     float3 world_pos = transform_to_world(local_pos, xform);
 
     float3x3 root_mat; float3 root_pos;
@@ -116,7 +116,7 @@ inline bool process_text(
     world_pos = apply_root(world_pos, layer.transform.root_index, root_mat, root_pos, vr_scale);
 
     // Stage 7: Culling
-    float margin = calculate_text_margin(layer.transform.scale.xyz * vr_scale);
+    float margin = calculate_margin_unified(layer.transform.scale.xyz * vr_scale, MARGIN_BASE_TEXT);
     if (cull_object(world_pos, layer.transform.world_space, dfc_enabled,
                     cam_pos, cam_rot_inv, tan_half_fov, aspect, margin))
         return false;

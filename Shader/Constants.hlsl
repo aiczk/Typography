@@ -91,4 +91,22 @@
 #define UNPACK_SURFACE_MODE(p)  (((p) >> 10) & 0x7u)
 #define UNPACK_BLEND_MODE(p)    (((p) >> 13) & 0x3u)
 
+// ============================================================================
+// v2f Slot Strategy (Vertex-to-Fragment Bandwidth)
+// ============================================================================
+// SM5.0 provides 16 TEXCOORD slots (TEXCOORD0-15) for v2f interpolators.
+// Current usage (text_v2f): 12 slots (TEXCOORD0-11)
+// Available: 4 slots (TEXCOORD12-15)
+//
+// Compression techniques applied:
+// - f16 packing: 2 floats per uint (pack_f16x2)
+// - Color merging: shadow.rgb + surface.rgb in single uint4
+// - Bit-packed info: 5 fields in 15 bits (17 bits reserved)
+//
+// Future expansion strategies:
+// 1. Merge world_pos (float3) + surface_normal (float3) using octahedral encoding
+//    → Could save 2 slots (6 floats → 2 uints)
+// 2. Pack glyph_uv into existing uint slot (10-bit each = 20 bits)
+// 3. Move per-layer constants to StructuredBuffer (reduces v2f traffic)
+
 #endif // TYPOGRAPHY_CONSTANTS_INCLUDED

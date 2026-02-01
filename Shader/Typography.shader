@@ -1,10 +1,8 @@
-Shader "GekikaraStore/Typography"
+Shader "GekikaraStore/x.x.x/Typography"
 {
     Properties
     {
         [HideInInspector] shader_is_using_thry_editor("", Float) = 0
-        [HideInInspector] _ForgotToLockMaterial ("%.%.%.%.%.%.%.%.%.%.%.%.%.%.%.%.%.%.%.%.", Int) = 1
-        [ThryShaderOptimizerLockButton] _ShaderOptimizerEnabled ("", Int) = 0
         [HideInInspector] GeometryShader_Enabled ("", Float) = 1
         [HideInInspector] shader_master_label("<b><i><color=#858585>T</color><color=#9D9D9D>y</color><color=#B5B5B5>p</color><color=#CECECE>o</color><color=#E6E6E6>g</color><color=#FFFFFF>r</color><color=#E6E6E6>a</color><color=#CECECE>p</color><color=#B5B5B5>h</color><color=#9D9D9D>y</color></i></b>", Float) = 0
         [HideInInspector] _DFC ("Debug Frustum Culling", Float) = 0
@@ -12,7 +10,7 @@ Shader "GekikaraStore/Typography"
         [Project] _Project ("Project", Int) = 0
 
         [HideInInspector] m_start_camera_setting ("Camera Settings", Float) = 0
-            [Vector3] _CameraPosition ("Position", Vector) = (0, 0, -100, 0)
+            [Vector3] _CameraPosition ("Position", Vector) = (0, 0, 0, 0)
             [Vector3] _CameraRotation ("Rotation", Vector) = (0, 0, 0, 0)
             _CameraFOV ("FOV", Range(10, 120)) = 60.0
         [HideInInspector] m_end_camera_setting ("Camera Settings", Float) = 0
@@ -316,7 +314,6 @@ Shader "GekikaraStore/Typography"
         [HideInInspector] m_start_text_setting ("Text Settings", Float) = 0
             [Fonts] _Fonts ("Fonts", Int) = 0
             [HideInInspector][Toggle] _Use0 ("", Float) = 1
-            //ifex _Use0==0
             [HideInInspector] m_start_text_setting0 (" --{reference_property:_Use0}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace0 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex0 ("Root", Int) = 0
@@ -391,29 +388,27 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor0 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline0 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow0 ("Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow_glow0 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity0 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness0 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset0 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor0 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow0 ("Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow_glow0 ("Shadow & Glow", Float) = 0
 
-                    [HideInInspector] m_start_surface0 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_start_fractal_noise0 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode0 ("Mode", Int) = 0
                         _SurfaceIntensity0 ("Intensity", Range(0, 1)) = 0
                         _SurfaceScale0 ("Scale", Range(1, 15)) = 5
                         _SurfaceSpeed0 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor0 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend0 ("Blend", Int) = 0
-                    [HideInInspector] m_end_surface0 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_end_fractal_noise0 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect0 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting0 ("", Float) = 0
             [DynamicThryLabel] _TextLabel0 ("TextLabel0", Int) = 0
-            //endex
 
             [HideInInspector][Toggle] _Use1 ("", Float) = 1
-            //ifex _Use0==0
             [HideInInspector] m_start_text_setting1 (" --{reference_property:_Use1}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace1 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex1 ("Root", Int) = 0
@@ -454,20 +449,20 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_effect1 ("Effector", Float) = 0
                     [HideInInspector] m_start_curve_path1 ("Curve Path", Float) = 0
                         [CurveBaked]_CurveX1 ("X Curve", Int) = 0
-                        [HideInInspector]_CurveDataX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX1_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX1_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveY1 ("Y Curve", Int) = 0
-                        [HideInInspector]_CurveDataY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY1_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY1_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveZ1 ("Z Curve", Int) = 0
-                        [HideInInspector]_CurveDataZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ1_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ1_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX1_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX1_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY1_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY1_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ1_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ1_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         _CurveIntensity1 ("Intensity", Range(0, 1)) = 0
                         _CurveOffset1 ("Offset", Range(0, 1)) = 0
                         _CurveSpeed1 ("Speed", Range(-1, 1)) = 0
@@ -488,29 +483,27 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor1 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline1 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow1 ("Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow_glow1 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity1 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness1 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset1 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor1 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow1 ("Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow_glow1 ("Shadow & Glow", Float) = 0
 
-                    [HideInInspector] m_start_surface1 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_start_fractal_noise1 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode1 ("Mode", Int) = 0
                         _SurfaceIntensity1 ("Intensity", Range(0, 1)) = 0
                         _SurfaceScale1 ("Scale", Range(1, 15)) = 5
                         _SurfaceSpeed1 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor1 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend1 ("Blend", Int) = 0
-                    [HideInInspector] m_end_surface1 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_end_fractal_noise1 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect1 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting1 ("", Float) = 0
             [DynamicThryLabel] _TextLabel1 ("TextLabel1", Int) = 0
-            //endex
 
             [HideInInspector][Toggle] _Use2 ("", Float) = 1
-            //ifex _Use0==0
             [HideInInspector] m_start_text_setting2 (" --{reference_property:_Use2}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace2 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex2 ("Root", Int) = 0
@@ -551,20 +544,20 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_effect2 ("Effector", Float) = 0
                     [HideInInspector] m_start_curve_path2 ("Curve Path", Float) = 0
                         [CurveBaked]_CurveX2 ("X Curve", Int) = 0
-                        [HideInInspector]_CurveDataX0_2 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX2_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX2_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveY2 ("Y Curve", Int) = 0
-                        [HideInInspector]_CurveDataY0_2 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY2_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY2_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveZ2 ("Z Curve", Int) = 0
-                        [HideInInspector]_CurveDataZ0_2 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_2 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_2 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_2 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ2_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ2_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX2_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX2_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY2_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY2_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ2_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ2_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         _CurveIntensity2 ("Intensity", Range(0, 1)) = 0
                         _CurveOffset2 ("Offset", Range(0, 1)) = 0
                         _CurveSpeed2 ("Speed", Range(-1, 1)) = 0
@@ -585,29 +578,27 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor2 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline2 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow2 ("Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow_glow2 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity2 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness2 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset2 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor2 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow2 ("Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow_glow2 ("Shadow & Glow", Float) = 0
 
-                    [HideInInspector] m_start_surface2 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_start_fractal_noise2 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode2 ("Mode", Int) = 0
                         _SurfaceIntensity2 ("Intensity", Range(0, 1)) = 0
                         _SurfaceScale2 ("Scale", Range(1, 15)) = 5
                         _SurfaceSpeed2 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor2 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend2 ("Blend", Int) = 0
-                    [HideInInspector] m_end_surface2 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_end_fractal_noise2 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect2 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting2 ("", Float) = 0
             [DynamicThryLabel] _TextLabel2 ("TextLabel2", Int) = 0
-            //endex
 
             [HideInInspector][Toggle] _Use3 ("", Float) = 1
-            //ifex _Use0==0
             [HideInInspector] m_start_text_setting3 (" --{reference_property:_Use3}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace3 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex3 ("Root", Int) = 0
@@ -648,20 +639,20 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_effect3 ("Effector", Float) = 0
                     [HideInInspector] m_start_curve_path3 ("Curve Path", Float) = 0
                         [CurveBaked]_CurveX3 ("X Curve", Int) = 0
-                        [HideInInspector]_CurveDataX0_3 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX3_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX3_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveY3 ("Y Curve", Int) = 0
-                        [HideInInspector]_CurveDataY0_3 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY3_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY3_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveZ3 ("Z Curve", Int) = 0
-                        [HideInInspector]_CurveDataZ0_3 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_3 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_3 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_3 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ3_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ3_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX3_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX3_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY3_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY3_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ3_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ3_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         _CurveIntensity3 ("Intensity", Range(0, 1)) = 0
                         _CurveOffset3 ("Offset", Range(0, 1)) = 0
                         _CurveSpeed3 ("Speed", Range(-1, 1)) = 0
@@ -682,29 +673,27 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor3 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline3 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow3 ("Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow_glow3 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity3 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness3 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset3 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor3 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow3 ("Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow_glow3 ("Shadow & Glow", Float) = 0
 
-                    [HideInInspector] m_start_surface3 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_start_fractal_noise3 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode3 ("Mode", Int) = 0
                         _SurfaceIntensity3 ("Intensity", Range(0, 1)) = 0
                         _SurfaceScale3 ("Scale", Range(1, 15)) = 5
                         _SurfaceSpeed3 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor3 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend3 ("Blend", Int) = 0
-                    [HideInInspector] m_end_surface3 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_end_fractal_noise3 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect3 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting3 ("", Float) = 0
             [DynamicThryLabel] _TextLabel3 ("TextLabel3", Int) = 0
-            //endex
 
             [HideInInspector][Toggle] _Use4 ("", Float) = 1
-            //ifex _Use0==0
             [HideInInspector] m_start_text_setting4 (" --{reference_property:_Use4}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace4 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex4 ("Root", Int) = 0
@@ -745,20 +734,20 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_effect4 ("Effector", Float) = 0
                     [HideInInspector] m_start_curve_path4 ("Curve Path", Float) = 0
                         [CurveBaked]_CurveX4 ("X Curve", Int) = 0
-                        [HideInInspector]_CurveDataX0_4 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX4_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX4_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveY4 ("Y Curve", Int) = 0
-                        [HideInInspector]_CurveDataY0_4 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY4_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY4_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveZ4 ("Z Curve", Int) = 0
-                        [HideInInspector]_CurveDataZ0_4 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_4 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_4 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_4 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ4_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ4_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX4_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX4_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY4_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY4_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ4_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ4_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         _CurveIntensity4 ("Intensity", Range(0, 1)) = 0
                         _CurveOffset4 ("Offset", Range(0, 1)) = 0
                         _CurveSpeed4 ("Speed", Range(-1, 1)) = 0
@@ -779,29 +768,27 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor4 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline4 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow4 ("Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow_glow4 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity4 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness4 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset4 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor4 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow4 ("Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow_glow4 ("Shadow & Glow", Float) = 0
 
-                    [HideInInspector] m_start_surface4 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_start_fractal_noise4 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode4 ("Mode", Int) = 0
                         _SurfaceIntensity4 ("Intensity", Range(0, 1)) = 0
                         _SurfaceScale4 ("Scale", Range(1, 15)) = 5
                         _SurfaceSpeed4 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor4 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend4 ("Blend", Int) = 0
-                    [HideInInspector] m_end_surface4 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_end_fractal_noise4 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect4 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting4 ("", Float) = 0
             [DynamicThryLabel] _TextLabel4 ("TextLabel4", Int) = 0
-            //endex
 
             [HideInInspector][Toggle] _Use5 ("", Float) = 1
-            //ifex _Use0==0
             [HideInInspector] m_start_text_setting5 (" --{reference_property:_Use5}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace5 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex5 ("Root", Int) = 0
@@ -842,20 +829,20 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_effect5 ("Effector", Float) = 0
                     [HideInInspector] m_start_curve_path5 ("Curve Path", Float) = 0
                         [CurveBaked]_CurveX5 ("X Curve", Int) = 0
-                        [HideInInspector]_CurveDataX0_5 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX5_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX5_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveY5 ("Y Curve", Int) = 0
-                        [HideInInspector]_CurveDataY0_5 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY5_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY5_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveZ5 ("Z Curve", Int) = 0
-                        [HideInInspector]_CurveDataZ0_5 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_5 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_5 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_5 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ5_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ5_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX5_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX5_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY5_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY5_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ5_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ5_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         _CurveIntensity5 ("Intensity", Range(0, 1)) = 0
                         _CurveOffset5 ("Offset", Range(0, 1)) = 0
                         _CurveSpeed5 ("Speed", Range(-1, 1)) = 0
@@ -876,29 +863,27 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor5 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline5 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow5 ("Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow_glow5 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity5 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness5 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset5 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor5 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow5 ("Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow_glow5 ("Shadow & Glow", Float) = 0
 
-                    [HideInInspector] m_start_surface5 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_start_fractal_noise5 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode5 ("Mode", Int) = 0
                         _SurfaceIntensity5 ("Intensity", Range(0, 1)) = 0
                         _SurfaceScale5 ("Scale", Range(1, 15)) = 5
                         _SurfaceSpeed5 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor5 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend5 ("Blend", Int) = 0
-                    [HideInInspector] m_end_surface5 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_end_fractal_noise5 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect5 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting5 ("", Float) = 0
             [DynamicThryLabel] _TextLabel5 ("TextLabel5", Int) = 0
-            //endex
 
             [HideInInspector][Toggle] _Use6 ("", Float) = 1
-            //ifex _Use0==0
             [HideInInspector] m_start_text_setting6 (" --{reference_property:_Use6}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace6 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex6 ("Root", Int) = 0
@@ -939,20 +924,20 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_effect6 ("Effector", Float) = 0
                     [HideInInspector] m_start_curve_path6 ("Curve Path", Float) = 0
                         [CurveBaked]_CurveX6 ("X Curve", Int) = 0
-                        [HideInInspector]_CurveDataX0_6 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX6_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX6_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveY6 ("Y Curve", Int) = 0
-                        [HideInInspector]_CurveDataY0_6 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY6_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY6_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveZ6 ("Z Curve", Int) = 0
-                        [HideInInspector]_CurveDataZ0_6 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_6 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_6 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_6 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ6_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ6_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX6_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX6_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY6_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY6_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ6_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ6_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         _CurveIntensity6 ("Intensity", Range(0, 1)) = 0
                         _CurveOffset6 ("Offset", Range(0, 1)) = 0
                         _CurveSpeed6 ("Speed", Range(-1, 1)) = 0
@@ -973,29 +958,27 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor6 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline6 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow6 ("Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow_glow6 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity6 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness6 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset6 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor6 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow6 ("Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow_glow6 ("Shadow & Glow", Float) = 0
 
-                    [HideInInspector] m_start_surface6 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_start_fractal_noise6 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode6 ("Mode", Int) = 0
                         _SurfaceIntensity6 ("Intensity", Range(0, 1)) = 0
                         _SurfaceScale6 ("Scale", Range(1, 15)) = 5
-                        _SurfaceSpeed6 ("Speed", Range(0, 5)) = 0.1
+                        _SurfaceSpeed6 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor6 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend6 ("Blend", Int) = 0
-                    [HideInInspector] m_end_surface6 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_end_fractal_noise6 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect6 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting6 ("", Float) = 0
             [DynamicThryLabel] _TextLabel6 ("TextLabel6", Int) = 0
-            //endex
 
             [HideInInspector][Toggle] _Use7 ("", Float) = 1
-            //ifex _Use0==0
             [HideInInspector] m_start_text_setting7 (" --{reference_property:_Use7}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace7 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex7 ("Root", Int) = 0
@@ -1036,20 +1019,20 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_effect7 ("Effector", Float) = 0
                     [HideInInspector] m_start_curve_path7 ("Curve Path", Float) = 0
                         [CurveBaked]_CurveX7 ("X Curve", Int) = 0
-                        [HideInInspector]_CurveDataX0_7 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX7_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX7_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveY7 ("Y Curve", Int) = 0
-                        [HideInInspector]_CurveDataY0_7 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY7_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY7_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveZ7 ("Z Curve", Int) = 0
-                        [HideInInspector]_CurveDataZ0_7 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_7 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_7 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_7 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ7_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ7_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX7_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX7_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY7_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY7_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ7_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ7_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         _CurveIntensity7 ("Intensity", Range(0, 1)) = 0
                         _CurveOffset7 ("Offset", Range(0, 1)) = 0
                         _CurveSpeed7 ("Speed", Range(-1, 1)) = 0
@@ -1070,29 +1053,27 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor7 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline7 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow7 ("Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow_glow7 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity7 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness7 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset7 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor7 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow7 ("Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow_glow7 ("Shadow & Glow", Float) = 0
 
-                    [HideInInspector] m_start_surface7 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_start_fractal_noise7 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode7 ("Mode", Int) = 0
                         _SurfaceIntensity7 ("Intensity", Range(0, 1)) = 0
                         _SurfaceScale7 ("Scale", Range(1, 15)) = 5
                         _SurfaceSpeed7 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor7 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend7 ("Blend", Int) = 0
-                    [HideInInspector] m_end_surface7 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_end_fractal_noise7 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect7 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting7 ("", Float) = 0
             [DynamicThryLabel] _TextLabel7 ("TextLabel7", Int) = 0
-            //endex
 
             [HideInInspector][Toggle] _Use8 ("", Float) = 1
-            //ifex _Use0==0
             [HideInInspector] m_start_text_setting8 (" --{reference_property:_Use8}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace8 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex8 ("Root", Int) = 0
@@ -1133,20 +1114,20 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_effect8 ("Effector", Float) = 0
                     [HideInInspector] m_start_curve_path8 ("Curve Path", Float) = 0
                         [CurveBaked]_CurveX8 ("X Curve", Int) = 0
-                        [HideInInspector]_CurveDataX0_8 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX8_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX8_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveY8 ("Y Curve", Int) = 0
-                        [HideInInspector]_CurveDataY0_8 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY8_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY8_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveZ8 ("Z Curve", Int) = 0
-                        [HideInInspector]_CurveDataZ0_8 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_8 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_8 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_8 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ8_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ8_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX8_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX8_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY8_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY8_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ8_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ8_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         _CurveIntensity8 ("Intensity", Range(0, 1)) = 0
                         _CurveOffset8 ("Offset", Range(0, 1)) = 0
                         _CurveSpeed8 ("Speed", Range(-1, 1)) = 0
@@ -1167,29 +1148,27 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor8 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline8 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow8 ("Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow_glow8 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity8 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness8 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset8 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor8 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow8 ("Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow_glow8 ("Shadow & Glow", Float) = 0
 
-                    [HideInInspector] m_start_surface8 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_start_fractal_noise8 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode8 ("Mode", Int) = 0
                         _SurfaceIntensity8 ("Intensity", Range(0, 1)) = 0
                         _SurfaceScale8 ("Scale", Range(1, 15)) = 5
                         _SurfaceSpeed8 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor8 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend8 ("Blend", Int) = 0
-                    [HideInInspector] m_end_surface8 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_end_fractal_noise8 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect8 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting8 ("", Float) = 0
             [DynamicThryLabel] _TextLabel8 ("TextLabel8", Int) = 0
-            //endex
 
             [HideInInspector][Toggle] _Use9 ("", Float) = 1
-            //ifex _Use0==0
             [HideInInspector] m_start_text_setting9 (" --{reference_property:_Use9}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace9 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex9 ("Root", Int) = 0
@@ -1230,20 +1209,20 @@ Shader "GekikaraStore/Typography"
                 [HideInInspector] m_start_effect9 ("Effector", Float) = 0
                     [HideInInspector] m_start_curve_path9 ("Curve Path", Float) = 0
                         [CurveBaked]_CurveX9 ("X Curve", Int) = 0
-                        [HideInInspector]_CurveDataX0_9 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX9_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataX9_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveY9 ("Y Curve", Int) = 0
-                        [HideInInspector]_CurveDataY0_9 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY9_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataY9_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         [CurveBaked]_CurveZ9 ("Z Curve", Int) = 0
-                        [HideInInspector]_CurveDataZ0_9 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_9 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTX0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_9 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTY0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_9 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
-                        [HideInInspector]_CurveDataTZ0_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ9_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataZ9_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX9_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTX9_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY9_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTY9_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ9_0 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
+                        [HideInInspector]_CurveDataTZ9_1 ("", Vector) = (0.5, 0.5, 0.5, 0.5)
                         _CurveIntensity9 ("Intensity", Range(0, 1)) = 0
                         _CurveOffset9 ("Offset", Range(0, 1)) = 0
                         _CurveSpeed9 ("Speed", Range(-1, 1)) = 0
@@ -1264,27 +1243,25 @@ Shader "GekikaraStore/Typography"
                         [HDR]_OutlineColor9 ("Color", Color) = (0, 0, 0, 1)
                     [HideInInspector] m_end_outline9 ("Outline", Float) = 0
 
-                    [HideInInspector] m_start_shadow9 ("Shadow", Float) = 0
+                    [HideInInspector] m_start_shadow_glow9 ("Shadow & Glow", Float) = 0
                         _ShadowIntensity9 ("Intensity", Range(0, 1)) = 0
                         _ShadowSoftness9 ("Softness", Range(0, 1)) = 0
                         [Vector2]_ShadowOffset9 ("Offset", Vector) = (0.02, -0.02, 0, 0)
                         [HDR]_ShadowColor9 ("Color", Color) = (0, 0, 0, 1)
-                    [HideInInspector] m_end_shadow9 ("Shadow", Float) = 0
+                    [HideInInspector] m_end_shadow_glow9 ("Shadow & Glow", Float) = 0
 
-                    [HideInInspector] m_start_surface9 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_start_fractal_noise9 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode9 ("Mode", Int) = 0
                         _SurfaceIntensity9 ("Intensity", Range(0, 1)) = 0
                         _SurfaceScale9 ("Scale", Range(1, 15)) = 5
                         _SurfaceSpeed9 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor9 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend9 ("Blend", Int) = 0
-                    [HideInInspector] m_end_surface9 ("Surface Effect", Float) = 0
+                    [HideInInspector] m_end_fractal_noise9 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect9 ("Effector", Float) = 0
             [HideInInspector] m_end_text_setting9 ("", Float) = 0
             [DynamicThryLabel] _TextLabel9 ("TextLabel9", Int) = 0
-            //endex
-
         [HideInInspector] m_end_text_setting ("Text Settings", Float) = 0
 
         [HideInInspector] m_start_particle_setting ("Particle Settings", Float) = 0
@@ -1627,39 +1604,18 @@ Shader "GekikaraStore/Typography"
             #include "Components/Components.hlsl"
             #include "Systems/Systems.hlsl"
             #include "Pipelines/TextPipeline.hlsl"
-
-            // Declare all text layer variables (using macro from Components.hlsl)
-            //ifex _Use0==0
+            
             DECLARE_TEXT_LAYER_VARS(0)
-            //endex
-            //ifex _Use1==0
             DECLARE_TEXT_LAYER_VARS(1)
-            //endex
-            //ifex _Use2==0
             DECLARE_TEXT_LAYER_VARS(2)
-            //endex
-            //ifex _Use3==0
             DECLARE_TEXT_LAYER_VARS(3)
-            //endex
-            //ifex _Use4==0
             DECLARE_TEXT_LAYER_VARS(4)
-            //endex
-            //ifex _Use5==0
             DECLARE_TEXT_LAYER_VARS(5)
-            //endex
-            //ifex _Use6==0
             DECLARE_TEXT_LAYER_VARS(6)
-            //endex
-            //ifex _Use7==0
             DECLARE_TEXT_LAYER_VARS(7)
-            //endex
-            //ifex _Use8==0
             DECLARE_TEXT_LAYER_VARS(8)
-            //endex
-            //ifex _Use9==0
             DECLARE_TEXT_LAYER_VARS(9)
-            //endex
-
+            
             // ============================================================================
             // Vertex Shader (uses PROCESS_TEXT from Macros.hlsl)
             // ============================================================================
@@ -1702,36 +1658,16 @@ Shader "GekikaraStore/Typography"
                 TextLayer layer = (TextLayer)0;
                 switch(text_id)
                 {
-                    //ifex _Use0==0
                     case 0: LOAD_TEXT_LAYER(0, layer); break;
-                    //endex
-                    //ifex _Use1==0
                     case 1: LOAD_TEXT_LAYER(1, layer); break;
-                    //endex
-                    //ifex _Use2==0
                     case 2: LOAD_TEXT_LAYER(2, layer); break;
-                    //endex
-                    //ifex _Use3==0
                     case 3: LOAD_TEXT_LAYER(3, layer); break;
-                    //endex
-                    //ifex _Use4==0
                     case 4: LOAD_TEXT_LAYER(4, layer); break;
-                    //endex
-                    //ifex _Use5==0
                     case 5: LOAD_TEXT_LAYER(5, layer); break;
-                    //endex
-                    //ifex _Use6==0
                     case 6: LOAD_TEXT_LAYER(6, layer); break;
-                    //endex
-                    //ifex _Use7==0
                     case 7: LOAD_TEXT_LAYER(7, layer); break;
-                    //endex
-                    //ifex _Use8==0
                     case 8: LOAD_TEXT_LAYER(8, layer); break;
-                    //endex
-                    //ifex _Use9==0
                     case 9: LOAD_TEXT_LAYER(9, layer); break;
-                    //endex
                     default: break;
                 }
 
@@ -1862,6 +1798,7 @@ Shader "GekikaraStore/Typography"
 
             // Particle Pipeline Dependencies
             #include "Core.hlsl"
+            #include "Systems/CullingSystem.hlsl"
             #include "Components/ParticleComponent.hlsl"
             #include "Pipelines/ParticlePipeline.hlsl"
 
