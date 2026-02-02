@@ -428,11 +428,6 @@ inline float3 expand_image_quad(
     return world_pos + corner_offset;
 }
 
-inline float3 get_surface_normal(float3x3 rotation_scale)
-{
-    return rotation_scale._m02_m12_m22;
-}
-
 // ============================================================================
 // Projection System
 // ============================================================================

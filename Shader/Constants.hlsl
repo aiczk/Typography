@@ -104,9 +104,7 @@
 // - Bit-packed info: 5 fields in 15 bits (17 bits reserved)
 //
 // Future expansion strategies:
-// 1. Merge world_pos (float3) + surface_normal (float3) using octahedral encoding
-//    → Could save 2 slots (6 floats → 2 uints)
-// 2. Pack glyph_uv into existing uint slot (10-bit each = 20 bits)
-// 3. Move per-layer constants to StructuredBuffer (reduces v2f traffic)
+// 1. Pack glyph_uv into existing uint slot (10-bit each = 20 bits)
+// 2. Move per-layer constants to data texture (reduces v2f traffic)
 
 #endif // TYPOGRAPHY_CONSTANTS_INCLUDED

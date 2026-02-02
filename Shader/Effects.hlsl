@@ -432,7 +432,7 @@ void apply_surface_effect(
     inout half3 accum_color,
     float main_opacity,
     float2 glyph_uv,
-    float3 world_pos,
+    float char_offset,
     float time,
     uint mode,
     float intensity,
@@ -444,8 +444,8 @@ void apply_surface_effect(
     if (intensity <= EPSILON || main_opacity <= EPSILON)
         return;
 
-    // Use world position for seamless patterns across characters
-    float2 uv = world_pos.xy * scale;
+    // Use glyph UV with char_offset for per-character noise variation
+    float2 uv = (glyph_uv + char_offset) * scale;
     float anim_time = time * speed;
 
     // Generate noise value based on mode

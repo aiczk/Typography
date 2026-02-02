@@ -24,10 +24,8 @@ struct text_v2f
     nointerpolation uint2 outline_color : TEXCOORD6;
     nointerpolation uint2 shadow : TEXCOORD7;         // x: intensity|softness, y: offset.x|offset.y
     nointerpolation uint4 shadow_surface_color : TEXCOORD8; // shadow.rg|shadow.b+surface.r|surface.gb|unused
-    nointerpolation uint2 texturing : TEXCOORD9;      // x: surface_intensity|scale, y: speed|unused
-    float3 world_pos : TEXCOORD10;
-    nointerpolation float3 surface_normal : TEXCOORD11;
-    // TEXCOORD12-15: available for future use
+    nointerpolation uint2 texturing : TEXCOORD9;      // x: surface_intensity|scale, y: speed|char_offset
+    // TEXCOORD10-15: available for future use
     UNITY_VERTEX_OUTPUT_STEREO
 };
 
@@ -84,9 +82,6 @@ inline bool process_text(
             layer.block.visible, layer.block.animating);
         local_pos += (layer.visibility.mode == 2) ? float3(0, -align, 0) : float3(align, 0, 0);
     }
-
-    // Stable position for noise (before animation deforms)
-    float3 stable_pos = local_pos;
 
     // Stage 5: Deformation
     TypewriterDeform tw_deform = calculate_typewriter_deform(
@@ -170,25 +165,10 @@ inline bool process_text(
         pack_f16x2(shake_off.y, tw.block_fade));
 
     // Surface effect params (surface.color already packed in shadow_surface_color)
+    // char_offset: normalized char position for per-character noise variation
     o.texturing = uint2(
         pack_f16x2(layer.surface.intensity, layer.surface.scale),
-        pack_f16x2(layer.surface.speed, 0));
-
-    float3 normal = get_surface_normal(char_rot);
-    if (layer.transform.world_space == 1)
-    {
-        o.world_pos = local_to_world(corner);
-        o.surface_normal = normal_to_world(normal);
-    }
-    else
-    {
-        // Use stable_pos (before animation deforms) + corner offset so noise:
-        // 1. Interpolates smoothly across quad (corner - world_pos gives corner offset)
-        // 2. Stays fixed to character surface (doesn't move with Curve/Typewriter)
-        o.world_pos = stable_pos + (corner - world_pos);
-        o.surface_normal = normal;
-    }
-    // view_dir calculation moved to FS for v2f bandwidth reduction
+        pack_f16x2(layer.surface.speed, layout.normalized_pos));
 
     return true;
 }
