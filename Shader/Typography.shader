@@ -399,7 +399,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_fractal_noise0 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode0 ("Mode", Int) = 0
                         _SurfaceIntensity0 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale0 ("Scale", Range(0, 2)) = 1
+                        _SurfaceScale0 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed0 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor0 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend0 ("Blend", Int) = 0
@@ -494,7 +494,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_fractal_noise1 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode1 ("Mode", Int) = 0
                         _SurfaceIntensity1 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale1 ("Scale", Range(0, 2)) = 1
+                        _SurfaceScale1 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed1 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor1 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend1 ("Blend", Int) = 0
@@ -589,7 +589,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_fractal_noise2 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode2 ("Mode", Int) = 0
                         _SurfaceIntensity2 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale2 ("Scale", Range(0, 2)) = 1
+                        _SurfaceScale2 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed2 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor2 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend2 ("Blend", Int) = 0
@@ -684,7 +684,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_fractal_noise3 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode3 ("Mode", Int) = 0
                         _SurfaceIntensity3 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale3 ("Scale", Range(0, 2)) = 1
+                        _SurfaceScale3 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed3 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor3 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend3 ("Blend", Int) = 0
@@ -779,7 +779,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_fractal_noise4 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode4 ("Mode", Int) = 0
                         _SurfaceIntensity4 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale4 ("Scale", Range(0, 2)) = 1
+                        _SurfaceScale4 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed4 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor4 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend4 ("Blend", Int) = 0
@@ -874,7 +874,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_fractal_noise5 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode5 ("Mode", Int) = 0
                         _SurfaceIntensity5 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale5 ("Scale", Range(0, 2)) = 1
+                        _SurfaceScale5 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed5 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor5 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend5 ("Blend", Int) = 0
@@ -969,7 +969,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_fractal_noise6 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode6 ("Mode", Int) = 0
                         _SurfaceIntensity6 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale6 ("Scale", Range(0, 2)) = 1
+                        _SurfaceScale6 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed6 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor6 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend6 ("Blend", Int) = 0
@@ -1064,7 +1064,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_fractal_noise7 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode7 ("Mode", Int) = 0
                         _SurfaceIntensity7 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale7 ("Scale", Range(0, 2)) = 1
+                        _SurfaceScale7 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed7 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor7 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend7 ("Blend", Int) = 0
@@ -1159,7 +1159,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_fractal_noise8 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode8 ("Mode", Int) = 0
                         _SurfaceIntensity8 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale8 ("Scale", Range(0, 2)) = 1
+                        _SurfaceScale8 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed8 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor8 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend8 ("Blend", Int) = 0
@@ -1254,7 +1254,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_start_fractal_noise9 ("Fractal Noise", Float) = 0
                         [Enum(Simplex, 0, Curl, 1, FBM, 2, Turbulence, 3, Ridged, 4, Marble, 5)] _SurfaceMode9 ("Mode", Int) = 0
                         _SurfaceIntensity9 ("Intensity", Range(0, 1)) = 0
-                        _SurfaceScale9 ("Scale", Range(0, 2)) = 1
+                        _SurfaceScale9 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed9 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor9 ("Color", Color) = (1, 1, 1, 1)
                         [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend9 ("Blend", Int) = 0
@@ -1720,32 +1720,32 @@ Shader "GekikaraStore/x.x.x/Typography"
                 float2 shadow_offset = unpack_f16x2(i.shadow.y);  // offset.x, offset.y
                 params.shadow = float4(shadow_xy.x, shadow_offset.x, shadow_offset.y, shadow_xy.y);  // x=intensity, yz=offset, w=softness
 
-                // Unpack shadow.rgb + surface.rgb from combined shadow_surface_color (uint4)
-                // Layout: shadow.rg | shadow.b+surface.r | surface.gb | unused
+                // Unpack shadow.rgb + noise.rgb from combined shadow_surface_color (uint4)
+                // Layout: shadow.rg | shadow.b+noise.r | noise.gb | unused
                 float2 shadow_rg = unpack_f16x2(i.shadow_surface_color.x);
-                float2 shadow_b_surface_r = unpack_f16x2(i.shadow_surface_color.y);
-                float2 surface_gb = unpack_f16x2(i.shadow_surface_color.z);
-                params.shadow_color = float4(shadow_rg.x, shadow_rg.y, shadow_b_surface_r.x, 1);
-                float3 surface_color = float3(shadow_b_surface_r.y, surface_gb.x, surface_gb.y);
+                float2 shadow_b_noise_r = unpack_f16x2(i.shadow_surface_color.y);
+                float2 noise_gb = unpack_f16x2(i.shadow_surface_color.z);
+                params.shadow_color = float4(shadow_rg.x, shadow_rg.y, shadow_b_noise_r.x, 1);
+                float3 noise_color = float3(shadow_b_noise_r.y, noise_gb.x, noise_gb.y);
 
-                // Unpack surface effect params
-                float2 surface_xy = unpack_f16x2(i.texturing.x);  // intensity, scale
-                float2 surface_zw = unpack_f16x2(i.texturing.y);  // speed, char_offset
-                float surface_intensity = surface_xy.x;
-                float surface_scale = surface_xy.y;
-                float surface_speed = surface_zw.x;
-                float char_offset = surface_zw.y;
-                uint surface_mode = UNPACK_SURFACE_MODE(i.packed_info);
-                uint surface_blend_mode = UNPACK_BLEND_MODE(i.packed_info);
+                // Unpack noise effect params
+                float2 noise_xy = unpack_f16x2(i.texturing.x);  // intensity, scale
+                float2 noise_zw = unpack_f16x2(i.texturing.y);  // speed, char_offset
+                float noise_intensity = noise_xy.x;
+                float noise_scale = noise_xy.y;
+                float noise_speed = noise_zw.x;
+                float char_offset = noise_zw.y;
+                uint noise_mode = UNPACK_NOISE_MODE(i.packed_info);
+                uint noise_blend_mode = UNPACK_BLEND_MODE(i.packed_info);
 
                 MSDFSample msdf;
                 apply_effects(accum_color, accum_alpha, msdf, adjusted_uv, atlas_params, effective_char_index, font_index, opacity_mult, params, i.packed_info);
 
-                // Apply procedural surface effect AFTER main compositing
+                // Apply procedural noise effect AFTER main compositing
                 // Use opacity_mult to respect Typewriter animation
-                apply_surface_effect(accum_color, msdf.opacity * opacity_mult, adjusted_uv, char_offset,
-                    _Time.y, surface_mode, surface_intensity, surface_scale, surface_speed,
-                    surface_color, surface_blend_mode);
+                apply_noise_effect(accum_color, msdf.opacity * opacity_mult, adjusted_uv, char_offset,
+                    _Time.y, noise_mode, noise_intensity, noise_scale, noise_speed,
+                    noise_color, noise_blend_mode);
 
                 // Clip based on accumulated alpha (before block fade)
                 clip(accum_alpha - _AlphaCutoff);

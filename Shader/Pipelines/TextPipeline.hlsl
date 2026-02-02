@@ -146,8 +146,8 @@ inline bool process_text(
     // Pack shadow.rgb + surface.rgb into single uint4 (saves 1 TEXCOORD)
     o.shadow_surface_color = uint4(
         pack_f16x2(layer.shadow.color.r, layer.shadow.color.g),
-        pack_f16x2(layer.shadow.color.b, layer.surface.color.r),
-        pack_f16x2(layer.surface.color.g, layer.surface.color.b),
+        pack_f16x2(layer.shadow.color.b, layer.noise.color.r),
+        pack_f16x2(layer.noise.color.g, layer.noise.color.b),
         0);  // reserved for future use
 
     // Pack info using contiguous bit layout (see Constants.hlsl):
@@ -156,8 +156,8 @@ inline bool process_text(
     o.packed_info = PACK_FONT_INDEX(data.font_index)
         | PACK_OUTLINE_MODE(layer.outline.mode)
         | PACK_WORLD_SPACE(layer.transform.world_space)
-        | PACK_SURFACE_MODE(layer.surface.mode)
-        | PACK_BLEND_MODE(layer.surface.blend_mode);
+        | PACK_NOISE_MODE(layer.noise.mode)
+        | PACK_BLEND_MODE(layer.noise.blend_mode);
 
     float opacity = 1.0 - tw.anim_factor;
     o.anim_packed = uint2(
@@ -167,8 +167,8 @@ inline bool process_text(
     // Surface effect params (surface.color already packed in shadow_surface_color)
     // char_offset: normalized char position for per-character noise variation
     o.texturing = uint2(
-        pack_f16x2(layer.surface.intensity, layer.surface.scale),
-        pack_f16x2(layer.surface.speed, layout.normalized_pos));
+        pack_f16x2(layer.noise.intensity, layer.noise.scale),
+        pack_f16x2(layer.noise.speed, layout.normalized_pos));
 
     return true;
 }

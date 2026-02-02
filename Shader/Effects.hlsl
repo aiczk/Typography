@@ -424,11 +424,11 @@ void apply_main_text(
     accum_alpha = main_alpha + accum_alpha * (1.0 - main_alpha);
 }
 
-// Procedural Surface Effect
+// Procedural Noise Effect (Fractal Noise)
 // Applies noise-based patterns to text color
-// mode: 0=Simplex, 1=Voronoi, 2=FBM, 3=Turbulence, 4=Ridged, 5=Marble
+// mode: 0=Simplex, 1=Curl, 2=FBM, 3=Turbulence, 4=Ridged, 5=Marble
 // blend_mode: 0=Multiply, 1=Replace, 2=Add
-void apply_surface_effect(
+void apply_noise_effect(
     inout half3 accum_color,
     float main_opacity,
     float2 glyph_uv,
@@ -454,32 +454,32 @@ void apply_surface_effect(
     [branch]
     switch (mode)
     {
-        case SURFACE_MODE_SIMPLEX:
+        case NOISE_MODE_SIMPLEX:
             // Animated simplex noise
             noise_value = simplex3d(float3(uv, anim_time)) * 0.5 + 0.5;
             break;
 
-        case SURFACE_MODE_CURL:
+        case NOISE_MODE_CURL:
             // Curl noise - fluid-like swirling flow
             noise_value = curl_noise_animated(uv, anim_time);
             break;
 
-        case SURFACE_MODE_FBM:
+        case NOISE_MODE_FBM:
             // Animated fractal noise (4 octaves)
             noise_value = fbm_animated(uv, anim_time, 4) * 0.5 + 0.5;
             break;
 
-        case SURFACE_MODE_TURBULENCE:
+        case NOISE_MODE_TURBULENCE:
             // Sharp valleys - fire, smoke effect
             noise_value = turbulence_animated(uv, anim_time, 4);
             break;
 
-        case SURFACE_MODE_RIDGED:
+        case NOISE_MODE_RIDGED:
             // Sharp ridges - lightning, cracks
             noise_value = ridged_animated(uv, anim_time, 4);
             break;
 
-        case SURFACE_MODE_MARBLE:
+        case NOISE_MODE_MARBLE:
             // Classic marble veins
             noise_value = marble_animated(uv, anim_time, 2.0);
             break;

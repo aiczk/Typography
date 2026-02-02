@@ -95,7 +95,7 @@ struct ShadowComponent
     float3 color;
 };
 
-struct SurfaceComponent
+struct NoiseComponent
 {
     int mode;           // 0=Simplex, 1=Curl, 2=FBM, 3=Turbulence, 4=Ridged, 5=Marble
     float intensity;
@@ -120,7 +120,7 @@ struct TextLayer
     ShakeComponent shake;
     OutlineComponent outline;
     ShadowComponent shadow;
-    SurfaceComponent surface;
+    NoiseComponent noise;
 };
 
 // ============================================================================
@@ -354,6 +354,6 @@ struct ParticleLayer
     LOAD_SHAKE(N, layer.shake) \
     LOAD_OUTLINE(N, layer.outline) \
     LOAD_SHADOW(N, layer.shadow) \
-    LOAD_SURFACE(N, layer.surface)
+    LOAD_SURFACE(N, layer.noise)
 
 #endif // TYPOGRAPHY_COMPONENTS_INCLUDED
