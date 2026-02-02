@@ -95,16 +95,21 @@
 // v2f Slot Strategy (Vertex-to-Fragment Bandwidth)
 // ============================================================================
 // SM5.0 provides 16 TEXCOORD slots (TEXCOORD0-15) for v2f interpolators.
-// Current usage (text_v2f): 12 slots (TEXCOORD0-11)
-// Available: 4 slots (TEXCOORD12-15)
+// Current usage (text_v2f): 6 slots (TEXCOORD0-5)
+// Available: 10 slots (TEXCOORD6-15)
+//
+// Slot layout:
+// - TEXCOORD0: glyph_uv (float2) - interpolated
+// - TEXCOORD1: char_packed (uint4) - char_index, packed_info, color.rg, color.ba
+// - TEXCOORD2: outline_packed (uint4) - params + color
+// - TEXCOORD3: shadow_packed (uint4) - params + color
+// - TEXCOORD4: noise_packed (uint4) - params + color
+// - TEXCOORD5: anim_packed (uint2) - opacity, shake, block_fade
 //
 // Compression techniques applied:
 // - f16 packing: 2 floats per uint (pack_f16x2)
 // - Effect grouping: params + color in single uint4 per effect
 // - Bit-packed info: 5 fields in 15 bits (17 bits reserved)
-//
-// Future expansion strategies:
-// 1. Pack glyph_uv into existing uint slot (10-bit each = 20 bits)
-// 2. Move per-layer constants to data texture (reduces v2f traffic)
+// - Uniform reads in FS: quad_padding read from _QuadPadding directly
 
 #endif // TYPOGRAPHY_CONSTANTS_INCLUDED

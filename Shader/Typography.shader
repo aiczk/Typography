@@ -1623,15 +1623,11 @@ Shader "GekikaraStore/x.x.x/Typography"
 
                 o.vertex = float4(0, 0, -1, 1);
                 o.glyph_uv = v.uv2;
-                o.char_index = 0;
-                o.packed_info = 0;
+                o.char_packed = uint4(0, 0, pack_f16x2(1, 1), pack_f16x2(1, 1));  // white
+                o.outline_packed = uint4(0, 0, 0, 0);
+                o.shadow_packed = uint4(0, 0, 0, 0);
+                o.noise_packed = uint4(0, 0, 0, 0);
                 o.anim_packed = uint2(pack_f16x2(0.0, 0.0), pack_f16x2(0.0, 1.0));  // opacity=0, shake=0, block_fade=1
-                o.text_color = pack_f16x4(float4(1, 1, 1, 1));
-                o.outline = uint2(0, pack_f16x2(1.0, 0.0));  // x: width|round=0, y: quad_padding=1|unused
-                o.outline_color = uint2(0, 0);
-                o.shadow = uint2(0, 0);
-                o.shadow_surface_color = uint4(0, 0, 0, 0);
-                o.texturing = uint2(0, 0);
 
                 // Decode from UV
                 int char_pos = (int)floor(v.uv.x * 256.0);
@@ -1687,70 +1683,73 @@ Shader "GekikaraStore/x.x.x/Typography"
             {
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
 
-                // Unpack from f16-packed structures (GPU native instructions)
-                // See Constants.hlsl for packed_info bit layout
-                uint font_index = UNPACK_FONT_INDEX(i.packed_info);
-                float2 anim_xy = unpack_f16x2(i.anim_packed.x);  // opacity_mult, shake.x
-                float2 anim_zw = unpack_f16x2(i.anim_packed.y);  // shake.y, block_fade
-                float opacity_mult = anim_xy.x;  // Pre-computed (1-anim_factor)*fade in VS
+                // Unpack char_packed: char_index, packed_info, color.rg, color.ba
+                uint char_index = i.char_packed.x;
+                uint packed_info = i.char_packed.y;
+                uint font_index = UNPACK_FONT_INDEX(packed_info);
+
+                // Unpack anim_packed
+                float2 anim_xy = unpack_f16x2(i.anim_packed.x);
+                float2 anim_zw = unpack_f16x2(i.anim_packed.y);
+                float opacity_mult = anim_xy.x;
                 float2 shake_offset = float2(anim_xy.y, anim_zw.x);
                 float block_fade = anim_zw.y;
-                float2 quad_unpack = unpack_f16x2(i.outline.y);  // quad_padding | unused
-                float quad_padding = quad_unpack.x;
+
+                // quad_padding from uniform (no v2f overhead)
+                float quad_padding = 1.0 + _QuadPadding;
 
                 float2 glyph_uv = i.glyph_uv + shake_offset;
-
-                // Pre-compute adjusted_uv and AtlasParams once
                 float2 adjusted_uv = (glyph_uv - 0.5) * quad_padding + 0.5;
                 AtlasParams atlas_params = load_atlas_params();
 
                 half3 accum_color = half3(0, 0, 0);
                 half accum_alpha = 0.0;
 
-                // Unpack effect params from f16
+                // Unpack text_color from char_packed.zw
+                float2 text_rg = unpack_f16x2(i.char_packed.z);
+                float2 text_ba = unpack_f16x2(i.char_packed.w);
+
+                // Unpack outline_packed: width|round, _, color.rg, color.ba
+                float2 outline_params = unpack_f16x2(i.outline_packed.x);
+                float2 outline_rg = unpack_f16x2(i.outline_packed.z);
+                float2 outline_ba = unpack_f16x2(i.outline_packed.w);
+
+                // Build effect params
                 EffectParams params;
-                params.text_color = unpack_f16x4(i.text_color);
-                float2 outline_width_round = unpack_f16x2(i.outline.x);  // x=width*0.5, y=round
-                params.outline = float4(outline_width_round.x, outline_width_round.y, 0, 0);
-                uint effective_char_index = i.char_index;
-                params.outline_color = unpack_f16x4(i.outline_color);
+                params.text_color = float4(text_rg.x, text_rg.y, text_ba.x, text_ba.y);
+                params.outline = float4(outline_params.x, outline_params.y, 0, 0);
+                params.outline_color = float4(outline_rg.x, outline_rg.y, outline_ba.x, outline_ba.y);
 
-                // Unpack shadow params: intensity|softness, offset.x|offset.y
-                float2 shadow_xy = unpack_f16x2(i.shadow.x);  // intensity, softness
-                float2 shadow_offset = unpack_f16x2(i.shadow.y);  // offset.x, offset.y
-                params.shadow = float4(shadow_xy.x, shadow_offset.x, shadow_offset.y, shadow_xy.y);  // x=intensity, yz=offset, w=softness
+                // Unpack shadow_packed: intensity|soft, offset.xy, color.rg, color.ba
+                float2 shadow_params = unpack_f16x2(i.shadow_packed.x);
+                float2 shadow_offset = unpack_f16x2(i.shadow_packed.y);
+                float2 shadow_rg = unpack_f16x2(i.shadow_packed.z);
+                float2 shadow_ba = unpack_f16x2(i.shadow_packed.w);
+                params.shadow = float4(shadow_params.x, shadow_offset.x, shadow_offset.y, shadow_params.y);
+                params.shadow_color = float4(shadow_rg.x, shadow_rg.y, shadow_ba.x, 1);
 
-                // Unpack shadow.rgb + noise.rgb from combined shadow_surface_color (uint4)
-                // Layout: shadow.rg | shadow.b+noise.r | noise.gb | unused
-                float2 shadow_rg = unpack_f16x2(i.shadow_surface_color.x);
-                float2 shadow_b_noise_r = unpack_f16x2(i.shadow_surface_color.y);
-                float2 noise_gb = unpack_f16x2(i.shadow_surface_color.z);
-                params.shadow_color = float4(shadow_rg.x, shadow_rg.y, shadow_b_noise_r.x, 1);
-                float3 noise_color = float3(shadow_b_noise_r.y, noise_gb.x, noise_gb.y);
-
-                // Unpack noise effect params
-                float2 noise_xy = unpack_f16x2(i.texturing.x);  // intensity, scale
-                float2 noise_zw = unpack_f16x2(i.texturing.y);  // speed, char_offset
-                float noise_intensity = noise_xy.x;
-                float noise_scale = noise_xy.y;
-                float noise_speed = noise_zw.x;
-                float char_offset = noise_zw.y;
-                uint noise_mode = UNPACK_NOISE_MODE(i.packed_info);
-                uint noise_blend_mode = UNPACK_BLEND_MODE(i.packed_info);
+                // Unpack noise_packed: intensity|scale, speed|char_offset, color.rg, color.ba
+                float2 noise_params = unpack_f16x2(i.noise_packed.x);
+                float2 noise_speed_offset = unpack_f16x2(i.noise_packed.y);
+                float2 noise_rg = unpack_f16x2(i.noise_packed.z);
+                float2 noise_ba = unpack_f16x2(i.noise_packed.w);
+                float noise_intensity = noise_params.x;
+                float noise_scale = noise_params.y;
+                float noise_speed = noise_speed_offset.x;
+                float char_offset = noise_speed_offset.y;
+                float3 noise_color = float3(noise_rg.x, noise_rg.y, noise_ba.x);
+                uint noise_mode = UNPACK_NOISE_MODE(packed_info);
+                uint noise_blend_mode = UNPACK_BLEND_MODE(packed_info);
 
                 MSDFSample msdf;
-                apply_effects(accum_color, accum_alpha, msdf, adjusted_uv, atlas_params, effective_char_index, font_index, opacity_mult, params, i.packed_info);
+                apply_effects(accum_color, accum_alpha, msdf, adjusted_uv, atlas_params, char_index, font_index, opacity_mult, params, packed_info);
 
                 // Apply procedural noise effect AFTER main compositing
-                // Use opacity_mult to respect Typewriter animation
                 apply_noise_effect(accum_color, msdf.opacity * opacity_mult, adjusted_uv, char_offset,
                     _Time.y, noise_mode, noise_intensity, noise_scale, noise_speed,
                     noise_color, noise_blend_mode);
 
-                // Clip based on accumulated alpha (before block fade)
                 clip(accum_alpha - _AlphaCutoff);
-
-                // Apply block fade after clip (for smooth Block animation)
                 accum_alpha *= block_fade;
 
                 return float4(accum_color, accum_alpha);

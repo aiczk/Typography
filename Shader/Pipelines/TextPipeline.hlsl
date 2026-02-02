@@ -10,22 +10,18 @@
 // must be included before this file
 
 // ============================================================================
-// Text Vertex Output
+// Text Vertex Output (6 slots)
 // ============================================================================
 struct text_v2f
 {
     float4 vertex : SV_POSITION;
     float2 glyph_uv : TEXCOORD0;
-    nointerpolation uint char_index : TEXCOORD1;
-    nointerpolation uint packed_info : TEXCOORD2;
-    nointerpolation uint2 anim_packed : TEXCOORD3;
-    nointerpolation uint2 text_color : TEXCOORD4;
-    nointerpolation uint2 outline : TEXCOORD5;        // x: width|round, y: quad_padding|unused
-    nointerpolation uint2 outline_color : TEXCOORD6;
-    nointerpolation uint2 shadow : TEXCOORD7;         // x: intensity|softness, y: offset.x|offset.y
-    nointerpolation uint4 shadow_surface_color : TEXCOORD8; // shadow.rg|shadow.b+surface.r|surface.gb|unused
-    nointerpolation uint2 texturing : TEXCOORD9;      // x: surface_intensity|scale, y: speed|char_offset
-    // TEXCOORD10-15: available for future use
+    nointerpolation uint4 char_packed : TEXCOORD1;     // char_index, packed_info, color.rg, color.ba
+    nointerpolation uint4 outline_packed : TEXCOORD2; // width|round, _, color.rg, color.ba
+    nointerpolation uint4 shadow_packed : TEXCOORD3;  // intensity|soft, offset.xy, color.rg, color.ba
+    nointerpolation uint4 noise_packed : TEXCOORD4;   // intensity|scale, speed|char_offset, color.rg, color.ba
+    nointerpolation uint2 anim_packed : TEXCOORD5;    // opacity|shake.x, shake.y|block_fade
+    // TEXCOORD6-15: available for future use
     UNITY_VERTEX_OUTPUT_STEREO
 };
 
@@ -63,8 +59,6 @@ inline bool process_text(
         layer.typewriter.progress, layer.typewriter.smooth,
         layer.block.visible, layer.block.animating, layer.block.char_delay);
     if (!tw.is_visible) return false;
-
-    o.char_index = data.char_index;
 
     // Stage 4: Layout
     LayoutResult layout = calculate_layout(
@@ -133,42 +127,49 @@ inline bool process_text(
                               cam_pos, cam_rot_inv, tan_half_fov, aspect,
                               layer.transform.layer);
 
-    // Stage 10: Pack
+    // Stage 10: Pack (6 slots total)
     o.glyph_uv = corner_uv;
-    o.text_color = pack_f16x4(layer.appearance.color);
-    o.outline = uint2(
-        pack_f16x2(layer.outline.width * 0.5, layer.outline.round),
-        pack_f16x2(qpad, 0));  // quad_padding | unused
-    o.outline_color = pack_f16x4(layer.outline.color);
-    o.shadow = uint2(
-        pack_f16x2(layer.shadow.intensity, layer.shadow.softness),
-        pack_f16x2(layer.shadow.offset.x, layer.shadow.offset.y));
-    // Pack shadow.rgb + surface.rgb into single uint4 (saves 1 TEXCOORD)
-    o.shadow_surface_color = uint4(
-        pack_f16x2(layer.shadow.color.r, layer.shadow.color.g),
-        pack_f16x2(layer.shadow.color.b, layer.noise.color.r),
-        pack_f16x2(layer.noise.color.g, layer.noise.color.b),
-        0);  // reserved for future use
 
-    // Pack info using contiguous bit layout (see Constants.hlsl):
+    // char_packed: char identity + text color in single uint4
+    // packed_info bit layout (see Constants.hlsl):
     // bits 0-7: font_index, bit 8: outline_mode, bit 9: world_space
-    // bits 10-12: surface_mode, bits 13-14: blend_mode, bits 15-31: reserved
-    o.packed_info = PACK_FONT_INDEX(data.font_index)
-        | PACK_OUTLINE_MODE(layer.outline.mode)
-        | PACK_WORLD_SPACE(layer.transform.world_space)
-        | PACK_NOISE_MODE(layer.noise.mode)
-        | PACK_BLEND_MODE(layer.noise.blend_mode);
+    // bits 10-12: noise_mode, bits 13-14: blend_mode, bits 15-31: reserved
+    o.char_packed = uint4(
+        data.char_index,
+        PACK_FONT_INDEX(data.font_index)
+            | PACK_OUTLINE_MODE(layer.outline.mode)
+            | PACK_WORLD_SPACE(layer.transform.world_space)
+            | PACK_NOISE_MODE(layer.noise.mode)
+            | PACK_BLEND_MODE(layer.noise.blend_mode),
+        pack_f16x2(layer.appearance.color.r, layer.appearance.color.g),
+        pack_f16x2(layer.appearance.color.b, layer.appearance.color.a));
 
+    // Outline: params + color (qpad read from uniform in FS)
+    o.outline_packed = uint4(
+        pack_f16x2(layer.outline.width * 0.5, layer.outline.round),
+        0,  // unused
+        pack_f16x2(layer.outline.color.r, layer.outline.color.g),
+        pack_f16x2(layer.outline.color.b, layer.outline.color.a));
+
+    // Shadow: params + color in single uint4
+    o.shadow_packed = uint4(
+        pack_f16x2(layer.shadow.intensity, layer.shadow.softness),
+        pack_f16x2(layer.shadow.offset.x, layer.shadow.offset.y),
+        pack_f16x2(layer.shadow.color.r, layer.shadow.color.g),
+        pack_f16x2(layer.shadow.color.b, 1.0));
+
+    // Noise: params + color in single uint4
+    o.noise_packed = uint4(
+        pack_f16x2(layer.noise.intensity, layer.noise.scale),
+        pack_f16x2(layer.noise.speed, layout.normalized_pos),
+        pack_f16x2(layer.noise.color.r, layer.noise.color.g),
+        pack_f16x2(layer.noise.color.b, 1.0));
+
+    // Animation: opacity, shake, block_fade
     float opacity = 1.0 - tw.anim_factor;
     o.anim_packed = uint2(
         pack_f16x2(opacity, shake_off.x),
         pack_f16x2(shake_off.y, tw.block_fade));
-
-    // Surface effect params (surface.color already packed in shadow_surface_color)
-    // char_offset: normalized char position for per-character noise variation
-    o.texturing = uint2(
-        pack_f16x2(layer.noise.intensity, layer.noise.scale),
-        pack_f16x2(layer.noise.speed, layout.normalized_pos));
 
     return true;
 }
