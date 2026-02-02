@@ -188,7 +188,7 @@ void billboard_quad(float3 center, float3 right, float3 up, float quad_size,
 // ============================================================================
 // Process Particle Macro (Geometry Shader)
 // ============================================================================
-#define PROCESS_PARTICLE(N, base_uv, cam_pos, cam_rot_inv, tan_half_fov, aspect, vr_scale, distance_fade, stream, o) \
+#define PROCESS_PARTICLE(N, base_uv, cam_pos, cam_rot_inv, tan_half_fov, aspect, distance_fade, stream, o) \
 { \
     ParticleLayer layer_##N = (ParticleLayer)0; \
     LOAD_PARTICLE_LAYER(N, layer_##N) \
@@ -197,7 +197,6 @@ void billboard_quad(float3 center, float3 right, float3 up, float quad_size,
         bool is_screen = (layer_##N.space == 0); \
         float3 bb_right = is_screen ? cam_rot_inv._m00_m01_m02 : UNITY_MATRIX_V._m00_m01_m02; \
         float3 bb_up = is_screen ? cam_rot_inv._m10_m11_m12 : UNITY_MATRIX_V._m10_m11_m12; \
-        float p_vr_scale = is_screen ? vr_scale : 1.0; \
         float t = _Time.y * layer_##N.speed; \
         bool has_rot = any(layer_##N.rotation.xyz != 0); \
         \
@@ -219,12 +218,12 @@ void billboard_quad(float3 center, float3 right, float3 up, float quad_size,
             p += rise_off; \
             psize *= layer_##N.size; \
             \
-            float3 base_pos = p * layer_##N.scale.xyz * p_vr_scale \
-                            + layer_##N.position.xyz * CM_TO_METER_SCALE * p_vr_scale; \
+            float3 base_pos = p * layer_##N.scale.xyz \
+                            + layer_##N.position.xyz * CM_TO_METER_SCALE; \
             float3 world_center = is_screen \
                 ? base_pos \
                 : mul(unity_ObjectToWorld, float4(base_pos, 1.0)).xyz; \
-            float quad_size = 0.01 * psize * p_vr_scale; \
+            float quad_size = 0.01 * psize; \
             \
             if (cull_object(world_center, is_screen ? 0 : 1, 0.0, \
                             cam_pos, cam_rot_inv, tan_half_fov, aspect, quad_size * 2.0)) \

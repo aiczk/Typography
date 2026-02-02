@@ -217,11 +217,6 @@ inline float get_screen_aspect()
     return _ScreenParams.x / _ScreenParams.y;
 }
 
-// VR scale factor (call once per vertex shader, not per layer)
-inline float get_vr_scale(float vr_scale_property)
-{
-    return is_vr() ? vr_scale_property : 1.0;
-}
 
 // Apply VR eye offset to custom camera position for correct stereo parallax
 inline float3 apply_vr_eye_offset(float3 custom_cam_pos)
@@ -258,9 +253,9 @@ inline float3 apply_vr_eye_offset(float3 custom_cam_pos)
 }
 
 // Apply root transform to position (branchless: identity matrix returns pos unchanged)
-inline float3 apply_root_transform(float3 local_pos, int root_index, float3x3 root_matrix, float3 root_pos, float vr_scale)
+inline float3 apply_root_transform(float3 local_pos, int root_index, float3x3 root_matrix, float3 root_pos)
 {
-    return mul(root_matrix, local_pos) + root_pos * CM_TO_METER_SCALE * vr_scale;
+    return mul(root_matrix, local_pos) + root_pos * CM_TO_METER_SCALE;
 }
 
 // ============================================================================

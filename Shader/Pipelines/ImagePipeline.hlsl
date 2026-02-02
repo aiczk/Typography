@@ -141,8 +141,7 @@ inline bool process_image(
     float3 cam_pos,
     float3x3 cam_rot_inv,
     float tan_half_fov,
-    float aspect,
-    float vr_scale)
+    float aspect)
 {
     // Stage 1: Visibility
     if (!visibility_check(layer.use)) return false;
@@ -150,7 +149,7 @@ inline bool process_image(
     // Stage 2: Transform (using unified transform system)
     TransformData xform = build_transform_unified(
         layer.transform.position, layer.transform.rotation,
-        layer.transform.scale, layer.transform.pivot, vr_scale,
+        layer.transform.scale, layer.transform.pivot,
         PIVOT_SCALE_IMAGE);
 
     // Image world position with pivot offset (uses pre-computed xform.pivot)
@@ -160,10 +159,10 @@ inline bool process_image(
     // Stage 3: Root Transform
     float3x3 root_mat; float3 root_pos;
     GET_ROOT_TRANSFORM(layer.transform.root_index, root_mat, root_pos)
-    world_pos = apply_root(world_pos, layer.transform.root_index, root_mat, root_pos, vr_scale);
+    world_pos = apply_root(world_pos, layer.transform.root_index, root_mat, root_pos);
 
     // Stage 4: Culling (using Systems)
-    float margin = calculate_margin_unified(layer.transform.scale.xyz * vr_scale, MARGIN_BASE_IMAGE);
+    float margin = calculate_margin_unified(layer.transform.scale.xyz, MARGIN_BASE_IMAGE);
     if (cull_object(world_pos, layer.transform.world_space, 0.0,
                     cam_pos, cam_rot_inv, tan_half_fov, aspect, margin))
         return false;

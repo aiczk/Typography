@@ -46,7 +46,6 @@ inline bool process_text(
     float3x3 cam_rot_inv,
     float tan_half_fov,
     float aspect,
-    float vr_scale,
     float quad_padding_global,
     float dfc_enabled,
     Texture2D<float4> data_texture,
@@ -111,15 +110,15 @@ inline bool process_text(
     // Stage 6: Transform
     TransformData xform = build_transform_unified(
         layer.transform.position, layer.transform.rotation,
-        layer.transform.scale, layer.transform.pivot, vr_scale, PIVOT_SCALE_TEXT);
+        layer.transform.scale, layer.transform.pivot, PIVOT_SCALE_TEXT);
     float3 world_pos = transform_to_world(local_pos, xform);
 
     float3x3 root_mat; float3 root_pos;
     GET_ROOT_TRANSFORM(layer.transform.root_index, root_mat, root_pos)
-    world_pos = apply_root(world_pos, layer.transform.root_index, root_mat, root_pos, vr_scale);
+    world_pos = apply_root(world_pos, layer.transform.root_index, root_mat, root_pos);
 
     // Stage 7: Culling
-    float margin = calculate_margin_unified(layer.transform.scale.xyz * vr_scale, MARGIN_BASE_TEXT);
+    float margin = calculate_margin_unified(layer.transform.scale.xyz, MARGIN_BASE_TEXT);
     if (cull_object(world_pos, layer.transform.world_space, dfc_enabled,
                     cam_pos, cam_rot_inv, tan_half_fov, aspect, margin))
         return false;

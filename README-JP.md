@@ -198,5 +198,6 @@ https://vrchat.com/home/avatar/avtr_20c77b57-edc0-4de3-bace-3b7b21b998bd
 - ぷくぷくまる
 - あまね
 - 一ノ瀬
+- みぃ_暇人
 - UniTea（グループ）
 - その他の告知に協力してくださった皆様

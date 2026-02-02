@@ -196,5 +196,6 @@ This project was inspired by [ShaderToyText](https://www.shadertoy.com/view/Xtfy
 - ぷくぷくまる
 - あまね
 - 一ノ瀬
+- みぃ_暇人
 - UniTea (group)
 - Everyone who helped with announcements

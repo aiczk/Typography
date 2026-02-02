@@ -13,6 +13,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [Vector3] _CameraPosition ("Position", Vector) = (0, 0, 0, 0)
             [Vector3] _CameraRotation ("Rotation", Vector) = (0, 0, 0, 0)
             _CameraFOV ("FOV", Range(10, 120)) = 60.0
+            _VRFOV ("VR FOV", Range(10, 120)) = 110.0
         [HideInInspector] m_end_camera_setting ("Camera Settings", Float) = 0
         
         [HideInInspector] m_start_root_setting ("Root Transforms", Float) = 0
@@ -1329,7 +1330,6 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_start_utility_settings ("Utility", Float) = 0
                 _AlphaCutoff ("Alpha Cutoff", Range(0, 1)) = 0.0001
                 _QuadPadding ("Quad Padding", Range(0, 1)) = 0.5
-                _VRScale ("VR Scale", Range(0.1, 1)) = 0.3
             [HideInInspector] m_end_utility_settings ("Utility", Float) = 0
 
             [HideInInspector] m_start_internal_settings ("Internal", Float) = 0
@@ -1398,7 +1398,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             float4 _CameraPosition;
             float4 _CameraRotation;
             float _CameraFOV;
-            float _VRScale;
+            float _VRFOV;
             float _FadeMin;
             float _FadeMax;
             float _AlphaCutoff;
@@ -1447,15 +1447,15 @@ Shader "GekikaraStore/x.x.x/Typography"
 
                 uint image_id = (uint)(v.uv.y * 32.0);
 
-                // Compute shared values once (VR scale, camera, distance fade)
-                float vr_scale = get_vr_scale(_VRScale);
+                // Compute shared values once (camera, distance fade)
                 float3 unity_camera_pos = get_camera_position();
                 float dist = distance(unity_camera_pos, mul(unity_ObjectToWorld, float4(0, 0, 0, 1)).xyz);
                 float fade = saturate(1.0 - (dist - _FadeMin) / (_FadeMax - _FadeMin + EPSILON));
 
                 float3 cam_pos = apply_vr_eye_offset(_CameraPosition.xyz * CM_TO_METER_SCALE);
                 float3x3 cam_rot_inv = transpose(rotation_matrix(_CameraRotation.xyz * DEG2_RAD));
-                float tan_half_fov = tan(_CameraFOV * DEG2_RAD * 0.5);
+                float fov = is_vr() ? _VRFOV : _CameraFOV;
+                float tan_half_fov = tan(fov * DEG2_RAD * 0.5);
                 float aspect = get_screen_aspect();
 
                 // Pack fade (image_id set by process_image)
@@ -1478,7 +1478,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                 }
 
                 // Process image (returns false if culled/disabled)
-                if (!process_image(o, v.uv2, layer, image_id, cam_pos, cam_rot_inv, tan_half_fov, aspect, vr_scale))
+                if (!process_image(o, v.uv2, layer, image_id, cam_pos, cam_rot_inv, tan_half_fov, aspect))
                 {
                     o.vertex = float4(0,0,-1,1);
                     return o;
@@ -1561,7 +1561,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             float4 _CameraPosition;
             float4 _CameraRotation;
             float _CameraFOV;
-            float _VRScale;
+            float _VRFOV;
 
             // Debug
             float _DFC;
@@ -1646,9 +1646,9 @@ Shader "GekikaraStore/x.x.x/Typography"
 
                 float3 cam_pos = apply_vr_eye_offset(_CameraPosition.xyz * CM_TO_METER_SCALE);
                 float3x3 cam_rot_inv = transpose(rotation_matrix(_CameraRotation.xyz * DEG2_RAD));
-                float tan_half_fov = tan(_CameraFOV * DEG2_RAD * 0.5);
+                float fov = is_vr() ? _VRFOV : _CameraFOV;
+                float tan_half_fov = tan(fov * DEG2_RAD * 0.5);
                 float aspect = get_screen_aspect();
-                float vr_scale = get_vr_scale(_VRScale);
 
                 // Load layer based on text_id
                 TextLayer layer = (TextLayer)0;
@@ -1668,7 +1668,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                 }
 
                 // Process text (returns false if culled/disabled)
-                if (!process_text(o, v.uv2, char_pos, layer, text_id, cam_pos, cam_rot_inv, tan_half_fov, aspect, vr_scale, _QuadPadding, _DFC, _DataTexture, _DataTexture_TexelSize))
+                if (!process_text(o, v.uv2, char_pos, layer, text_id, cam_pos, cam_rot_inv, tan_half_fov, aspect, _QuadPadding, _DFC, _DataTexture, _DataTexture_TexelSize))
                 {
                     o.vertex = float4(0, 0, -1, 1);
                     return o;
@@ -1805,7 +1805,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             float4 _CameraPosition;
             float4 _CameraRotation;
             float _CameraFOV;
-            float _VRScale;
+            float _VRFOV;
             float _FadeMin;
             float _FadeMax;
 
@@ -1830,10 +1830,10 @@ Shader "GekikaraStore/x.x.x/Typography"
                 if (uv2_avg.x + uv2_avg.y > 1.0) return;
 
                 // Camera setup (shared)
-                float vr_scale = is_vr() ? _VRScale : 1.0;
-                float3 cam_pos = apply_vr_eye_offset(_CameraPosition.xyz * CM_TO_METER_SCALE);  // No vr_scale here
+                float3 cam_pos = apply_vr_eye_offset(_CameraPosition.xyz * CM_TO_METER_SCALE);
                 float3x3 cam_rot_inv = transpose(rotation_matrix(_CameraRotation.xyz * DEG2_RAD));
-                float tan_half_fov = tan(_CameraFOV * DEG2_RAD * 0.5);
+                float fov = is_vr() ? _VRFOV : _CameraFOV;
+                float tan_half_fov = tan(fov * DEG2_RAD * 0.5);
                 float aspect = get_screen_aspect();
 
                 // Distance fade (same as text pass)
@@ -1851,7 +1851,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
                 // Process each particle type using macro
-                PROCESS_PARTICLE(0, base_uv, cam_pos, cam_rot_inv, tan_half_fov, aspect, vr_scale, distance_fade, stream, o)
+                PROCESS_PARTICLE(0, base_uv, cam_pos, cam_rot_inv, tan_half_fov, aspect, distance_fade, stream, o)
             }
 
             half4 frag(particle_g2f i) : SV_Target

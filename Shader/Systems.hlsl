@@ -312,15 +312,14 @@ inline TransformData build_transform_unified(
     float4 rotation,
     float4 scale,
     float4 pivot,
-    float vr_scale,
     float pivot_scale)
 {
     TransformData result;
 
-    result.translation = position.xyz * CM_TO_METER_SCALE * vr_scale;
+    result.translation = position.xyz * CM_TO_METER_SCALE;
     result.pivot = pivot.xyz * pivot_scale;
 
-    float3 scale_val = scale.xyz * vr_scale;
+    float3 scale_val = scale.xyz;
     float3x3 rot_matrix = has_rotation(rotation.xyz)
         ? rotation_matrix(rotation.xyz * DEG2_RAD)
         : IDENTITY_MATRIX3;
@@ -339,10 +338,9 @@ inline float3 apply_root(
     float3 world_pos,
     int root_index,
     float3x3 root_matrix,
-    float3 root_pos,
-    float vr_scale)
+    float3 root_pos)
 {
-    return apply_root_transform(world_pos, root_index, root_matrix, root_pos, vr_scale);
+    return apply_root_transform(world_pos, root_index, root_matrix, root_pos);
 }
 
 // ============================================================================
