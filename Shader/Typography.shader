@@ -1293,6 +1293,10 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_end_particle_0_transform ("", Float) = 0
         [HideInInspector] m_end_particle_pass ("Particle Pass", Float) = 0
 
+        [HideInInspector][Toggle] _FXPassUse ("", Float) = 0
+        [HideInInspector] m_start_fx_pass ("FX Pass--{reference_property:_FXPassUse}", Float) = 0
+        [HideInInspector] m_end_fx_pass ("FX Pass", Float) = 0
+
         [HideInInspector] m_start_rendering_settings ("Rendering Settings", Float) = 0
             _FadeMin ("Fade Min", Float) = 0
             _FadeMax ("Fade Max", Float) = 99999
@@ -1914,10 +1918,11 @@ Shader "GekikaraStore/x.x.x/Typography"
         }
         //endex
 
+        //ifex _FXPassUse==0
         // ============================================================================
         // GrabPass: Capture screen for FX Pass
         // ============================================================================
-        GrabPass { "_GrabTexture" }
+        GrabPass { "_TypographyFXPassGrabTexture" }
 
         // ============================================================================
         // Pass 3: FX (Post-Processing) - Fullscreen Quad from SubMesh 3
@@ -1925,20 +1930,27 @@ Shader "GekikaraStore/x.x.x/Typography"
         Pass
         {
             Name "FX"
+		    ZWrite Off
+		    ZTest Off
+		    Cull Front
+		    Blend One Zero
 
             CGPROGRAM
             #pragma vertex fx_vert
             #pragma fragment fx_frag
             #pragma target 4.5
             #pragma multi_compile_instancing
+            #pragma fragmentoption ARB_precision_hint_fastest
 
             #include "UnityCG.cginc"
 
-            sampler2D _GrabTexture;
+            sampler2D _TypographyFXPassGrabTexture;
+            float _FXPassUse;
 
             struct fx_appdata
             {
                 float4 vertex : POSITION;
+                float2 uv : TEXCOORD0;   // uv.x < 0 as FX marker
                 float2 uv2 : TEXCOORD1;  // Clip space coords (-1,-1) to (1,1)
                 UNITY_VERTEX_INPUT_INSTANCE_ID
             };
@@ -1956,10 +1968,14 @@ Shader "GekikaraStore/x.x.x/Typography"
                 UNITY_SETUP_INSTANCE_ID(v);
                 UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
 
-                // Pass detection: FX = uv2.x < 0
+                // Pass detection: FX = uv.x < 0
                 o.vertex = float4(0, 0, -1, 1);
                 o.grabPos = float4(0, 0, 0, 1);
-                if (v.uv2.x >= 0) return o;
+                if (v.uv.x >= 0) return o;
+
+                //ifex _FXPassUse==1
+                if (!_FXPassUse) return o;
+                //endex
 
                 // Use uv2 as clip space position for fullscreen quad
                 o.vertex = float4(v.uv2.xy, 0, 1);
@@ -1972,12 +1988,10 @@ Shader "GekikaraStore/x.x.x/Typography"
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
 
                 float2 uv = i.grabPos.xy / i.grabPos.w;
-                half4 col = tex2D(_GrabTexture, uv);
-
-                // Test: Color inversion to verify GrabPass works
-                return half4(1 - col.rgb, col.a);
+                return tex2D(_TypographyFXPassGrabTexture, uv);
             }
             ENDCG
         }
+        //endex
     }
 }
