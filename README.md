@@ -27,8 +27,6 @@ Fragment shader instruction counts (Unity compiled shader stats, d3d11):
 | SSVFX          |     0.851ms |   1.8x |
 | TexSV          |     6.094ms |  13.0x |
 
-> Imagery also achieved comparable performance (0.500ms).
-
 ## Features
 
 - High-quality edges with MSDF (sharp at any scale)
@@ -39,8 +37,6 @@ Fragment shader instruction counts (Unity compiled shader stats, d3d11):
 - Outline / Shadow & Glow / Fractal Noise
 - Stencil buffer support
 - VR Scale adjustment
-
-> Lightweight image-only shader `GekikaraStore/Imagery` is also included.
 
 ## Installation
 
@@ -167,12 +163,6 @@ Fragment shader instruction counts (Unity compiled shader stats, d3d11):
 | **Utility** | |
 | Quad Padding | Character quad size expansion (0-1) |
 | VR Scale | VR environment scale (0.1-1) |
-
-## Typography Debugger
-
-Editor window for ScreenSpace text.
-Access via `Typography > Debugger`.
-Supports AnimationWindow integration for keyframe editing (alpha).
 
 ## Specifications
 

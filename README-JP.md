@@ -40,8 +40,6 @@ Fragment 命令数 **1/4**。処理を Vertex Shader に集約し、解像度が
 - Stencil バッファ対応
 - VR スケール調整
 
-> 画像専用の軽量シェーダー `GekikaraStore/Imagery` も同梱しています。
-
 ## インストール
 
 1. [Thry Editor](https://github.com/Thryrallo/ThryEditor) をインポート
@@ -167,12 +165,6 @@ Fragment 命令数 **1/4**。処理を Vertex Shader に集約し、解像度が
 | **Utility** | |
 | Quad Padding | 文字Quadサイズ拡張（0-1） |
 | VR Scale | VR環境スケール（0.1-1） |
-
-## Typography Debugger
-
-ScreenSpace テキスト専用のエディタウィンドウ。
-`Typography > Debugger` からアクセス。
-AnimationWindow 連携によるキーフレーム編集が可能（アルファ版）。
 
 ## 仕様
 

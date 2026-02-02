@@ -179,8 +179,6 @@ def process_shader_slots(content: str, image_count: int, text_count: int) -> str
             template, end_i = extract_block_until(lines, i, '[DynamicThryLabel] _TextLabel')
             for n in range(text_count):
                 reindexed = reindex_block(template, 0, n)
-                if n == 0:
-                    reindexed = [l.replace('_Use0 ("", Float) = 0', '_Use0 ("", Float) = 1') for l in reindexed]
                 result.extend(reindexed)
                 if n < text_count - 1:
                     result.append('')
