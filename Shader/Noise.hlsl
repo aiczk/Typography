@@ -147,6 +147,7 @@ float fbm(float2 p, int octaves)
     float amplitude = 0.5;
     float frequency = 1.0;
 
+    [unroll]
     for (int i = 0; i < octaves; i++)
     {
         value += amplitude * simplex2d(p * frequency);
@@ -164,6 +165,7 @@ float fbm_animated(float2 p, float time, int octaves)
     float amplitude = 0.5;
     float frequency = 1.0;
 
+    [unroll]
     for (int i = 0; i < octaves; i++)
     {
         value += amplitude * simplex3d(float3(p * frequency, time + i * 0.5));
@@ -181,6 +183,7 @@ float turbulence_animated(float2 p, float time, int octaves)
     float amplitude = 0.5;
     float frequency = 1.0;
 
+    [unroll]
     for (int i = 0; i < octaves; i++)
     {
         value += amplitude * abs(simplex3d(float3(p * frequency, time + i * 0.5)));
@@ -199,6 +202,7 @@ float ridged_animated(float2 p, float time, int octaves)
     float frequency = 1.0;
     float prev = 1.0;
 
+    [unroll]
     for (int i = 0; i < octaves; i++)
     {
         float n = 1.0 - abs(simplex3d(float3(p * frequency, time + i * 0.5)));

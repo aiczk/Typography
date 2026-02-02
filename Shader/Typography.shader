@@ -1429,11 +1429,7 @@ Shader "GekikaraStore/x.x.x/Typography"
 
             // Image Pipeline Dependencies
             #include "Core.hlsl"
-            #include "Systems/VisibilitySystem.hlsl"
-            #include "Systems/TransformSystem.hlsl"
-            #include "Systems/CullingSystem.hlsl"
-            #include "Systems/QuadSystem.hlsl"
-            #include "Systems/ProjectionSystem.hlsl"
+            #include "Systems.hlsl"
             #include "Pipelines/ImagePipeline.hlsl"
 
             image_v2f image_vert(image_appdata v)
@@ -1457,7 +1453,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                 float dist = distance(unity_camera_pos, mul(unity_ObjectToWorld, float4(0, 0, 0, 1)).xyz);
                 float fade = saturate(1.0 - (dist - _FadeMin) / (_FadeMax - _FadeMin + EPSILON));
 
-                float3 cam_pos = _CameraPosition.xyz * CM_TO_METER_SCALE;
+                float3 cam_pos = apply_vr_eye_offset(_CameraPosition.xyz * CM_TO_METER_SCALE);
                 float3x3 cam_rot_inv = transpose(rotation_matrix(_CameraRotation.xyz * DEG2_RAD));
                 float tan_half_fov = tan(_CameraFOV * DEG2_RAD * 0.5);
                 float aspect = get_screen_aspect();
@@ -1601,8 +1597,8 @@ Shader "GekikaraStore/x.x.x/Typography"
             // Text Pipeline Dependencies
             #include "Core.hlsl"
             #include "Effects.hlsl"
-            #include "Components/Components.hlsl"
-            #include "Systems/Systems.hlsl"
+            #include "Components.hlsl"
+            #include "Systems.hlsl"
             #include "Pipelines/TextPipeline.hlsl"
             
             DECLARE_TEXT_LAYER_VARS(0)
@@ -1648,7 +1644,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                 float dist = distance(unity_camera_pos, mul(unity_ObjectToWorld, float4(0, 0, 0, 1)).xyz);
                 float distance_fade = saturate(1.0 - (dist - _FadeMin) / (_FadeMax - _FadeMin + EPSILON));
 
-                float3 cam_pos = _CameraPosition.xyz * CM_TO_METER_SCALE;
+                float3 cam_pos = apply_vr_eye_offset(_CameraPosition.xyz * CM_TO_METER_SCALE);
                 float3x3 cam_rot_inv = transpose(rotation_matrix(_CameraRotation.xyz * DEG2_RAD));
                 float tan_half_fov = tan(_CameraFOV * DEG2_RAD * 0.5);
                 float aspect = get_screen_aspect();
@@ -1798,8 +1794,8 @@ Shader "GekikaraStore/x.x.x/Typography"
 
             // Particle Pipeline Dependencies
             #include "Core.hlsl"
-            #include "Systems/CullingSystem.hlsl"
-            #include "Components/ParticleComponent.hlsl"
+            #include "Components.hlsl"
+            #include "Systems.hlsl"
             #include "Pipelines/ParticlePipeline.hlsl"
 
             // Particle Properties (using macro for each particle type)
@@ -1835,7 +1831,7 @@ Shader "GekikaraStore/x.x.x/Typography"
 
                 // Camera setup (shared)
                 float vr_scale = is_vr() ? _VRScale : 1.0;
-                float3 cam_pos = _CameraPosition.xyz * CM_TO_METER_SCALE;  // No vr_scale here
+                float3 cam_pos = apply_vr_eye_offset(_CameraPosition.xyz * CM_TO_METER_SCALE);  // No vr_scale here
                 float3x3 cam_rot_inv = transpose(rotation_matrix(_CameraRotation.xyz * DEG2_RAD));
                 float tan_half_fov = tan(_CameraFOV * DEG2_RAD * 0.5);
                 float aspect = get_screen_aspect();

@@ -863,7 +863,7 @@ Material:
     - _Particle0Distribution: 0
     - _Particle0Hollow: 1
     - _Particle0Lifetime: 1
-    - _Particle0Multiplier: 1
+    - _Particle0Multiplier: 0
     - _Particle0Shape: 0
     - _Particle0Size: 1
     - _Particle0Space: 0
@@ -1684,6 +1684,16 @@ Material:
     - m_end_flipbook7: 0
     - m_end_flipbook8: 0
     - m_end_flipbook9: 0
+    - m_end_fractal_noise0: 0
+    - m_end_fractal_noise1: 0
+    - m_end_fractal_noise2: 0
+    - m_end_fractal_noise3: 0
+    - m_end_fractal_noise4: 0
+    - m_end_fractal_noise5: 0
+    - m_end_fractal_noise6: 0
+    - m_end_fractal_noise7: 0
+    - m_end_fractal_noise8: 0
+    - m_end_fractal_noise9: 0
     - m_end_gradient0: 0
     - m_end_gradient1: 0
     - m_end_gradient10: 0
@@ -1804,6 +1814,16 @@ Material:
     - m_end_shadow7: 0
     - m_end_shadow8: 0
     - m_end_shadow9: 0
+    - m_end_shadow_glow0: 0
+    - m_end_shadow_glow1: 0
+    - m_end_shadow_glow2: 0
+    - m_end_shadow_glow3: 0
+    - m_end_shadow_glow4: 0
+    - m_end_shadow_glow5: 0
+    - m_end_shadow_glow6: 0
+    - m_end_shadow_glow7: 0
+    - m_end_shadow_glow8: 0
+    - m_end_shadow_glow9: 0
     - m_end_shake0: 0
     - m_end_shake1: 0
     - m_end_shake10: 0
@@ -1978,7 +1998,7 @@ Material:
     - m_start_animator7: 0
     - m_start_animator8: 0
     - m_start_animator9: 0
-    - m_start_camera_setting: 1
+    - m_start_camera_setting: 0
     - m_start_chromakey0: 0
     - m_start_chromakey1: 0
     - m_start_chromakey2: 0
@@ -2064,6 +2084,16 @@ Material:
     - m_start_flipbook7: 0
     - m_start_flipbook8: 0
     - m_start_flipbook9: 0
+    - m_start_fractal_noise0: 0
+    - m_start_fractal_noise1: 0
+    - m_start_fractal_noise2: 0
+    - m_start_fractal_noise3: 0
+    - m_start_fractal_noise4: 0
+    - m_start_fractal_noise5: 0
+    - m_start_fractal_noise6: 0
+    - m_start_fractal_noise7: 0
+    - m_start_fractal_noise8: 0
+    - m_start_fractal_noise9: 0
     - m_start_gradient0: 0
     - m_start_gradient1: 0
     - m_start_gradient10: 0
@@ -2145,7 +2175,7 @@ Material:
     - m_start_particle_0_shape: 1
     - m_start_particle_setting: 0
     - m_start_particle_stencil: 0
-    - m_start_rendering_settings: 1
+    - m_start_rendering_settings: 0
     - m_start_root0: 0
     - m_start_root1: 0
     - m_start_root2: 0
@@ -2184,6 +2214,16 @@ Material:
     - m_start_shadow7: 0
     - m_start_shadow8: 0
     - m_start_shadow9: 0
+    - m_start_shadow_glow0: 0
+    - m_start_shadow_glow1: 0
+    - m_start_shadow_glow2: 0
+    - m_start_shadow_glow3: 0
+    - m_start_shadow_glow4: 0
+    - m_start_shadow_glow5: 0
+    - m_start_shadow_glow6: 0
+    - m_start_shadow_glow7: 0
+    - m_start_shadow_glow8: 0
+    - m_start_shadow_glow9: 0
     - m_start_shake0: 0
     - m_start_shake1: 0
     - m_start_shake10: 0

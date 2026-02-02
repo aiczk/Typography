@@ -71,19 +71,6 @@ inline float4 unpack_f16x4(uint2 packed)
     );
 }
 
-// Pack two 8-bit normalized values into 16 bits
-inline uint pack_unorm8x2(float a, float b)
-{
-    return ((uint)(saturate(a) * 255.0) & 0xFFu) | (((uint)(saturate(b) * 255.0) & 0xFFu) << 8);
-}
-
-// Unpack 16 bits to two normalized floats
-inline float2 unpack_unorm8x2(uint packed)
-{
-    const float inv255 = 1.0 / 255.0;
-    return float2((packed & 0xFFu) * inv255, ((packed >> 8) & 0xFFu) * inv255);
-}
-
 // Extract channel from float4 by index (branchless-friendly)
 inline float extract_channel(float4 pixel, uint channel)
 {
@@ -123,25 +110,11 @@ inline float ease_smooth(float t)
     return t * t * (3.0 - 2.0 * t);
 }
 
-// Smoother ease-in-out (quintic, Ken Perlin's smootherstep)
-inline float ease_smoother(float t)
-{
-    return t * t * t * (t * (t * 6.0 - 15.0) + 10.0);
-}
-
 // Ease out cubic (deceleration)
 inline float ease_out_cubic(float t)
 {
     float f = 1.0 - t;
     return 1.0 - f * f * f;
-}
-
-// Ease in-out cubic
-inline float ease_in_out_cubic(float t)
-{
-    return t < 0.5
-        ? 4.0 * t * t * t
-        : 1.0 - pow(-2.0 * t + 2.0, 3.0) * 0.5;
 }
 
 // Gaussian falloff for smooth range transitions (After Effects "Smooth" shape)
@@ -231,7 +204,7 @@ inline float3 get_camera_position()
 
 inline bool is_vr()
 {
-    #if UNITY_SINGLE_PASS_STEREO
+    #if defined(UNITY_SINGLE_PASS_STEREO) || defined(UNITY_STEREO_INSTANCING_ENABLED) || defined(UNITY_STEREO_MULTIVIEW_ENABLED)
         return true;
     #else
         return _VRChatMirrorMode == 1.0;
@@ -248,6 +221,19 @@ inline float get_screen_aspect()
 inline float get_vr_scale(float vr_scale_property)
 {
     return is_vr() ? vr_scale_property : 1.0;
+}
+
+// Apply VR eye offset to custom camera position for correct stereo parallax
+inline float3 apply_vr_eye_offset(float3 custom_cam_pos)
+{
+    #if defined(UNITY_STEREO_INSTANCING_ENABLED) || defined(UNITY_STEREO_MULTIVIEW_ENABLED)
+        float3 head_center = (unity_StereoWorldSpaceCameraPos[0] + unity_StereoWorldSpaceCameraPos[1]) * 0.5;
+        float3 eye_pos = unity_StereoWorldSpaceCameraPos[unity_StereoEyeIndex];
+        float3 eye_offset = eye_pos - head_center;
+        return custom_cam_pos + eye_offset;
+    #else
+        return custom_cam_pos;
+    #endif
 }
 
 // ============================================================================

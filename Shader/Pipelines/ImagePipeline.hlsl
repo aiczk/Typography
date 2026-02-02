@@ -6,7 +6,7 @@
 // Orchestrates Systems for image rendering
 // ============================================================================
 
-// Dependencies: Core.hlsl, Systems/Systems.hlsl must be included before this file
+// Dependencies: Core.hlsl, Systems.hlsl must be included before this file
 
 // ============================================================================
 // Image Input/Output Structures

@@ -6,7 +6,7 @@
 // Orchestrates Systems for text rendering
 // ============================================================================
 
-// Dependencies: Core.hlsl, Effects.hlsl, Components/Components.hlsl, Systems/Systems.hlsl
+// Dependencies: Core.hlsl, Effects.hlsl, Components.hlsl, Systems.hlsl
 // must be included before this file
 
 // ============================================================================
