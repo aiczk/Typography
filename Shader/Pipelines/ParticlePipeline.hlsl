@@ -2,7 +2,7 @@
 #define TYPOGRAPHY_PARTICLE_PIPELINE_INCLUDED
 
 // ============================================================================
-// Particle Pipeline
+// Particle Pipeline (VS Expansion - No Geometry Shader)
 // Dependencies: Core.hlsl, Components.hlsl, Systems.hlsl
 // ============================================================================
 
@@ -11,25 +11,17 @@
 // ============================================================================
 struct particle_appdata
 {
-    float4 vertex : POSITION;
-    float2 uv : TEXCOORD0;
-    float2 uv2 : TEXCOORD1;
+    float4 vertex : POSITION;    // xyz = random seed (baked in mesh)
+    float2 uv : TEXCOORD0;       // x = particle_id / 256, y = layer_id / 32
+    float2 uv2 : TEXCOORD1;      // quad corner (0,0)-(1,1)
     UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 
-struct particle_v2g
-{
-    float4 vertex : POSITION;
-    float2 uv : TEXCOORD0;
-    float2 uv2 : TEXCOORD1;
-    UNITY_VERTEX_INPUT_INSTANCE_ID
-};
-
-struct particle_g2f
+struct particle_v2f
 {
     float4 vertex : SV_POSITION;
-    float2 uv : TEXCOORD0;
-    nointerpolation uint2 packed : TEXCOORD1;
+    float2 uv : TEXCOORD0;                     // SDF coordinates (-1,-1) to (1,1)
+    nointerpolation uint2 packed : TEXCOORD1;  // shape, hollow, colorMul, age, distFade
     UNITY_VERTEX_OUTPUT_STEREO
 };
 
@@ -164,10 +156,10 @@ void rise_effect(float r3, float r4, float t, float lifetime, float3 direction,
 }
 
 // ============================================================================
-// Billboard
+// Billboard (VS version - computes single vertex position)
 // ============================================================================
-void billboard_quad(float3 center, float3 right, float3 up, float quad_size,
-                    float3 rotation, bool has_rotation, out float3 v[4])
+float3 billboard_vertex(float3 center, float3 right, float3 up, float quad_size,
+                        float3 rotation, bool has_rotation, float2 corner)
 {
     [branch]
     if (has_rotation)
@@ -179,78 +171,105 @@ void billboard_quad(float3 center, float3 right, float3 up, float quad_size,
     right *= quad_size;
     up *= quad_size;
 
-    v[0] = center - right - up;
-    v[1] = center - right + up;
-    v[2] = center + right - up;
-    v[3] = center + right + up;
+    // corner: (0,0), (0,1), (1,0), (1,1) -> offset: (-1,-1), (-1,1), (1,-1), (1,1)
+    float2 offset = corner * 2.0 - 1.0;
+    return center + right * offset.x + up * offset.y;
 }
 
 // ============================================================================
-// Process Particle Macro (Geometry Shader)
+// Process Particle (Vertex Shader - Single Particle)
 // ============================================================================
-#define PROCESS_PARTICLE(N, base_uv, cam_pos, cam_rot_inv, tan_half_fov, aspect, distance_fade, stream, o) \
-{ \
-    ParticleLayer layer_##N = (ParticleLayer)0; \
-    LOAD_PARTICLE_LAYER(N, layer_##N) \
-    if (layer_##N.multiplier > 0) \
-    { \
-        bool is_screen = (layer_##N.space == 0); \
-        float3 bb_right = is_screen ? cam_rot_inv._m00_m01_m02 : UNITY_MATRIX_V._m00_m01_m02; \
-        float3 bb_up = is_screen ? cam_rot_inv._m10_m11_m12 : UNITY_MATRIX_V._m10_m11_m12; \
-        float t = _Time.y * layer_##N.speed; \
-        bool has_rot = any(layer_##N.rotation.xyz != 0); \
-        \
-        [loop] \
-        for (int m = 0; m < layer_##N.multiplier; m++) \
-        { \
-            float2 seed = base_uv + float2(m * 0.00137, m * 0.00251); \
-            float r0, r1, r2, r3, r4, r5, r6, r7; \
-            rand8(seed, r0, r1, r2, r3, r4, r5, r6, r7); \
-            \
-            float3 dist_pos, float_pos; \
-            distribution_and_float(r0, r1, r2, t, layer_##N.distribution, dist_pos, float_pos); \
-            float3 p = dist_pos + float_pos * 0.05; \
-            \
-            float3 rise_off; \
-            float color_mul, psize, p_age; \
-            rise_effect(r3, r4, t, layer_##N.lifetime, layer_##N.direction.xyz, \
-                        rise_off, color_mul, psize, p_age); \
-            p += rise_off; \
-            psize *= layer_##N.size; \
-            \
-            float3 base_pos = p * layer_##N.scale.xyz \
-                            + layer_##N.position.xyz * CM_TO_METER_SCALE; \
-            float3 world_center = is_screen \
-                ? base_pos \
-                : mul(unity_ObjectToWorld, float4(base_pos, 1.0)).xyz; \
-            float quad_size = 0.01 * psize; \
-            \
-            if (cull_object(world_center, is_screen ? 0 : 1, 0.0, \
-                            cam_pos, cam_rot_inv, tan_half_fov, aspect, quad_size * 2.0)) \
-                continue; \
-            \
-            float3 v[4]; \
-            float3 rot_dir = float3(r5, r6, r7) - 0.5; \
-            float3 rot = rot_dir * (TWO_PI + t) * layer_##N.rotation.xyz; \
-            billboard_quad(world_center, bb_right, bb_up, quad_size, rot, has_rot, v); \
-            \
-            static const float2 uvs[4] = { float2(-1,-1), float2(-1,1), float2(1,-1), float2(1,1) }; \
-            uint shape_raw = (uint)layer_##N.shape; \
-            uint shape_bits = (shape_raw >= 4u) ? ((uint)(r7 * 4.0) & 0x3u) : (shape_raw & 0x3u); \
-            uint hollow_bits = ((uint)(saturate(layer_##N.hollow) * 255.0)) & 0xFFu; \
-            uint colorMul_bits = ((uint)(saturate(color_mul) * 65535.0)) & 0xFFFFu; \
-            o.packed.x = shape_bits | (hollow_bits << 8) | (colorMul_bits << 16); \
-            o.packed.y = f32tof16(p_age) | (f32tof16(distance_fade) << 16); \
-            [unroll] for (int i = 0; i < 4; i++) { \
-                o.uv = uvs[i]; \
-                o.vertex = is_screen \
-                    ? project_custom_camera(v[i], cam_pos, cam_rot_inv, tan_half_fov, aspect, 0) \
-                    : mul(UNITY_MATRIX_VP, float4(v[i], 1.0)); \
-                stream.Append(o); \
-            } \
-            stream.RestartStrip(); \
-        } \
-    } \
+particle_v2f process_particle_vs(particle_appdata v, ParticleLayer layer,
+                                  float3 cam_pos, float3x3 cam_rot_inv,
+                                  float tan_half_fov, float aspect, float distance_fade)
+{
+    particle_v2f o;
+    UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+
+    // Default: culled
+    o.vertex = float4(0, 0, -1, 1);
+    o.uv = float2(0, 0);
+    o.packed = uint2(0, 0);
+
+    // Early out if disabled
+    if (layer.use <= 0)
+        return o;
+
+    // Extract particle ID and random seed from mesh
+    int particle_id = (int)(v.uv.x * 256.0);
+    float3 rnd_seed = v.vertex.xyz;  // Random seed baked in vertex position
+
+    // Quad corner from uv2
+    float2 corner = v.uv2;
+
+    // Billboard basis
+    bool is_screen = (layer.space == 0);
+    float3 bb_right = is_screen ? cam_rot_inv._m00_m01_m02 : UNITY_MATRIX_V._m00_m01_m02;
+    float3 bb_up = is_screen ? cam_rot_inv._m10_m11_m12 : UNITY_MATRIX_V._m10_m11_m12;
+    float t = _Time.y * layer.speed;
+    bool has_rot = any(layer.rotation.xyz != 0);
+
+    // Generate random values from seed (layer.seed offsets for different patterns)
+    float2 seed = float2(rnd_seed.x * 1000.0 + layer.seed, rnd_seed.y * 1000.0 + particle_id * 0.001);
+    float r0, r1, r2, r3, r4, r5, r6, r7;
+    rand8(seed, r0, r1, r2, r3, r4, r5, r6, r7);
+
+    // Distribution and float animation
+    float3 dist_pos, float_pos;
+    distribution_and_float(r0, r1, r2, t, layer.distribution, dist_pos, float_pos);
+    float3 p = dist_pos + float_pos * 0.05;
+
+    // Rise effect (returns age for other calculations)
+    float3 rise_off;
+    float color_mul, psize, p_age;
+    rise_effect(r3, r4, t, layer.lifetime, layer.direction.xyz,
+                rise_off, color_mul, psize, p_age);
+    p += rise_off;
+
+    // Gravity effect (parabolic motion based on age)
+    float age_time = p_age * layer.lifetime;
+    p += layer.gravity.xyz * (age_time * age_time * 0.5);
+
+    // Size over lifetime (lerp from size to size_end)
+    float final_size = lerp(layer.size, layer.size_end, p_age);
+    psize *= final_size;
+
+    // World position
+    float3 base_pos = p * layer.scale.xyz + layer.position.xyz * CM_TO_METER_SCALE;
+    float3 world_center = is_screen
+        ? base_pos
+        : mul(unity_ObjectToWorld, float4(base_pos, 1.0)).xyz;
+    float quad_size = 0.01 * psize;
+
+    // Frustum culling
+    if (cull_object(world_center, is_screen ? 0 : 1, 0.0,
+                    cam_pos, cam_rot_inv, tan_half_fov, aspect, quad_size * 2.0))
+        return o;
+
+    // Billboard rotation
+    float3 rot_dir = float3(r5, r6, r7) - 0.5;
+    float3 rot = rot_dir * (TWO_PI + t) * layer.rotation.xyz;
+
+    // Compute vertex position
+    float3 world_pos = billboard_vertex(world_center, bb_right, bb_up, quad_size, rot, has_rot, corner);
+
+    // Project
+    o.vertex = is_screen
+        ? project_custom_camera(world_pos, cam_pos, cam_rot_inv, tan_half_fov, aspect, 0)
+        : mul(UNITY_MATRIX_VP, float4(world_pos, 1.0));
+
+    // SDF UV: corner (0,0)-(1,1) -> (-1,-1)-(1,1)
+    o.uv = corner * 2.0 - 1.0;
+
+    // Pack data
+    uint shape_raw = (uint)layer.shape;
+    uint shape_bits = (shape_raw >= 4u) ? ((uint)(r7 * 4.0) & 0x3u) : (shape_raw & 0x3u);
+    uint hollow_bits = ((uint)(saturate(layer.hollow) * 255.0)) & 0xFFu;
+    uint colorMul_bits = ((uint)(saturate(color_mul) * 65535.0)) & 0xFFFFu;
+    o.packed.x = shape_bits | (hollow_bits << 8) | (colorMul_bits << 16);
+    o.packed.y = f32tof16(p_age) | (f32tof16(distance_fade) << 16);
+
+    return o;
 }
 
 #endif

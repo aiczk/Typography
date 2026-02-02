@@ -1265,24 +1265,28 @@ Shader "GekikaraStore/x.x.x/Typography"
             [DynamicThryLabel] _TextLabel9 ("TextLabel9", Int) = 0
         [HideInInspector] m_end_text_setting ("Text Settings", Float) = 0
 
-        [HideInInspector] m_start_particle_setting ("Particle Settings", Float) = 0
+        [HideInInspector][Toggle] _Particle0Use ("", Float) = 0
+        [HideInInspector] m_start_particle_setting ("Particle Settings--{reference_property:_Particle0Use}", Float) = 0
             [Enum(Screen,0,World,1)] _Particle0Space ("Space", Int) = 0
-            [IntRange] _Particle0Multiplier ("Multiplier", Range(0, 25)) = 0
             [Enum(Sphere,0,Cube,1)] _Particle0Distribution ("Distribution", Int) = 0
             [HideInInspector] m_start_particle_0_shape ("Shape", Float) = 1
                 [Enum(Circle,0,Square,1,Triangle,2,Cross,3,Random,4)] _Particle0Shape ("Shape", Int) = 0
                 [Gradient] _Particle0Gradient ("Gradient", 2D) = "white" {}
-                _Particle0Size ("Size", Float) = 1.0
+                [MultiSlider]_Particle0Size ("Size (Start, End)", Vector) = (0, 1, 0, 1)
                 [Vector3] _Particle0Rotation ("Rotation", Vector) = (0, 0, 0, 0)
                 _Particle0Hollow ("Hollow", Range(0.1, 1)) = 1
             [HideInInspector] m_end_particle_0_shape ("", Float) = 0
-            [HideInInspector] m_start_particle_0_effect ("Effect", Float) = 0
+            [HideInInspector] m_start_particle_0_motion ("Motion", Float) = 0
+                _Particle0Seed ("Seed", Float) = 0
                 _Particle0Speed ("Speed", Float) = 0.2
                 _Particle0Lifetime ("Lifetime", Float) = 1.0
                 [Vector3] _Particle0Direction ("Direction", Vector) = (0, 0, 0, 0)
+                [Vector3] _Particle0Gravity ("Gravity", Vector) = (0, 0, 0, 0)
+            [HideInInspector] m_end_particle_0_motion ("", Float) = 0
+            [HideInInspector] m_start_particle_0_transform ("Transform", Float) = 0
                 [Vector3] _Particle0Position ("Position", Vector) = (0, 0, 0, 0)
                 [Vector3] _Particle0Scale ("Scale", Vector) = (3, 3, 3, 0)
-            [HideInInspector] m_end_particle_0_effect ("Effect", Float) = 0
+            [HideInInspector] m_end_particle_0_transform ("", Float) = 0
         [HideInInspector] m_end_particle_setting ("Particle Settings", Float) = 0
 
         [HideInInspector] m_start_rendering_settings ("Rendering Settings", Float) = 0
@@ -1445,7 +1449,10 @@ Shader "GekikaraStore/x.x.x/Typography"
                 o.chroma_packed = uint2(0, 0);
                 o.chroma_extra = 0;
 
-                uint image_id = (uint)(v.uv.y * 32.0);
+                // Pass detection: Image = uv.y < 0.001 && vertex.xyz == 0 && uv2.x >= 0
+                if (v.uv.y > 0.001 || any(v.vertex.xyz != 0) || v.uv2.x < 0) return o;
+
+                uint image_id = (uint)(v.uv.x * 32.0);
 
                 // Compute shared values once (camera, distance fade)
                 float3 unity_camera_pos = get_camera_position();
@@ -1629,6 +1636,9 @@ Shader "GekikaraStore/x.x.x/Typography"
                 o.noise_packed = uint4(0, 0, 0, 0);
                 o.anim_packed = uint2(pack_f16x2(0.0, 0.0), pack_f16x2(0.0, 1.0));  // opacity=0, shake=0, block_fade=1
 
+                // Pass detection: Text = uv.y > 0.001 && vertex.xyz == 0 && uv2.x >= 0
+                if (v.uv.y < 0.001 || any(v.vertex.xyz != 0) || v.uv2.x < 0) return o;
+
                 // Decode from UV
                 int char_pos = (int)floor(v.uv.x * 256.0);
                 int text_id = (int)floor(v.uv.y * 32.0);
@@ -1758,7 +1768,7 @@ Shader "GekikaraStore/x.x.x/Typography"
         }
 
         // ============================================================================
-        // Pass 2: Particle Effect
+        // Pass 2: Particle Effect (VS Expansion - No Geometry Shader)
         // ============================================================================
         Pass
         {
@@ -1780,11 +1790,9 @@ Shader "GekikaraStore/x.x.x/Typography"
             }
 
             CGPROGRAM
-            #pragma vertex vert
-            #pragma geometry geom
-            #pragma fragment frag
+            #pragma vertex particle_vert
+            #pragma fragment particle_frag
             #pragma target 4.5
-            #pragma require geometry
             #pragma multi_compile_instancing
             #pragma fragmentoption ARB_precision_hint_fastest
 
@@ -1807,52 +1815,38 @@ Shader "GekikaraStore/x.x.x/Typography"
             float _FadeMin;
             float _FadeMax;
 
-            particle_v2g vert(particle_appdata v)
+            particle_v2f particle_vert(particle_appdata v)
             {
-                particle_v2g o;
                 UNITY_SETUP_INSTANCE_ID(v);
-                UNITY_TRANSFER_INSTANCE_ID(v, o);
-                o.vertex = v.vertex;
-                o.uv = v.uv.xy;
-                o.uv2 = v.uv2.xy;
-                return o;
-            }
 
-            [maxvertexcount(100)]  // 10 scalars (VR stereo) * 100 = 1000 < 1024
-            void geom(triangle particle_v2g IN[3], inout TriangleStream<particle_g2f> stream)
-            {
-                UNITY_SETUP_INSTANCE_ID(IN[0]);
+                // Pass detection: Particle = vertex.xyz != 0
+                particle_v2f cull_out;
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(cull_out);
+                cull_out.vertex = float4(0, 0, -1, 1);
+                cull_out.uv = float2(0, 0);
+                cull_out.packed = uint2(0, 0);
+                if (!any(v.vertex.xyz != 0)) return cull_out;
 
-                // Triangle filtering: skip second triangle of each quad
-                float2 uv2_avg = (IN[0].uv2 + IN[1].uv2 + IN[2].uv2) / 3;
-                if (uv2_avg.x + uv2_avg.y > 1.0) return;
-
-                // Camera setup (shared)
+                // Camera setup
                 float3 cam_pos = apply_vr_eye_offset(_CameraPosition.xyz * CM_TO_METER_SCALE);
                 float3x3 cam_rot_inv = transpose(rotation_matrix(_CameraRotation.xyz * DEG2_RAD));
                 float fov = is_vr() ? _VRFOV : _CameraFOV;
                 float tan_half_fov = tan(fov * DEG2_RAD * 0.5);
                 float aspect = get_screen_aspect();
 
-                // Distance fade (same as text pass)
+                // Distance fade
                 float3 unity_camera_pos = get_camera_position();
                 float dist = distance(unity_camera_pos, mul(unity_ObjectToWorld, float4(0, 0, 0, 1)).xyz);
                 float distance_fade = saturate(1.0 - (dist - _FadeMin) / (_FadeMax - _FadeMin + EPSILON));
 
-                // Particle ID from mesh UV
-                float2 avg_uv = (IN[0].uv + IN[1].uv + IN[2].uv) / 3;
-                int char_pos = (int)floor(avg_uv.x * 256.0);
-                int text_id = (int)floor(avg_uv.y * 32.0);
-                float2 base_uv = float2(char_pos, text_id);
+                // Load particle layer
+                ParticleLayer layer = (ParticleLayer)0;
+                LOAD_PARTICLE_LAYER(0, layer)
 
-                particle_g2f o;
-                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-
-                // Process each particle type using macro
-                PROCESS_PARTICLE(0, base_uv, cam_pos, cam_rot_inv, tan_half_fov, aspect, distance_fade, stream, o)
+                return process_particle_vs(v, layer, cam_pos, cam_rot_inv, tan_half_fov, aspect, distance_fade);
             }
 
-            half4 frag(particle_g2f i) : SV_Target
+            half4 particle_frag(particle_v2f i) : SV_Target
             {
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
 
@@ -1891,6 +1885,72 @@ Shader "GekikaraStore/x.x.x/Typography"
                 col = col * col * (col * (half)0.305 + (half)0.695);
 
                 return half4(col, smoothstep((half)1, (half)0.8, d) * color.a * distFade);
+            }
+            ENDCG
+        }
+
+        // ============================================================================
+        // GrabPass: Capture screen for FX Pass
+        // ============================================================================
+        GrabPass { "_GrabTexture" }
+
+        // ============================================================================
+        // Pass 3: FX (Post-Processing) - Fullscreen Quad from SubMesh 3
+        // ============================================================================
+        Pass
+        {
+            Name "FX"
+
+            CGPROGRAM
+            #pragma vertex fx_vert
+            #pragma fragment fx_frag
+            #pragma target 4.5
+            #pragma multi_compile_instancing
+
+            #include "UnityCG.cginc"
+
+            sampler2D _GrabTexture;
+
+            struct fx_appdata
+            {
+                float4 vertex : POSITION;
+                float2 uv2 : TEXCOORD1;  // Clip space coords (-1,-1) to (1,1)
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+            };
+
+            struct fx_v2f
+            {
+                float4 vertex : SV_POSITION;
+                float4 grabPos : TEXCOORD0;
+                UNITY_VERTEX_OUTPUT_STEREO
+            };
+
+            fx_v2f fx_vert(fx_appdata v)
+            {
+                fx_v2f o;
+                UNITY_SETUP_INSTANCE_ID(v);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+
+                // Pass detection: FX = uv2.x < 0
+                o.vertex = float4(0, 0, -1, 1);
+                o.grabPos = float4(0, 0, 0, 1);
+                if (v.uv2.x >= 0) return o;
+
+                // Use uv2 as clip space position for fullscreen quad
+                o.vertex = float4(v.uv2.xy, 0, 1);
+                o.grabPos = ComputeGrabScreenPos(o.vertex);
+                return o;
+            }
+
+            half4 fx_frag(fx_v2f i) : SV_Target
+            {
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
+
+                float2 uv = i.grabPos.xy / i.grabPos.w;
+                half4 col = tex2D(_GrabTexture, uv);
+
+                // Test: Color inversion to verify GrabPass works
+                return half4(1 - col.rgb, col.a);
             }
             ENDCG
         }
