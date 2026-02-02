@@ -5,6 +5,7 @@ Shader "GekikaraStore/x.x.x/Typography"
         [HideInInspector] shader_is_using_thry_editor("", Float) = 0
         [HideInInspector] GeometryShader_Enabled ("", Float) = 1
         [HideInInspector] shader_master_label("<b><i><color=#858585>T</color><color=#9D9D9D>y</color><color=#B5B5B5>p</color><color=#CECECE>o</color><color=#E6E6E6>g</color><color=#FFFFFF>r</color><color=#E6E6E6>a</color><color=#CECECE>p</color><color=#B5B5B5>h</color><color=#9D9D9D>y</color></i></b>", Float) = 0
+        [ThryShaderOptimizerLockButton] _ShaderOptimizerEnabled ("", Int) = 0
         [HideInInspector] _DFC ("Debug Frustum Culling", Float) = 0
 
         [Project] _Project ("Project", Int) = 0
@@ -59,10 +60,11 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_end_root4 ("Root 5", Float) = 0
         [HideInInspector] m_end_root_setting ("Root Transforms", Float) = 0
 
-        [HideInInspector] m_start_image_setting ("Image Settings", Float) = 0
-        
+        [HideInInspector][Toggle] _ImagePassUse ("", Float) = 0
+        [HideInInspector] m_start_image_pass ("Image Pass--{reference_property:_ImagePassUse}", Float) = 0
+
             [HideInInspector][Toggle] _ImageUse0 ("", Float) = 0
-            [HideInInspector] m_start_image_setting0 (" --{reference_property:_ImageUse0}", Float) = 0
+            [HideInInspector] m_start_image_pass0 (" --{reference_property:_ImageUse0}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace0 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex0 ("Root", Int) = 0
                 [HideInInspector][Apply(1.03)] _ApplyTexturesI0 ("", Int) = 0
@@ -83,11 +85,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     _ImageChromaThreshold0 ("Threshold", Range(0, 1)) = 0
                     _ImageChromaFeathering0 ("Feathering", Range(0, 1)) = 0
                 [HideInInspector] m_end_chromakey0 ("Chroma Key", Float) = 0
-            [HideInInspector] m_end_image_setting0 ("", Float) = 0
+            [HideInInspector] m_end_image_pass0 ("", Float) = 0
             [DynamicThryLabel] _ImageLabel0 ("Image 0", Int) = 0
 
             [HideInInspector][Toggle] _ImageUse1 ("", Float) = 0
-            [HideInInspector] m_start_image_setting1 (" --{reference_property:_ImageUse1}", Float) = 0
+            [HideInInspector] m_start_image_pass1 (" --{reference_property:_ImageUse1}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace1 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex1 ("Root", Int) = 0
                 [HideInInspector][Apply(1.03)] _ApplyTexturesI1 ("", Int) = 0
@@ -108,11 +110,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     _ImageChromaThreshold1 ("Threshold", Range(0, 1)) = 0
                     _ImageChromaFeathering1 ("Feathering", Range(0, 1)) = 0
                 [HideInInspector] m_end_chromakey1 ("Chroma Key", Float) = 0
-            [HideInInspector] m_end_image_setting1 ("", Float) = 0
+            [HideInInspector] m_end_image_pass1 ("", Float) = 0
             [DynamicThryLabel] _ImageLabel1 ("Image 1", Int) = 0
 
             [HideInInspector][Toggle] _ImageUse2 ("", Float) = 0
-            [HideInInspector] m_start_image_setting2 (" --{reference_property:_ImageUse2}", Float) = 0
+            [HideInInspector] m_start_image_pass2 (" --{reference_property:_ImageUse2}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace2 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex2 ("Root", Int) = 0
                 [HideInInspector][Apply(1.03)] _ApplyTexturesI2 ("", Int) = 0
@@ -133,11 +135,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     _ImageChromaThreshold2 ("Threshold", Range(0, 1)) = 0
                     _ImageChromaFeathering2 ("Feathering", Range(0, 1)) = 0
                 [HideInInspector] m_end_chromakey2 ("Chroma Key", Float) = 0
-            [HideInInspector] m_end_image_setting2 ("", Float) = 0
+            [HideInInspector] m_end_image_pass2 ("", Float) = 0
             [DynamicThryLabel] _ImageLabel2 ("Image 2", Int) = 0
 
             [HideInInspector][Toggle] _ImageUse3 ("", Float) = 0
-            [HideInInspector] m_start_image_setting3 (" --{reference_property:_ImageUse3}", Float) = 0
+            [HideInInspector] m_start_image_pass3 (" --{reference_property:_ImageUse3}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace3 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex3 ("Root", Int) = 0
                 [HideInInspector][Apply(1.03)] _ApplyTexturesI3 ("", Int) = 0
@@ -158,11 +160,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     _ImageChromaThreshold3 ("Threshold", Range(0, 1)) = 0
                     _ImageChromaFeathering3 ("Feathering", Range(0, 1)) = 0
                 [HideInInspector] m_end_chromakey3 ("Chroma Key", Float) = 0
-            [HideInInspector] m_end_image_setting3 ("", Float) = 0
+            [HideInInspector] m_end_image_pass3 ("", Float) = 0
             [DynamicThryLabel] _ImageLabel3 ("Image 3", Int) = 0
 
             [HideInInspector][Toggle] _ImageUse4 ("", Float) = 0
-            [HideInInspector] m_start_image_setting4 (" --{reference_property:_ImageUse4}", Float) = 0
+            [HideInInspector] m_start_image_pass4 (" --{reference_property:_ImageUse4}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace4 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex4 ("Root", Int) = 0
                 [HideInInspector][Apply(1.03)] _ApplyTexturesI4 ("", Int) = 0
@@ -183,11 +185,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     _ImageChromaThreshold4 ("Threshold", Range(0, 1)) = 0
                     _ImageChromaFeathering4 ("Feathering", Range(0, 1)) = 0
                 [HideInInspector] m_end_chromakey4 ("Chroma Key", Float) = 0
-            [HideInInspector] m_end_image_setting4 ("", Float) = 0
+            [HideInInspector] m_end_image_pass4 ("", Float) = 0
             [DynamicThryLabel] _ImageLabel4 ("Image 4", Int) = 0
 
             [HideInInspector][Toggle] _ImageUse5 ("", Float) = 0
-            [HideInInspector] m_start_image_setting5 (" --{reference_property:_ImageUse5}", Float) = 0
+            [HideInInspector] m_start_image_pass5 (" --{reference_property:_ImageUse5}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace5 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex5 ("Root", Int) = 0
                 [HideInInspector][Apply(1.03)] _ApplyTexturesI5 ("", Int) = 0
@@ -208,11 +210,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     _ImageChromaThreshold5 ("Threshold", Range(0, 1)) = 0
                     _ImageChromaFeathering5 ("Feathering", Range(0, 1)) = 0
                 [HideInInspector] m_end_chromakey5 ("Chroma Key", Float) = 0
-            [HideInInspector] m_end_image_setting5 ("", Float) = 0
+            [HideInInspector] m_end_image_pass5 ("", Float) = 0
             [DynamicThryLabel] _ImageLabel5 ("Image 5", Int) = 0
 
             [HideInInspector][Toggle] _ImageUse6 ("", Float) = 0
-            [HideInInspector] m_start_image_setting6 (" --{reference_property:_ImageUse6}", Float) = 0
+            [HideInInspector] m_start_image_pass6 (" --{reference_property:_ImageUse6}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace6 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex6 ("Root", Int) = 0
                 [HideInInspector][Apply(1.03)] _ApplyTexturesI6 ("", Int) = 0
@@ -233,11 +235,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     _ImageChromaThreshold6 ("Threshold", Range(0, 1)) = 0
                     _ImageChromaFeathering6 ("Feathering", Range(0, 1)) = 0
                 [HideInInspector] m_end_chromakey6 ("Chroma Key", Float) = 0
-            [HideInInspector] m_end_image_setting6 ("", Float) = 0
+            [HideInInspector] m_end_image_pass6 ("", Float) = 0
             [DynamicThryLabel] _ImageLabel6 ("Image 6", Int) = 0
 
             [HideInInspector][Toggle] _ImageUse7 ("", Float) = 0
-            [HideInInspector] m_start_image_setting7 (" --{reference_property:_ImageUse7}", Float) = 0
+            [HideInInspector] m_start_image_pass7 (" --{reference_property:_ImageUse7}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace7 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex7 ("Root", Int) = 0
                 [HideInInspector][Apply(1.03)] _ApplyTexturesI7 ("", Int) = 0
@@ -258,11 +260,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     _ImageChromaThreshold7 ("Threshold", Range(0, 1)) = 0
                     _ImageChromaFeathering7 ("Feathering", Range(0, 1)) = 0
                 [HideInInspector] m_end_chromakey7 ("Chroma Key", Float) = 0
-            [HideInInspector] m_end_image_setting7 ("", Float) = 0
+            [HideInInspector] m_end_image_pass7 ("", Float) = 0
             [DynamicThryLabel] _ImageLabel7 ("Image 7", Int) = 0
 
             [HideInInspector][Toggle] _ImageUse8 ("", Float) = 0
-            [HideInInspector] m_start_image_setting8 (" --{reference_property:_ImageUse8}", Float) = 0
+            [HideInInspector] m_start_image_pass8 (" --{reference_property:_ImageUse8}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace8 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex8 ("Root", Int) = 0
                 [HideInInspector][Apply(1.03)] _ApplyTexturesI8 ("", Int) = 0
@@ -283,11 +285,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     _ImageChromaThreshold8 ("Threshold", Range(0, 1)) = 0
                     _ImageChromaFeathering8 ("Feathering", Range(0, 1)) = 0
                 [HideInInspector] m_end_chromakey8 ("Chroma Key", Float) = 0
-            [HideInInspector] m_end_image_setting8 ("", Float) = 0
+            [HideInInspector] m_end_image_pass8 ("", Float) = 0
             [DynamicThryLabel] _ImageLabel8 ("Image 8", Int) = 0
 
             [HideInInspector][Toggle] _ImageUse9 ("", Float) = 0
-            [HideInInspector] m_start_image_setting9 (" --{reference_property:_ImageUse9}", Float) = 0
+            [HideInInspector] m_start_image_pass9 (" --{reference_property:_ImageUse9}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace9 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex9 ("Root", Int) = 0
                 [HideInInspector][Apply(1.03)] _ApplyTexturesI9 ("", Int) = 0
@@ -308,14 +310,15 @@ Shader "GekikaraStore/x.x.x/Typography"
                     _ImageChromaThreshold9 ("Threshold", Range(0, 1)) = 0
                     _ImageChromaFeathering9 ("Feathering", Range(0, 1)) = 0
                 [HideInInspector] m_end_chromakey9 ("Chroma Key", Float) = 0
-            [HideInInspector] m_end_image_setting9 ("", Float) = 0
+            [HideInInspector] m_end_image_pass9 ("", Float) = 0
             [DynamicThryLabel] _ImageLabel9 ("Image 9", Int) = 0
-        [HideInInspector] m_end_image_setting ("Image Settings", Float) = 0
+        [HideInInspector] m_end_image_pass ("Image Pass", Float) = 0
         
-        [HideInInspector] m_start_text_setting ("Text Settings", Float) = 0
+        [HideInInspector][Toggle] _TextPassUse ("", Float) = 0
+        [HideInInspector] m_start_text_pass ("Text Pass--{reference_property:_TextPassUse}", Float) = 0
             [Fonts] _Fonts ("Fonts", Int) = 0
             [HideInInspector][Toggle] _Use0 ("", Float) = 0
-            [HideInInspector] m_start_text_setting0 (" --{reference_property:_Use0}", Float) = 0
+            [HideInInspector] m_start_text_pass0 (" --{reference_property:_Use0}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace0 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex0 ("Root", Int) = 0
                 [Enum(Text_Horizontal, 0, Text_Vertical, 2)] _Mode0 ("Mode", Int) = 0
@@ -406,11 +409,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_end_fractal_noise0 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect0 ("Effector", Float) = 0
-            [HideInInspector] m_end_text_setting0 ("", Float) = 0
+            [HideInInspector] m_end_text_pass0 ("", Float) = 0
             [DynamicThryLabel] _TextLabel0 ("TextLabel0", Int) = 0
 
             [HideInInspector][Toggle] _Use1 ("", Float) = 0
-            [HideInInspector] m_start_text_setting1 (" --{reference_property:_Use1}", Float) = 0
+            [HideInInspector] m_start_text_pass1 (" --{reference_property:_Use1}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace1 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex1 ("Root", Int) = 0
                 [Enum(Text_Horizontal, 0, Text_Vertical, 2)] _Mode1 ("Mode", Int) = 0
@@ -501,11 +504,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_end_fractal_noise1 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect1 ("Effector", Float) = 0
-            [HideInInspector] m_end_text_setting1 ("", Float) = 0
+            [HideInInspector] m_end_text_pass1 ("", Float) = 0
             [DynamicThryLabel] _TextLabel1 ("TextLabel1", Int) = 0
 
             [HideInInspector][Toggle] _Use2 ("", Float) = 0
-            [HideInInspector] m_start_text_setting2 (" --{reference_property:_Use2}", Float) = 0
+            [HideInInspector] m_start_text_pass2 (" --{reference_property:_Use2}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace2 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex2 ("Root", Int) = 0
                 [Enum(Text_Horizontal, 0, Text_Vertical, 2)] _Mode2 ("Mode", Int) = 0
@@ -596,11 +599,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_end_fractal_noise2 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect2 ("Effector", Float) = 0
-            [HideInInspector] m_end_text_setting2 ("", Float) = 0
+            [HideInInspector] m_end_text_pass2 ("", Float) = 0
             [DynamicThryLabel] _TextLabel2 ("TextLabel2", Int) = 0
 
             [HideInInspector][Toggle] _Use3 ("", Float) = 0
-            [HideInInspector] m_start_text_setting3 (" --{reference_property:_Use3}", Float) = 0
+            [HideInInspector] m_start_text_pass3 (" --{reference_property:_Use3}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace3 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex3 ("Root", Int) = 0
                 [Enum(Text_Horizontal, 0, Text_Vertical, 2)] _Mode3 ("Mode", Int) = 0
@@ -691,11 +694,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_end_fractal_noise3 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect3 ("Effector", Float) = 0
-            [HideInInspector] m_end_text_setting3 ("", Float) = 0
+            [HideInInspector] m_end_text_pass3 ("", Float) = 0
             [DynamicThryLabel] _TextLabel3 ("TextLabel3", Int) = 0
 
             [HideInInspector][Toggle] _Use4 ("", Float) = 0
-            [HideInInspector] m_start_text_setting4 (" --{reference_property:_Use4}", Float) = 0
+            [HideInInspector] m_start_text_pass4 (" --{reference_property:_Use4}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace4 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex4 ("Root", Int) = 0
                 [Enum(Text_Horizontal, 0, Text_Vertical, 2)] _Mode4 ("Mode", Int) = 0
@@ -786,11 +789,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_end_fractal_noise4 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect4 ("Effector", Float) = 0
-            [HideInInspector] m_end_text_setting4 ("", Float) = 0
+            [HideInInspector] m_end_text_pass4 ("", Float) = 0
             [DynamicThryLabel] _TextLabel4 ("TextLabel4", Int) = 0
 
             [HideInInspector][Toggle] _Use5 ("", Float) = 0
-            [HideInInspector] m_start_text_setting5 (" --{reference_property:_Use5}", Float) = 0
+            [HideInInspector] m_start_text_pass5 (" --{reference_property:_Use5}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace5 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex5 ("Root", Int) = 0
                 [Enum(Text_Horizontal, 0, Text_Vertical, 2)] _Mode5 ("Mode", Int) = 0
@@ -881,11 +884,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_end_fractal_noise5 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect5 ("Effector", Float) = 0
-            [HideInInspector] m_end_text_setting5 ("", Float) = 0
+            [HideInInspector] m_end_text_pass5 ("", Float) = 0
             [DynamicThryLabel] _TextLabel5 ("TextLabel5", Int) = 0
 
             [HideInInspector][Toggle] _Use6 ("", Float) = 0
-            [HideInInspector] m_start_text_setting6 (" --{reference_property:_Use6}", Float) = 0
+            [HideInInspector] m_start_text_pass6 (" --{reference_property:_Use6}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace6 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex6 ("Root", Int) = 0
                 [Enum(Text_Horizontal, 0, Text_Vertical, 2)] _Mode6 ("Mode", Int) = 0
@@ -976,11 +979,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_end_fractal_noise6 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect6 ("Effector", Float) = 0
-            [HideInInspector] m_end_text_setting6 ("", Float) = 0
+            [HideInInspector] m_end_text_pass6 ("", Float) = 0
             [DynamicThryLabel] _TextLabel6 ("TextLabel6", Int) = 0
 
             [HideInInspector][Toggle] _Use7 ("", Float) = 0
-            [HideInInspector] m_start_text_setting7 (" --{reference_property:_Use7}", Float) = 0
+            [HideInInspector] m_start_text_pass7 (" --{reference_property:_Use7}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace7 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex7 ("Root", Int) = 0
                 [Enum(Text_Horizontal, 0, Text_Vertical, 2)] _Mode7 ("Mode", Int) = 0
@@ -1071,11 +1074,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_end_fractal_noise7 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect7 ("Effector", Float) = 0
-            [HideInInspector] m_end_text_setting7 ("", Float) = 0
+            [HideInInspector] m_end_text_pass7 ("", Float) = 0
             [DynamicThryLabel] _TextLabel7 ("TextLabel7", Int) = 0
 
             [HideInInspector][Toggle] _Use8 ("", Float) = 0
-            [HideInInspector] m_start_text_setting8 (" --{reference_property:_Use8}", Float) = 0
+            [HideInInspector] m_start_text_pass8 (" --{reference_property:_Use8}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace8 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex8 ("Root", Int) = 0
                 [Enum(Text_Horizontal, 0, Text_Vertical, 2)] _Mode8 ("Mode", Int) = 0
@@ -1166,11 +1169,11 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_end_fractal_noise8 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect8 ("Effector", Float) = 0
-            [HideInInspector] m_end_text_setting8 ("", Float) = 0
+            [HideInInspector] m_end_text_pass8 ("", Float) = 0
             [DynamicThryLabel] _TextLabel8 ("TextLabel8", Int) = 0
 
             [HideInInspector][Toggle] _Use9 ("", Float) = 0
-            [HideInInspector] m_start_text_setting9 (" --{reference_property:_Use9}", Float) = 0
+            [HideInInspector] m_start_text_pass9 (" --{reference_property:_Use9}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _WorldSpace9 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _RootIndex9 ("Root", Int) = 0
                 [Enum(Text_Horizontal, 0, Text_Vertical, 2)] _Mode9 ("Mode", Int) = 0
@@ -1261,12 +1264,13 @@ Shader "GekikaraStore/x.x.x/Typography"
                     [HideInInspector] m_end_fractal_noise9 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect9 ("Effector", Float) = 0
-            [HideInInspector] m_end_text_setting9 ("", Float) = 0
+            [HideInInspector] m_end_text_pass9 ("", Float) = 0
             [DynamicThryLabel] _TextLabel9 ("TextLabel9", Int) = 0
-        [HideInInspector] m_end_text_setting ("Text Settings", Float) = 0
+        [HideInInspector] m_end_text_pass ("Text Pass", Float) = 0
 
-        [HideInInspector][Toggle] _Particle0Use ("", Float) = 0
-        [HideInInspector] m_start_particle_setting ("Particle Settings--{reference_property:_Particle0Use}", Float) = 0
+        [HideInInspector][Toggle] _ParticlePassUse ("", Float) = 0
+        [HideInInspector] m_start_particle_pass ("Particle Pass--{reference_property:_ParticlePassUse}", Float) = 0
+            [Toggle] _Particle0Use ("Use", Float) = 0
             [Enum(Screen,0,World,1)] _Particle0Space ("Space", Int) = 0
             [Enum(Sphere,0,Cube,1)] _Particle0Distribution ("Distribution", Int) = 0
             [HideInInspector] m_start_particle_0_shape ("Shape", Float) = 1
@@ -1287,7 +1291,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                 [Vector3] _Particle0Position ("Position", Vector) = (0, 0, 0, 0)
                 [Vector3] _Particle0Scale ("Scale", Vector) = (3, 3, 3, 0)
             [HideInInspector] m_end_particle_0_transform ("", Float) = 0
-        [HideInInspector] m_end_particle_setting ("Particle Settings", Float) = 0
+        [HideInInspector] m_end_particle_pass ("Particle Pass", Float) = 0
 
         [HideInInspector] m_start_rendering_settings ("Rendering Settings", Float) = 0
             _FadeMin ("Fade Min", Float) = 0
@@ -1371,6 +1375,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             "VRCFallback" = "Hidden"
         }
 
+        //ifex _ImagePassUse==0
         // ====================================================================
         // Pass 0: Images
         // ====================================================================
@@ -1406,6 +1411,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             float _FadeMin;
             float _FadeMax;
             float _AlphaCutoff;
+            float _ImagePassUse;
 
             float4 _RootPosition0;
             float4 _RootPosition1;
@@ -1448,6 +1454,10 @@ Shader "GekikaraStore/x.x.x/Typography"
                 o.fade_id_packed = 0;
                 o.chroma_packed = uint2(0, 0);
                 o.chroma_extra = 0;
+
+                //ifex _ImagePassUse==1
+                if (!_ImagePassUse) return o;
+                //endex
 
                 // Pass detection: Image = uv.y < 0.001 && vertex.xyz == 0 && uv2.x >= 0
                 if (v.uv.y > 0.001 || any(v.vertex.xyz != 0) || v.uv2.x < 0) return o;
@@ -1517,7 +1527,9 @@ Shader "GekikaraStore/x.x.x/Typography"
             }
             ENDCG
         }
+        //endex
 
+        //ifex _TextPassUse==0
         // ====================================================================
         // Pass 1: Text
         // ====================================================================
@@ -1578,6 +1590,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             float _FadeMin;
             float _FadeMax;
             float _QuadPadding;
+            float _TextPassUse;
 
             // Root Transforms (5 roots) - precomputed matrices
             float4 _RootPosition0;
@@ -1635,6 +1648,10 @@ Shader "GekikaraStore/x.x.x/Typography"
                 o.shadow_packed = uint4(0, 0, 0, 0);
                 o.noise_packed = uint4(0, 0, 0, 0);
                 o.anim_packed = uint2(pack_f16x2(0.0, 0.0), pack_f16x2(0.0, 1.0));  // opacity=0, shake=0, block_fade=1
+
+                //ifex _TextPassUse==1
+                if (!_TextPassUse) return o;
+                //endex
 
                 // Pass detection: Text = uv.y > 0.001 && vertex.xyz == 0 && uv2.x >= 0
                 if (v.uv.y < 0.001 || any(v.vertex.xyz != 0) || v.uv2.x < 0) return o;
@@ -1766,7 +1783,9 @@ Shader "GekikaraStore/x.x.x/Typography"
             }
             ENDCG
         }
+        //endex
 
+        //ifex _ParticlePassUse==0
         // ============================================================================
         // Pass 2: Particle Effect (VS Expansion - No Geometry Shader)
         // ============================================================================
@@ -1814,6 +1833,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             float _VRFOV;
             float _FadeMin;
             float _FadeMax;
+            float _ParticlePassUse;
 
             particle_v2f particle_vert(particle_appdata v)
             {
@@ -1826,6 +1846,10 @@ Shader "GekikaraStore/x.x.x/Typography"
                 cull_out.uv = float2(0, 0);
                 cull_out.packed = uint2(0, 0);
                 if (!any(v.vertex.xyz != 0)) return cull_out;
+
+                //ifex _ParticlePassUse==1
+                if (!_ParticlePassUse) return cull_out;
+                //endex
 
                 // Camera setup
                 float3 cam_pos = apply_vr_eye_offset(_CameraPosition.xyz * CM_TO_METER_SCALE);
@@ -1888,6 +1912,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             }
             ENDCG
         }
+        //endex
 
         // ============================================================================
         // GrabPass: Capture screen for FX Pass
