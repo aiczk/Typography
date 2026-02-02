@@ -4,10 +4,6 @@ Other.meta
 Editor/Debugger/
 Editor/Debugger.meta
 
-# Unity generated
-*.meta
-!*.shader.meta
-
 # Temporary files
 *.tmp
 *.bak
