@@ -229,9 +229,19 @@ inline void unpack_image_fade_id(uint packed, out float fade, out uint image_id)
 
 inline float4 sample_image_texture(uint image_id, float2 uv)
 {
-    int idx = GetTextureLayerIndex(image_id, TEXTURE_TYPE_IMAGE);
-    if (idx < 0) return float4(1, 1, 1, 1);
-    return UNITY_SAMPLE_TEX2DARRAY(_TextureArray, float3(uv, idx));
+    switch(image_id)
+    {
+        case 0: return _ImageTexture0.Sample(sampler_ImageTexture0, uv);
+        case 1: return _ImageTexture1.Sample(sampler_ImageTexture0, uv);
+        case 2: return _ImageTexture2.Sample(sampler_ImageTexture0, uv);
+        case 3: return _ImageTexture3.Sample(sampler_ImageTexture0, uv);
+        case 4: return _ImageTexture4.Sample(sampler_ImageTexture0, uv);
+        case 5: return _ImageTexture5.Sample(sampler_ImageTexture0, uv);
+        case 6: return _ImageTexture6.Sample(sampler_ImageTexture0, uv);
+        case 7: return _ImageTexture7.Sample(sampler_ImageTexture0, uv);
+        case 8: return _ImageTexture8.Sample(sampler_ImageTexture0, uv);
+        default: return _ImageTexture9.Sample(sampler_ImageTexture0, uv);
+    }
 }
 
 #endif

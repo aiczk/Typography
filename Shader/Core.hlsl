@@ -7,19 +7,6 @@
 
 static const float3x3 IDENTITY_MATRIX3 = float3x3(1,0,0, 0,1,0, 0,0,1);
 
-// Layer index lookup texture for Image pass (32x2, RG16 format)
-// Value 255 = no texture assigned, 0-254 = layer index
-Texture2D<float2> _TextureLayerLUT;
-
-// Get texture layer index for Image pass
-// Returns -1 if no texture assigned
-inline int GetTextureLayerIndex(uint slot_id, uint texture_type)
-{
-    float2 value = _TextureLayerLUT.Load(int3(slot_id, 0, 0));
-    int layer = (int)(value.r * 255.0);
-    return layer >= 255 ? -1 : layer;
-}
-
 // ============================================================================
 // VRChat Shader Globals
 // ============================================================================

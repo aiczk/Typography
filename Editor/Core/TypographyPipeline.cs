@@ -12,8 +12,6 @@ namespace Typography.Editor.Core
     public static class TypographyPipeline
     {
         private static readonly int FontTextureArray = Shader.PropertyToID("_FontTextureArray");
-        private static readonly int TextureArray = Shader.PropertyToID("_TextureArray");
-        private static readonly int TextureLayerLUT = Shader.PropertyToID("_TextureLayerLUT");
         private static readonly int DataTexture = Shader.PropertyToID("_DataTexture");
         private const string TagMapping = "_TextInput_Mapping";
 
@@ -72,37 +70,6 @@ namespace Typography.Editor.Core
                     allProjectMaterials, fontArray, atlasSize,
                     unifiedMapping, perFontMappings, fontIndexToArrayIndex, project, fontCount);
             };
-        }
-
-        /// <summary>
-        /// Rebuilds texture arrays (MatCap/Image/Overlay) and LUT only.
-        /// Does not regenerate font atlases or data textures.
-        /// </summary>
-        public static void ApplyTextures(Material mat)
-        {
-            var project = ProjectDrawer.GetProject(mat);
-            TypographyAssetPaths.EnsureProjectDirectoryExists(project);
-
-            var allProjectMaterials = FindAllProjectMaterials(project);
-
-            // Include the current material (may not be assigned to any Renderer in scene)
-            if (!allProjectMaterials.Contains(mat))
-                allProjectMaterials.Add(mat);
-
-            var textureResult = TextureBuilder.BuildTextureArray(mat, project);
-
-            foreach (var m in allProjectMaterials)
-            {
-                if (textureResult.TextureArray != null)
-                    m.SetTexture(TextureArray, textureResult.TextureArray);
-                if (textureResult.LayerLUT != null)
-                    m.SetTexture(TextureLayerLUT, textureResult.LayerLUT);
-
-                EditorUtility.SetDirty(m);
-            }
-
-            AssetDatabase.SaveAssets();
-            Debug.Log($"[{project}] Applied textures: {textureResult.TextureCount} layers");
         }
 
         private static void ApplyToAllMaterials(

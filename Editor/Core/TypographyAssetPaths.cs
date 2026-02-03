@@ -23,12 +23,6 @@ namespace Typography.Editor.Core
         public static string GetFontArrayPath(string project) =>
             $"{GetProjectDirectory(project)}/fonts.asset";
 
-        public static string GetTextureArrayPath(string project) =>
-            $"{GetProjectDirectory(project)}/textures.asset";
-
-        public static string GetLayerLUTPath(string project) =>
-            $"{GetProjectDirectory(project)}/layer_lut.asset";
-
         public static string GetDataTexturePath(string project, string materialName) =>
             $"{GetProjectDirectory(project)}/{materialName}_data.asset";
 

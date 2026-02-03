@@ -67,8 +67,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_start_image_pass0 (" --{reference_property:_ImageUse0}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace0 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex0 ("Root", Int) = 0
-                [HideInInspector][Apply(1.03)] _ApplyTexturesI0 ("", Int) = 0
-                [StylizedLargeTexture] _ImageTexture0 ("Image--{reference_properties:[_ApplyTexturesI0]}", 2D) = "white" {}
+                [StylizedLargeTexture] _ImageTexture0 ("Image", 2D) = "white" {}
                 [IntRange] _ImageLayer0 ("Layer", Range(0, 31)) = 0
                 [HDR] _ImageColor0 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _ImagePosition0 ("Position", Vector) = (0, 0, 50, 0)
@@ -92,8 +91,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_start_image_pass1 (" --{reference_property:_ImageUse1}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace1 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex1 ("Root", Int) = 0
-                [HideInInspector][Apply(1.03)] _ApplyTexturesI1 ("", Int) = 0
-                [StylizedLargeTexture] _ImageTexture1 ("Image--{reference_properties:[_ApplyTexturesI1]}", 2D) = "white" {}
+                [StylizedLargeTexture] _ImageTexture1 ("Image", 2D) = "white" {}
                 [IntRange] _ImageLayer1 ("Layer", Range(0, 31)) = 0
                 [HDR] _ImageColor1 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _ImagePosition1 ("Position", Vector) = (0, 0, 50, 0)
@@ -117,8 +115,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_start_image_pass2 (" --{reference_property:_ImageUse2}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace2 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex2 ("Root", Int) = 0
-                [HideInInspector][Apply(1.03)] _ApplyTexturesI2 ("", Int) = 0
-                [StylizedLargeTexture] _ImageTexture2 ("Image--{reference_properties:[_ApplyTexturesI2]}", 2D) = "white" {}
+                [StylizedLargeTexture] _ImageTexture2 ("Image", 2D) = "white" {}
                 [IntRange] _ImageLayer2 ("Layer", Range(0, 31)) = 0
                 [HDR] _ImageColor2 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _ImagePosition2 ("Position", Vector) = (0, 0, 50, 0)
@@ -142,8 +139,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_start_image_pass3 (" --{reference_property:_ImageUse3}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace3 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex3 ("Root", Int) = 0
-                [HideInInspector][Apply(1.03)] _ApplyTexturesI3 ("", Int) = 0
-                [StylizedLargeTexture] _ImageTexture3 ("Image--{reference_properties:[_ApplyTexturesI3]}", 2D) = "white" {}
+                [StylizedLargeTexture] _ImageTexture3 ("Image", 2D) = "white" {}
                 [IntRange] _ImageLayer3 ("Layer", Range(0, 31)) = 0
                 [HDR] _ImageColor3 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _ImagePosition3 ("Position", Vector) = (0, 0, 50, 0)
@@ -167,8 +163,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_start_image_pass4 (" --{reference_property:_ImageUse4}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace4 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex4 ("Root", Int) = 0
-                [HideInInspector][Apply(1.03)] _ApplyTexturesI4 ("", Int) = 0
-                [StylizedLargeTexture] _ImageTexture4 ("Image--{reference_properties:[_ApplyTexturesI4]}", 2D) = "white" {}
+                [StylizedLargeTexture] _ImageTexture4 ("Image", 2D) = "white" {}
                 [IntRange] _ImageLayer4 ("Layer", Range(0, 31)) = 0
                 [HDR] _ImageColor4 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _ImagePosition4 ("Position", Vector) = (0, 0, 50, 0)
@@ -192,8 +187,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_start_image_pass5 (" --{reference_property:_ImageUse5}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace5 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex5 ("Root", Int) = 0
-                [HideInInspector][Apply(1.03)] _ApplyTexturesI5 ("", Int) = 0
-                [StylizedLargeTexture] _ImageTexture5 ("Image--{reference_properties:[_ApplyTexturesI5]}", 2D) = "white" {}
+                [StylizedLargeTexture] _ImageTexture5 ("Image", 2D) = "white" {}
                 [IntRange] _ImageLayer5 ("Layer", Range(0, 31)) = 0
                 [HDR] _ImageColor5 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _ImagePosition5 ("Position", Vector) = (0, 0, 50, 0)
@@ -217,8 +211,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_start_image_pass6 (" --{reference_property:_ImageUse6}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace6 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex6 ("Root", Int) = 0
-                [HideInInspector][Apply(1.03)] _ApplyTexturesI6 ("", Int) = 0
-                [StylizedLargeTexture] _ImageTexture6 ("Image--{reference_properties:[_ApplyTexturesI6]}", 2D) = "white" {}
+                [StylizedLargeTexture] _ImageTexture6 ("Image", 2D) = "white" {}
                 [IntRange] _ImageLayer6 ("Layer", Range(0, 31)) = 0
                 [HDR] _ImageColor6 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _ImagePosition6 ("Position", Vector) = (0, 0, 50, 0)
@@ -242,8 +235,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_start_image_pass7 (" --{reference_property:_ImageUse7}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace7 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex7 ("Root", Int) = 0
-                [HideInInspector][Apply(1.03)] _ApplyTexturesI7 ("", Int) = 0
-                [StylizedLargeTexture] _ImageTexture7 ("Image--{reference_properties:[_ApplyTexturesI7]}", 2D) = "white" {}
+                [StylizedLargeTexture] _ImageTexture7 ("Image", 2D) = "white" {}
                 [IntRange] _ImageLayer7 ("Layer", Range(0, 31)) = 0
                 [HDR] _ImageColor7 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _ImagePosition7 ("Position", Vector) = (0, 0, 50, 0)
@@ -267,8 +259,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_start_image_pass8 (" --{reference_property:_ImageUse8}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace8 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex8 ("Root", Int) = 0
-                [HideInInspector][Apply(1.03)] _ApplyTexturesI8 ("", Int) = 0
-                [StylizedLargeTexture] _ImageTexture8 ("Image--{reference_properties:[_ApplyTexturesI8]}", 2D) = "white" {}
+                [StylizedLargeTexture] _ImageTexture8 ("Image", 2D) = "white" {}
                 [IntRange] _ImageLayer8 ("Layer", Range(0, 31)) = 0
                 [HDR] _ImageColor8 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _ImagePosition8 ("Position", Vector) = (0, 0, 50, 0)
@@ -292,8 +283,7 @@ Shader "GekikaraStore/x.x.x/Typography"
             [HideInInspector] m_start_image_pass9 (" --{reference_property:_ImageUse9}", Float) = 0
                 [Enum(Screen, 0, World, 1)] _ImageWorldSpace9 ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _ImageRootIndex9 ("Root", Int) = 0
-                [HideInInspector][Apply(1.03)] _ApplyTexturesI9 ("", Int) = 0
-                [StylizedLargeTexture] _ImageTexture9 ("Image--{reference_properties:[_ApplyTexturesI9]}", 2D) = "white" {}
+                [StylizedLargeTexture] _ImageTexture9 ("Image", 2D) = "white" {}
                 [IntRange] _ImageLayer9 ("Layer", Range(0, 31)) = 0
                 [HDR] _ImageColor9 ("Color", Color) = (1, 1, 1, 1)
                 [Vector3] _ImagePosition9 ("Position", Vector) = (0, 0, 50, 0)
@@ -1436,8 +1426,6 @@ Shader "GekikaraStore/x.x.x/Typography"
 
             [HideInInspector] m_start_internal_settings ("Internal", Float) = 0
                     _FontTextureArray ("Font Texture Array", 2DArray) = "" {}
-                    _TextureArray ("Texture Array (Image)", 2DArray) = "" {}
-                    _TextureLayerLUT ("Texture Layer LUT", 2D) = "black" {}
                     _DataTexture ("Data Texture", 2D) = "" {}
                     _AtlasInvSize ("Atlas Inv Size", Float) = 0.03125
                     _AtlasMask ("Atlas Mask", Int) = 31
@@ -1529,7 +1517,10 @@ Shader "GekikaraStore/x.x.x/Typography"
             float4 _RootMatrix4_Row2;
 
             // Combined texture array for Image pass
-            UNITY_DECLARE_TEX2DARRAY(_TextureArray);
+            // Image textures with shared sampler
+            Texture2D _ImageTexture0, _ImageTexture1, _ImageTexture2, _ImageTexture3, _ImageTexture4;
+            Texture2D _ImageTexture5, _ImageTexture6, _ImageTexture7, _ImageTexture8, _ImageTexture9;
+            SamplerState sampler_ImageTexture0;
 
             // Image Pipeline Dependencies
             #include "Core.hlsl"
@@ -1657,9 +1648,6 @@ Shader "GekikaraStore/x.x.x/Typography"
 
             // Font texture array (per-font atlas - declared before includes because Effects.hlsl uses it)
             UNITY_DECLARE_TEX2DARRAY(_FontTextureArray);
-
-            // Combined texture array (Image/Overlay - 96 layers)
-            UNITY_DECLARE_TEX2DARRAY(_TextureArray);
 
             // Atlas parameters (declared before includes because Effects.hlsl uses them)
             float _AtlasInvSize;
