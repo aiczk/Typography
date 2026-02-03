@@ -20,33 +20,10 @@ struct particle_appdata
 struct particle_v2f
 {
     float4 vertex : SV_POSITION;
-    float2 uv : TEXCOORD0;                     // SDF coordinates (-1,-1) to (1,1)
-    nointerpolation uint2 packed : TEXCOORD1;  // shape, hollow, colorMul, age, distFade
+    float2 uv : TEXCOORD0;                     // Texture UV (0,0)-(1,1)
+    nointerpolation uint2 packed : TEXCOORD1;  // layer_id, colorMul, age, distFade
     UNITY_VERTEX_OUTPUT_STEREO
 };
-
-// ============================================================================
-// SDF Shapes
-// ============================================================================
-float sdCircle(float2 p) { return length(p); }
-float sdSquare(float2 p) { return max(abs(p.x), abs(p.y)); }
-float sdTriangle(float2 p) { return max(abs(p.x) * 2.0 + p.y, -p.y); }
-float sdCross(float2 p) {
-    float2 q = abs(p);
-    return min(max(q.x, q.y * 3.0), max(q.x * 3.0, q.y));
-}
-
-float eval_shape(float2 uv, int shape)
-{
-    switch (shape)
-    {
-        case 0:  return sdCircle(uv);
-        case 1:  return sdSquare(uv);
-        case 2:  return sdTriangle(uv);
-        case 3:  return sdCross(uv);
-        default: return sdCircle(uv);
-    }
-}
 
 // ============================================================================
 // Random Utilities
@@ -179,7 +156,7 @@ float3 billboard_vertex(float3 center, float3 right, float3 up, float quad_size,
 // ============================================================================
 // Process Particle (Vertex Shader - Single Particle)
 // ============================================================================
-particle_v2f process_particle_vs(particle_appdata v, ParticleLayer layer,
+particle_v2f process_particle_vs(particle_appdata v, ParticleLayer layer, int layer_id,
                                   float3 cam_pos, float3x3 cam_rot_inv,
                                   float tan_half_fov, float aspect, float distance_fade)
 {
@@ -207,10 +184,10 @@ particle_v2f process_particle_vs(particle_appdata v, ParticleLayer layer,
     float3 bb_right = is_screen ? cam_rot_inv._m00_m01_m02 : UNITY_MATRIX_V._m00_m01_m02;
     float3 bb_up = is_screen ? cam_rot_inv._m10_m11_m12 : UNITY_MATRIX_V._m10_m11_m12;
     float t = _Time.y * layer.speed;
-    bool has_rot = any(layer.rotation.xyz != 0);
+    bool has_spin = any(layer.spin.xyz != 0);
 
-    // Generate random values from seed (layer.seed offsets for different patterns)
-    float2 seed = float2(rnd_seed.x * 1000.0 + layer.seed, rnd_seed.y * 1000.0 + particle_id * 0.001);
+    // Generate random values from vertex seed
+    float2 seed = float2(rnd_seed.x * 1000.0, rnd_seed.y * 1000.0 + particle_id * 0.001);
     float r0, r1, r2, r3, r4, r5, r6, r7;
     rand8(seed, r0, r1, r2, r3, r4, r5, r6, r7);
 
@@ -234,6 +211,13 @@ particle_v2f process_particle_vs(particle_appdata v, ParticleLayer layer,
     float final_size = lerp(layer.size, layer.size_end, p_age);
     psize *= final_size;
 
+    // Apply transform rotation
+    if (any(layer.rotation.xyz != 0))
+    {
+        float3x3 transform_rot = rotation_matrix(layer.rotation.xyz * DEG2_RAD);
+        p = mul(transform_rot, p);
+    }
+
     // World position
     float3 base_pos = p * layer.scale.xyz + layer.position.xyz * CM_TO_METER_SCALE;
     float3 world_center = is_screen
@@ -241,32 +225,35 @@ particle_v2f process_particle_vs(particle_appdata v, ParticleLayer layer,
         : mul(unity_ObjectToWorld, float4(base_pos, 1.0)).xyz;
     float quad_size = 0.01 * psize;
 
+    // Apply root transform
+    float3x3 root_mat; float3 root_pos;
+    GET_ROOT_TRANSFORM(layer.root_index, root_mat, root_pos)
+    world_center = apply_root(world_center, layer.root_index, root_mat, root_pos);
+
     // Frustum culling
     if (cull_object(world_center, is_screen ? 0 : 1, 0.0,
                     cam_pos, cam_rot_inv, tan_half_fov, aspect, quad_size * 2.0))
         return o;
 
-    // Billboard rotation
-    float3 rot_dir = float3(r5, r6, r7) - 0.5;
-    float3 rot = rot_dir * (TWO_PI + t) * layer.rotation.xyz;
+    // Billboard spin (per-particle rotation animation)
+    float3 spin_dir = float3(r5, r6, r7) - 0.5;
+    float3 spin = spin_dir * (TWO_PI + t) * layer.spin.xyz;
 
     // Compute vertex position
-    float3 world_pos = billboard_vertex(world_center, bb_right, bb_up, quad_size, rot, has_rot, corner);
+    float3 world_pos = billboard_vertex(world_center, bb_right, bb_up, quad_size, spin, has_spin, corner);
 
     // Project
     o.vertex = is_screen
         ? project_custom_camera(world_pos, cam_pos, cam_rot_inv, tan_half_fov, aspect, 0)
         : mul(UNITY_MATRIX_VP, float4(world_pos, 1.0));
 
-    // SDF UV: corner (0,0)-(1,1) -> (-1,-1)-(1,1)
-    o.uv = corner * 2.0 - 1.0;
+    // Texture UV: corner (0,0)-(1,1)
+    o.uv = corner;
 
-    // Pack data
-    uint shape_raw = (uint)layer.shape;
-    uint shape_bits = (shape_raw >= 4u) ? ((uint)(r7 * 4.0) & 0x3u) : (shape_raw & 0x3u);
-    uint hollow_bits = ((uint)(saturate(layer.hollow) * 255.0)) & 0xFFu;
+    // Pack data: layer_id(8bit) | colorMul(16bit) << 8, age + distFade
+    uint layer_bits = (uint)layer_id & 0xFFu;
     uint colorMul_bits = ((uint)(saturate(color_mul) * 65535.0)) & 0xFFFFu;
-    o.packed.x = shape_bits | (hollow_bits << 8) | (colorMul_bits << 16);
+    o.packed.x = layer_bits | (colorMul_bits << 8);
     o.packed.y = f32tof16(p_age) | (f32tof16(distance_fade) << 16);
 
     return o;

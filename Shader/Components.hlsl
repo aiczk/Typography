@@ -130,17 +130,17 @@ struct ParticleLayer
 {
     int use;            // Toggle on/off
     int space;          // 0=Screen, 1=World
+    int root_index;     // 0=None, 1-5=Root 1-5
     int distribution;   // 0=Sphere, 1=Cube
-    int shape;          // 0=Circle, 1=Square, 2=Triangle, 3=Cross, 4=Random
+    float4 color;       // Tint color (HDR)
     float size;
     float size_end;     // Size over Lifetime (end size, lerps from size to size_end)
-    float4 rotation;
-    float hollow;
+    float4 spin;        // Per-particle spin animation
     float speed;
     float lifetime;
-    float seed;         // Random seed offset for deterministic patterns
     float4 direction;
     float4 position;
+    float4 rotation;    // Transform rotation
     float4 scale;
     float4 gravity;     // Gravity force (world space)
 };
@@ -225,19 +225,19 @@ struct ParticleLayer
 #define DECLARE_PARTICLE_LAYER_VARS(N) \
     int _Particle##N##Use; \
     int _Particle##N##Space; \
+    int _Particle##N##RootIndex; \
     int _Particle##N##Distribution; \
-    int _Particle##N##Shape; \
+    float4 _Particle##N##Color; \
     float4 _Particle##N##Size; \
-    float4 _Particle##N##Rotation; \
-    float _Particle##N##Hollow; \
+    float4 _Particle##N##Spin; \
     float _Particle##N##Speed; \
     float _Particle##N##Lifetime; \
-    float _Particle##N##Seed; \
     float4 _Particle##N##Direction; \
     float4 _Particle##N##Position; \
+    float4 _Particle##N##Rotation; \
     float4 _Particle##N##Scale; \
     float4 _Particle##N##Gravity; \
-    sampler2D _Particle##N##Gradient;
+    sampler2D _Particle##N##Texture;
 
 // ============================================================================
 // Property Load Macros
@@ -321,17 +321,17 @@ struct ParticleLayer
 #define LOAD_PARTICLE_LAYER(N, layer) \
     layer.use = _Particle##N##Use; \
     layer.space = _Particle##N##Space; \
+    layer.root_index = _Particle##N##RootIndex; \
     layer.distribution = _Particle##N##Distribution; \
-    layer.shape = _Particle##N##Shape; \
+    layer.color = _Particle##N##Color; \
     layer.size = _Particle##N##Size.x; \
     layer.size_end = _Particle##N##Size.y; \
-    layer.rotation = _Particle##N##Rotation; \
-    layer.hollow = _Particle##N##Hollow; \
+    layer.spin = _Particle##N##Spin; \
     layer.speed = _Particle##N##Speed; \
     layer.lifetime = _Particle##N##Lifetime; \
-    layer.seed = _Particle##N##Seed; \
     layer.direction = _Particle##N##Direction; \
     layer.position = _Particle##N##Position; \
+    layer.rotation = _Particle##N##Rotation; \
     layer.scale = _Particle##N##Scale; \
     layer.gravity = _Particle##N##Gravity;
 

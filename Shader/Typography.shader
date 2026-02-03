@@ -1270,27 +1270,117 @@ Shader "GekikaraStore/x.x.x/Typography"
 
         [HideInInspector][Toggle] _ParticlePassUse ("", Float) = 0
         [HideInInspector] m_start_particle_pass ("Particle Pass--{reference_property:_ParticlePassUse}", Float) = 0
-            [Toggle] _Particle0Use ("Use", Float) = 0
-            [Enum(Screen,0,World,1)] _Particle0Space ("Space", Int) = 0
-            [Enum(Sphere,0,Cube,1)] _Particle0Distribution ("Distribution", Int) = 0
-            [HideInInspector] m_start_particle_0_shape ("Shape", Float) = 1
-                [Enum(Circle,0,Square,1,Triangle,2,Cross,3,Random,4)] _Particle0Shape ("Shape", Int) = 0
-                [Gradient] _Particle0Gradient ("Gradient", 2D) = "white" {}
-                [MultiSlider]_Particle0Size ("Size (Start, End)", Vector) = (0, 1, 0, 1)
-                [Vector3] _Particle0Rotation ("Rotation", Vector) = (0, 0, 0, 0)
-                _Particle0Hollow ("Hollow", Range(0.1, 1)) = 1
-            [HideInInspector] m_end_particle_0_shape ("", Float) = 0
-            [HideInInspector] m_start_particle_0_motion ("Motion", Float) = 0
-                _Particle0Seed ("Seed", Float) = 0
-                _Particle0Speed ("Speed", Float) = 0.2
-                _Particle0Lifetime ("Lifetime", Float) = 1.0
-                [Vector3] _Particle0Direction ("Direction", Vector) = (0, 0, 0, 0)
-                [Vector3] _Particle0Gravity ("Gravity", Vector) = (0, 0, 0, 0)
-            [HideInInspector] m_end_particle_0_motion ("", Float) = 0
-            [HideInInspector] m_start_particle_0_transform ("Transform", Float) = 0
+
+            [HideInInspector][Toggle] _Particle0Use ("", Float) = 0
+            [HideInInspector] m_start_particle_layer0 ("Particle 1--{reference_property:_Particle0Use}", Float) = 0
+                [Enum(Screen,0,World,1)] _Particle0Space ("Space", Int) = 0
+                [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _Particle0RootIndex ("Root", Int) = 0
+                [Enum(Sphere,0,Cube,1)] _Particle0Distribution ("Distribution", Int) = 0
                 [Vector3] _Particle0Position ("Position", Vector) = (0, 0, 0, 0)
+                [Vector3] _Particle0Rotation ("Rotation", Vector) = (0, 0, 0, 0)
                 [Vector3] _Particle0Scale ("Scale", Vector) = (3, 3, 3, 0)
-            [HideInInspector] m_end_particle_0_transform ("", Float) = 0
+                [HideInInspector] m_start_particle_0_appearance ("Appearance", Float) = 0
+                    [StylizedLargeTexture] _Particle0Texture ("Texture", 2D) = "white" {}
+                    [HDR] _Particle0Color ("Color", Color) = (1, 1, 1, 1)
+                    [MultiSlider]_Particle0Size ("Size (Start, End)", Vector) = (0, 1, 0, 1)
+                    [Vector3] _Particle0Spin ("Spin", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_0_appearance ("", Float) = 0
+                [HideInInspector] m_start_particle_0_motion ("Motion", Float) = 0
+                    _Particle0Speed ("Speed", Float) = 0.2
+                    _Particle0Lifetime ("Lifetime", Float) = 1.0
+                    [Vector3] _Particle0Direction ("Direction", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle0Gravity ("Gravity", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_0_motion ("", Float) = 0
+            [HideInInspector] m_end_particle_layer0 ("", Float) = 0
+
+            [HideInInspector][Toggle] _Particle1Use ("", Float) = 0
+            [HideInInspector] m_start_particle_layer1 ("Particle 2--{reference_property:_Particle1Use}", Float) = 0
+                [Enum(Screen,0,World,1)] _Particle1Space ("Space", Int) = 0
+                [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _Particle1RootIndex ("Root", Int) = 0
+                [Enum(Sphere,0,Cube,1)] _Particle1Distribution ("Distribution", Int) = 0
+                [Vector3] _Particle1Position ("Position", Vector) = (0, 0, 0, 0)
+                [Vector3] _Particle1Rotation ("Rotation", Vector) = (0, 0, 0, 0)
+                [Vector3] _Particle1Scale ("Scale", Vector) = (3, 3, 3, 0)
+                [HideInInspector] m_start_particle_1_appearance ("Appearance", Float) = 0
+                    [StylizedLargeTexture] _Particle1Texture ("Texture", 2D) = "white" {}
+                    [HDR] _Particle1Color ("Color", Color) = (1, 1, 1, 1)
+                    [MultiSlider]_Particle1Size ("Size (Start, End)", Vector) = (0, 1, 0, 1)
+                    [Vector3] _Particle1Spin ("Spin", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_1_appearance ("", Float) = 0
+                [HideInInspector] m_start_particle_1_motion ("Motion", Float) = 0
+                    _Particle1Speed ("Speed", Float) = 0.2
+                    _Particle1Lifetime ("Lifetime", Float) = 1.0
+                    [Vector3] _Particle1Direction ("Direction", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle1Gravity ("Gravity", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_1_motion ("", Float) = 0
+            [HideInInspector] m_end_particle_layer1 ("", Float) = 0
+
+            [HideInInspector][Toggle] _Particle2Use ("", Float) = 0
+            [HideInInspector] m_start_particle_layer2 ("Particle 3--{reference_property:_Particle2Use}", Float) = 0
+                [Enum(Screen,0,World,1)] _Particle2Space ("Space", Int) = 0
+                [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _Particle2RootIndex ("Root", Int) = 0
+                [Enum(Sphere,0,Cube,1)] _Particle2Distribution ("Distribution", Int) = 0
+                [Vector3] _Particle2Position ("Position", Vector) = (0, 0, 0, 0)
+                [Vector3] _Particle2Rotation ("Rotation", Vector) = (0, 0, 0, 0)
+                [Vector3] _Particle2Scale ("Scale", Vector) = (3, 3, 3, 0)
+                [HideInInspector] m_start_particle_2_appearance ("Appearance", Float) = 0
+                    [StylizedLargeTexture] _Particle2Texture ("Texture", 2D) = "white" {}
+                    [HDR] _Particle2Color ("Color", Color) = (1, 1, 1, 1)
+                    [MultiSlider]_Particle2Size ("Size (Start, End)", Vector) = (0, 1, 0, 1)
+                    [Vector3] _Particle2Spin ("Spin", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_2_appearance ("", Float) = 0
+                [HideInInspector] m_start_particle_2_motion ("Motion", Float) = 0
+                    _Particle2Speed ("Speed", Float) = 0.2
+                    _Particle2Lifetime ("Lifetime", Float) = 1.0
+                    [Vector3] _Particle2Direction ("Direction", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle2Gravity ("Gravity", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_2_motion ("", Float) = 0
+            [HideInInspector] m_end_particle_layer2 ("", Float) = 0
+
+            [HideInInspector][Toggle] _Particle3Use ("", Float) = 0
+            [HideInInspector] m_start_particle_layer3 ("Particle 4--{reference_property:_Particle3Use}", Float) = 0
+                [Enum(Screen,0,World,1)] _Particle3Space ("Space", Int) = 0
+                [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _Particle3RootIndex ("Root", Int) = 0
+                [Enum(Sphere,0,Cube,1)] _Particle3Distribution ("Distribution", Int) = 0
+                [Vector3] _Particle3Position ("Position", Vector) = (0, 0, 0, 0)
+                [Vector3] _Particle3Rotation ("Rotation", Vector) = (0, 0, 0, 0)
+                [Vector3] _Particle3Scale ("Scale", Vector) = (3, 3, 3, 0)
+                [HideInInspector] m_start_particle_3_appearance ("Appearance", Float) = 0
+                    [StylizedLargeTexture] _Particle3Texture ("Texture", 2D) = "white" {}
+                    [HDR] _Particle3Color ("Color", Color) = (1, 1, 1, 1)
+                    [MultiSlider]_Particle3Size ("Size (Start, End)", Vector) = (0, 1, 0, 1)
+                    [Vector3] _Particle3Spin ("Spin", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_3_appearance ("", Float) = 0
+                [HideInInspector] m_start_particle_3_motion ("Motion", Float) = 0
+                    _Particle3Speed ("Speed", Float) = 0.2
+                    _Particle3Lifetime ("Lifetime", Float) = 1.0
+                    [Vector3] _Particle3Direction ("Direction", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle3Gravity ("Gravity", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_3_motion ("", Float) = 0
+            [HideInInspector] m_end_particle_layer3 ("", Float) = 0
+
+            [HideInInspector][Toggle] _Particle4Use ("", Float) = 0
+            [HideInInspector] m_start_particle_layer4 ("Particle 5--{reference_property:_Particle4Use}", Float) = 0
+                [Enum(Screen,0,World,1)] _Particle4Space ("Space", Int) = 0
+                [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _Particle4RootIndex ("Root", Int) = 0
+                [Enum(Sphere,0,Cube,1)] _Particle4Distribution ("Distribution", Int) = 0
+                [Vector3] _Particle4Position ("Position", Vector) = (0, 0, 0, 0)
+                [Vector3] _Particle4Rotation ("Rotation", Vector) = (0, 0, 0, 0)
+                [Vector3] _Particle4Scale ("Scale", Vector) = (3, 3, 3, 0)
+                [HideInInspector] m_start_particle_4_appearance ("Appearance", Float) = 0
+                    [StylizedLargeTexture] _Particle4Texture ("Texture", 2D) = "white" {}
+                    [HDR] _Particle4Color ("Color", Color) = (1, 1, 1, 1)
+                    [MultiSlider]_Particle4Size ("Size (Start, End)", Vector) = (0, 1, 0, 1)
+                    [Vector3] _Particle4Spin ("Spin", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_4_appearance ("", Float) = 0
+                [HideInInspector] m_start_particle_4_motion ("Motion", Float) = 0
+                    _Particle4Speed ("Speed", Float) = 0.2
+                    _Particle4Lifetime ("Lifetime", Float) = 1.0
+                    [Vector3] _Particle4Direction ("Direction", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle4Gravity ("Gravity", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_4_motion ("", Float) = 0
+            [HideInInspector] m_end_particle_layer4 ("", Float) = 0
+
         [HideInInspector] m_end_particle_pass ("Particle Pass", Float) = 0
 
         [HideInInspector][Toggle] _FXPassUse ("", Float) = 0
@@ -1820,15 +1910,16 @@ Shader "GekikaraStore/x.x.x/Typography"
             #pragma fragmentoption ARB_precision_hint_fastest
 
             #include "UnityCG.cginc"
-
-            // Particle Pipeline Dependencies
             #include "Core.hlsl"
             #include "Components.hlsl"
             #include "Systems.hlsl"
-            #include "Pipelines/ParticlePipeline.hlsl"
 
-            // Particle Properties (using macro for each particle type)
+            // Particle Properties (5 layers)
             DECLARE_PARTICLE_LAYER_VARS(0)
+            DECLARE_PARTICLE_LAYER_VARS(1)
+            DECLARE_PARTICLE_LAYER_VARS(2)
+            DECLARE_PARTICLE_LAYER_VARS(3)
+            DECLARE_PARTICLE_LAYER_VARS(4)
 
             // Camera (shared with text pass)
             float4 _CameraPosition;
@@ -1838,6 +1929,31 @@ Shader "GekikaraStore/x.x.x/Typography"
             float _FadeMin;
             float _FadeMax;
             float _ParticlePassUse;
+
+            // Root Transforms
+            float4 _RootPosition0;
+            float4 _RootPosition1;
+            float4 _RootPosition2;
+            float4 _RootPosition3;
+            float4 _RootPosition4;
+            float4 _RootMatrix0_Row0;
+            float4 _RootMatrix0_Row1;
+            float4 _RootMatrix0_Row2;
+            float4 _RootMatrix1_Row0;
+            float4 _RootMatrix1_Row1;
+            float4 _RootMatrix1_Row2;
+            float4 _RootMatrix2_Row0;
+            float4 _RootMatrix2_Row1;
+            float4 _RootMatrix2_Row2;
+            float4 _RootMatrix3_Row0;
+            float4 _RootMatrix3_Row1;
+            float4 _RootMatrix3_Row2;
+            float4 _RootMatrix4_Row0;
+            float4 _RootMatrix4_Row1;
+            float4 _RootMatrix4_Row2;
+
+            // Particle Pipeline
+            #include "Pipelines/ParticlePipeline.hlsl"
 
             particle_v2f particle_vert(particle_appdata v)
             {
@@ -1867,52 +1983,53 @@ Shader "GekikaraStore/x.x.x/Typography"
                 float dist = distance(unity_camera_pos, mul(unity_ObjectToWorld, float4(0, 0, 0, 1)).xyz);
                 float distance_fade = saturate(1.0 - (dist - _FadeMin) / (_FadeMax - _FadeMin + EPSILON));
 
-                // Load particle layer
-                ParticleLayer layer = (ParticleLayer)0;
-                LOAD_PARTICLE_LAYER(0, layer)
+                // Extract layer_id from UV.y (encoded as (layer_id + 0.5) / 32)
+                int layer_id = (int)(v.uv.y * 32.0);
 
-                return process_particle_vs(v, layer, cam_pos, cam_rot_inv, tan_half_fov, aspect, distance_fade);
+                // Load particle layer based on layer_id
+                ParticleLayer layer = (ParticleLayer)0;
+                switch (layer_id)
+                {
+                    case 0: LOAD_PARTICLE_LAYER(0, layer) break;
+                    case 1: LOAD_PARTICLE_LAYER(1, layer) break;
+                    case 2: LOAD_PARTICLE_LAYER(2, layer) break;
+                    case 3: LOAD_PARTICLE_LAYER(3, layer) break;
+                    case 4: LOAD_PARTICLE_LAYER(4, layer) break;
+                    default: return cull_out;
+                }
+
+                return process_particle_vs(v, layer, layer_id, cam_pos, cam_rot_inv, tan_half_fov, aspect, distance_fade);
             }
 
             half4 particle_frag(particle_v2f i) : SV_Target
             {
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
 
-                // Unpack from uint2: x=shape+hollow+colorMul, y=age+distFade(f16)
-                half2 uv = (half2)i.uv;
-                int shape = (int)(i.packed.x & 0xFFu);
-                half hollow = (half)((i.packed.x >> 8) & 0xFFu) * (half)(1.0 / 255.0);
-                half colorMul = (half)((i.packed.x >> 16) & 0xFFFFu) * (half)(1.0 / 65535.0);
-                half age = (half)f16tof32(i.packed.y);
+                // Unpack from uint2: x=layer_id(8)+colorMul(16), y=age+distFade(f16)
+                float2 uv = i.uv;
+                int layer_id = (int)(i.packed.x & 0xFFu);
+                half colorMul = (half)((i.packed.x >> 8) & 0xFFFFu) * (half)(1.0 / 65535.0);
                 half distFade = (half)f16tof32(i.packed.y >> 16);
 
-                // Sample gradient texture using age (0=birth, 1=death) - Point sampling for performance
-                half4 color = tex2Dlod(_Particle0Gradient, float4(age, 0.5, 0, 0));
-
-                // half precision SDF evaluation (ALU 50% reduction on mobile/some desktop)
-                half d = (half)eval_shape(uv, shape);
-
-                // Hollow transform: convert solid to ring (1 = disabled, < 1 = hollow)
-                [branch]
-                if (hollow < (half)1)
+                // Sample texture based on layer_id
+                half4 tex;
+                half4 tint;
+                switch (layer_id)
                 {
-                    half half_w = hollow * (half)0.5;
-                    d = abs(d - ((half)1.0 - half_w)) / half_w;
+                    case 0: tex = tex2D(_Particle0Texture, uv); tint = _Particle0Color; break;
+                    case 1: tex = tex2D(_Particle1Texture, uv); tint = _Particle1Color; break;
+                    case 2: tex = tex2D(_Particle2Texture, uv); tint = _Particle2Color; break;
+                    case 3: tex = tex2D(_Particle3Texture, uv); tint = _Particle3Color; break;
+                    case 4: tex = tex2D(_Particle4Texture, uv); tint = _Particle4Color; break;
+                    default: tex = half4(1, 1, 1, 1); tint = half4(1, 1, 1, 1); break;
                 }
 
-                clip((half)1 - d);
+                // Apply tint color and fade
+                half4 color = tex * tint;
+                color.rgb *= colorMul;
+                color.a *= colorMul * distFade;
 
-                // half precision color calculations (native on mobile, ~50% ALU on desktop RDNA/Ampere)
-                // rsqrt optimization: sqrt(x) = x * rsqrt(x), rsqrt is native ~1 cycle
-                half brightness = (half)1.5 - d;
-                half3 col = color.rgb * colorMul;
-                col *= brightness * rsqrt(brightness) * (half)2;  // sqrt(1.5-d)*2 using rsqrt
-                col = saturate(col);
-
-                // Fast gamma 2.2 approximation
-                col = col * col * (col * (half)0.305 + (half)0.695);
-
-                return half4(col, smoothstep((half)1, (half)0.8, d) * color.a * distFade);
+                return color;
             }
             ENDCG
         }
