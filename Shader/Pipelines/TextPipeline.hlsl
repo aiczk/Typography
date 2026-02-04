@@ -96,6 +96,12 @@ inline bool process_text(
         char_pos, _Time.y,
         layer.shake.amplitude, layer.shake.frequency, layer.shake.blend);
 
+    ScatterResult scatter = calculate_scatter(
+        char_pos, data.char_count,
+        layer.scatter.direction, layer.scatter.intensity, layer.scatter.fade,
+        layer.scatter.distance, layer.scatter.rotation, layer.scatter.scale);
+    local_pos += scatter.offset;
+
     // Stage 6: Transform
     TransformData xform = build_transform_unified(
         layer.transform.position, layer.transform.rotation,
@@ -114,13 +120,14 @@ inline bool process_text(
 
     // Stage 8: Quad
     float3x3 char_rot = build_char_rotation(
-        tw_deform.rotation, curve_deform.rotation_z,
+        tw_deform.rotation + scatter.rotation, curve_deform.rotation_z,
         xform.rotation_scale, layer.transform.root_index, root_mat);
 
     float qpad = 1.0 + quad_padding_global;
+    float3 final_tw_scale = layer.typewriter.scale.xyz * scatter.scale;
     float3 corner = expand_text_quad(
         world_pos, corner_uv, char_rot,
-        layer.typewriter.scale.xyz, tw.anim_factor, qpad);
+        final_tw_scale, tw.anim_factor, qpad);
 
     // Stage 9: Projection
     o.vertex = project_vertex(corner, layer.transform.world_space,
@@ -133,14 +140,13 @@ inline bool process_text(
     // char_packed: char identity + text color in single uint4
     // packed_info bit layout (see Constants.hlsl):
     // bits 0-7: font_index, bit 8: outline_mode, bit 9: world_space
-    // bits 10-12: noise_mode, bits 13-14: blend_mode, bits 15-31: reserved
+    // bits 10-12: noise_mode, bits 13-31: reserved
     o.char_packed = uint4(
         data.char_index,
         PACK_FONT_INDEX(data.font_index)
             | PACK_OUTLINE_MODE(layer.outline.mode)
             | PACK_WORLD_SPACE(layer.transform.world_space)
-            | PACK_NOISE_MODE(layer.noise.mode)
-            | PACK_BLEND_MODE(layer.noise.blend_mode),
+            | PACK_NOISE_MODE(layer.noise.mode),
         pack_f16x2(layer.appearance.color.r, layer.appearance.color.g),
         pack_f16x2(layer.appearance.color.b, layer.appearance.color.a));
 
@@ -166,7 +172,7 @@ inline bool process_text(
         pack_f16x2(layer.noise.color.b, 1.0));
 
     // Animation: opacity, shake, block_fade
-    float opacity = 1.0 - tw.anim_factor;
+    float opacity = (1.0 - tw.anim_factor) * scatter.opacity;
     o.anim_packed = uint2(
         pack_f16x2(opacity, shake_off.x),
         pack_f16x2(shake_off.y, tw.block_fade));

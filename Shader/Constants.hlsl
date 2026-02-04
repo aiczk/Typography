@@ -69,22 +69,19 @@
 // bit 8:      outline_mode (1 bit)
 // bit 9:      world_space (1 bit)
 // bits 10-12: noise_mode (3 bits)
-// bits 13-14: blend_mode (2 bits)
-// bits 15-31: [RESERVED - 17 bits for future use]
+// bits 13-31: [RESERVED - 19 bits for future use]
 //
 // Packing macros:
 #define PACK_FONT_INDEX(x)      ((x) & 0xFFu)
 #define PACK_OUTLINE_MODE(x)    (((x) & 0x1u) << 8)
 #define PACK_WORLD_SPACE(x)     (((x) & 0x1u) << 9)
 #define PACK_NOISE_MODE(x)      (((x) & 0x7u) << 10)
-#define PACK_BLEND_MODE(x)      (((x) & 0x3u) << 13)
 
 // Unpacking macros:
 #define UNPACK_FONT_INDEX(p)    ((p) & 0xFFu)
 #define UNPACK_OUTLINE_MODE(p)  (((p) >> 8) & 0x1u)
 #define UNPACK_WORLD_SPACE(p)   (((p) >> 9) & 0x1u)
 #define UNPACK_NOISE_MODE(p)    (((p) >> 10) & 0x7u)
-#define UNPACK_BLEND_MODE(p)    (((p) >> 13) & 0x3u)
 
 // ============================================================================
 // v2f Slot Strategy (Vertex-to-Fragment Bandwidth)

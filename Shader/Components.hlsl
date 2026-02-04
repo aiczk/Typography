@@ -79,6 +79,16 @@ struct ShakeComponent
     float blend;
 };
 
+struct ScatterComponent
+{
+    int direction;      // 0=Random, 1=Radial, 2=Up, 3=Down, 4=Left, 5=Right
+    float intensity;    // 0=gathered, 1=scattered
+    float fade;         // Opacity at full scatter (0=invisible, 1=same)
+    float3 distance;    // Max scatter distance (xyz)
+    float3 rotation;    // Max rotation at full scatter (degrees, xyz)
+    float3 scale;       // Scale at full scatter (0=disappear, 1=same)
+};
+
 struct OutlineComponent
 {
     int mode;       // 0=outline, 1=stroke
@@ -102,7 +112,6 @@ struct NoiseComponent
     float scale;
     float speed;
     float3 color;
-    int blend_mode;     // 0=Multiply, 1=Replace, 2=Add
 };
 
 // ============================================================================
@@ -118,6 +127,7 @@ struct TextLayer
     SpacingComponent spacing;
     CurveComponent curve;
     ShakeComponent shake;
+    ScatterComponent scatter;
     OutlineComponent outline;
     ShadowComponent shadow;
     NoiseComponent noise;
@@ -202,6 +212,14 @@ struct ParticleLayer
     float _ShakeFrequency##N; \
     float _ShakeBlend##N;
 
+#define DECLARE_SCATTER_VARS(N) \
+    int _ScatterDirection##N; \
+    float _ScatterIntensity##N; \
+    float _ScatterFade##N; \
+    float4 _ScatterDistance##N; \
+    float4 _ScatterRotation##N; \
+    float4 _ScatterScale##N;
+
 #define DECLARE_OUTLINE_VARS(N) \
     int _OutlineMode##N; \
     float _OutlineWidth##N; \
@@ -219,8 +237,7 @@ struct ParticleLayer
     float _SurfaceIntensity##N; \
     float _SurfaceScale##N; \
     float _SurfaceSpeed##N; \
-    float4 _SurfaceColor##N; \
-    int _SurfaceBlend##N;
+    float4 _SurfaceColor##N;
 
 #define DECLARE_PARTICLE_LAYER_VARS(N) \
     int _Particle##N##Use; \
@@ -298,6 +315,14 @@ struct ParticleLayer
     c.frequency = _ShakeFrequency##N; \
     c.blend = _ShakeBlend##N;
 
+#define LOAD_SCATTER(N, c) \
+    c.direction = _ScatterDirection##N; \
+    c.intensity = _ScatterIntensity##N; \
+    c.fade = _ScatterFade##N; \
+    c.distance = _ScatterDistance##N.xyz; \
+    c.rotation = _ScatterRotation##N.xyz; \
+    c.scale = _ScatterScale##N.xyz;
+
 #define LOAD_OUTLINE(N, c) \
     c.mode = _OutlineMode##N; \
     c.width = _OutlineWidth##N; \
@@ -315,8 +340,7 @@ struct ParticleLayer
     c.intensity = _SurfaceIntensity##N; \
     c.scale = _SurfaceScale##N; \
     c.speed = _SurfaceSpeed##N; \
-    c.color = _SurfaceColor##N.rgb; \
-    c.blend_mode = _SurfaceBlend##N;
+    c.color = _SurfaceColor##N.rgb;
 
 #define LOAD_PARTICLE_LAYER(N, layer) \
     layer.use = _Particle##N##Use; \
@@ -347,6 +371,7 @@ struct ParticleLayer
     DECLARE_SPACING_VARS(N) \
     DECLARE_CURVE_VARS(N) \
     DECLARE_SHAKE_VARS(N) \
+    DECLARE_SCATTER_VARS(N) \
     DECLARE_OUTLINE_VARS(N) \
     DECLARE_SHADOW_VARS(N) \
     DECLARE_SURFACE_VARS(N)
@@ -360,6 +385,7 @@ struct ParticleLayer
     LOAD_SPACING(N, layer.spacing) \
     LOAD_CURVE(N, layer.curve) \
     LOAD_SHAKE(N, layer.shake) \
+    LOAD_SCATTER(N, layer.scatter) \
     LOAD_OUTLINE(N, layer.outline) \
     LOAD_SHADOW(N, layer.shadow) \
     LOAD_SURFACE(N, layer.noise)

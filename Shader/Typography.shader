@@ -343,6 +343,15 @@ Shader "GekikaraStore/x.x.x/Typography"
                        [Enum(Center, 0, Left, 1, Right, 2)] _SpacingAnchor0 ("Anchor", Int) = 0
                        _Spacing0 ("Spacing", Range(-1, 1)) = 0
                     [HideInInspector] m_end_spacing0 ("Kerning & Tracking", Float) = 0
+
+                    [HideInInspector] m_start_scatter0 ("Scatter", Float) = 0
+                        [Enum(Random, 0, Up, 1, Down, 2, Left, 3, Right, 4)] _ScatterDirection0 ("Direction", Int) = 0
+                        _ScatterIntensity0 ("Intensity", Range(0, 1)) = 0
+                        _ScatterFade0 ("Fade", Range(0, 1)) = 0
+                        [Vector3] _ScatterDistance0 ("Distance", Vector) = (3, 3, 0, 0)
+                        [Vector3] _ScatterRotation0 ("Rotation", Vector) = (0, 0, 45, 0)
+                        [Vector3] _ScatterScale0 ("Scale", Vector) = (1, 1, 1, 0)
+                    [HideInInspector] m_end_scatter0 ("Scatter", Float) = 0
                 [HideInInspector] m_end_animator0 ("Animator", Float) = 0
 
                 [HideInInspector] m_start_effect0 ("Effector", Float) = 0
@@ -395,7 +404,6 @@ Shader "GekikaraStore/x.x.x/Typography"
                         _SurfaceScale0 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed0 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor0 ("Color", Color) = (1, 1, 1, 1)
-                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend0 ("Blend", Int) = 0
                     [HideInInspector] m_end_fractal_noise0 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect0 ("Effector", Float) = 0
@@ -438,6 +446,15 @@ Shader "GekikaraStore/x.x.x/Typography"
                        [Enum(Center, 0, Left, 1, Right, 2)] _SpacingAnchor1 ("Anchor", Int) = 0
                        _Spacing1 ("Spacing", Range(-1, 1)) = 0
                     [HideInInspector] m_end_spacing1 ("Kerning & Tracking", Float) = 0
+
+                    [HideInInspector] m_start_scatter1 ("Scatter", Float) = 0
+                        [Enum(Random, 0, Up, 1, Down, 2, Left, 3, Right, 4)] _ScatterDirection1 ("Direction", Int) = 0
+                        _ScatterIntensity1 ("Intensity", Range(0, 1)) = 0
+                        _ScatterFade1 ("Fade", Range(0, 1)) = 0
+                        [Vector3] _ScatterDistance1 ("Distance", Vector) = (3, 3, 0, 0)
+                        [Vector3] _ScatterRotation1 ("Rotation", Vector) = (0, 0, 45, 0)
+                        [Vector3] _ScatterScale1 ("Scale", Vector) = (1, 1, 1, 0)
+                    [HideInInspector] m_end_scatter1 ("Scatter", Float) = 0
                 [HideInInspector] m_end_animator1 ("Animator", Float) = 0
 
                 [HideInInspector] m_start_effect1 ("Effector", Float) = 0
@@ -490,7 +507,6 @@ Shader "GekikaraStore/x.x.x/Typography"
                         _SurfaceScale1 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed1 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor1 ("Color", Color) = (1, 1, 1, 1)
-                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend1 ("Blend", Int) = 0
                     [HideInInspector] m_end_fractal_noise1 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect1 ("Effector", Float) = 0
@@ -533,6 +549,15 @@ Shader "GekikaraStore/x.x.x/Typography"
                        [Enum(Center, 0, Left, 1, Right, 2)] _SpacingAnchor2 ("Anchor", Int) = 0
                        _Spacing2 ("Spacing", Range(-1, 1)) = 0
                     [HideInInspector] m_end_spacing2 ("Kerning & Tracking", Float) = 0
+
+                    [HideInInspector] m_start_scatter2 ("Scatter", Float) = 0
+                        [Enum(Random, 0, Up, 1, Down, 2, Left, 3, Right, 4)] _ScatterDirection2 ("Direction", Int) = 0
+                        _ScatterIntensity2 ("Intensity", Range(0, 1)) = 0
+                        _ScatterFade2 ("Fade", Range(0, 1)) = 0
+                        [Vector3] _ScatterDistance2 ("Distance", Vector) = (3, 3, 0, 0)
+                        [Vector3] _ScatterRotation2 ("Rotation", Vector) = (0, 0, 45, 0)
+                        [Vector3] _ScatterScale2 ("Scale", Vector) = (1, 1, 1, 0)
+                    [HideInInspector] m_end_scatter2 ("Scatter", Float) = 0
                 [HideInInspector] m_end_animator2 ("Animator", Float) = 0
 
                 [HideInInspector] m_start_effect2 ("Effector", Float) = 0
@@ -585,7 +610,6 @@ Shader "GekikaraStore/x.x.x/Typography"
                         _SurfaceScale2 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed2 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor2 ("Color", Color) = (1, 1, 1, 1)
-                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend2 ("Blend", Int) = 0
                     [HideInInspector] m_end_fractal_noise2 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect2 ("Effector", Float) = 0
@@ -628,6 +652,15 @@ Shader "GekikaraStore/x.x.x/Typography"
                        [Enum(Center, 0, Left, 1, Right, 2)] _SpacingAnchor3 ("Anchor", Int) = 0
                        _Spacing3 ("Spacing", Range(-1, 1)) = 0
                     [HideInInspector] m_end_spacing3 ("Kerning & Tracking", Float) = 0
+
+                    [HideInInspector] m_start_scatter3 ("Scatter", Float) = 0
+                        [Enum(Random, 0, Up, 1, Down, 2, Left, 3, Right, 4)] _ScatterDirection3 ("Direction", Int) = 0
+                        _ScatterIntensity3 ("Intensity", Range(0, 1)) = 0
+                        _ScatterFade3 ("Fade", Range(0, 1)) = 0
+                        [Vector3] _ScatterDistance3 ("Distance", Vector) = (3, 3, 0, 0)
+                        [Vector3] _ScatterRotation3 ("Rotation", Vector) = (0, 0, 45, 0)
+                        [Vector3] _ScatterScale3 ("Scale", Vector) = (1, 1, 1, 0)
+                    [HideInInspector] m_end_scatter3 ("Scatter", Float) = 0
                 [HideInInspector] m_end_animator3 ("Animator", Float) = 0
 
                 [HideInInspector] m_start_effect3 ("Effector", Float) = 0
@@ -680,7 +713,6 @@ Shader "GekikaraStore/x.x.x/Typography"
                         _SurfaceScale3 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed3 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor3 ("Color", Color) = (1, 1, 1, 1)
-                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend3 ("Blend", Int) = 0
                     [HideInInspector] m_end_fractal_noise3 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect3 ("Effector", Float) = 0
@@ -723,6 +755,15 @@ Shader "GekikaraStore/x.x.x/Typography"
                        [Enum(Center, 0, Left, 1, Right, 2)] _SpacingAnchor4 ("Anchor", Int) = 0
                        _Spacing4 ("Spacing", Range(-1, 1)) = 0
                     [HideInInspector] m_end_spacing4 ("Kerning & Tracking", Float) = 0
+
+                    [HideInInspector] m_start_scatter4 ("Scatter", Float) = 0
+                        [Enum(Random, 0, Up, 1, Down, 2, Left, 3, Right, 4)] _ScatterDirection4 ("Direction", Int) = 0
+                        _ScatterIntensity4 ("Intensity", Range(0, 1)) = 0
+                        _ScatterFade4 ("Fade", Range(0, 1)) = 0
+                        [Vector3] _ScatterDistance4 ("Distance", Vector) = (3, 3, 0, 0)
+                        [Vector3] _ScatterRotation4 ("Rotation", Vector) = (0, 0, 45, 0)
+                        [Vector3] _ScatterScale4 ("Scale", Vector) = (1, 1, 1, 0)
+                    [HideInInspector] m_end_scatter4 ("Scatter", Float) = 0
                 [HideInInspector] m_end_animator4 ("Animator", Float) = 0
 
                 [HideInInspector] m_start_effect4 ("Effector", Float) = 0
@@ -775,7 +816,6 @@ Shader "GekikaraStore/x.x.x/Typography"
                         _SurfaceScale4 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed4 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor4 ("Color", Color) = (1, 1, 1, 1)
-                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend4 ("Blend", Int) = 0
                     [HideInInspector] m_end_fractal_noise4 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect4 ("Effector", Float) = 0
@@ -818,6 +858,15 @@ Shader "GekikaraStore/x.x.x/Typography"
                        [Enum(Center, 0, Left, 1, Right, 2)] _SpacingAnchor5 ("Anchor", Int) = 0
                        _Spacing5 ("Spacing", Range(-1, 1)) = 0
                     [HideInInspector] m_end_spacing5 ("Kerning & Tracking", Float) = 0
+
+                    [HideInInspector] m_start_scatter5 ("Scatter", Float) = 0
+                        [Enum(Random, 0, Up, 1, Down, 2, Left, 3, Right, 4)] _ScatterDirection5 ("Direction", Int) = 0
+                        _ScatterIntensity5 ("Intensity", Range(0, 1)) = 0
+                        _ScatterFade5 ("Fade", Range(0, 1)) = 0
+                        [Vector3] _ScatterDistance5 ("Distance", Vector) = (3, 3, 0, 0)
+                        [Vector3] _ScatterRotation5 ("Rotation", Vector) = (0, 0, 45, 0)
+                        [Vector3] _ScatterScale5 ("Scale", Vector) = (1, 1, 1, 0)
+                    [HideInInspector] m_end_scatter5 ("Scatter", Float) = 0
                 [HideInInspector] m_end_animator5 ("Animator", Float) = 0
 
                 [HideInInspector] m_start_effect5 ("Effector", Float) = 0
@@ -870,7 +919,6 @@ Shader "GekikaraStore/x.x.x/Typography"
                         _SurfaceScale5 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed5 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor5 ("Color", Color) = (1, 1, 1, 1)
-                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend5 ("Blend", Int) = 0
                     [HideInInspector] m_end_fractal_noise5 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect5 ("Effector", Float) = 0
@@ -913,6 +961,15 @@ Shader "GekikaraStore/x.x.x/Typography"
                        [Enum(Center, 0, Left, 1, Right, 2)] _SpacingAnchor6 ("Anchor", Int) = 0
                        _Spacing6 ("Spacing", Range(-1, 1)) = 0
                     [HideInInspector] m_end_spacing6 ("Kerning & Tracking", Float) = 0
+
+                    [HideInInspector] m_start_scatter6 ("Scatter", Float) = 0
+                        [Enum(Random, 0, Up, 1, Down, 2, Left, 3, Right, 4)] _ScatterDirection6 ("Direction", Int) = 0
+                        _ScatterIntensity6 ("Intensity", Range(0, 1)) = 0
+                        _ScatterFade6 ("Fade", Range(0, 1)) = 0
+                        [Vector3] _ScatterDistance6 ("Distance", Vector) = (3, 3, 0, 0)
+                        [Vector3] _ScatterRotation6 ("Rotation", Vector) = (0, 0, 45, 0)
+                        [Vector3] _ScatterScale6 ("Scale", Vector) = (1, 1, 1, 0)
+                    [HideInInspector] m_end_scatter6 ("Scatter", Float) = 0
                 [HideInInspector] m_end_animator6 ("Animator", Float) = 0
 
                 [HideInInspector] m_start_effect6 ("Effector", Float) = 0
@@ -965,7 +1022,6 @@ Shader "GekikaraStore/x.x.x/Typography"
                         _SurfaceScale6 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed6 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor6 ("Color", Color) = (1, 1, 1, 1)
-                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend6 ("Blend", Int) = 0
                     [HideInInspector] m_end_fractal_noise6 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect6 ("Effector", Float) = 0
@@ -1008,6 +1064,15 @@ Shader "GekikaraStore/x.x.x/Typography"
                        [Enum(Center, 0, Left, 1, Right, 2)] _SpacingAnchor7 ("Anchor", Int) = 0
                        _Spacing7 ("Spacing", Range(-1, 1)) = 0
                     [HideInInspector] m_end_spacing7 ("Kerning & Tracking", Float) = 0
+
+                    [HideInInspector] m_start_scatter7 ("Scatter", Float) = 0
+                        [Enum(Random, 0, Up, 1, Down, 2, Left, 3, Right, 4)] _ScatterDirection7 ("Direction", Int) = 0
+                        _ScatterIntensity7 ("Intensity", Range(0, 1)) = 0
+                        _ScatterFade7 ("Fade", Range(0, 1)) = 0
+                        [Vector3] _ScatterDistance7 ("Distance", Vector) = (3, 3, 0, 0)
+                        [Vector3] _ScatterRotation7 ("Rotation", Vector) = (0, 0, 45, 0)
+                        [Vector3] _ScatterScale7 ("Scale", Vector) = (1, 1, 1, 0)
+                    [HideInInspector] m_end_scatter7 ("Scatter", Float) = 0
                 [HideInInspector] m_end_animator7 ("Animator", Float) = 0
 
                 [HideInInspector] m_start_effect7 ("Effector", Float) = 0
@@ -1060,7 +1125,6 @@ Shader "GekikaraStore/x.x.x/Typography"
                         _SurfaceScale7 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed7 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor7 ("Color", Color) = (1, 1, 1, 1)
-                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend7 ("Blend", Int) = 0
                     [HideInInspector] m_end_fractal_noise7 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect7 ("Effector", Float) = 0
@@ -1103,6 +1167,15 @@ Shader "GekikaraStore/x.x.x/Typography"
                        [Enum(Center, 0, Left, 1, Right, 2)] _SpacingAnchor8 ("Anchor", Int) = 0
                        _Spacing8 ("Spacing", Range(-1, 1)) = 0
                     [HideInInspector] m_end_spacing8 ("Kerning & Tracking", Float) = 0
+
+                    [HideInInspector] m_start_scatter8 ("Scatter", Float) = 0
+                        [Enum(Random, 0, Up, 1, Down, 2, Left, 3, Right, 4)] _ScatterDirection8 ("Direction", Int) = 0
+                        _ScatterIntensity8 ("Intensity", Range(0, 1)) = 0
+                        _ScatterFade8 ("Fade", Range(0, 1)) = 0
+                        [Vector3] _ScatterDistance8 ("Distance", Vector) = (3, 3, 0, 0)
+                        [Vector3] _ScatterRotation8 ("Rotation", Vector) = (0, 0, 45, 0)
+                        [Vector3] _ScatterScale8 ("Scale", Vector) = (1, 1, 1, 0)
+                    [HideInInspector] m_end_scatter8 ("Scatter", Float) = 0
                 [HideInInspector] m_end_animator8 ("Animator", Float) = 0
 
                 [HideInInspector] m_start_effect8 ("Effector", Float) = 0
@@ -1155,7 +1228,6 @@ Shader "GekikaraStore/x.x.x/Typography"
                         _SurfaceScale8 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed8 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor8 ("Color", Color) = (1, 1, 1, 1)
-                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend8 ("Blend", Int) = 0
                     [HideInInspector] m_end_fractal_noise8 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect8 ("Effector", Float) = 0
@@ -1198,6 +1270,15 @@ Shader "GekikaraStore/x.x.x/Typography"
                        [Enum(Center, 0, Left, 1, Right, 2)] _SpacingAnchor9 ("Anchor", Int) = 0
                        _Spacing9 ("Spacing", Range(-1, 1)) = 0
                     [HideInInspector] m_end_spacing9 ("Kerning & Tracking", Float) = 0
+
+                    [HideInInspector] m_start_scatter9 ("Scatter", Float) = 0
+                        [Enum(Random, 0, Up, 1, Down, 2, Left, 3, Right, 4)] _ScatterDirection9 ("Direction", Int) = 0
+                        _ScatterIntensity9 ("Intensity", Range(0, 1)) = 0
+                        _ScatterFade9 ("Fade", Range(0, 1)) = 0
+                        [Vector3] _ScatterDistance9 ("Distance", Vector) = (3, 3, 0, 0)
+                        [Vector3] _ScatterRotation9 ("Rotation", Vector) = (0, 0, 45, 0)
+                        [Vector3] _ScatterScale9 ("Scale", Vector) = (1, 1, 1, 0)
+                    [HideInInspector] m_end_scatter9 ("Scatter", Float) = 0
                 [HideInInspector] m_end_animator9 ("Animator", Float) = 0
 
                 [HideInInspector] m_start_effect9 ("Effector", Float) = 0
@@ -1250,7 +1331,6 @@ Shader "GekikaraStore/x.x.x/Typography"
                         _SurfaceScale9 ("Scale", Range(0.5, 3)) = 1
                         _SurfaceSpeed9 ("Speed", Range(0, 1)) = 0.1
                         [HDR]_SurfaceColor9 ("Color", Color) = (1, 1, 1, 1)
-                        [Enum(Multiply, 0, Replace, 1, Add, 2)] _SurfaceBlend9 ("Blend", Int) = 0
                     [HideInInspector] m_end_fractal_noise9 ("Fractal Noise", Float) = 0
 
                 [HideInInspector] m_end_effect9 ("Effector", Float) = 0
@@ -1849,7 +1929,6 @@ Shader "GekikaraStore/x.x.x/Typography"
                 float char_offset = noise_speed_offset.y;
                 float3 noise_color = float3(noise_rg.x, noise_rg.y, noise_ba.x);
                 uint noise_mode = UNPACK_NOISE_MODE(packed_info);
-                uint noise_blend_mode = UNPACK_BLEND_MODE(packed_info);
 
                 MSDFSample msdf;
                 apply_effects(accum_color, accum_alpha, msdf, adjusted_uv, atlas_params, char_index, font_index, opacity_mult, params, packed_info);
@@ -1857,7 +1936,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                 // Apply procedural noise effect AFTER main compositing
                 apply_noise_effect(accum_color, msdf.opacity * opacity_mult, adjusted_uv, char_offset,
                     _Time.y, noise_mode, noise_intensity, noise_scale, noise_speed,
-                    noise_color, noise_blend_mode);
+                    noise_color);
 
                 clip(accum_alpha - _AlphaCutoff);
                 accum_alpha *= block_fade;

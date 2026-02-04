@@ -29,6 +29,98 @@ inline float2 calculate_shake_deform(
 }
 
 // ============================================================================
+// Scatter Effect
+// Direction modes: 0=Random, 1=Radial, 2=Up, 3=Down, 4=Left, 5=Right
+// ============================================================================
+#define SCATTER_DIR_RANDOM  0
+#define SCATTER_DIR_UP      1
+#define SCATTER_DIR_DOWN    2
+#define SCATTER_DIR_LEFT    3
+#define SCATTER_DIR_RIGHT   4
+
+struct ScatterResult
+{
+    float3 offset;      // Position offset (xyz)
+    float3 rotation;    // Rotation in radians (xyz)
+    float3 scale;       // Scale multiplier (xyz)
+    float opacity;      // Opacity multiplier
+};
+
+inline ScatterResult calculate_scatter(
+    int char_pos,
+    int total_chars,
+    int direction,
+    float intensity,
+    float target_fade,
+    float3 max_distance,
+    float3 max_rotation,
+    float3 target_scale)
+{
+    ScatterResult result;
+    result.offset = float3(0, 0, 0);
+    result.rotation = float3(0, 0, 0);
+    result.scale = float3(1, 1, 1);
+    result.opacity = 1;
+
+    if (intensity <= EPSILON)
+        return result;
+
+    // Per-character random values (deterministic based on char_pos)
+    float2 char_hash = hash22(float2(char_pos * 7.31, char_pos * 13.17));
+    float3 char_hash3 = hash31(char_pos * 17.53);
+    float angle_hash = char_hash.x;
+    float dist_hash = char_hash.y;
+
+    // Calculate scatter direction (XY plane)
+    float2 scatter_dir;
+    switch (direction)
+    {
+        case SCATTER_DIR_RANDOM:
+            float angle = angle_hash * 6.28318530718; // 2*PI
+            scatter_dir = float2(cos(angle), sin(angle));
+            break;
+
+        case SCATTER_DIR_UP:
+            scatter_dir = float2(angle_hash * 0.4 - 0.2, 1.0);
+            break;
+
+        case SCATTER_DIR_DOWN:
+            scatter_dir = float2(angle_hash * 0.4 - 0.2, -1.0);
+            break;
+
+        case SCATTER_DIR_LEFT:
+            scatter_dir = float2(-1.0, angle_hash * 0.4 - 0.2);
+            break;
+
+        case SCATTER_DIR_RIGHT:
+            scatter_dir = float2(1.0, angle_hash * 0.4 - 0.2);
+            break;
+
+        default:
+            scatter_dir = float2(0, 0);
+            break;
+    }
+
+    // Distance: apply per-character variation (50%-100% of max)
+    float3 dist_variation = float3(0.5 + char_hash3.x * 0.5, 0.5 + char_hash3.y * 0.5, 0.5 + char_hash3.z * 0.5);
+    float2 normalized_dir = length(scatter_dir) > EPSILON ? normalize(scatter_dir) : float2(0, 0);
+    result.offset.xy = normalized_dir * max_distance.xy * dist_variation.xy * intensity * 0.1;
+    result.offset.z = (char_hash3.z - 0.5) * max_distance.z * intensity * 0.1;
+
+    // Rotation: random direction per axis, scaled by intensity
+    float3 rot_dir = sign(char_hash3 - 0.5);
+    result.rotation = radians(max_rotation) * intensity * rot_dir * dist_variation;
+
+    // Scale: lerp from 1 to target_scale based on intensity
+    result.scale = lerp(float3(1, 1, 1), target_scale, intensity);
+
+    // Opacity: Fade=0 keeps visible, Fade=1 becomes invisible at full intensity
+    result.opacity = 1.0 - target_fade * intensity;
+
+    return result;
+}
+
+// ============================================================================
 // Catmull-Rom Curve Interpolation
 // ============================================================================
 
@@ -425,9 +517,8 @@ void apply_main_text(
 }
 
 // Procedural Noise Effect (Fractal Noise)
-// Applies noise-based patterns to text color
+// Applies effect_color to noisy areas while preserving original color elsewhere
 // mode: 0=Simplex, 1=Curl, 2=FBM, 3=Turbulence, 4=Ridged, 5=Marble
-// blend_mode: 0=Multiply, 1=Replace, 2=Add
 void apply_noise_effect(
     inout half3 accum_color,
     float main_opacity,
@@ -438,8 +529,7 @@ void apply_noise_effect(
     float intensity,
     float scale,
     float speed,
-    float3 effect_color,
-    uint blend_mode)
+    float3 effect_color)
 {
     if (intensity <= EPSILON || main_opacity <= EPSILON)
         return;
@@ -455,32 +545,26 @@ void apply_noise_effect(
     switch (mode)
     {
         case NOISE_MODE_SIMPLEX:
-            // Animated simplex noise
             noise_value = simplex3d(float3(uv, anim_time)) * 0.5 + 0.5;
             break;
 
         case NOISE_MODE_CURL:
-            // Curl noise - fluid-like swirling flow
             noise_value = curl_noise_animated(uv, anim_time);
             break;
 
         case NOISE_MODE_FBM:
-            // Animated fractal noise (4 octaves)
             noise_value = fbm_animated(uv, anim_time, 4) * 0.5 + 0.5;
             break;
 
         case NOISE_MODE_TURBULENCE:
-            // Sharp valleys - fire, smoke effect
             noise_value = turbulence_animated(uv, anim_time, 4);
             break;
 
         case NOISE_MODE_RIDGED:
-            // Sharp ridges - lightning, cracks
             noise_value = ridged_animated(uv, anim_time, 4);
             break;
 
         case NOISE_MODE_MARBLE:
-            // Classic marble veins
             noise_value = marble_animated(uv, anim_time, 2.0);
             break;
 
@@ -488,31 +572,11 @@ void apply_noise_effect(
             return;
     }
 
-    // Generate effect color from noise
-    half3 noise_color = effect_color * noise_value;
-
-    // Apply blend mode
-    half3 result;
-    [branch]
-    switch (blend_mode)
-    {
-        case 0:  // Multiply
-            result = accum_color * (1.0 - intensity + noise_color * intensity);
-            break;
-        case 1:  // Replace
-            result = noise_color;
-            break;
-        case 2:  // Add
-            result = accum_color + noise_color * intensity;
-            break;
-        default:
-            result = accum_color;
-            break;
-    }
-
-    // Apply with intensity and opacity (steepened to avoid edge bleeding)
+    // Use noise as mask: blend effect_color into noisy areas
+    // noise=0 → keep original, noise=1 → apply effect_color
+    float blend_factor = noise_value * intensity;
     float effect_mask = saturate(main_opacity * 2.0);
-    accum_color = lerp(accum_color, saturate(result), intensity * effect_mask);
+    accum_color = lerp(accum_color, effect_color, blend_factor * effect_mask);
 }
 
 // ============================================================================
@@ -542,6 +606,10 @@ void apply_effects(
     // Unpack settings (see Constants.hlsl for bit layout)
     uint outline_mode = UNPACK_OUTLINE_MODE(packed_info);
 
+    // Master alpha from text color affects all elements (text, outline, shadow)
+    float master_alpha = params.text_color.a;
+    float effective_opacity = opacity_mult * master_alpha;
+
     // Compute softness once (fwidth is expensive, avoid duplicate calls)
     float2 duv = fwidth(adjusted_uv);
     float softness = min(p.half_inv_emrange * max(duv.x, duv.y), 0.5);
@@ -555,7 +623,7 @@ void apply_effects(
 
     // Shadow effect (renders behind text)
     apply_shadow_effect(accum_color, accum_alpha, adjusted_uv,
-        atlas_pos, font_index, p, half_inv_softness, opacity_mult,
+        atlas_pos, font_index, p, half_inv_softness, effective_opacity,
         params.shadow, params.shadow_color.rgb);
 
     // Branchless glyph area check (avoids warp divergence from early return)
@@ -565,20 +633,23 @@ void apply_effects(
     MSDFSample msdf = sample_msdf_fast(adjusted_uv, atlas_pos, font_index, p, half_inv_softness);
 
     // Mask opacity for padding area (glyph effects only render inside glyph bounds)
-    float masked_opacity_mult = opacity_mult * in_glyph;
+    // Outline/Shadow use effective_opacity (includes master_alpha)
+    // Main text uses base opacity (apply_main_text internally applies text_color.a)
+    float base_masked_opacity = opacity_mult * in_glyph;
+    float effect_masked_opacity = effective_opacity * in_glyph;
 
     // Outline with width and round support (uses half_inv_softness)
     apply_outline_effect(accum_color, accum_alpha,
-        msdf.sd, msdf.sd_rounded, half_inv_softness, masked_opacity_mult,
+        msdf.sd, msdf.sd_rounded, half_inv_softness, effect_masked_opacity,
         params.outline.x, params.outline.y,
         params.outline_color, outline_mode);
 
     // Stroke mode: skip main text fill (branchless mask)
     float fill_mask = 1.0 - (float)outline_mode;
 
-    // Main text (masked for stroke mode and padding)
+    // Main text (apply_main_text internally applies text_color.a, so use base opacity)
     apply_main_text(accum_color, accum_alpha,
-        msdf.opacity, masked_opacity_mult * fill_mask, params.text_color);
+        msdf.opacity, base_masked_opacity * fill_mask, params.text_color);
 
     // Output MSDF sample for reuse by other effects
     msdf_out = msdf;

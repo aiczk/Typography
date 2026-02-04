@@ -50,6 +50,14 @@ inline float hash21(float2 p)
     return frac((p3.x + p3.y) * p3.z);
 }
 
+// 1 input -> 3 outputs hash
+inline float3 hash31(float p)
+{
+    float3 p3 = frac(float3(p, p, p) * float3(0.1031, 0.1030, 0.0973));
+    p3 += dot(p3, p3.yzx + 33.33);
+    return frac((p3.xxy + p3.yzz) * p3.zyx);
+}
+
 // ============================================================================
 // Simplex Noise
 // ============================================================================
