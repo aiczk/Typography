@@ -1375,7 +1375,7 @@ Shader "GekikaraStore/x.x.x/Typography"
 
         [HideInInspector][Toggle] _FXPassUse ("", Float) = 0
         [HideInInspector] m_start_fx_pass ("FX Pass--{reference_property:_FXPassUse}", Float) = 0
-        [HideInInspector] m_end_fx_pass ("FX Pass", Float) = 0
+        [HideInInspector] m_end_fx_pass ("", Float) = 0
 
         [HideInInspector] m_start_rendering_settings ("Rendering Settings", Float) = 0
             _FadeMin ("Fade Min", Float) = 0
@@ -1607,6 +1607,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                 float4 final_color = image_color * color;
                 final_color.a *= fade;
                 clip(final_color.a - _AlphaCutoff);
+
                 // Pre-multiplied alpha output (prevents Bloom on transparent pixels)
                 return half4(final_color.rgb * final_color.a, final_color.a);
             }
@@ -2025,20 +2026,20 @@ Shader "GekikaraStore/x.x.x/Typography"
 
         //ifex _FXPassUse==0
         // ============================================================================
-        // GrabPass: Capture screen for FX Pass
+        // GrabPass: Capture color screen for FX Pass
         // ============================================================================
-        GrabPass { "_TypographyFXPassGrabTexture" }
+        GrabPass { "_FXGrabTexture" }
 
         // ============================================================================
-        // Pass 3: FX (Post-Processing) - Fullscreen Quad from SubMesh 3
+        // FX Pass: Post-Processing (placeholder for future effects)
         // ============================================================================
         Pass
         {
             Name "FX"
-		    ZWrite Off
-		    ZTest Off
-		    Cull Front
-		    Blend One Zero
+            ZWrite Off
+            ZTest Off
+            Cull Front
+            Blend One Zero
 
             CGPROGRAM
             #pragma vertex fx_vert
@@ -2048,52 +2049,19 @@ Shader "GekikaraStore/x.x.x/Typography"
             #pragma fragmentoption ARB_precision_hint_fastest
 
             #include "UnityCG.cginc"
+            #include "Pipelines/FXPipeline.hlsl"
 
-            sampler2D _TypographyFXPassGrabTexture;
+            sampler2D _FXGrabTexture;
             float _FXPassUse;
-
-            struct fx_appdata
-            {
-                float4 vertex : POSITION;
-                float2 uv : TEXCOORD0;   // uv.x < 0 as FX marker
-                float2 uv2 : TEXCOORD1;  // Clip space coords (-1,-1) to (1,1)
-                UNITY_VERTEX_INPUT_INSTANCE_ID
-            };
-
-            struct fx_v2f
-            {
-                float4 vertex : SV_POSITION;
-                float4 grabPos : TEXCOORD0;
-                UNITY_VERTEX_OUTPUT_STEREO
-            };
 
             fx_v2f fx_vert(fx_appdata v)
             {
-                fx_v2f o;
-                UNITY_SETUP_INSTANCE_ID(v);
-                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-
-                // Pass detection: FX = uv.x < 0
-                o.vertex = float4(0, 0, -1, 1);
-                o.grabPos = float4(0, 0, 0, 1);
-                if (v.uv.x >= 0) return o;
-
-                //ifex _FXPassUse==1
-                if (!_FXPassUse) return o;
-                //endex
-
-                // Use uv2 as clip space position for fullscreen quad
-                o.vertex = float4(v.uv2.xy, 0, 1);
-                o.grabPos = ComputeGrabScreenPos(o.vertex);
-                return o;
+                return fx_vert(v, _FXPassUse);
             }
 
             half4 fx_frag(fx_v2f i) : SV_Target
             {
-                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
-
-                float2 uv = i.grabPos.xy / i.grabPos.w;
-                return tex2D(_TypographyFXPassGrabTexture, uv);
+                return fx_post_frag_impl(i.grabPos, _FXGrabTexture);
             }
             ENDCG
         }
