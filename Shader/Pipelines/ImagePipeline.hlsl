@@ -229,7 +229,7 @@ inline void unpack_image_fade_id(uint packed, out float fade, out uint image_id)
 
 inline float4 sample_image_texture(uint image_id, float2 uv)
 {
-    switch(image_id)
+    [forcecase] switch(image_id)
     {
         case 0: return _ImageTexture0.Sample(sampler_ImageTexture0, uv);
         case 1: return _ImageTexture1.Sample(sampler_ImageTexture0, uv);

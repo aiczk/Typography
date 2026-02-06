@@ -138,13 +138,13 @@ float catmull_rom(float p0, float p1, float p2, float p3, float t)
     return mad(p0, h0, mad(p1, h1, mad(p2, h2, p3 * h3)));
 }
 
-// Helper: branchless sample extraction (swizzle + dot trick)
+// Helper: branchless sample extraction via component indexing
 inline float get_curve_sample(float4 data0, float4 data1, int i)
 {
-    float4 data = (i < 4) ? data0 : data1;
-    int j = i & 3;
-    float4 mask = float4(j == 0, j == 1, j == 2, j == 3);
-    return dot(data, mask);
+    // Compiler maps dynamic array index to register swizzle
+    float s[8] = { data0.x, data0.y, data0.z, data0.w,
+                   data1.x, data1.y, data1.z, data1.w };
+    return s[i];
 }
 
 float sample_baked_curve(float4 data0, float4 data1, float t)
@@ -269,49 +269,14 @@ inline CurveDeform calculate_curve_deform(
 }
 
 // ============================================================================
-// Typewriter Effect (After Effects style)
-// ============================================================================
-// fade_width: 0 = hard cut, higher = smoother transition
-// Returns anim_factor: 0 = fully visible, 1 = fully hidden
-float calculate_typewriter_visibility(int char_pos, int char_count, int mode, float progress, float fade_width)
-{
-    float display_count = char_count * saturate(progress);
-    float distance_to_edge = 0.0;
-    float center_offset = (char_count - 1) * 0.5;
-
-    if (mode == TYPEWRITER_LTR)
-        distance_to_edge = display_count - char_pos;
-    else if (mode == TYPEWRITER_RTL)
-        distance_to_edge = char_pos - (char_count - display_count) + 1;
-    else
-    {
-        // CenterOut: expand radius must reach edge chars at progress=1
-        float half_display = saturate(progress) * (center_offset + 1.0);
-        float dist_from_center = abs(char_pos - center_offset);
-        distance_to_edge = half_display - dist_from_center;
-    }
-
-    // Hard edge mode
-    if (fade_width <= EPSILON)
-        return (distance_to_edge > 0.0) ? 0.0 : 1.0;
-
-    // After Effects-style smooth falloff with easing
-    float normalized_distance = distance_to_edge / fade_width;
-    float visibility = saturate(normalized_distance * 0.5 + 0.5);
-    visibility = ease_smooth(visibility);
-
-    return 1.0 - visibility;
-}
-
-// ============================================================================
 // MSDF Sampling
 // ============================================================================
 struct MSDFSample
 {
-    float sd;           // Signed distance from MSDF median (sharp corners)
-    float sd_rounded;   // Signed distance from SDF alpha (rounded corners)
-    float softness;     // Edge softness for anti-aliasing (emrange-based)
-    float opacity;      // Main text opacity
+    half sd;            // Signed distance from MSDF median (sharp corners)
+    half sd_rounded;    // Signed distance from SDF alpha (rounded corners)
+    half softness;      // Edge softness for anti-aliasing (emrange-based)
+    half opacity;       // Main text opacity
 };
 
 // Pre-computed atlas parameters (compute once per draw call, pass to functions)
@@ -347,17 +312,18 @@ float2 calculate_atlas_uv_fast(uint char_index, float2 glyph_uv, AtlasParams p)
 
 // MSDF sampling with pre-computed atlas_pos and half_inv_softness
 // Returns both sharp (MSDF median) and rounded (SDF alpha) distances
-MSDFSample sample_msdf_fast(float2 uv, float2 atlas_pos, uint font_index, AtlasParams p, float half_inv_softness)
+// half precision: BC7 decode is natively f16, SDF values fit in half range
+MSDFSample sample_msdf_fast(float2 uv, float2 atlas_pos, uint font_index, AtlasParams p, half half_inv_softness)
 {
     MSDFSample result;
-    result.softness = 0.5 / half_inv_softness;  // Reconstruct for struct (rarely used)
+    result.softness = (half)0.5 / half_inv_softness;  // Reconstruct for struct (rarely used)
 
     float2 clamped_uv = saturate(uv * ATLAS_UV_INNER_SCALE + ATLAS_UV_MARGIN);
     float2 atlas_uv = (atlas_pos + clamped_uv) * p.inv_size;
     half4 mtsdf = UNITY_SAMPLE_TEX2DARRAY(_FontTextureArray, float3(atlas_uv, font_index));
     half med = median(mtsdf.rgb);
-    result.sd = 2.0 * med - 1.0;
-    result.sd_rounded = 2.0 * mtsdf.a - 1.0;
+    result.sd = mad((half)2.0, med, (half)-1.0);
+    result.sd_rounded = mad((half)2.0, mtsdf.a, (half)-1.0);
     result.opacity = linearStepSymmetric_fast(result.sd, half_inv_softness);
 
     return result;
@@ -379,10 +345,10 @@ void apply_shadow_hard(
     float2 atlas_pos,
     uint font_index,
     AtlasParams p,
-    float half_inv_softness,
-    float shadow_intensity,
-    float opacity_mult,
-    float3 shadow_color)
+    half half_inv_softness,
+    half shadow_intensity,
+    half opacity_mult,
+    half3 shadow_color)
 {
     if (!all(saturate(shadow_uv) == shadow_uv))
         return;
@@ -391,8 +357,8 @@ void apply_shadow_hard(
     float2 shadow_atlas_uv = (atlas_pos + clamped_uv) * p.inv_size;
     half4 shadow_mtsdf = UNITY_SAMPLE_TEX2DARRAY(_FontTextureArray, float3(shadow_atlas_uv, font_index));
     half shadow_med = median(shadow_mtsdf.rgb);
-    float shadow_sd = 2.0 * shadow_med - 1.0;
-    float shadow_opacity = linearStepSymmetric_fast(shadow_sd, half_inv_softness);
+    half shadow_sd = mad((half)2.0, shadow_med, (half)-1.0);
+    half shadow_opacity = linearStepSymmetric_fast(shadow_sd, half_inv_softness);
 
     half shadow_alpha = shadow_opacity * shadow_intensity * opacity_mult;
     accum_color = shadow_color * shadow_alpha;
@@ -408,10 +374,10 @@ void apply_shadow_soft(
     float2 atlas_pos,
     uint font_index,
     AtlasParams p,
-    float shadow_intensity,
-    float opacity_mult,
-    float3 shadow_color,
-    float blur_radius)
+    half shadow_intensity,
+    half opacity_mult,
+    half3 shadow_color,
+    half blur_radius)
 {
     if (!all(saturate(shadow_uv) == shadow_uv))
         return;
@@ -421,12 +387,12 @@ void apply_shadow_soft(
 
     // Use true SDF from MTSDF alpha channel (not MSDF RGB median)
     half sample_alpha = UNITY_SAMPLE_TEX2DARRAY(_FontTextureArray, float3(shadow_atlas_uv, font_index)).a;
-    float sd = 2.0 * sample_alpha - 1.0;  // [-1, 1] signed distance
+    half sd = mad((half)2.0, sample_alpha, (half)-1.0);  // [-1, 1] signed distance
 
     // Direct distance-to-opacity conversion
     // Extended range: gradient extends into glyph interior for glow-like softness
-    // pow(x, 2.5) creates gentler falloff at outer edge
-    float shadow_opacity = pow(smoothstep(-blur_radius, blur_radius * 0.5, sd), 1.5);
+    // pow(x, 1.5) creates gentler falloff at outer edge
+    half shadow_opacity = (half)pow(smoothstep(-blur_radius, blur_radius * (half)0.5, sd), 1.5);
 
     half shadow_alpha = shadow_opacity * shadow_intensity * opacity_mult;
     accum_color = shadow_color * shadow_alpha;
@@ -441,17 +407,17 @@ void apply_shadow_effect(
     float2 atlas_pos,
     uint font_index,
     AtlasParams p,
-    float half_inv_softness,
-    float opacity_mult,
-    float4 shadow_params,       // x=intensity, yz=offset, w=blur_radius
-    float3 shadow_color)
+    half half_inv_softness,
+    half opacity_mult,
+    half4 shadow_params,        // x=intensity, yz=offset, w=blur_radius
+    half3 shadow_color)
 {
-    float shadow_intensity = shadow_params.x;
+    half shadow_intensity = shadow_params.x;
     if (shadow_intensity <= EPSILON)
         return;
 
-    float blur_radius = shadow_params.w;
-    float2 shadow_uv = glyph_uv - shadow_params.yz;
+    half blur_radius = shadow_params.w;
+    float2 shadow_uv = glyph_uv - (float2)shadow_params.yz;
 
     // Dispatch to specialized function
     if (blur_radius > EPSILON)
@@ -472,48 +438,48 @@ void apply_shadow_effect(
 void apply_outline_effect(
     inout half3 accum_color,
     inout half accum_alpha,
-    float sd_sharp,             // Signed distance from MSDF (sharp corners)
-    float sd_rounded,           // Signed distance from SDF alpha (rounded corners)
-    float half_inv_softness,
-    float opacity_mult,
-    float outline_width,        // Pre-computed in VS: width * 0.5 (relative to em)
-    float outline_round,        // 0-1 blend between sharp and rounded
-    float4 outline_color,       // rgba=color
+    half sd_sharp,              // Signed distance from MSDF (sharp corners)
+    half sd_rounded,            // Signed distance from SDF alpha (rounded corners)
+    half half_inv_softness,
+    half opacity_mult,
+    half outline_width,         // Pre-computed in VS: width * 0.5 (relative to em)
+    half outline_round,         // 0-1 blend between sharp and rounded
+    half4 outline_color,        // rgba=color
     uint outline_mode)
 {
     // Inner edge uses sharp MSDF for crisp text
     // Outer edge blends between sharp (MSDF) and rounded (SDF) based on parameter
-    float sd_inner = sd_sharp;
-    float sd_outer = lerp(sd_sharp, sd_rounded, outline_round);
+    half sd_inner = sd_sharp;
+    half sd_outer = lerp(sd_sharp, sd_rounded, outline_round);
 
     // Compute outer edge opacity with sharp anti-aliased edge
-    float outer_opacity = linearStepSymmetric_fast(sd_outer + outline_width, half_inv_softness);
+    half outer_opacity = linearStepSymmetric_fast(sd_outer + outline_width, half_inv_softness);
 
     // Branchless outline calculation:
     // outline_mode=0 (Outline): outer_opacity
     // outline_mode=1 (Stroke):  outer_opacity - inner_opacity
-    float inner_opacity = linearStepSymmetric_fast(sd_inner, half_inv_softness);
-    float outline_opacity = outer_opacity - inner_opacity * (float)outline_mode;
+    half inner_opacity = linearStepSymmetric_fast(sd_inner, half_inv_softness);
+    half outline_opacity = outer_opacity - inner_opacity * (half)outline_mode;
 
     // Branchless: mask alpha when width is zero
-    float has_outline = step(EPSILON, outline_width);
+    half has_outline = step(EPSILON, outline_width);
     half outline_alpha = outline_opacity * outline_color.a * opacity_mult * has_outline;
 
-    accum_color = outline_color.rgb * outline_alpha + accum_color * (1.0 - outline_alpha);
-    accum_alpha = outline_alpha + accum_alpha * (1.0 - outline_alpha);
+    accum_color = outline_color.rgb * outline_alpha + accum_color * ((half)1.0 - outline_alpha);
+    accum_alpha = outline_alpha + accum_alpha * ((half)1.0 - outline_alpha);
 }
 
 // Main text effect
 void apply_main_text(
     inout half3 accum_color,
     inout half accum_alpha,
-    float main_opacity,
-    float opacity_mult,
-    float4 text_color)
+    half main_opacity,
+    half opacity_mult,
+    half4 text_color)
 {
     half main_alpha = main_opacity * text_color.a * opacity_mult;
-    accum_color = text_color.rgb * main_alpha + accum_color * (1.0 - main_alpha);
-    accum_alpha = main_alpha + accum_alpha * (1.0 - main_alpha);
+    accum_color = text_color.rgb * main_alpha + accum_color * ((half)1.0 - main_alpha);
+    accum_alpha = main_alpha + accum_alpha * ((half)1.0 - main_alpha);
 }
 
 // Procedural Noise Effect (Fractal Noise)
@@ -521,7 +487,7 @@ void apply_main_text(
 // mode: 0=Simplex, 1=Curl, 2=FBM, 3=Turbulence, 4=Ridged, 5=Marble
 void apply_noise_effect(
     inout half3 accum_color,
-    float main_opacity,
+    half main_opacity,
     float2 glyph_uv,
     float char_offset,
     float time,
@@ -529,16 +495,16 @@ void apply_noise_effect(
     float intensity,
     float scale,
     float speed,
-    float3 effect_color)
+    half3 effect_color)
 {
     if (intensity <= EPSILON || main_opacity <= EPSILON)
         return;
 
-    // Use glyph UV with char_offset for per-character noise variation
+    // Use glyph UV with char_offset for per-character noise variation (float for position)
     float2 uv = (glyph_uv + char_offset) * scale;
     float anim_time = time * speed;
 
-    // Generate noise value based on mode
+    // Generate noise value based on mode (float for noise math)
     float noise_value = 0.0;
 
     [branch]
@@ -573,9 +539,9 @@ void apply_noise_effect(
     }
 
     // Use noise as mask: blend effect_color into noisy areas
-    // noise=0 → keep original, noise=1 → apply effect_color
-    float blend_factor = noise_value * intensity;
-    float effect_mask = saturate(main_opacity * 2.0);
+    // noise=0 -> keep original, noise=1 -> apply effect_color
+    half blend_factor = (half)noise_value * (half)intensity;
+    half effect_mask = saturate(main_opacity * (half)2.0);
     accum_color = lerp(accum_color, effect_color, blend_factor * effect_mask);
 }
 
@@ -584,11 +550,11 @@ void apply_noise_effect(
 // ============================================================================
 struct EffectParams
 {
-    float4 text_color;      // rgba=text_color
-    float4 outline;         // x=width*0.5, y=round, zw=_
-    float4 outline_color;   // rgba=color
-    float4 shadow;          // x=intensity, yz=offset, w=softness
-    float4 shadow_color;    // rgb=shadow_color, a=_
+    half4 text_color;       // rgba=text_color
+    half4 outline;          // x=width*0.5, y=round, zw=_
+    half4 outline_color;    // rgba=color
+    half4 shadow;           // x=intensity, yz=offset, w=softness
+    half4 shadow_color;     // rgb=shadow_color, a=_
 };
 
 void apply_effects(
@@ -599,7 +565,7 @@ void apply_effects(
     AtlasParams p,              // Pre-loaded atlas parameters
     uint char_index,
     uint font_index,
-    float opacity_mult,
+    half opacity_mult,
     EffectParams params,
     uint packed_info)           // see Constants.hlsl for packed_info bit layout
 {
@@ -607,15 +573,22 @@ void apply_effects(
     uint outline_mode = UNPACK_OUTLINE_MODE(packed_info);
 
     // Master alpha from text color affects all elements (text, outline, shadow)
-    float master_alpha = params.text_color.a;
-    float effective_opacity = opacity_mult * master_alpha;
+    half master_alpha = params.text_color.a;
+    half effective_opacity = opacity_mult * master_alpha;
 
-    // Compute softness once (fwidth is expensive, avoid duplicate calls)
-    float2 duv = fwidth(adjusted_uv);
-    float softness = min(p.half_inv_emrange * max(duv.x, duv.y), 0.5);
-    float half_inv_softness = 0.5 * rcp(softness);
+    // Compute softness once (derivative-based, shared across shadow/outline/text)
+    // World-space: L2 norm avoids Manhattan-distance artifacts at oblique angles
+    // Screen-space: fwidth (L1) is sufficient and cheaper
+    uint world_space = UNPACK_WORLD_SPACE(packed_info);
+    float2 duv_x = ddx(adjusted_uv);
+    float2 duv_y = ddy(adjusted_uv);
+    float pixel_size = world_space
+        ? length(float2(length(duv_x), length(duv_y)))
+        : abs(duv_x.x) + abs(duv_x.y) + abs(duv_y.x) + abs(duv_y.y);
+    half softness = (half)min(p.half_inv_emrange * pixel_size, 0.5);
+    half half_inv_softness = (half)0.5 * rcp(softness);
 
-    // Pre-compute atlas_pos once
+    // Pre-compute atlas_pos once (float for UV math)
     uint adjusted_index = char_index - 1u;
     float2 atlas_pos;
     atlas_pos.x = (float)(adjusted_index & p.mask);
@@ -627,7 +600,7 @@ void apply_effects(
         params.shadow, params.shadow_color.rgb);
 
     // Branchless glyph area check (avoids warp divergence from early return)
-    float in_glyph = all(saturate(adjusted_uv) == adjusted_uv);
+    half in_glyph = (half)all(saturate(adjusted_uv) == adjusted_uv);
 
     // Sample MSDF with pre-computed atlas_pos, font_index, and half_inv_softness
     MSDFSample msdf = sample_msdf_fast(adjusted_uv, atlas_pos, font_index, p, half_inv_softness);
@@ -635,8 +608,8 @@ void apply_effects(
     // Mask opacity for padding area (glyph effects only render inside glyph bounds)
     // Outline/Shadow use effective_opacity (includes master_alpha)
     // Main text uses base opacity (apply_main_text internally applies text_color.a)
-    float base_masked_opacity = opacity_mult * in_glyph;
-    float effect_masked_opacity = effective_opacity * in_glyph;
+    half base_masked_opacity = opacity_mult * in_glyph;
+    half effect_masked_opacity = effective_opacity * in_glyph;
 
     // Outline with width and round support (uses half_inv_softness)
     apply_outline_effect(accum_color, accum_alpha,
@@ -645,7 +618,7 @@ void apply_effects(
         params.outline_color, outline_mode);
 
     // Stroke mode: skip main text fill (branchless mask)
-    float fill_mask = 1.0 - (float)outline_mode;
+    half fill_mask = (half)1.0 - (half)outline_mode;
 
     // Main text (apply_main_text internally applies text_color.a, so use base opacity)
     apply_main_text(accum_color, accum_alpha,

@@ -58,6 +58,14 @@ inline float3 hash31(float p)
     return frac((p3.xxy + p3.yzz) * p3.zyx);
 }
 
+// Cheap arithmetic hash for noise gradients (Dave Hoskins)
+float3 hash33(float3 p)
+{
+    p = frac(p * float3(.1031, .1030, .0973));
+    p += dot(p, p.yxz + 33.33);
+    return frac((p.xxy + p.yxx) * p.zyx);
+}
+
 // ============================================================================
 // Simplex Noise
 // ============================================================================
@@ -119,30 +127,52 @@ float simplex3d(float3 p)
     return dot(d, w) * 52.0;
 }
 
+// 3-Channel Simplex Noise (shared grid + hash, permuted gradients)
+float3 simplex3d_vec3(float3 p)
+{
+    const float F3 = 0.333333333;
+    const float G3 = 0.166666667;
+
+    float3 s = floor(p + dot(p, float3(F3, F3, F3)));
+    float3 x = p - s + dot(s, float3(G3, G3, G3));
+
+    float3 e = step(float3(0.0, 0.0, 0.0), x - x.yzx);
+    float3 i1 = e * (1.0 - e.zxy);
+    float3 i2 = 1.0 - e.zxy * (1.0 - e);
+
+    float3 x1 = x - i1 + G3;
+    float3 x2 = x - i2 + 2.0 * G3;
+    float3 x3 = x - 1.0 + 3.0 * G3;
+
+    float4 w = max(0.6 - float4(dot(x,x), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+    w *= w; w *= w;
+
+    // 4 hash lookups shared across 3 output channels
+    float3 g0 = hash33(s) * 2.0 - 1.0;
+    float3 g1 = hash33(s + i1) * 2.0 - 1.0;
+    float3 g2 = hash33(s + i2) * 2.0 - 1.0;
+    float3 g3 = hash33(s + 1.0) * 2.0 - 1.0;
+
+    float4 d0 = float4(dot(x, g0),     dot(x1, g1),     dot(x2, g2),     dot(x3, g3));
+    float4 d1 = float4(dot(x, g0.yzx), dot(x1, g1.yzx), dot(x2, g2.yzx), dot(x3, g3.yzx));
+    float4 d2 = float4(dot(x, g0.zxy), dot(x1, g1.zxy), dot(x2, g2.zxy), dot(x3, g3.zxy));
+
+    return float3(dot(d0, w), dot(d1, w), dot(d2, w)) * 52.0;
+}
+
 // ============================================================================
 // Derived Noise Functions
 // ============================================================================
 
 // Curl Noise - divergence-free flow field
-// Creates fluid-like, swirling patterns
+// Uses simplex3d_vec3 permuted gradients as pseudo-derivative (5x→2x simplex calls)
 float curl_noise_animated(float2 p, float time)
 {
-    float eps = 0.01;
+    // Two independent noise channels approximate dN/dx and dN/dy
+    float3 n = simplex3d_vec3(float3(p, time));
+    // Curl: perpendicular to gradient → swap and negate
+    float2 curl = float2(-n.y, n.x);
 
-    // Sample noise at offset positions to compute gradient
-    float n1 = simplex3d(float3(p + float2(eps, 0), time));
-    float n2 = simplex3d(float3(p - float2(eps, 0), time));
-    float n3 = simplex3d(float3(p + float2(0, eps), time));
-    float n4 = simplex3d(float3(p - float2(0, eps), time));
-
-    // Compute gradient
-    float dx = (n1 - n2) / (2.0 * eps);
-    float dy = (n3 - n4) / (2.0 * eps);
-
-    // Curl is perpendicular to gradient: rotate 90 degrees
-    float2 curl = float2(-dy, dx);
-
-    // Use curl to warp the sampling position for a flowing effect
     float2 warped_p = p + curl * 0.5;
     return simplex3d(float3(warped_p, time * 0.7)) * 0.5 + 0.5;
 }
@@ -193,9 +223,29 @@ float fbm3d(float3 p, int octaves, float multiplier, float scale)
     float frequency = 1.0;
     float total_amplitude = 0.0;
 
+    [unroll(4)]
     for (int i = 0; i < octaves; i++)
     {
         value += amplitude * simplex3d(p * frequency);
+        total_amplitude += amplitude;
+        amplitude *= multiplier;
+        frequency *= scale;
+    }
+
+    return value / total_amplitude;
+}
+
+float3 fbm3d_vec3(float3 p, int octaves, float multiplier, float scale)
+{
+    float3 value = 0.0;
+    float amplitude = 1.0;
+    float frequency = 1.0;
+    float total_amplitude = 0.0;
+
+    [unroll(4)]
+    for (int i = 0; i < octaves; i++)
+    {
+        value += amplitude * simplex3d_vec3(p * frequency);
         total_amplitude += amplitude;
         amplitude *= multiplier;
         frequency *= scale;

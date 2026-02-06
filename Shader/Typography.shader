@@ -1363,6 +1363,7 @@ Shader "GekikaraStore/x.x.x/Typography"
                 _Particle0GravityModifier ("Gravity Modifier", Float) = 0
                 _Particle0SimulationSpeed ("Simulation Speed", Float) = 0.2
                 _Particle0MaxParticles ("Max Particles", Int) = 10000
+                _Particle0RandomSeed ("Random Seed", Int) = 0
                 // Shape
                 [HideInInspector] m_start_particle_0_shape ("Shape", Float) = 0
                     [Enum(Sphere,0,Cube,1,Hemisphere,2,Circle,3,Cone,4,Donut,5)] _Particle0Distribution ("Shape", Int) = 0
@@ -1638,7 +1639,7 @@ Shader "GekikaraStore/x.x.x/Typography"
 
                 // Load layer based on image_id
                 ImageLayer layer = (ImageLayer)0;
-                switch(image_id)
+                [forcecase] switch(image_id)
                 {
                     case 0: LOAD_IMAGE_LAYER(0, layer); break;
                     case 1: LOAD_IMAGE_LAYER(1, layer); break;
@@ -1829,7 +1830,7 @@ Shader "GekikaraStore/x.x.x/Typography"
 
                 // Load layer based on text_id
                 TextLayer layer = (TextLayer)0;
-                switch(text_id)
+                [forcecase] switch(text_id)
                 {
                     case 0: LOAD_TEXT_LAYER(0, layer); break;
                     case 1: LOAD_TEXT_LAYER(1, layer); break;
@@ -1874,9 +1875,9 @@ Shader "GekikaraStore/x.x.x/Typography"
                 // Unpack anim_packed
                 float2 anim_xy = unpack_f16x2(i.anim_packed.x);
                 float2 anim_zw = unpack_f16x2(i.anim_packed.y);
-                float opacity_mult = anim_xy.x;
+                half opacity_mult = (half)anim_xy.x;
                 float2 shake_offset = float2(anim_xy.y, anim_zw.x);
-                float block_fade = anim_zw.y;
+                half block_fade = (half)anim_zw.y;
 
                 // quad_padding from uniform (no v2f overhead)
                 float quad_padding = 1.0 + _QuadPadding;
@@ -1888,39 +1889,39 @@ Shader "GekikaraStore/x.x.x/Typography"
                 half3 accum_color = half3(0, 0, 0);
                 half accum_alpha = 0.0;
 
-                // Unpack text_color from char_packed.zw
-                float2 text_rg = unpack_f16x2(i.char_packed.z);
-                float2 text_ba = unpack_f16x2(i.char_packed.w);
+                // Unpack text_color from char_packed.zw (half for color values)
+                half2 text_rg = (half2)unpack_f16x2(i.char_packed.z);
+                half2 text_ba = (half2)unpack_f16x2(i.char_packed.w);
 
                 // Unpack outline_packed: width|round, _, color.rg, color.ba
-                float2 outline_params = unpack_f16x2(i.outline_packed.x);
-                float2 outline_rg = unpack_f16x2(i.outline_packed.z);
-                float2 outline_ba = unpack_f16x2(i.outline_packed.w);
+                half2 outline_params = (half2)unpack_f16x2(i.outline_packed.x);
+                half2 outline_rg = (half2)unpack_f16x2(i.outline_packed.z);
+                half2 outline_ba = (half2)unpack_f16x2(i.outline_packed.w);
 
-                // Build effect params
+                // Build effect params (half4 for color/SDF parameters)
                 EffectParams params;
-                params.text_color = float4(text_rg.x, text_rg.y, text_ba.x, text_ba.y);
-                params.outline = float4(outline_params.x, outline_params.y, 0, 0);
-                params.outline_color = float4(outline_rg.x, outline_rg.y, outline_ba.x, outline_ba.y);
+                params.text_color = half4(text_rg.x, text_rg.y, text_ba.x, text_ba.y);
+                params.outline = half4(outline_params.x, outline_params.y, 0, 0);
+                params.outline_color = half4(outline_rg.x, outline_rg.y, outline_ba.x, outline_ba.y);
 
                 // Unpack shadow_packed: intensity|soft, offset.xy, color.rg, color.ba
-                float2 shadow_params = unpack_f16x2(i.shadow_packed.x);
+                half2 shadow_params = (half2)unpack_f16x2(i.shadow_packed.x);
                 float2 shadow_offset = unpack_f16x2(i.shadow_packed.y);
-                float2 shadow_rg = unpack_f16x2(i.shadow_packed.z);
-                float2 shadow_ba = unpack_f16x2(i.shadow_packed.w);
-                params.shadow = float4(shadow_params.x, shadow_offset.x, shadow_offset.y, shadow_params.y);
-                params.shadow_color = float4(shadow_rg.x, shadow_rg.y, shadow_ba.x, 1);
+                half2 shadow_rg = (half2)unpack_f16x2(i.shadow_packed.z);
+                half2 shadow_ba = (half2)unpack_f16x2(i.shadow_packed.w);
+                params.shadow = half4(shadow_params.x, (half)shadow_offset.x, (half)shadow_offset.y, shadow_params.y);
+                params.shadow_color = half4(shadow_rg.x, shadow_rg.y, shadow_ba.x, 1);
 
                 // Unpack noise_packed: intensity|scale, speed|char_offset, color.rg, color.ba
                 float2 noise_params = unpack_f16x2(i.noise_packed.x);
                 float2 noise_speed_offset = unpack_f16x2(i.noise_packed.y);
-                float2 noise_rg = unpack_f16x2(i.noise_packed.z);
-                float2 noise_ba = unpack_f16x2(i.noise_packed.w);
+                half2 noise_rg = (half2)unpack_f16x2(i.noise_packed.z);
+                half2 noise_ba = (half2)unpack_f16x2(i.noise_packed.w);
                 float noise_intensity = noise_params.x;
                 float noise_scale = noise_params.y;
                 float noise_speed = noise_speed_offset.x;
                 float char_offset = noise_speed_offset.y;
-                float3 noise_color = float3(noise_rg.x, noise_rg.y, noise_ba.x);
+                half3 noise_color = half3(noise_rg.x, noise_rg.y, noise_ba.x);
                 uint noise_mode = UNPACK_NOISE_MODE(packed_info);
 
                 MSDFSample msdf;
@@ -2046,7 +2047,7 @@ Shader "GekikaraStore/x.x.x/Typography"
 
                 // Load particle layer based on layer_id
                 ParticleLayer layer = (ParticleLayer)0;
-                switch (layer_id)
+                [forcecase] switch (layer_id)
                 {
                     case 0: LOAD_PARTICLE_LAYER(0, layer) break;
                     default: return cull_out;

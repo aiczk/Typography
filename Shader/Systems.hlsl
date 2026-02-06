@@ -446,14 +446,4 @@ inline float4 project_vertex(
     return project_custom_camera(corner_world, cam_pos, cam_rot_inv, tan_half_fov, aspect, layer);
 }
 
-inline float3 local_to_world(float3 local_pos)
-{
-    return mul(unity_ObjectToWorld, float4(local_pos, 1.0)).xyz;
-}
-
-inline float3 normal_to_world(float3 local_normal)
-{
-    return mul((float3x3)unity_ObjectToWorld, local_normal);
-}
-
 #endif // TYPOGRAPHY_SYSTEMS_INCLUDED

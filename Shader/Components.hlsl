@@ -151,7 +151,7 @@ struct TextLayer
 #define PARTICLE_GET_FORCE_RANDOMIZE(f)    ((f) & 0x020u)
 #define PARTICLE_GET_MULTIPLY_BY_SIZE(f)   ((f) & 0x040u)
 #define PARTICLE_GET_MULTIPLY_BY_VELOCITY(f) ((f) & 0x080u)
-#define PARTICLE_GET_NOISE_OCTAVES(f)      ((((f) >> 8) & 0x3u) + 1)
+#define PARTICLE_GET_NOISE_OCTAVES(f)      min((((f) >> 8) & 0x3u) + 1, 2)
 #define PARTICLE_GET_3D_START_SIZE(f)      ((f) & 0x400u)
 #define PARTICLE_GET_3D_START_ROTATION(f)  ((f) & 0x800u)
 
@@ -175,6 +175,7 @@ struct ParticleLayer
     float2 start_size;
     float3 start_rotation;
     float flip_rotation;
+    int random_seed;
     float4 start_color;
     float gravity_modifier;
     float speed;        // simulation speed
@@ -184,7 +185,7 @@ struct ParticleLayer
     float arc;
     float arc_speed;
     float arc_spread;
-    float cone_angle;
+    float cone_tan;
     float cone_length;
     float donut_radius;
     float3 shape_position;
@@ -205,9 +206,6 @@ struct ParticleLayer
 
     // Force over Lifetime
     float3 force;
-
-    // Color over Lifetime
-    float2 color_over_lifetime;  // (start_alpha, end_alpha) simplified
 
     // Size over Lifetime
     float2 size_over_lifetime;
@@ -334,6 +332,7 @@ struct ParticleLayer
     int _Particle##N##NoiseOctaves; \
     int _Particle##N##3DStartSize; \
     int _Particle##N##3DStartRotation; \
+    int _Particle##N##RandomSeed; \
     int _Particle##N##MaxParticles; \
     float _Particle##N##StartLifetime; \
     float _Particle##N##StartSpeed; \
@@ -483,6 +482,7 @@ struct ParticleLayer
     layer.start_size = _Particle##N##3DStartSize ? _Particle##N##StartSize3D.xy : float2(_Particle##N##StartSize, _Particle##N##StartSize); \
     layer.start_rotation = _Particle##N##3DStartRotation ? _Particle##N##StartRotation3D.xyz : float3(0, 0, _Particle##N##StartRotation); \
     layer.flip_rotation = _Particle##N##FlipRotation; \
+    layer.random_seed = _Particle##N##RandomSeed; \
     layer.start_color = _Particle##N##StartColor; \
     layer.gravity_modifier = _Particle##N##GravityModifier; \
     layer.speed = _Particle##N##SimulationSpeed; \
@@ -490,7 +490,7 @@ struct ParticleLayer
     layer.arc = _Particle##N##Arc; \
     layer.arc_speed = _Particle##N##ArcSpeed; \
     layer.arc_spread = _Particle##N##ArcSpread; \
-    layer.cone_angle = _Particle##N##ConeAngle; \
+    layer.cone_tan = tan(_Particle##N##ConeAngle * DEG2_RAD); \
     layer.cone_length = _Particle##N##ConeLength; \
     layer.donut_radius = _Particle##N##DonutRadius; \
     layer.shape_position = _Particle##N##ShapePosition.xyz; \

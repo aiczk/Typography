@@ -12,7 +12,7 @@
 struct particle_appdata
 {
     float4 vertex : POSITION;    // xyz = random seed (baked in mesh)
-    float2 uv : TEXCOORD0;       // x = particle_id / 65536, y = layer_id / 32
+    float2 uv : TEXCOORD0;       // x = particle_id / 1048576, y = layer_id / 32
     float2 uv2 : TEXCOORD1;      // quad corner (0,0)-(1,1)
     UNITY_VERTEX_INPUT_INSTANCE_ID
 };
@@ -53,13 +53,19 @@ void rand8(float2 seed, out float r0, out float r1, out float r2, out float r3,
     r7 = float(h) * inv;
 }
 
+// Approximate cube root via IEEE 754 bit trick (~5% error, sufficient for distribution)
+inline float approx_cbrt(float x)
+{
+    return asfloat(asint(x) / 3 + 0x2A555556);
+}
+
 // ============================================================================
 // Arc Mode Helper
 // ============================================================================
 float compute_arc_theta(float r0, float arc_frac, int arc_mode, float arc_speed, float arc_spread,
                         float time, int particle_id, int max_particles)
 {
-    [flatten]
+    [branch]
     if (arc_mode == 0) // Random
     {
         if (arc_spread > 0.0001)
@@ -92,23 +98,22 @@ float compute_arc_theta(float r0, float arc_frac, int arc_mode, float arc_speed,
 // ============================================================================
 void distribution_position(float r0, float r1, float r2, float t, int distribution,
                            float radius_thickness, float arc, int arc_mode, float arc_speed, float arc_spread,
-                           float cone_angle, float cone_length, float donut_radius,
+                           float cone_tan, float cone_length, float donut_radius,
                            int particle_id, int max_particles,
                            out float3 out_pos)
 {
     float3 base_pos;
     float arc_frac = (arc > 0.0001) ? (arc * 0.002777778) : 1.0;  // 1/360
     float theta = compute_arc_theta(r0, arc_frac, arc_mode, arc_speed, arc_spread, t, particle_id, max_particles);
-    float cone_tan = tan(cone_angle * DEG2_RAD);
 
-    [flatten]
+    [branch]
     if (distribution == 0)  // Sphere
     {
         float u = r1 * 2.0 - 1.0;
         float s_th, c_th;
         sincos(theta, s_th, c_th);
         float su = sqrt(1.0 - u * u);
-        float radius = lerp(1.0, pow(r2, 0.333333), radius_thickness);
+        float radius = lerp(1.0, approx_cbrt(r2), radius_thickness);
         base_pos = float3(su * c_th, u, su * s_th) * radius;
     }
     else if (distribution == 1)  // Cube
@@ -121,7 +126,7 @@ void distribution_position(float r0, float r1, float r2, float t, int distributi
         float s_th, c_th;
         sincos(theta, s_th, c_th);
         float su = sqrt(1.0 - u * u);
-        float radius = lerp(1.0, pow(r2, 0.333333), radius_thickness);
+        float radius = lerp(1.0, approx_cbrt(r2), radius_thickness);
         base_pos = float3(su * c_th, u, su * s_th) * radius;
     }
     else if (distribution == 3)  // Circle
@@ -208,9 +213,8 @@ float3 apply_velocity_limit(float3 velocity, float3 limit, float dampen, float d
     adjusted_dampen *= lerp(1.0, particle_size, (float)multiply_by_size);
     adjusted_dampen *= lerp(1.0, length(velocity), (float)multiply_by_velocity);
 
-    // Padé [1,1] approximation: exp(-x) ≈ (1 - 0.5x) / (1 + 0.5x)
-    float t = adjusted_dampen * age;
-    velocity *= (1.0 - 0.5 * t) / (1.0 + 0.5 * t);
+    // exp2 via SFU (1 cycle on SM5.0+, more accurate than Padé [1,1])
+    velocity *= exp2(-adjusted_dampen * age * 1.4426950408889634);
     velocity *= 1.0 / (1.0 + drag * age);
 
     // Per-axis limit (branchless)
@@ -228,22 +232,14 @@ float3 apply_particle_noise_position(float3 pos, float3 seed, float time,
                                       float strength, float freq, float scroll,
                                       int octaves, float octave_mult, float octave_scale)
 {
-    float3 sample_pos = pos * freq;
-    float t = time * scroll;
+    float3 noise_input = pos * freq + seed;
+    noise_input.z += time * scroll;
     float3 noise_offset;
-    [flatten]
+    [branch]
     if (octaves > 1)
-    {
-        noise_offset.x = fbm3d(float3(sample_pos.yz + seed.x, t), octaves, octave_mult, octave_scale);
-        noise_offset.y = fbm3d(float3(sample_pos.xz + seed.y, t + 100.0), octaves, octave_mult, octave_scale);
-        noise_offset.z = fbm3d(float3(sample_pos.xy + seed.z, t + 200.0), octaves, octave_mult, octave_scale);
-    }
+        noise_offset = fbm3d_vec3(noise_input, octaves, octave_mult, octave_scale);
     else
-    {
-        noise_offset.x = simplex3d(float3(sample_pos.yz + seed.x, t));
-        noise_offset.y = simplex3d(float3(sample_pos.xz + seed.y, t + 100.0));
-        noise_offset.z = simplex3d(float3(sample_pos.xy + seed.z, t + 200.0));
-    }
+        noise_offset = simplex3d_vec3(noise_input);
     return pos + noise_offset * strength;
 }
 
@@ -252,12 +248,7 @@ float3 apply_particle_noise_rotation(float3 seed, float time,
 {
     if (abs(strength) < 0.0001)
         return float3(0, 0, 0);
-    float t = time * scroll;
-    float3 noise_rot;
-    noise_rot.x = simplex3d(float3(seed.xy, t + 300.0));
-    noise_rot.y = simplex3d(float3(seed.yz, t + 400.0));
-    noise_rot.z = simplex3d(float3(seed.xz, t + 500.0));
-    return noise_rot * strength * DEG2_RAD;
+    return simplex3d_vec3(float3(seed.xy, time * scroll + 300.0)) * strength * DEG2_RAD;
 }
 
 float apply_particle_noise_size(float3 seed, float time,
@@ -272,11 +263,7 @@ float apply_particle_noise_size(float3 seed, float time,
 
 float3 apply_force_randomize(float3 force, float3 seed, float time, float randomize)
 {
-    float3 noise_force;
-    noise_force.x = simplex3d(float3(seed.xy, time * 2.0));
-    noise_force.y = simplex3d(float3(seed.yz, time * 2.0 + 100.0));
-    noise_force.z = simplex3d(float3(seed.xz, time * 2.0 + 200.0));
-    return force + noise_force * randomize;
+    return force + simplex3d_vec3(float3(seed.xy, time * 2.0)) * randomize;
 }
 
 // ============================================================================
@@ -288,9 +275,22 @@ float3 billboard_vertex(float3 center, float3 right, float3 up, float2 quad_size
     [branch]
     if (has_rot)
     {
-        float3x3 rot = rotation_matrix(rotation);
-        right = mul(rot, right);
-        up = mul(rot, up);
+        [branch]
+        if (rotation.x == 0 && rotation.y == 0)
+        {
+            // Z-axis only fast path: sincos x1 instead of x3
+            float s, c;
+            sincos(rotation.z, s, c);
+            float3 r0 = right * c + up * s;
+            up = up * c - right * s;
+            right = r0;
+        }
+        else
+        {
+            float3x3 rot = rotation_matrix(rotation);
+            right = mul(rot, right);
+            up = mul(rot, up);
+        }
     }
     right *= quad_size.x;
     up *= quad_size.y;
@@ -315,7 +315,7 @@ particle_v2f process_particle_vs(particle_appdata v, ParticleLayer p, int layer_
     if (p.use <= 0)
         PARTICLE_CULL_VERTEX(o);
 
-    int particle_id = (int)(v.uv.x * 65536.0);
+    int particle_id = (int)(v.uv.x * 1048576.0);
 
     // Cull particles beyond max_particles
     if (particle_id >= p.max_particles)
@@ -341,8 +341,9 @@ particle_v2f process_particle_vs(particle_appdata v, ParticleLayer p, int layer_
     bool has_spin = any(p.angular_velocity.xyz != 0) || any(abs(p.start_rotation) > 0.0001);
     bool has_noise = p.noise_strength > 0.0001;
 
-    // Generate random values
-    float2 seed = float2(rnd_seed.x * 1000.0, rnd_seed.y * 1000.0 + particle_id * 0.001);
+    // Generate random values (with seed offset)
+    float seed_offset = (float)p.random_seed * 0.001;
+    float2 seed = float2(rnd_seed.x * 1000.0 + seed_offset, rnd_seed.y * 1000.0 + particle_id * 0.001 + seed_offset);
     float r0, r1, r2, r3, r4, r5, r6, r7;
     rand8(seed, r0, r1, r2, r3, r4, r5, r6, r7);
 
@@ -352,7 +353,7 @@ particle_v2f process_particle_vs(particle_appdata v, ParticleLayer p, int layer_
     float3 pos;
     distribution_position(r0, r1, r2, t, distribution, p.radius_thickness,
                           p.arc, arc_mode, p.arc_speed, p.arc_spread,
-                          p.cone_angle, p.cone_length, p.donut_radius,
+                          p.cone_tan, p.cone_length, p.donut_radius,
                           particle_id, p.max_particles, pos);
 
     // Apply shape transform (Scale → Rotate → Translate)

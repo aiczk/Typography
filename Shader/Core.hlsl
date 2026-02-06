@@ -80,13 +80,6 @@ inline float linearStep(float a, float b, float x)
     return saturate((x - a) / (b - a));
 }
 
-// Optimized symmetric linear step: linearStep(-halfWidth, halfWidth, x)
-// Avoids division by using rcp and MAD
-inline float linearStepSymmetric(float halfWidth, float x)
-{
-    return saturate(x * (0.5 * rcp(halfWidth)) + 0.5);
-}
-
 // ============================================================================
 // Easing Functions (After Effects style)
 // ============================================================================
@@ -104,44 +97,10 @@ inline float ease_out_cubic(float t)
     return 1.0 - f * f * f;
 }
 
-// Gaussian falloff for smooth range transitions (After Effects "Smooth" shape)
-// distance: signed distance from center of transition
-// width: falloff width (sigma-like parameter)
-inline float gaussian_falloff(float distance, float width)
-{
-    float normalized = distance / max(width, EPSILON);
-    return exp(-normalized * normalized * 2.0);
-}
-
-// Smooth range selector (After Effects style)
-// Returns 0-1 opacity based on position in range with smooth falloff
-// position: current position (e.g., char_pos / char_count)
-// range_start: where full opacity begins (0-1)
-// range_end: where full opacity ends (0-1)
-// falloff: width of smooth transition (0 = hard edge, 1 = full smooth)
-inline float smooth_range_selector(float position, float range_start, float range_end, float falloff)
-{
-    if (falloff <= EPSILON)
-    {
-        // Hard edge
-        return (position >= range_start && position <= range_end) ? 1.0 : 0.0;
-    }
-
-    float half_falloff = falloff * 0.5;
-
-    // Smooth transition at start edge
-    float start_fade = saturate((position - range_start + half_falloff) / falloff);
-
-    // Smooth transition at end edge
-    float end_fade = saturate((range_end - position + half_falloff) / falloff);
-
-    // Apply easing for smoother result
-    return ease_smooth(start_fade) * ease_smooth(end_fade);
-}
-
 // Fast version with pre-computed inverse: half_inv = 0.5 * rcp(halfWidth)
 // Saves 4-6 cycles by eliminating rcp() call
-inline float linearStepSymmetric_fast(float x, float half_inv)
+// Uses half precision: SDF distance values don't need float32 range
+inline half linearStepSymmetric_fast(half x, half half_inv)
 {
     return saturate(x * half_inv + 0.5);
 }
