@@ -184,6 +184,26 @@ float fbm_animated(float2 p, float time, int octaves)
     return value;
 }
 
+// FBM 3D with configurable octaves (1-4), multiplier, and scale
+// Normalized output
+float fbm3d(float3 p, int octaves, float multiplier, float scale)
+{
+    float value = 0.0;
+    float amplitude = 1.0;
+    float frequency = 1.0;
+    float total_amplitude = 0.0;
+
+    for (int i = 0; i < octaves; i++)
+    {
+        value += amplitude * simplex3d(p * frequency);
+        total_amplitude += amplitude;
+        amplitude *= multiplier;
+        frequency *= scale;
+    }
+
+    return value / total_amplitude;
+}
+
 // Turbulence - abs(noise) summed, creates sharp valleys (fire, smoke)
 float turbulence_animated(float2 p, float time, int octaves)
 {

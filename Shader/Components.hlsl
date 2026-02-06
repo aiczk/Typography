@@ -134,25 +134,107 @@ struct TextLayer
 };
 
 // ============================================================================
-// Particle Layer Component
+// Particle Layer Component (GPUP-compatible structure)
 // ============================================================================
+
+// Bit-packed flags layout (same as GPUP):
+// bits 0-2: distribution (0-5: Sphere, Cube, Hemisphere, Circle, Cone, Donut)
+// bits 3-4: arc_mode (0-3)
+// bit 5: force_randomize
+// bit 6: multiply_by_size
+// bit 7: multiply_by_velocity
+// bits 8-9: noise_octaves - 1 (0-3 representing 1-4)
+// bit 10: 3d_start_size
+// bit 11: 3d_start_rotation
+#define PARTICLE_GET_DISTRIBUTION(f)       ((f) & 0x7u)
+#define PARTICLE_GET_ARC_MODE(f)           (((f) >> 3) & 0x3u)
+#define PARTICLE_GET_FORCE_RANDOMIZE(f)    ((f) & 0x020u)
+#define PARTICLE_GET_MULTIPLY_BY_SIZE(f)   ((f) & 0x040u)
+#define PARTICLE_GET_MULTIPLY_BY_VELOCITY(f) ((f) & 0x080u)
+#define PARTICLE_GET_NOISE_OCTAVES(f)      ((((f) >> 8) & 0x3u) + 1)
+#define PARTICLE_GET_3D_START_SIZE(f)      ((f) & 0x400u)
+#define PARTICLE_GET_3D_START_ROTATION(f)  ((f) & 0x800u)
+
+#define PARTICLE_PACK_FLAGS(dist, arc_mode, force_rand, mul_size, mul_vel, octaves, size3d, rot3d) \
+    (((dist) & 0x7u) | (((arc_mode) & 0x3u) << 3) | \
+     (((force_rand) & 0x1u) << 5) | (((mul_size) & 0x1u) << 6) | (((mul_vel) & 0x1u) << 7) | \
+     ((((octaves) - 1) & 0x3u) << 8) | (((size3d) & 0x1u) << 10) | (((rot3d) & 0x1u) << 11))
+
 struct ParticleLayer
 {
-    int use;            // Toggle on/off
+    // Typography-specific
+    int use;
     int space;          // 0=Screen, 1=World
     int root_index;     // 0=None, 1-5=Root 1-5
-    int distribution;   // 0=Sphere, 1=Cube
-    float4 color;       // Tint color (HDR)
-    float size;
-    float size_end;     // Size over Lifetime (end size, lerps from size to size_end)
-    float4 spin;        // Per-particle spin animation
-    float speed;
+
+    // Main Module
+    uint flags;         // bit-packed flags
+    int max_particles;  // particles per layer (for BurstSpread arc mode)
     float lifetime;
-    float4 direction;
-    float4 position;
-    float4 rotation;    // Transform rotation
-    float4 scale;
-    float4 gravity;     // Gravity force (world space)
+    float start_speed;
+    float2 start_size;
+    float3 start_rotation;
+    float flip_rotation;
+    float4 start_color;
+    float gravity_modifier;
+    float speed;        // simulation speed
+
+    // Shape
+    float radius_thickness;
+    float arc;
+    float arc_speed;
+    float arc_spread;
+    float cone_angle;
+    float cone_length;
+    float donut_radius;
+    float3 shape_position;
+    float3 shape_rotation;
+    float3 shape_scale;
+
+    // Velocity over Lifetime
+    float3 linear_velocity;
+    float3 orbital;
+    float3 offset;
+    float radial;
+    float speed_modifier;
+
+    // Limit Velocity over Lifetime
+    float3 speed_limit;
+    float dampen;
+    float drag;
+
+    // Force over Lifetime
+    float3 force;
+
+    // Color over Lifetime
+    float2 color_over_lifetime;  // (start_alpha, end_alpha) simplified
+
+    // Size over Lifetime
+    float2 size_over_lifetime;
+
+    // Rotation over Lifetime
+    float3 angular_velocity;
+
+    // Color by Speed
+    float2 color_by_speed_range;
+
+    // Size by Speed
+    float2 size_by_speed;
+    float2 size_by_speed_range;
+
+    // Rotation by Speed
+    float3 rotation_by_speed;
+    float2 rotation_by_speed_range;
+
+    // Noise
+    float noise_strength;
+    float noise_frequency;
+    float noise_scroll_speed;
+    float noise_octave_multiplier;
+    float noise_octave_scale;
+    float noise_position_amount;
+    float noise_rotation_amount;
+    float noise_size_amount;
 };
 
 // ============================================================================
@@ -243,18 +325,64 @@ struct ParticleLayer
     int _Particle##N##Use; \
     int _Particle##N##Space; \
     int _Particle##N##RootIndex; \
+    sampler2D _Particle##N##MainTex; \
     int _Particle##N##Distribution; \
-    float4 _Particle##N##Color; \
-    float4 _Particle##N##Size; \
-    float4 _Particle##N##Spin; \
-    float _Particle##N##Speed; \
-    float _Particle##N##Lifetime; \
-    float4 _Particle##N##Direction; \
-    float4 _Particle##N##Position; \
-    float4 _Particle##N##Rotation; \
-    float4 _Particle##N##Scale; \
-    float4 _Particle##N##Gravity; \
-    sampler2D _Particle##N##Texture;
+    int _Particle##N##ArcMode; \
+    int _Particle##N##ForceRandomize; \
+    int _Particle##N##MultiplyBySize; \
+    int _Particle##N##MultiplyByVelocity; \
+    int _Particle##N##NoiseOctaves; \
+    int _Particle##N##3DStartSize; \
+    int _Particle##N##3DStartRotation; \
+    int _Particle##N##MaxParticles; \
+    float _Particle##N##StartLifetime; \
+    float _Particle##N##StartSpeed; \
+    float _Particle##N##StartSize; \
+    float4 _Particle##N##StartSize3D; \
+    float _Particle##N##StartRotation; \
+    float4 _Particle##N##StartRotation3D; \
+    float _Particle##N##FlipRotation; \
+    float4 _Particle##N##StartColor; \
+    float _Particle##N##GravityModifier; \
+    float _Particle##N##SimulationSpeed; \
+    float _Particle##N##RadiusThickness; \
+    float _Particle##N##Arc; \
+    float _Particle##N##ArcSpeed; \
+    float _Particle##N##ArcSpread; \
+    float _Particle##N##ConeAngle; \
+    float _Particle##N##ConeLength; \
+    float _Particle##N##DonutRadius; \
+    float4 _Particle##N##ShapePosition; \
+    float4 _Particle##N##ShapeRotation; \
+    float4 _Particle##N##ShapeScale; \
+    float4 _Particle##N##LinearVelocity; \
+    float4 _Particle##N##OrbitalVelocity; \
+    float4 _Particle##N##OrbitalOffset; \
+    float _Particle##N##RadialVelocity; \
+    float _Particle##N##SpeedModifier; \
+    float4 _Particle##N##SpeedLimit; \
+    float _Particle##N##Dampen; \
+    float _Particle##N##Drag; \
+    float4 _Particle##N##Force; \
+    float4 _Particle##N##SizeOverLifetime; \
+    float4 _Particle##N##AngularVelocity; \
+    float4 _Particle##N##ColorBySpeedRange; \
+    float4 _Particle##N##SizeBySpeed; \
+    float4 _Particle##N##SizeBySpeedRange; \
+    float4 _Particle##N##RotationBySpeed; \
+    float4 _Particle##N##RotationBySpeedRange; \
+    float _Particle##N##NoiseStrength; \
+    float _Particle##N##NoiseFrequency; \
+    float _Particle##N##NoiseScrollSpeed; \
+    float _Particle##N##NoiseOctaveMultiplier; \
+    float _Particle##N##NoiseOctaveScale; \
+    float _Particle##N##NoisePositionAmount; \
+    float _Particle##N##NoiseRotationAmount; \
+    float _Particle##N##NoiseSizeAmount; \
+    Texture2D _Particle##N##ColorGradient; \
+    SamplerState sampler_Particle##N##ColorGradient; \
+    Texture2D _Particle##N##ColorBySpeedGradient; \
+    SamplerState sampler_Particle##N##ColorBySpeedGradient;
 
 // ============================================================================
 // Property Load Macros
@@ -346,18 +474,52 @@ struct ParticleLayer
     layer.use = _Particle##N##Use; \
     layer.space = _Particle##N##Space; \
     layer.root_index = _Particle##N##RootIndex; \
-    layer.distribution = _Particle##N##Distribution; \
-    layer.color = _Particle##N##Color; \
-    layer.size = _Particle##N##Size.x; \
-    layer.size_end = _Particle##N##Size.y; \
-    layer.spin = _Particle##N##Spin; \
-    layer.speed = _Particle##N##Speed; \
-    layer.lifetime = _Particle##N##Lifetime; \
-    layer.direction = _Particle##N##Direction; \
-    layer.position = _Particle##N##Position; \
-    layer.rotation = _Particle##N##Rotation; \
-    layer.scale = _Particle##N##Scale; \
-    layer.gravity = _Particle##N##Gravity;
+    layer.flags = PARTICLE_PACK_FLAGS(_Particle##N##Distribution, _Particle##N##ArcMode, \
+        _Particle##N##ForceRandomize, _Particle##N##MultiplyBySize, _Particle##N##MultiplyByVelocity, \
+        _Particle##N##NoiseOctaves, _Particle##N##3DStartSize, _Particle##N##3DStartRotation); \
+    layer.max_particles = _Particle##N##MaxParticles; \
+    layer.lifetime = _Particle##N##StartLifetime; \
+    layer.start_speed = _Particle##N##StartSpeed; \
+    layer.start_size = _Particle##N##3DStartSize ? _Particle##N##StartSize3D.xy : float2(_Particle##N##StartSize, _Particle##N##StartSize); \
+    layer.start_rotation = _Particle##N##3DStartRotation ? _Particle##N##StartRotation3D.xyz : float3(0, 0, _Particle##N##StartRotation); \
+    layer.flip_rotation = _Particle##N##FlipRotation; \
+    layer.start_color = _Particle##N##StartColor; \
+    layer.gravity_modifier = _Particle##N##GravityModifier; \
+    layer.speed = _Particle##N##SimulationSpeed; \
+    layer.radius_thickness = _Particle##N##RadiusThickness; \
+    layer.arc = _Particle##N##Arc; \
+    layer.arc_speed = _Particle##N##ArcSpeed; \
+    layer.arc_spread = _Particle##N##ArcSpread; \
+    layer.cone_angle = _Particle##N##ConeAngle; \
+    layer.cone_length = _Particle##N##ConeLength; \
+    layer.donut_radius = _Particle##N##DonutRadius; \
+    layer.shape_position = _Particle##N##ShapePosition.xyz; \
+    layer.shape_rotation = _Particle##N##ShapeRotation.xyz; \
+    layer.shape_scale = _Particle##N##ShapeScale.xyz; \
+    layer.linear_velocity = _Particle##N##LinearVelocity.xyz; \
+    layer.orbital = _Particle##N##OrbitalVelocity.xyz; \
+    layer.offset = _Particle##N##OrbitalOffset.xyz; \
+    layer.radial = _Particle##N##RadialVelocity; \
+    layer.speed_modifier = _Particle##N##SpeedModifier; \
+    layer.speed_limit = _Particle##N##SpeedLimit.xyz; \
+    layer.dampen = _Particle##N##Dampen; \
+    layer.drag = _Particle##N##Drag; \
+    layer.force = _Particle##N##Force.xyz; \
+    layer.size_over_lifetime = _Particle##N##SizeOverLifetime.xy; \
+    layer.angular_velocity = _Particle##N##AngularVelocity.xyz; \
+    layer.color_by_speed_range = _Particle##N##ColorBySpeedRange.xy; \
+    layer.size_by_speed = _Particle##N##SizeBySpeed.xy; \
+    layer.size_by_speed_range = _Particle##N##SizeBySpeedRange.xy; \
+    layer.rotation_by_speed = _Particle##N##RotationBySpeed.xyz; \
+    layer.rotation_by_speed_range = _Particle##N##RotationBySpeedRange.xy; \
+    layer.noise_strength = _Particle##N##NoiseStrength; \
+    layer.noise_frequency = _Particle##N##NoiseFrequency; \
+    layer.noise_scroll_speed = _Particle##N##NoiseScrollSpeed; \
+    layer.noise_octave_multiplier = _Particle##N##NoiseOctaveMultiplier; \
+    layer.noise_octave_scale = _Particle##N##NoiseOctaveScale; \
+    layer.noise_position_amount = _Particle##N##NoisePositionAmount; \
+    layer.noise_rotation_amount = _Particle##N##NoiseRotationAmount; \
+    layer.noise_size_amount = _Particle##N##NoiseSizeAmount;
 
 // ============================================================================
 // Unified Macros (convenience)

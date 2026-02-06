@@ -1341,114 +1341,463 @@ Shader "GekikaraStore/x.x.x/Typography"
         [HideInInspector][Toggle] _ParticlePassUse ("", Float) = 0
         [HideInInspector] m_start_particle_pass ("Particle Pass--{reference_property:_ParticlePassUse}", Float) = 0
 
+            // ============================================================================
+            // Particle Layer 0
+            // ============================================================================
             [HideInInspector][Toggle] _Particle0Use ("", Float) = 0
             [HideInInspector] m_start_particle_layer0 ("Particle 1--{reference_property:_Particle0Use}", Float) = 0
+                // Typography-specific
                 [Enum(Screen,0,World,1)] _Particle0Space ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _Particle0RootIndex ("Root", Int) = 0
-                [Enum(Sphere,0,Cube,1)] _Particle0Distribution ("Distribution", Int) = 0
-                [Vector3] _Particle0Position ("Position", Vector) = (0, 0, 0, 0)
-                [Vector3] _Particle0Rotation ("Rotation", Vector) = (0, 0, 0, 0)
-                [Vector3] _Particle0Scale ("Scale", Vector) = (3, 3, 3, 0)
-                [HideInInspector] m_start_particle_0_appearance ("Appearance", Float) = 0
-                    [StylizedLargeTexture] _Particle0Texture ("Texture", 2D) = "white" {}
-                    [HDR] _Particle0Color ("Color", Color) = (1, 1, 1, 1)
-                    [MultiSlider]_Particle0Size ("Size (Start, End)", Vector) = (0, 1, 0, 1)
-                    [Vector3] _Particle0Spin ("Spin", Vector) = (0, 0, 0, 0)
-                [HideInInspector] m_end_particle_0_appearance ("", Float) = 0
-                [HideInInspector] m_start_particle_0_motion ("Motion", Float) = 0
-                    _Particle0Speed ("Speed", Float) = 0.2
-                    _Particle0Lifetime ("Lifetime", Float) = 1.0
-                    [Vector3] _Particle0Direction ("Direction", Vector) = (0, 0, 0, 0)
-                    [Vector3] _Particle0Gravity ("Gravity", Vector) = (0, 0, 0, 0)
-                [HideInInspector] m_end_particle_0_motion ("", Float) = 0
+                // Main Module
+                _Particle0StartLifetime ("Start Lifetime", Float) = 1.0
+                _Particle0StartSpeed ("Start Speed", Float) = 1.0
+                [Toggle] _Particle03DStartSize ("3D Start Size", Int) = 0
+                _Particle0StartSize ("Start Size --{condition_showS:(_Particle03DStartSize==0)}", Float) = 1.0
+                [VectorLabel(X, Y)] _Particle0StartSize3D ("Start Size --{condition_showS:(_Particle03DStartSize==1)}", Vector) = (1, 1, 0, 0)
+                [Toggle] _Particle03DStartRotation ("3D Start Rotation", Int) = 0
+                _Particle0StartRotation ("Start Rotation --{condition_showS:(_Particle03DStartRotation==0)}", Float) = 0
+                [Vector3] _Particle0StartRotation3D ("Start Rotation --{condition_showS:(_Particle03DStartRotation==1)}", Vector) = (0, 0, 0, 0)
+                _Particle0FlipRotation ("Flip Rotation", Range(0, 1)) = 0
+                [HDR] _Particle0StartColor ("Start Color", Color) = (1, 1, 1, 1)
+                _Particle0GravityModifier ("Gravity Modifier", Float) = 0
+                _Particle0SimulationSpeed ("Simulation Speed", Float) = 0.2
+                _Particle0MaxParticles ("Max Particles", Int) = 10000
+                // Shape
+                [HideInInspector] m_start_particle_0_shape ("Shape", Float) = 0
+                    [Enum(Sphere,0,Cube,1,Hemisphere,2,Circle,3,Cone,4,Donut,5)] _Particle0Distribution ("Shape", Int) = 0
+                    _Particle0RadiusThickness ("Radius Thickness --{condition_showS:(_Particle0Distribution!=1)}", Range(0, 1)) = 1
+                    _Particle0Arc ("Arc --{condition_showS:(_Particle0Distribution!=1)}", Range(0, 360)) = 0
+                    [Enum(Random,0,Loop,1,PingPong,2,BurstSpread,3)] _Particle0ArcMode ("Arc Mode --{condition_showS:(_Particle0Arc>0&&_Particle0Distribution!=1)}", Int) = 0
+                    _Particle0ArcSpeed ("Arc Speed --{condition_showS:(_Particle0Arc>0&&_Particle0ArcMode!=0&&_Particle0Distribution!=1)}", Float) = 1
+                    _Particle0ArcSpread ("Arc Spread --{condition_showS:(_Particle0Arc>0&&_Particle0Distribution!=1)}", Range(0, 1)) = 0
+                    _Particle0ConeAngle ("Angle --{condition_showS:(_Particle0Distribution==4)}", Range(0, 90)) = 25
+                    _Particle0ConeLength ("Length --{condition_showS:(_Particle0Distribution==4)}", Float) = 1
+                    _Particle0DonutRadius ("Donut Radius --{condition_showS:(_Particle0Distribution==5)}", Range(0, 1)) = 0.5
+                    [Vector3] _Particle0ShapePosition ("Position", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle0ShapeRotation ("Rotation", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle0ShapeScale ("Scale", Vector) = (1, 1, 1, 0)
+                [HideInInspector] m_end_particle_0_shape ("", Float) = 0
+                // Velocity over Lifetime
+                [HideInInspector] m_start_particle_0_velocity ("Velocity over Lifetime", Float) = 0
+                    [Vector3] _Particle0LinearVelocity ("Linear", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle0OrbitalVelocity ("Orbital", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle0OrbitalOffset ("Offset", Vector) = (0, 0, 0, 0)
+                    _Particle0RadialVelocity ("Radial", Float) = 0
+                    _Particle0SpeedModifier ("Speed Modifier", Float) = 1
+                [HideInInspector] m_end_particle_0_velocity ("", Float) = 0
+                // Limit Velocity over Lifetime
+                [HideInInspector] m_start_particle_0_limit ("Limit Velocity over Lifetime", Float) = 0
+                    [Vector3] _Particle0SpeedLimit ("Speed", Vector) = (0, 0, 0, 0)
+                    _Particle0Dampen ("Dampen", Float) = 0
+                    _Particle0Drag ("Drag", Float) = 0
+                    [Toggle] _Particle0MultiplyBySize ("Multiply by Size", Int) = 0
+                    [Toggle] _Particle0MultiplyByVelocity ("Multiply by Velocity", Int) = 0
+                [HideInInspector] m_end_particle_0_limit ("", Float) = 0
+                // Force over Lifetime
+                [HideInInspector] m_start_particle_0_force ("Force over Lifetime", Float) = 0
+                    [Vector3] _Particle0Force ("Force", Vector) = (0, 0, 0, 0)
+                    [Toggle] _Particle0ForceRandomize ("Randomize", Int) = 0
+                [HideInInspector] m_end_particle_0_force ("", Float) = 0
+                // Color over Lifetime
+                [HideInInspector] m_start_particle_0_color ("Color over Lifetime", Float) = 0
+                    [Gradient] _Particle0ColorGradient ("Color", 2D) = "white" {}
+                [HideInInspector] m_end_particle_0_color ("", Float) = 0
+                // Color by Speed
+                [HideInInspector] m_start_particle_0_colorspeed ("Color by Speed", Float) = 0
+                    [Gradient] _Particle0ColorBySpeedGradient ("Color", 2D) = "white" {}
+                    [VectorLabel(Min, Max)] _Particle0ColorBySpeedRange ("Speed Range", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_0_colorspeed ("", Float) = 0
+                // Size over Lifetime
+                [HideInInspector] m_start_particle_0_size ("Size over Lifetime", Float) = 0
+                    [VectorLabel(X, Y)] _Particle0SizeOverLifetime ("Size", Vector) = (1, 1, 0, 0)
+                [HideInInspector] m_end_particle_0_size ("", Float) = 0
+                // Size by Speed
+                [HideInInspector] m_start_particle_0_sizespeed ("Size by Speed", Float) = 0
+                    [VectorLabel(X, Y)] _Particle0SizeBySpeed ("Size", Vector) = (1, 1, 0, 0)
+                    [VectorLabel(Min, Max)] _Particle0SizeBySpeedRange ("Speed Range", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_0_sizespeed ("", Float) = 0
+                // Rotation over Lifetime
+                [HideInInspector] m_start_particle_0_rotation ("Rotation over Lifetime", Float) = 0
+                    [Vector3] _Particle0AngularVelocity ("Angular Velocity", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_0_rotation ("", Float) = 0
+                // Rotation by Speed
+                [HideInInspector] m_start_particle_0_rotspeed ("Rotation by Speed", Float) = 0
+                    [Vector3] _Particle0RotationBySpeed ("Angular Velocity", Vector) = (0, 0, 0, 0)
+                    [VectorLabel(Min, Max)] _Particle0RotationBySpeedRange ("Speed Range", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_0_rotspeed ("", Float) = 0
+                // Noise
+                [HideInInspector] m_start_particle_0_noise ("Noise", Float) = 0
+                    _Particle0NoiseStrength ("Strength", Float) = 0
+                    _Particle0NoiseFrequency ("Frequency", Float) = 1
+                    _Particle0NoiseScrollSpeed ("Scroll Speed", Float) = 1
+                    [IntRange] _Particle0NoiseOctaves ("Octaves", Range(1, 4)) = 1
+                    _Particle0NoiseOctaveMultiplier ("Octave Multiplier --{condition_showS:(_Particle0NoiseOctaves>1)}", Range(0, 1)) = 0.5
+                    _Particle0NoiseOctaveScale ("Octave Scale --{condition_showS:(_Particle0NoiseOctaves>1)}", Range(1, 4)) = 2
+                    _Particle0NoisePositionAmount ("Position Amount", Float) = 1
+                    _Particle0NoiseRotationAmount ("Rotation Amount", Float) = 0
+                    _Particle0NoiseSizeAmount ("Size Amount", Float) = 0
+                [HideInInspector] m_end_particle_0_noise ("", Float) = 0
+                // Renderer
+                [HideInInspector] m_start_particle_0_renderer ("Renderer", Float) = 0
+                    [StylizedLargeTexture] _Particle0MainTex ("Texture", 2D) = "white" {}
+                [HideInInspector] m_end_particle_0_renderer ("", Float) = 0
             [HideInInspector] m_end_particle_layer0 ("", Float) = 0
 
+            // ============================================================================
+            // Particle Layer 1
+            // ============================================================================
             [HideInInspector][Toggle] _Particle1Use ("", Float) = 0
             [HideInInspector] m_start_particle_layer1 ("Particle 2--{reference_property:_Particle1Use}", Float) = 0
                 [Enum(Screen,0,World,1)] _Particle1Space ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _Particle1RootIndex ("Root", Int) = 0
-                [Enum(Sphere,0,Cube,1)] _Particle1Distribution ("Distribution", Int) = 0
-                [Vector3] _Particle1Position ("Position", Vector) = (0, 0, 0, 0)
-                [Vector3] _Particle1Rotation ("Rotation", Vector) = (0, 0, 0, 0)
-                [Vector3] _Particle1Scale ("Scale", Vector) = (3, 3, 3, 0)
-                [HideInInspector] m_start_particle_1_appearance ("Appearance", Float) = 0
-                    [StylizedLargeTexture] _Particle1Texture ("Texture", 2D) = "white" {}
-                    [HDR] _Particle1Color ("Color", Color) = (1, 1, 1, 1)
-                    [MultiSlider]_Particle1Size ("Size (Start, End)", Vector) = (0, 1, 0, 1)
-                    [Vector3] _Particle1Spin ("Spin", Vector) = (0, 0, 0, 0)
-                [HideInInspector] m_end_particle_1_appearance ("", Float) = 0
-                [HideInInspector] m_start_particle_1_motion ("Motion", Float) = 0
-                    _Particle1Speed ("Speed", Float) = 0.2
-                    _Particle1Lifetime ("Lifetime", Float) = 1.0
-                    [Vector3] _Particle1Direction ("Direction", Vector) = (0, 0, 0, 0)
-                    [Vector3] _Particle1Gravity ("Gravity", Vector) = (0, 0, 0, 0)
-                [HideInInspector] m_end_particle_1_motion ("", Float) = 0
+                _Particle1StartLifetime ("Start Lifetime", Float) = 1.0
+                _Particle1StartSpeed ("Start Speed", Float) = 1.0
+                [Toggle] _Particle13DStartSize ("3D Start Size", Int) = 0
+                _Particle1StartSize ("Start Size --{condition_showS:(_Particle13DStartSize==0)}", Float) = 1.0
+                [VectorLabel(X, Y)] _Particle1StartSize3D ("Start Size --{condition_showS:(_Particle13DStartSize==1)}", Vector) = (1, 1, 0, 0)
+                [Toggle] _Particle13DStartRotation ("3D Start Rotation", Int) = 0
+                _Particle1StartRotation ("Start Rotation --{condition_showS:(_Particle13DStartRotation==0)}", Float) = 0
+                [Vector3] _Particle1StartRotation3D ("Start Rotation --{condition_showS:(_Particle13DStartRotation==1)}", Vector) = (0, 0, 0, 0)
+                _Particle1FlipRotation ("Flip Rotation", Range(0, 1)) = 0
+                [HDR] _Particle1StartColor ("Start Color", Color) = (1, 1, 1, 1)
+                _Particle1GravityModifier ("Gravity Modifier", Float) = 0
+                _Particle1SimulationSpeed ("Simulation Speed", Float) = 0.2
+                _Particle1MaxParticles ("Max Particles", Int) = 10000
+                [HideInInspector] m_start_particle_1_shape ("Shape", Float) = 0
+                    [Enum(Sphere,0,Cube,1,Hemisphere,2,Circle,3,Cone,4,Donut,5)] _Particle1Distribution ("Shape", Int) = 0
+                    _Particle1RadiusThickness ("Radius Thickness --{condition_showS:(_Particle1Distribution!=1)}", Range(0, 1)) = 1
+                    _Particle1Arc ("Arc --{condition_showS:(_Particle1Distribution!=1)}", Range(0, 360)) = 0
+                    [Enum(Random,0,Loop,1,PingPong,2,BurstSpread,3)] _Particle1ArcMode ("Arc Mode --{condition_showS:(_Particle1Arc>0&&_Particle1Distribution!=1)}", Int) = 0
+                    _Particle1ArcSpeed ("Arc Speed --{condition_showS:(_Particle1Arc>0&&_Particle1ArcMode!=0&&_Particle1Distribution!=1)}", Float) = 1
+                    _Particle1ArcSpread ("Arc Spread --{condition_showS:(_Particle1Arc>0&&_Particle1Distribution!=1)}", Range(0, 1)) = 0
+                    _Particle1ConeAngle ("Angle --{condition_showS:(_Particle1Distribution==4)}", Range(0, 90)) = 25
+                    _Particle1ConeLength ("Length --{condition_showS:(_Particle1Distribution==4)}", Float) = 1
+                    _Particle1DonutRadius ("Donut Radius --{condition_showS:(_Particle1Distribution==5)}", Range(0, 1)) = 0.5
+                    [Vector3] _Particle1ShapePosition ("Position", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle1ShapeRotation ("Rotation", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle1ShapeScale ("Scale", Vector) = (1, 1, 1, 0)
+                [HideInInspector] m_end_particle_1_shape ("", Float) = 0
+                [HideInInspector] m_start_particle_1_velocity ("Velocity over Lifetime", Float) = 0
+                    [Vector3] _Particle1LinearVelocity ("Linear", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle1OrbitalVelocity ("Orbital", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle1OrbitalOffset ("Offset", Vector) = (0, 0, 0, 0)
+                    _Particle1RadialVelocity ("Radial", Float) = 0
+                    _Particle1SpeedModifier ("Speed Modifier", Float) = 1
+                [HideInInspector] m_end_particle_1_velocity ("", Float) = 0
+                [HideInInspector] m_start_particle_1_limit ("Limit Velocity over Lifetime", Float) = 0
+                    [Vector3] _Particle1SpeedLimit ("Speed", Vector) = (0, 0, 0, 0)
+                    _Particle1Dampen ("Dampen", Float) = 0
+                    _Particle1Drag ("Drag", Float) = 0
+                    [Toggle] _Particle1MultiplyBySize ("Multiply by Size", Int) = 0
+                    [Toggle] _Particle1MultiplyByVelocity ("Multiply by Velocity", Int) = 0
+                [HideInInspector] m_end_particle_1_limit ("", Float) = 0
+                [HideInInspector] m_start_particle_1_force ("Force over Lifetime", Float) = 0
+                    [Vector3] _Particle1Force ("Force", Vector) = (0, 0, 0, 0)
+                    [Toggle] _Particle1ForceRandomize ("Randomize", Int) = 0
+                [HideInInspector] m_end_particle_1_force ("", Float) = 0
+                [HideInInspector] m_start_particle_1_color ("Color over Lifetime", Float) = 0
+                    [Gradient] _Particle1ColorGradient ("Color", 2D) = "white" {}
+                [HideInInspector] m_end_particle_1_color ("", Float) = 0
+                [HideInInspector] m_start_particle_1_colorspeed ("Color by Speed", Float) = 0
+                    [Gradient] _Particle1ColorBySpeedGradient ("Color", 2D) = "white" {}
+                    [VectorLabel(Min, Max)] _Particle1ColorBySpeedRange ("Speed Range", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_1_colorspeed ("", Float) = 0
+                [HideInInspector] m_start_particle_1_size ("Size over Lifetime", Float) = 0
+                    [VectorLabel(X, Y)] _Particle1SizeOverLifetime ("Size", Vector) = (1, 1, 0, 0)
+                [HideInInspector] m_end_particle_1_size ("", Float) = 0
+                [HideInInspector] m_start_particle_1_sizespeed ("Size by Speed", Float) = 0
+                    [VectorLabel(X, Y)] _Particle1SizeBySpeed ("Size", Vector) = (1, 1, 0, 0)
+                    [VectorLabel(Min, Max)] _Particle1SizeBySpeedRange ("Speed Range", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_1_sizespeed ("", Float) = 0
+                [HideInInspector] m_start_particle_1_rotation ("Rotation over Lifetime", Float) = 0
+                    [Vector3] _Particle1AngularVelocity ("Angular Velocity", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_1_rotation ("", Float) = 0
+                [HideInInspector] m_start_particle_1_rotspeed ("Rotation by Speed", Float) = 0
+                    [Vector3] _Particle1RotationBySpeed ("Angular Velocity", Vector) = (0, 0, 0, 0)
+                    [VectorLabel(Min, Max)] _Particle1RotationBySpeedRange ("Speed Range", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_1_rotspeed ("", Float) = 0
+                [HideInInspector] m_start_particle_1_noise ("Noise", Float) = 0
+                    _Particle1NoiseStrength ("Strength", Float) = 0
+                    _Particle1NoiseFrequency ("Frequency", Float) = 1
+                    _Particle1NoiseScrollSpeed ("Scroll Speed", Float) = 1
+                    [IntRange] _Particle1NoiseOctaves ("Octaves", Range(1, 4)) = 1
+                    _Particle1NoiseOctaveMultiplier ("Octave Multiplier --{condition_showS:(_Particle1NoiseOctaves>1)}", Range(0, 1)) = 0.5
+                    _Particle1NoiseOctaveScale ("Octave Scale --{condition_showS:(_Particle1NoiseOctaves>1)}", Range(1, 4)) = 2
+                    _Particle1NoisePositionAmount ("Position Amount", Float) = 1
+                    _Particle1NoiseRotationAmount ("Rotation Amount", Float) = 0
+                    _Particle1NoiseSizeAmount ("Size Amount", Float) = 0
+                [HideInInspector] m_end_particle_1_noise ("", Float) = 0
+                [HideInInspector] m_start_particle_1_renderer ("Renderer", Float) = 0
+                    [StylizedLargeTexture] _Particle1MainTex ("Texture", 2D) = "white" {}
+                [HideInInspector] m_end_particle_1_renderer ("", Float) = 0
             [HideInInspector] m_end_particle_layer1 ("", Float) = 0
 
+            // ============================================================================
+            // Particle Layer 2
+            // ============================================================================
             [HideInInspector][Toggle] _Particle2Use ("", Float) = 0
             [HideInInspector] m_start_particle_layer2 ("Particle 3--{reference_property:_Particle2Use}", Float) = 0
                 [Enum(Screen,0,World,1)] _Particle2Space ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _Particle2RootIndex ("Root", Int) = 0
-                [Enum(Sphere,0,Cube,1)] _Particle2Distribution ("Distribution", Int) = 0
-                [Vector3] _Particle2Position ("Position", Vector) = (0, 0, 0, 0)
-                [Vector3] _Particle2Rotation ("Rotation", Vector) = (0, 0, 0, 0)
-                [Vector3] _Particle2Scale ("Scale", Vector) = (3, 3, 3, 0)
-                [HideInInspector] m_start_particle_2_appearance ("Appearance", Float) = 0
-                    [StylizedLargeTexture] _Particle2Texture ("Texture", 2D) = "white" {}
-                    [HDR] _Particle2Color ("Color", Color) = (1, 1, 1, 1)
-                    [MultiSlider]_Particle2Size ("Size (Start, End)", Vector) = (0, 1, 0, 1)
-                    [Vector3] _Particle2Spin ("Spin", Vector) = (0, 0, 0, 0)
-                [HideInInspector] m_end_particle_2_appearance ("", Float) = 0
-                [HideInInspector] m_start_particle_2_motion ("Motion", Float) = 0
-                    _Particle2Speed ("Speed", Float) = 0.2
-                    _Particle2Lifetime ("Lifetime", Float) = 1.0
-                    [Vector3] _Particle2Direction ("Direction", Vector) = (0, 0, 0, 0)
-                    [Vector3] _Particle2Gravity ("Gravity", Vector) = (0, 0, 0, 0)
-                [HideInInspector] m_end_particle_2_motion ("", Float) = 0
+                _Particle2StartLifetime ("Start Lifetime", Float) = 1.0
+                _Particle2StartSpeed ("Start Speed", Float) = 1.0
+                [Toggle] _Particle23DStartSize ("3D Start Size", Int) = 0
+                _Particle2StartSize ("Start Size --{condition_showS:(_Particle23DStartSize==0)}", Float) = 1.0
+                [VectorLabel(X, Y)] _Particle2StartSize3D ("Start Size --{condition_showS:(_Particle23DStartSize==1)}", Vector) = (1, 1, 0, 0)
+                [Toggle] _Particle23DStartRotation ("3D Start Rotation", Int) = 0
+                _Particle2StartRotation ("Start Rotation --{condition_showS:(_Particle23DStartRotation==0)}", Float) = 0
+                [Vector3] _Particle2StartRotation3D ("Start Rotation --{condition_showS:(_Particle23DStartRotation==1)}", Vector) = (0, 0, 0, 0)
+                _Particle2FlipRotation ("Flip Rotation", Range(0, 1)) = 0
+                [HDR] _Particle2StartColor ("Start Color", Color) = (1, 1, 1, 1)
+                _Particle2GravityModifier ("Gravity Modifier", Float) = 0
+                _Particle2SimulationSpeed ("Simulation Speed", Float) = 0.2
+                _Particle2MaxParticles ("Max Particles", Int) = 10000
+                [HideInInspector] m_start_particle_2_shape ("Shape", Float) = 0
+                    [Enum(Sphere,0,Cube,1,Hemisphere,2,Circle,3,Cone,4,Donut,5)] _Particle2Distribution ("Shape", Int) = 0
+                    _Particle2RadiusThickness ("Radius Thickness --{condition_showS:(_Particle2Distribution!=1)}", Range(0, 1)) = 1
+                    _Particle2Arc ("Arc --{condition_showS:(_Particle2Distribution!=1)}", Range(0, 360)) = 0
+                    [Enum(Random,0,Loop,1,PingPong,2,BurstSpread,3)] _Particle2ArcMode ("Arc Mode --{condition_showS:(_Particle2Arc>0&&_Particle2Distribution!=1)}", Int) = 0
+                    _Particle2ArcSpeed ("Arc Speed --{condition_showS:(_Particle2Arc>0&&_Particle2ArcMode!=0&&_Particle2Distribution!=1)}", Float) = 1
+                    _Particle2ArcSpread ("Arc Spread --{condition_showS:(_Particle2Arc>0&&_Particle2Distribution!=1)}", Range(0, 1)) = 0
+                    _Particle2ConeAngle ("Angle --{condition_showS:(_Particle2Distribution==4)}", Range(0, 90)) = 25
+                    _Particle2ConeLength ("Length --{condition_showS:(_Particle2Distribution==4)}", Float) = 1
+                    _Particle2DonutRadius ("Donut Radius --{condition_showS:(_Particle2Distribution==5)}", Range(0, 1)) = 0.5
+                    [Vector3] _Particle2ShapePosition ("Position", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle2ShapeRotation ("Rotation", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle2ShapeScale ("Scale", Vector) = (1, 1, 1, 0)
+                [HideInInspector] m_end_particle_2_shape ("", Float) = 0
+                [HideInInspector] m_start_particle_2_velocity ("Velocity over Lifetime", Float) = 0
+                    [Vector3] _Particle2LinearVelocity ("Linear", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle2OrbitalVelocity ("Orbital", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle2OrbitalOffset ("Offset", Vector) = (0, 0, 0, 0)
+                    _Particle2RadialVelocity ("Radial", Float) = 0
+                    _Particle2SpeedModifier ("Speed Modifier", Float) = 1
+                [HideInInspector] m_end_particle_2_velocity ("", Float) = 0
+                [HideInInspector] m_start_particle_2_limit ("Limit Velocity over Lifetime", Float) = 0
+                    [Vector3] _Particle2SpeedLimit ("Speed", Vector) = (0, 0, 0, 0)
+                    _Particle2Dampen ("Dampen", Float) = 0
+                    _Particle2Drag ("Drag", Float) = 0
+                    [Toggle] _Particle2MultiplyBySize ("Multiply by Size", Int) = 0
+                    [Toggle] _Particle2MultiplyByVelocity ("Multiply by Velocity", Int) = 0
+                [HideInInspector] m_end_particle_2_limit ("", Float) = 0
+                [HideInInspector] m_start_particle_2_force ("Force over Lifetime", Float) = 0
+                    [Vector3] _Particle2Force ("Force", Vector) = (0, 0, 0, 0)
+                    [Toggle] _Particle2ForceRandomize ("Randomize", Int) = 0
+                [HideInInspector] m_end_particle_2_force ("", Float) = 0
+                [HideInInspector] m_start_particle_2_color ("Color over Lifetime", Float) = 0
+                    [Gradient] _Particle2ColorGradient ("Color", 2D) = "white" {}
+                [HideInInspector] m_end_particle_2_color ("", Float) = 0
+                [HideInInspector] m_start_particle_2_colorspeed ("Color by Speed", Float) = 0
+                    [Gradient] _Particle2ColorBySpeedGradient ("Color", 2D) = "white" {}
+                    [VectorLabel(Min, Max)] _Particle2ColorBySpeedRange ("Speed Range", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_2_colorspeed ("", Float) = 0
+                [HideInInspector] m_start_particle_2_size ("Size over Lifetime", Float) = 0
+                    [VectorLabel(X, Y)] _Particle2SizeOverLifetime ("Size", Vector) = (1, 1, 0, 0)
+                [HideInInspector] m_end_particle_2_size ("", Float) = 0
+                [HideInInspector] m_start_particle_2_sizespeed ("Size by Speed", Float) = 0
+                    [VectorLabel(X, Y)] _Particle2SizeBySpeed ("Size", Vector) = (1, 1, 0, 0)
+                    [VectorLabel(Min, Max)] _Particle2SizeBySpeedRange ("Speed Range", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_2_sizespeed ("", Float) = 0
+                [HideInInspector] m_start_particle_2_rotation ("Rotation over Lifetime", Float) = 0
+                    [Vector3] _Particle2AngularVelocity ("Angular Velocity", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_2_rotation ("", Float) = 0
+                [HideInInspector] m_start_particle_2_rotspeed ("Rotation by Speed", Float) = 0
+                    [Vector3] _Particle2RotationBySpeed ("Angular Velocity", Vector) = (0, 0, 0, 0)
+                    [VectorLabel(Min, Max)] _Particle2RotationBySpeedRange ("Speed Range", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_2_rotspeed ("", Float) = 0
+                [HideInInspector] m_start_particle_2_noise ("Noise", Float) = 0
+                    _Particle2NoiseStrength ("Strength", Float) = 0
+                    _Particle2NoiseFrequency ("Frequency", Float) = 1
+                    _Particle2NoiseScrollSpeed ("Scroll Speed", Float) = 1
+                    [IntRange] _Particle2NoiseOctaves ("Octaves", Range(1, 4)) = 1
+                    _Particle2NoiseOctaveMultiplier ("Octave Multiplier --{condition_showS:(_Particle2NoiseOctaves>1)}", Range(0, 1)) = 0.5
+                    _Particle2NoiseOctaveScale ("Octave Scale --{condition_showS:(_Particle2NoiseOctaves>1)}", Range(1, 4)) = 2
+                    _Particle2NoisePositionAmount ("Position Amount", Float) = 1
+                    _Particle2NoiseRotationAmount ("Rotation Amount", Float) = 0
+                    _Particle2NoiseSizeAmount ("Size Amount", Float) = 0
+                [HideInInspector] m_end_particle_2_noise ("", Float) = 0
+                [HideInInspector] m_start_particle_2_renderer ("Renderer", Float) = 0
+                    [StylizedLargeTexture] _Particle2MainTex ("Texture", 2D) = "white" {}
+                [HideInInspector] m_end_particle_2_renderer ("", Float) = 0
             [HideInInspector] m_end_particle_layer2 ("", Float) = 0
 
+            // ============================================================================
+            // Particle Layer 3
+            // ============================================================================
             [HideInInspector][Toggle] _Particle3Use ("", Float) = 0
             [HideInInspector] m_start_particle_layer3 ("Particle 4--{reference_property:_Particle3Use}", Float) = 0
                 [Enum(Screen,0,World,1)] _Particle3Space ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _Particle3RootIndex ("Root", Int) = 0
-                [Enum(Sphere,0,Cube,1)] _Particle3Distribution ("Distribution", Int) = 0
-                [Vector3] _Particle3Position ("Position", Vector) = (0, 0, 0, 0)
-                [Vector3] _Particle3Rotation ("Rotation", Vector) = (0, 0, 0, 0)
-                [Vector3] _Particle3Scale ("Scale", Vector) = (3, 3, 3, 0)
-                [HideInInspector] m_start_particle_3_appearance ("Appearance", Float) = 0
-                    [StylizedLargeTexture] _Particle3Texture ("Texture", 2D) = "white" {}
-                    [HDR] _Particle3Color ("Color", Color) = (1, 1, 1, 1)
-                    [MultiSlider]_Particle3Size ("Size (Start, End)", Vector) = (0, 1, 0, 1)
-                    [Vector3] _Particle3Spin ("Spin", Vector) = (0, 0, 0, 0)
-                [HideInInspector] m_end_particle_3_appearance ("", Float) = 0
-                [HideInInspector] m_start_particle_3_motion ("Motion", Float) = 0
-                    _Particle3Speed ("Speed", Float) = 0.2
-                    _Particle3Lifetime ("Lifetime", Float) = 1.0
-                    [Vector3] _Particle3Direction ("Direction", Vector) = (0, 0, 0, 0)
-                    [Vector3] _Particle3Gravity ("Gravity", Vector) = (0, 0, 0, 0)
-                [HideInInspector] m_end_particle_3_motion ("", Float) = 0
+                _Particle3StartLifetime ("Start Lifetime", Float) = 1.0
+                _Particle3StartSpeed ("Start Speed", Float) = 1.0
+                [Toggle] _Particle33DStartSize ("3D Start Size", Int) = 0
+                _Particle3StartSize ("Start Size --{condition_showS:(_Particle33DStartSize==0)}", Float) = 1.0
+                [VectorLabel(X, Y)] _Particle3StartSize3D ("Start Size --{condition_showS:(_Particle33DStartSize==1)}", Vector) = (1, 1, 0, 0)
+                [Toggle] _Particle33DStartRotation ("3D Start Rotation", Int) = 0
+                _Particle3StartRotation ("Start Rotation --{condition_showS:(_Particle33DStartRotation==0)}", Float) = 0
+                [Vector3] _Particle3StartRotation3D ("Start Rotation --{condition_showS:(_Particle33DStartRotation==1)}", Vector) = (0, 0, 0, 0)
+                _Particle3FlipRotation ("Flip Rotation", Range(0, 1)) = 0
+                [HDR] _Particle3StartColor ("Start Color", Color) = (1, 1, 1, 1)
+                _Particle3GravityModifier ("Gravity Modifier", Float) = 0
+                _Particle3SimulationSpeed ("Simulation Speed", Float) = 0.2
+                _Particle3MaxParticles ("Max Particles", Int) = 10000
+                [HideInInspector] m_start_particle_3_shape ("Shape", Float) = 0
+                    [Enum(Sphere,0,Cube,1,Hemisphere,2,Circle,3,Cone,4,Donut,5)] _Particle3Distribution ("Shape", Int) = 0
+                    _Particle3RadiusThickness ("Radius Thickness --{condition_showS:(_Particle3Distribution!=1)}", Range(0, 1)) = 1
+                    _Particle3Arc ("Arc --{condition_showS:(_Particle3Distribution!=1)}", Range(0, 360)) = 0
+                    [Enum(Random,0,Loop,1,PingPong,2,BurstSpread,3)] _Particle3ArcMode ("Arc Mode --{condition_showS:(_Particle3Arc>0&&_Particle3Distribution!=1)}", Int) = 0
+                    _Particle3ArcSpeed ("Arc Speed --{condition_showS:(_Particle3Arc>0&&_Particle3ArcMode!=0&&_Particle3Distribution!=1)}", Float) = 1
+                    _Particle3ArcSpread ("Arc Spread --{condition_showS:(_Particle3Arc>0&&_Particle3Distribution!=1)}", Range(0, 1)) = 0
+                    _Particle3ConeAngle ("Angle --{condition_showS:(_Particle3Distribution==4)}", Range(0, 90)) = 25
+                    _Particle3ConeLength ("Length --{condition_showS:(_Particle3Distribution==4)}", Float) = 1
+                    _Particle3DonutRadius ("Donut Radius --{condition_showS:(_Particle3Distribution==5)}", Range(0, 1)) = 0.5
+                    [Vector3] _Particle3ShapePosition ("Position", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle3ShapeRotation ("Rotation", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle3ShapeScale ("Scale", Vector) = (1, 1, 1, 0)
+                [HideInInspector] m_end_particle_3_shape ("", Float) = 0
+                [HideInInspector] m_start_particle_3_velocity ("Velocity over Lifetime", Float) = 0
+                    [Vector3] _Particle3LinearVelocity ("Linear", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle3OrbitalVelocity ("Orbital", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle3OrbitalOffset ("Offset", Vector) = (0, 0, 0, 0)
+                    _Particle3RadialVelocity ("Radial", Float) = 0
+                    _Particle3SpeedModifier ("Speed Modifier", Float) = 1
+                [HideInInspector] m_end_particle_3_velocity ("", Float) = 0
+                [HideInInspector] m_start_particle_3_limit ("Limit Velocity over Lifetime", Float) = 0
+                    [Vector3] _Particle3SpeedLimit ("Speed", Vector) = (0, 0, 0, 0)
+                    _Particle3Dampen ("Dampen", Float) = 0
+                    _Particle3Drag ("Drag", Float) = 0
+                    [Toggle] _Particle3MultiplyBySize ("Multiply by Size", Int) = 0
+                    [Toggle] _Particle3MultiplyByVelocity ("Multiply by Velocity", Int) = 0
+                [HideInInspector] m_end_particle_3_limit ("", Float) = 0
+                [HideInInspector] m_start_particle_3_force ("Force over Lifetime", Float) = 0
+                    [Vector3] _Particle3Force ("Force", Vector) = (0, 0, 0, 0)
+                    [Toggle] _Particle3ForceRandomize ("Randomize", Int) = 0
+                [HideInInspector] m_end_particle_3_force ("", Float) = 0
+                [HideInInspector] m_start_particle_3_color ("Color over Lifetime", Float) = 0
+                    [Gradient] _Particle3ColorGradient ("Color", 2D) = "white" {}
+                [HideInInspector] m_end_particle_3_color ("", Float) = 0
+                [HideInInspector] m_start_particle_3_colorspeed ("Color by Speed", Float) = 0
+                    [Gradient] _Particle3ColorBySpeedGradient ("Color", 2D) = "white" {}
+                    [VectorLabel(Min, Max)] _Particle3ColorBySpeedRange ("Speed Range", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_3_colorspeed ("", Float) = 0
+                [HideInInspector] m_start_particle_3_size ("Size over Lifetime", Float) = 0
+                    [VectorLabel(X, Y)] _Particle3SizeOverLifetime ("Size", Vector) = (1, 1, 0, 0)
+                [HideInInspector] m_end_particle_3_size ("", Float) = 0
+                [HideInInspector] m_start_particle_3_sizespeed ("Size by Speed", Float) = 0
+                    [VectorLabel(X, Y)] _Particle3SizeBySpeed ("Size", Vector) = (1, 1, 0, 0)
+                    [VectorLabel(Min, Max)] _Particle3SizeBySpeedRange ("Speed Range", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_3_sizespeed ("", Float) = 0
+                [HideInInspector] m_start_particle_3_rotation ("Rotation over Lifetime", Float) = 0
+                    [Vector3] _Particle3AngularVelocity ("Angular Velocity", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_3_rotation ("", Float) = 0
+                [HideInInspector] m_start_particle_3_rotspeed ("Rotation by Speed", Float) = 0
+                    [Vector3] _Particle3RotationBySpeed ("Angular Velocity", Vector) = (0, 0, 0, 0)
+                    [VectorLabel(Min, Max)] _Particle3RotationBySpeedRange ("Speed Range", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_3_rotspeed ("", Float) = 0
+                [HideInInspector] m_start_particle_3_noise ("Noise", Float) = 0
+                    _Particle3NoiseStrength ("Strength", Float) = 0
+                    _Particle3NoiseFrequency ("Frequency", Float) = 1
+                    _Particle3NoiseScrollSpeed ("Scroll Speed", Float) = 1
+                    [IntRange] _Particle3NoiseOctaves ("Octaves", Range(1, 4)) = 1
+                    _Particle3NoiseOctaveMultiplier ("Octave Multiplier --{condition_showS:(_Particle3NoiseOctaves>1)}", Range(0, 1)) = 0.5
+                    _Particle3NoiseOctaveScale ("Octave Scale --{condition_showS:(_Particle3NoiseOctaves>1)}", Range(1, 4)) = 2
+                    _Particle3NoisePositionAmount ("Position Amount", Float) = 1
+                    _Particle3NoiseRotationAmount ("Rotation Amount", Float) = 0
+                    _Particle3NoiseSizeAmount ("Size Amount", Float) = 0
+                [HideInInspector] m_end_particle_3_noise ("", Float) = 0
+                [HideInInspector] m_start_particle_3_renderer ("Renderer", Float) = 0
+                    [StylizedLargeTexture] _Particle3MainTex ("Texture", 2D) = "white" {}
+                [HideInInspector] m_end_particle_3_renderer ("", Float) = 0
             [HideInInspector] m_end_particle_layer3 ("", Float) = 0
 
+            // ============================================================================
+            // Particle Layer 4
+            // ============================================================================
             [HideInInspector][Toggle] _Particle4Use ("", Float) = 0
             [HideInInspector] m_start_particle_layer4 ("Particle 5--{reference_property:_Particle4Use}", Float) = 0
                 [Enum(Screen,0,World,1)] _Particle4Space ("Space", Int) = 0
                 [Enum(None, 0, Root 1, 1, Root 2, 2, Root 3, 3, Root 4, 4, Root 5, 5)] _Particle4RootIndex ("Root", Int) = 0
-                [Enum(Sphere,0,Cube,1)] _Particle4Distribution ("Distribution", Int) = 0
-                [Vector3] _Particle4Position ("Position", Vector) = (0, 0, 0, 0)
-                [Vector3] _Particle4Rotation ("Rotation", Vector) = (0, 0, 0, 0)
-                [Vector3] _Particle4Scale ("Scale", Vector) = (3, 3, 3, 0)
-                [HideInInspector] m_start_particle_4_appearance ("Appearance", Float) = 0
-                    [StylizedLargeTexture] _Particle4Texture ("Texture", 2D) = "white" {}
-                    [HDR] _Particle4Color ("Color", Color) = (1, 1, 1, 1)
-                    [MultiSlider]_Particle4Size ("Size (Start, End)", Vector) = (0, 1, 0, 1)
-                    [Vector3] _Particle4Spin ("Spin", Vector) = (0, 0, 0, 0)
-                [HideInInspector] m_end_particle_4_appearance ("", Float) = 0
-                [HideInInspector] m_start_particle_4_motion ("Motion", Float) = 0
-                    _Particle4Speed ("Speed", Float) = 0.2
-                    _Particle4Lifetime ("Lifetime", Float) = 1.0
-                    [Vector3] _Particle4Direction ("Direction", Vector) = (0, 0, 0, 0)
-                    [Vector3] _Particle4Gravity ("Gravity", Vector) = (0, 0, 0, 0)
-                [HideInInspector] m_end_particle_4_motion ("", Float) = 0
+                _Particle4StartLifetime ("Start Lifetime", Float) = 1.0
+                _Particle4StartSpeed ("Start Speed", Float) = 1.0
+                [Toggle] _Particle43DStartSize ("3D Start Size", Int) = 0
+                _Particle4StartSize ("Start Size --{condition_showS:(_Particle43DStartSize==0)}", Float) = 1.0
+                [VectorLabel(X, Y)] _Particle4StartSize3D ("Start Size --{condition_showS:(_Particle43DStartSize==1)}", Vector) = (1, 1, 0, 0)
+                [Toggle] _Particle43DStartRotation ("3D Start Rotation", Int) = 0
+                _Particle4StartRotation ("Start Rotation --{condition_showS:(_Particle43DStartRotation==0)}", Float) = 0
+                [Vector3] _Particle4StartRotation3D ("Start Rotation --{condition_showS:(_Particle43DStartRotation==1)}", Vector) = (0, 0, 0, 0)
+                _Particle4FlipRotation ("Flip Rotation", Range(0, 1)) = 0
+                [HDR] _Particle4StartColor ("Start Color", Color) = (1, 1, 1, 1)
+                _Particle4GravityModifier ("Gravity Modifier", Float) = 0
+                _Particle4SimulationSpeed ("Simulation Speed", Float) = 0.2
+                _Particle4MaxParticles ("Max Particles", Int) = 10000
+                [HideInInspector] m_start_particle_4_shape ("Shape", Float) = 0
+                    [Enum(Sphere,0,Cube,1,Hemisphere,2,Circle,3,Cone,4,Donut,5)] _Particle4Distribution ("Shape", Int) = 0
+                    _Particle4RadiusThickness ("Radius Thickness --{condition_showS:(_Particle4Distribution!=1)}", Range(0, 1)) = 1
+                    _Particle4Arc ("Arc --{condition_showS:(_Particle4Distribution!=1)}", Range(0, 360)) = 0
+                    [Enum(Random,0,Loop,1,PingPong,2,BurstSpread,3)] _Particle4ArcMode ("Arc Mode --{condition_showS:(_Particle4Arc>0&&_Particle4Distribution!=1)}", Int) = 0
+                    _Particle4ArcSpeed ("Arc Speed --{condition_showS:(_Particle4Arc>0&&_Particle4ArcMode!=0&&_Particle4Distribution!=1)}", Float) = 1
+                    _Particle4ArcSpread ("Arc Spread --{condition_showS:(_Particle4Arc>0&&_Particle4Distribution!=1)}", Range(0, 1)) = 0
+                    _Particle4ConeAngle ("Angle --{condition_showS:(_Particle4Distribution==4)}", Range(0, 90)) = 25
+                    _Particle4ConeLength ("Length --{condition_showS:(_Particle4Distribution==4)}", Float) = 1
+                    _Particle4DonutRadius ("Donut Radius --{condition_showS:(_Particle4Distribution==5)}", Range(0, 1)) = 0.5
+                    [Vector3] _Particle4ShapePosition ("Position", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle4ShapeRotation ("Rotation", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle4ShapeScale ("Scale", Vector) = (1, 1, 1, 0)
+                [HideInInspector] m_end_particle_4_shape ("", Float) = 0
+                [HideInInspector] m_start_particle_4_velocity ("Velocity over Lifetime", Float) = 0
+                    [Vector3] _Particle4LinearVelocity ("Linear", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle4OrbitalVelocity ("Orbital", Vector) = (0, 0, 0, 0)
+                    [Vector3] _Particle4OrbitalOffset ("Offset", Vector) = (0, 0, 0, 0)
+                    _Particle4RadialVelocity ("Radial", Float) = 0
+                    _Particle4SpeedModifier ("Speed Modifier", Float) = 1
+                [HideInInspector] m_end_particle_4_velocity ("", Float) = 0
+                [HideInInspector] m_start_particle_4_limit ("Limit Velocity over Lifetime", Float) = 0
+                    [Vector3] _Particle4SpeedLimit ("Speed", Vector) = (0, 0, 0, 0)
+                    _Particle4Dampen ("Dampen", Float) = 0
+                    _Particle4Drag ("Drag", Float) = 0
+                    [Toggle] _Particle4MultiplyBySize ("Multiply by Size", Int) = 0
+                    [Toggle] _Particle4MultiplyByVelocity ("Multiply by Velocity", Int) = 0
+                [HideInInspector] m_end_particle_4_limit ("", Float) = 0
+                [HideInInspector] m_start_particle_4_force ("Force over Lifetime", Float) = 0
+                    [Vector3] _Particle4Force ("Force", Vector) = (0, 0, 0, 0)
+                    [Toggle] _Particle4ForceRandomize ("Randomize", Int) = 0
+                [HideInInspector] m_end_particle_4_force ("", Float) = 0
+                [HideInInspector] m_start_particle_4_color ("Color over Lifetime", Float) = 0
+                    [Gradient] _Particle4ColorGradient ("Color", 2D) = "white" {}
+                [HideInInspector] m_end_particle_4_color ("", Float) = 0
+                [HideInInspector] m_start_particle_4_colorspeed ("Color by Speed", Float) = 0
+                    [Gradient] _Particle4ColorBySpeedGradient ("Color", 2D) = "white" {}
+                    [VectorLabel(Min, Max)] _Particle4ColorBySpeedRange ("Speed Range", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_4_colorspeed ("", Float) = 0
+                [HideInInspector] m_start_particle_4_size ("Size over Lifetime", Float) = 0
+                    [VectorLabel(X, Y)] _Particle4SizeOverLifetime ("Size", Vector) = (1, 1, 0, 0)
+                [HideInInspector] m_end_particle_4_size ("", Float) = 0
+                [HideInInspector] m_start_particle_4_sizespeed ("Size by Speed", Float) = 0
+                    [VectorLabel(X, Y)] _Particle4SizeBySpeed ("Size", Vector) = (1, 1, 0, 0)
+                    [VectorLabel(Min, Max)] _Particle4SizeBySpeedRange ("Speed Range", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_4_sizespeed ("", Float) = 0
+                [HideInInspector] m_start_particle_4_rotation ("Rotation over Lifetime", Float) = 0
+                    [Vector3] _Particle4AngularVelocity ("Angular Velocity", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_4_rotation ("", Float) = 0
+                [HideInInspector] m_start_particle_4_rotspeed ("Rotation by Speed", Float) = 0
+                    [Vector3] _Particle4RotationBySpeed ("Angular Velocity", Vector) = (0, 0, 0, 0)
+                    [VectorLabel(Min, Max)] _Particle4RotationBySpeedRange ("Speed Range", Vector) = (0, 0, 0, 0)
+                [HideInInspector] m_end_particle_4_rotspeed ("", Float) = 0
+                [HideInInspector] m_start_particle_4_noise ("Noise", Float) = 0
+                    _Particle4NoiseStrength ("Strength", Float) = 0
+                    _Particle4NoiseFrequency ("Frequency", Float) = 1
+                    _Particle4NoiseScrollSpeed ("Scroll Speed", Float) = 1
+                    [IntRange] _Particle4NoiseOctaves ("Octaves", Range(1, 4)) = 1
+                    _Particle4NoiseOctaveMultiplier ("Octave Multiplier --{condition_showS:(_Particle4NoiseOctaves>1)}", Range(0, 1)) = 0.5
+                    _Particle4NoiseOctaveScale ("Octave Scale --{condition_showS:(_Particle4NoiseOctaves>1)}", Range(1, 4)) = 2
+                    _Particle4NoisePositionAmount ("Position Amount", Float) = 1
+                    _Particle4NoiseRotationAmount ("Rotation Amount", Float) = 0
+                    _Particle4NoiseSizeAmount ("Size Amount", Float) = 0
+                [HideInInspector] m_end_particle_4_noise ("", Float) = 0
+                [HideInInspector] m_start_particle_4_renderer ("Renderer", Float) = 0
+                    [StylizedLargeTexture] _Particle4MainTex ("Texture", 2D) = "white" {}
+                [HideInInspector] m_end_particle_4_renderer ("", Float) = 0
             [HideInInspector] m_end_particle_layer4 ("", Float) = 0
 
         [HideInInspector] m_end_particle_pass ("Particle Pass", Float) = 0
@@ -1979,6 +2328,7 @@ Shader "GekikaraStore/x.x.x/Typography"
 
             #include "UnityCG.cginc"
             #include "Core.hlsl"
+            #include "Noise.hlsl"
             #include "Components.hlsl"
             #include "Systems.hlsl"
 
@@ -2073,29 +2423,68 @@ Shader "GekikaraStore/x.x.x/Typography"
             {
                 UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(i);
 
-                // Unpack from uint2: x=layer_id(8)+colorMul(16), y=age+distFade(f16)
+                // Unpack from uint2: x=colorMul(16)+layer_id(24-31), y=age(f16)+color_speed_t(f16)
                 float2 uv = i.uv;
-                int layer_id = (int)(i.packed.x & 0xFFu);
-                half colorMul = (half)((i.packed.x >> 8) & 0xFFFFu) * (half)(1.0 / 65535.0);
-                half distFade = (half)f16tof32(i.packed.y >> 16);
+                uint colorMul_bits = i.packed.x & 0xFFFFu;
+                int layer_id = (int)((i.packed.x >> 24) & 0xFFu);
+                half colorMul = (half)colorMul_bits * (half)(1.0 / 65535.0);
+                half p_age = (half)f16tof32(i.packed.y & 0xFFFFu);
+                half color_speed_t = (half)f16tof32(i.packed.y >> 16);
 
-                // Sample texture based on layer_id
+                // Sample texture, start color, and gradients based on layer_id
                 half4 tex;
-                half4 tint;
+                half4 start_color;
+                half4 color_over_lifetime;
+                half4 color_by_speed;
+
+                // Gradient UV: x = age/speed_t, y = 0.5 (center of 1D gradient)
+                float2 age_uv = float2(p_age, 0.5);
+                float2 speed_uv = float2(color_speed_t, 0.5);
+
                 switch (layer_id)
                 {
-                    case 0: tex = tex2D(_Particle0Texture, uv); tint = _Particle0Color; break;
-                    case 1: tex = tex2D(_Particle1Texture, uv); tint = _Particle1Color; break;
-                    case 2: tex = tex2D(_Particle2Texture, uv); tint = _Particle2Color; break;
-                    case 3: tex = tex2D(_Particle3Texture, uv); tint = _Particle3Color; break;
-                    case 4: tex = tex2D(_Particle4Texture, uv); tint = _Particle4Color; break;
-                    default: tex = half4(1, 1, 1, 1); tint = half4(1, 1, 1, 1); break;
+                    case 0:
+                        tex = tex2D(_Particle0MainTex, uv);
+                        start_color = _Particle0StartColor;
+                        color_over_lifetime = _Particle0ColorGradient.Sample(sampler_Particle0ColorGradient, age_uv);
+                        color_by_speed = _Particle0ColorBySpeedGradient.Sample(sampler_Particle0ColorBySpeedGradient, speed_uv);
+                        break;
+                    case 1:
+                        tex = tex2D(_Particle1MainTex, uv);
+                        start_color = _Particle1StartColor;
+                        color_over_lifetime = _Particle1ColorGradient.Sample(sampler_Particle1ColorGradient, age_uv);
+                        color_by_speed = _Particle1ColorBySpeedGradient.Sample(sampler_Particle1ColorBySpeedGradient, speed_uv);
+                        break;
+                    case 2:
+                        tex = tex2D(_Particle2MainTex, uv);
+                        start_color = _Particle2StartColor;
+                        color_over_lifetime = _Particle2ColorGradient.Sample(sampler_Particle2ColorGradient, age_uv);
+                        color_by_speed = _Particle2ColorBySpeedGradient.Sample(sampler_Particle2ColorBySpeedGradient, speed_uv);
+                        break;
+                    case 3:
+                        tex = tex2D(_Particle3MainTex, uv);
+                        start_color = _Particle3StartColor;
+                        color_over_lifetime = _Particle3ColorGradient.Sample(sampler_Particle3ColorGradient, age_uv);
+                        color_by_speed = _Particle3ColorBySpeedGradient.Sample(sampler_Particle3ColorBySpeedGradient, speed_uv);
+                        break;
+                    case 4:
+                        tex = tex2D(_Particle4MainTex, uv);
+                        start_color = _Particle4StartColor;
+                        color_over_lifetime = _Particle4ColorGradient.Sample(sampler_Particle4ColorGradient, age_uv);
+                        color_by_speed = _Particle4ColorBySpeedGradient.Sample(sampler_Particle4ColorBySpeedGradient, speed_uv);
+                        break;
+                    default:
+                        tex = half4(1, 1, 1, 1);
+                        start_color = half4(1, 1, 1, 1);
+                        color_over_lifetime = half4(1, 1, 1, 1);
+                        color_by_speed = half4(1, 1, 1, 1);
+                        break;
                 }
 
-                // Apply tint color and fade
-                half4 color = tex * tint;
+                // Combine: tex * start_color * color_over_lifetime * color_by_speed * fade
+                half4 color = tex * start_color * color_over_lifetime * color_by_speed;
                 color.rgb *= colorMul;
-                color.a *= colorMul * distFade;
+                color.a *= colorMul;
 
                 return color;
             }
